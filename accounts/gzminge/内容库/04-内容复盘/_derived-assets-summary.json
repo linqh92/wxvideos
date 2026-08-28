@@ -1,0 +1,42 @@
+{
+  "account_id": "gzminge",
+  "generated_from": [
+    "accounts/gzminge/内容库/01-历史内容/_history-index.jsonl",
+    "accounts/gzminge/内容库/03-选题规划/灵感库/_idea-index.jsonl",
+    "accounts/gzminge/内容库/03-选题规划/_candidate-index.jsonl"
+  ],
+  "history_index_sha256": "063f81006ca06fd1c64eba4e0d17871dbd506fae937013c2150e6f912bd440c3",
+  "history_count": 85,
+  "idea_count": 28,
+  "candidate_count": 0,
+  "history_by_month": {
+    "2026-06": 17,
+    "2026-07": 43,
+    "2026-08": 25
+  },
+  "history_by_business_line": {
+    "电商合规": 18,
+    "跨境电商合规": 2
+  },
+  "history_by_theme": {
+    "电商税务合规": 8,
+    "发票与进项管理": 7,
+    "跨境电商合规": 2,
+    "税务稽查与风险": 1,
+    "资金往来与公转私": 2
+  },
+  "history_by_content_type": {
+    "成本诊断": 1,
+    "风险预警": 2,
+    "合规方案": 1,
+    "数据核对": 11,
+    "条件判断": 1,
+    "自查清单": 4
+  },
+  "idea_by_status": {
+    "待分析": 24,
+    "已转选题": 4
+  },
+  "candidate_by_status": {},
+  "note": "该 JSON 是可重复生成的机器派生摘要；原内容地图、缺口分析、重复检查和月度复盘 Markdown 保留为人工资产，不在本脚本中覆盖。"
+}

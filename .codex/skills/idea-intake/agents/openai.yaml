@@ -1,0 +1,4 @@
+interface:
+  display_name: "视频号灵感录入"
+  short_description: "将文字或图片文字独立保存到灵感库"
+  default_prompt: "使用 $idea-intake 将我提供的素材录入视频号灵感库。"

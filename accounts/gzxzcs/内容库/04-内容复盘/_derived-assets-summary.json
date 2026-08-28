@@ -1,0 +1,56 @@
+{
+  "account_id": "gzxzcs",
+  "generated_from": [
+    "accounts/gzxzcs/内容库/01-历史内容/_history-index.jsonl",
+    "accounts/gzxzcs/内容库/03-选题规划/灵感库/_idea-index.jsonl",
+    "accounts/gzxzcs/内容库/03-选题规划/_candidate-index.jsonl"
+  ],
+  "history_index_sha256": "9c3243616d32ba878d688694a583d1c6927a75b581cc69bd21219b78c1c0d50b",
+  "history_count": 26,
+  "idea_count": 14,
+  "candidate_count": 6,
+  "history_by_month": {
+    "2026-08": 26
+  },
+  "history_by_business_line": {
+    "代理记账": 7,
+    "个体户服务": 2,
+    "公司变更与注销": 3,
+    "公司注册": 10,
+    "企业基础财税": 3,
+    "用工、社保与个税": 1
+  },
+  "history_by_theme": {
+    "创业避坑": 1,
+    "个体户经营": 2,
+    "工商年报与企业信息": 1,
+    "公司变更与注销": 2,
+    "建账与记账报税": 6,
+    "零申报与逾期申报": 3,
+    "名称、经营范围与股东": 2,
+    "社保、个税与用工": 1,
+    "小规模纳税人": 1,
+    "新增主体与业务架构调整": 1,
+    "银行开户与税务登记": 1,
+    "注册地址与场地": 3,
+    "注册主体选择": 1,
+    "注册资本与实缴": 1
+  },
+  "history_by_content_type": {
+    "办理流程": 1,
+    "材料清单": 1,
+    "常见问答": 2,
+    "风险预警": 7,
+    "服务说明": 1,
+    "时间节点提醒": 1,
+    "条件判断": 6,
+    "自查清单": 7
+  },
+  "idea_by_status": {
+    "待分析": 14
+  },
+  "candidate_by_status": {
+    "已发布": 6
+  },
+  "note": "该 JSON 是可重复生成的机器派生摘要；原内容地图、缺口分析、重复检查和月度复盘 Markdown 保留为人工资产，不在本脚本中覆盖。"
+}

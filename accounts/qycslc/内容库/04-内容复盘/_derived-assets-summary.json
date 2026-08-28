@@ -1,0 +1,54 @@
+{
+  "account_id": "qycslc",
+  "generated_from": [
+    "accounts/qycslc/内容库/01-历史内容/_history-index.jsonl",
+    "accounts/qycslc/内容库/03-选题规划/灵感库/_idea-index.jsonl",
+    "accounts/qycslc/内容库/03-选题规划/_candidate-index.jsonl"
+  ],
+  "history_index_sha256": "94bb02dbe34bd5604e117d0343a68727f50f6e17e525541bd8ba7957c595cfc2",
+  "history_count": 40,
+  "idea_count": 73,
+  "candidate_count": 34,
+  "history_by_month": {
+    "2026-08": 40
+  },
+  "history_by_business_line": {
+    "股权变更与交易税务": 5,
+    "股权架构与控制权": 7,
+    "合伙人机制与纠纷处理": 13,
+    "家族企业治理与传承": 1,
+    "企业财税合规": 3,
+    "企业股权设计": 11
+  },
+  "history_by_theme": {
+    "创始合伙与出资安排": 5,
+    "分红与资金往来": 6,
+    "公司章程与股东协议": 2,
+    "股东纠纷与证据资料": 4,
+    "股权比例与控制权": 3,
+    "股权转让与个人所得税": 5,
+    "合伙人进入与退出": 4,
+    "家族企业传承": 1,
+    "融资与股权稀释": 3,
+    "一致行动与表决权安排": 2,
+    "员工持股与激励": 4,
+    "增资减资与注册资本": 1
+  },
+  "history_by_content_type": {
+    "场景诊断": 8,
+    "风险预警": 5,
+    "架构思路": 4,
+    "交易前准备": 4,
+    "条件判断": 11,
+    "协商与退出指南": 2,
+    "政策解读": 3,
+    "自查清单": 3
+  },
+  "idea_by_status": {
+    "待分析": 73
+  },
+  "candidate_by_status": {
+    "已发布": 34
+  },
+  "note": "该 JSON 是可重复生成的机器派生摘要；原内容地图、缺口分析、重复检查和月度复盘 Markdown 保留为人工资产，不在本脚本中覆盖。"
+}

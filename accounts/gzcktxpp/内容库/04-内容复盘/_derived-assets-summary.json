@@ -1,0 +1,50 @@
+{
+  "account_id": "gzcktxpp",
+  "generated_from": [
+    "accounts/gzcktxpp/内容库/01-历史内容/_history-index.jsonl",
+    "accounts/gzcktxpp/内容库/03-选题规划/灵感库/_idea-index.jsonl",
+    "accounts/gzcktxpp/内容库/03-选题规划/_candidate-index.jsonl"
+  ],
+  "history_index_sha256": "192a10d1a57b39fa61060a7bcfd1dc1e9587a73e9bf3f02a184eac0a694be021",
+  "history_count": 13,
+  "idea_count": 19,
+  "candidate_count": 4,
+  "history_by_month": {
+    "2026-08": 13
+  },
+  "history_by_business_line": {
+    "出口企业财税管理": 2,
+    "出口退税异常与函调": 1,
+    "出口业务链路与单证": 5,
+    "生产企业免抵退税": 1,
+    "首次出口退税": 2,
+    "外贸企业出口退税": 2
+  },
+  "history_by_theme": {
+    "报关与单证管理": 1,
+    "出口收汇与资金链路": 1,
+    "出口业务税负与利润": 2,
+    "出口业务真实性审核": 3,
+    "供应商风险": 1,
+    "进项发票与采购链路": 1,
+    "生产企业免抵退税": 1,
+    "首次出口退税准备": 1,
+    "退税进度与现金流": 1,
+    "外贸企业免退税": 1
+  },
+  "history_by_content_type": {
+    "成本诊断": 2,
+    "风险预警": 2,
+    "条件判断": 2,
+    "业务链路拆解": 3,
+    "应对指南": 2,
+    "自查清单": 2
+  },
+  "idea_by_status": {
+    "待分析": 19
+  },
+  "candidate_by_status": {
+    "已发布": 4
+  },
+  "note": "该 JSON 是可重复生成的机器派生摘要；原内容地图、缺口分析、重复检查和月度复盘 Markdown 保留为人工资产，不在本脚本中覆盖。"
+}

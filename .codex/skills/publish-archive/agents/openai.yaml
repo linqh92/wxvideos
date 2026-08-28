@@ -1,0 +1,4 @@
+interface:
+  display_name: "视频号发布归档"
+  short_description: "将实际发布且明确要求归档的内容写入历史知识库"
+  default_prompt: "使用 $publish-archive 将这条已实际发布的内容按归档规范写入历史内容库。"

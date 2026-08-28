@@ -1,0 +1,4 @@
+interface:
+  display_name: "视频号文案生成"
+  short_description: "按当前账号定位和人设生成正式文案"
+  default_prompt: "使用 $video-copywriting 根据当前账号和我已确认的选题，输出视频号标题和正式文案。"
