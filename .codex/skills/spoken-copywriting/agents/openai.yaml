@@ -1,0 +1,4 @@
+interface:
+  display_name: "视频号口播文案生成"
+  short_description: "按当前账号定位和人设生成真人口播内容"
+  default_prompt: "使用 $spoken-copywriting 根据当前账号和我已确认的选题，输出可直接真人口播的视频号文案。"

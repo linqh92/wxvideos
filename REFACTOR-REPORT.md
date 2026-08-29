@@ -15,9 +15,12 @@ wxvideos/
 │     ├─ idea-intake/
 │     ├─ topic-planning/
 │     │  └─ references/history-vault-rules.md
-│     ├─ video-copywriting/
+│     ├─ text-broadcast-copywriting/
+│     ├─ spoken-copywriting/
 │     └─ publish-archive/
 ├─ shared/
+│  ├─ rules/
+│  │  └─ copywriting-common-rules.md
 │  ├─ schemas/
 │  │  ├─ content-state-machine.md
 │  │  ├─ history-index-schema.md
@@ -74,6 +77,20 @@ wxvideos/
 
 `已采用` 不等于 `已发布`；只有 `publish-archive` 能在“实际发布 + 明确归档”同时成立时改为 `已发布`。
 
+## 正式内容载体路由
+
+```text
+topic-planning
+→ 用户确认选题
+→ CONTENT_FORMAT
+   ├─ text_broadcast → text-broadcast-copywriting
+   └─ spoken         → spoken-copywriting
+→ 用户实际发布 + 用户明确要求归档
+→ publish-archive
+```
+
+候选的 `recommended_format` 仅是推荐，实际历史使用 `content_format`。用户明确载体永远覆盖推荐；旧候选或 `either` 保持 `text_broadcast` 默认。两个生成 Skill 共同引用 `shared/rules/copywriting-common-rules.md`，载体层分别负责视觉阅读与听觉口播。
+
 ## Token 优化
 
 旧流程：每次重新列全部历史、解析全部 frontmatter、固定读取最新 10 篇正文和最多 10 篇相关正文，并默认加载内容地图、缺口与重复检查。
@@ -109,7 +126,7 @@ wxvideos/
 | Topic Planning | 通过；契约只默认读取精简定位与三个 Index，不读全部地图或固定最新 10 篇 |
 | Historical Dedupe | 通过；相似方向先由 metadata 命中 2 篇历史，再只打开这 2 篇正文 |
 | 再换 5 个 | 通过；Same Session Snapshot 规则已纳入 Skill 和验证脚本 |
-| Copywriting | 通过；公共 Skill 强制读取当前账号的定位文件和人设文风文件 |
+| Copywriting | 通过；两个载体 Skill 共享账号、事实与合规规则，并分别保留短文视觉阅读和真人口播逻辑 |
 | Archive | 通过；双触发条件、History Index 更新、候选发布终态与派生资产按需规则均通过契约校验 |
 | Index Rebuild | 通过；缺失 Index 可从 Markdown 确定性恢复 |
 
@@ -120,4 +137,3 @@ wxvideos/
 - 未配置新 GitHub remote，也未创建提交或推送；指南要求这些操作只能在用户以后明确要求并确认同步范围后执行。
 - 原内容地图、缺口、重复检查和月度复盘包含人工判断，已完整保留且不自动覆盖；当前统一 rebuild 生成机器摘要。若未来要自动重写每一类 Markdown 地图，需要先为各地图明确无损生成规则。
 - 本次验证覆盖文件、状态、索引、隔离与流程契约；没有代表账号实际发布内容，也没有触发任何真实政策核验或外部平台操作。
-

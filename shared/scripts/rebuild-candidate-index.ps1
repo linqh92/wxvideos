@@ -4,6 +4,20 @@ param([string]$AccountId)
 
 $allowedStatuses = @('待核验', '可推荐', '已采用', '已发布', '已放弃')
 
+function Convert-RecommendedFormat {
+    param([string]$Value)
+
+    switch ($Value.Trim()) {
+        '短文字幕' { return 'text_broadcast' }
+        '文字播报' { return 'text_broadcast' }
+        '短文'     { return 'text_broadcast' }
+        '口播'     { return 'spoken' }
+        '真人口播' { return 'spoken' }
+        '均可'     { return 'either' }
+        default    { return '' }
+    }
+}
+
 function Add-CandidateCard {
     param(
         [System.Collections.Generic.List[object]]$Target,
@@ -32,6 +46,7 @@ function Add-CandidateCard {
         pain_scene = ($painScene -join '；')
         content_goal = if ($Fields.Contains('内容目标')) { [string]$Fields['内容目标'] } elseif ($Fields.Contains('内容目的')) { [string]$Fields['内容目的'] } else { '' }
         service = if ($Fields.Contains('可承接服务')) { [string]$Fields['可承接服务'] } else { '' }
+        recommended_format = if ($Fields.Contains('建议载体')) { Convert-RecommendedFormat ([string]$Fields['建议载体']) } else { '' }
         created = Get-MetadataValue -Metadata $FileMetadata -Names @('created', 'date')
     })
 }
@@ -88,4 +103,3 @@ foreach ($id in (Get-TargetAccountIds -AccountId $AccountId)) {
     Write-JsonLines -Path $output -Rows $sortedRows
     Write-Output "$id candidate_index=$($sortedRows.Count) path=$(Get-RepositoryRelativePath -Path $output)"
 }
-

@@ -1,0 +1,19 @@
+{
+  "account_id": "tsxbj",
+  "generated_from": [
+    "accounts/tsxbj/内容库/01-历史内容/_history-index.jsonl",
+    "accounts/tsxbj/内容库/03-选题规划/灵感库/_idea-index.jsonl",
+    "accounts/tsxbj/内容库/03-选题规划/_candidate-index.jsonl"
+  ],
+  "history_index_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "history_count": 0,
+  "idea_count": 0,
+  "candidate_count": 0,
+  "history_by_month": {},
+  "history_by_business_line": {},
+  "history_by_theme": {},
+  "history_by_content_type": {},
+  "idea_by_status": {},
+  "candidate_by_status": {},
+  "note": "该 JSON 是可重复生成的机器派生摘要；原内容地图、缺口分析、重复检查和月度复盘 Markdown 保留为人工资产，不在本脚本中覆盖。"
+}

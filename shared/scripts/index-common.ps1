@@ -2,7 +2,7 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
 $script:RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
-$script:KnownAccountIds = @('gzminge', 'gzxzcs', 'qycslc', 'gzcktxpp')
+$script:KnownAccountIds = @('gzminge', 'gzxzcs', 'qycslc', 'gzcktxpp', 'tsxbj')
 
 function Get-TargetAccountIds {
     param([string]$AccountId)
@@ -104,4 +104,3 @@ function Convert-GroupsToObject {
     }
     return [pscustomobject]$result
 }
-

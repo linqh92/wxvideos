@@ -19,7 +19,9 @@ accounts/<account_id>/内容库/03-选题规划/_candidate-index.jsonl
 | `pain_scene` | 否 | 经营场景与核心痛点 |
 | `content_goal` | 否 | 内容目的 |
 | `service` | 否 | 可承接服务 |
+| `recommended_format` | 否 | 推荐内容载体：`text_broadcast`、`spoken` 或 `either` |
 | `created` | 否 | 来源文件创建日期 |
 
 模板、无状态清单和未补全的占位条目不得写入索引。
 
+`recommended_format` 只是选题阶段的推荐载体，不代表实际生成或发布载体。候选 Markdown 使用中文值“短文字幕”“口播”“均可”，JSONL 使用稳定枚举。旧候选允许缺失该字段，不得批量回填或猜测。

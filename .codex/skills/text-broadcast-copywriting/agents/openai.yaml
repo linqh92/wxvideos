@@ -1,0 +1,4 @@
+interface:
+  display_name: "视频号短文字幕文案生成"
+  short_description: "按当前账号定位生成短文字幕与文字播报文案"
+  default_prompt: "使用 $text-broadcast-copywriting 根据当前账号和我已确认的选题，输出视频号短文字幕文案。"

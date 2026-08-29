@@ -27,6 +27,7 @@ foreach ($id in (Get-TargetAccountIds -AccountId $AccountId)) {
                     business_line = Get-MetadataValue -Metadata $meta -Names @('business_line')
                     theme = Get-MetadataValue -Metadata $meta -Names @('theme')
                     content_type = Get-MetadataValue -Metadata $meta -Names @('content_type')
+                    content_format = Get-MetadataValue -Metadata $meta -Names @('content_format')
                     audience = Get-MetadataValue -Metadata $meta -Names @('audience')
                     pain_scene = Get-MetadataValue -Metadata $meta -Names @('pain_scene')
                     content_goal = Get-MetadataValue -Metadata $meta -Names @('content_goal')
@@ -41,4 +42,3 @@ foreach ($id in (Get-TargetAccountIds -AccountId $AccountId)) {
     Write-JsonLines -Path $output -Rows $rows
     Write-Output "$id history_index=$($rows.Count) path=$(Get-RepositoryRelativePath -Path $output)"
 }
-
