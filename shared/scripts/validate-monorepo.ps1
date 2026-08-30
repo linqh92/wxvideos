@@ -13,6 +13,7 @@ $historyRules = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot '.code
 $ideaSkill = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot '.codex\skills\idea-intake\SKILL.md'))
 $textBroadcastSkill = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot '.codex\skills\text-broadcast-copywriting\SKILL.md'))
 $spokenSkill = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot '.codex\skills\spoken-copywriting\SKILL.md'))
+$spokenNaturalness = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot '.codex\skills\spoken-copywriting\references\chinese-spoken-naturalness.md'))
 $copyCommonRules = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\rules\copywriting-common-rules.md'))
 $archiveSkill = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot '.codex\skills\publish-archive\SKILL.md'))
 $stateSchema = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\schemas\content-state-machine.md'))
@@ -24,6 +25,7 @@ $requiredContentFormatPaths = @(
     '.codex\skills\text-broadcast-copywriting\SKILL.md',
     '.codex\skills\text-broadcast-copywriting\agents\openai.yaml',
     '.codex\skills\spoken-copywriting\SKILL.md',
+    '.codex\skills\spoken-copywriting\references\chinese-spoken-naturalness.md',
     '.codex\skills\spoken-copywriting\agents\openai.yaml'
 )
 foreach ($relativePath in $requiredContentFormatPaths) {
@@ -46,6 +48,8 @@ Assert-True ($historyRules.Contains('Same Session Snapshot')) 'same-session snap
 Assert-True ($historyRules.Contains('不是普通选题的默认数据源')) 'derived assets must be outside default topic context'
 
 Assert-True ($textBroadcastSkill.Contains('shared/rules/copywriting-common-rules.md') -and $spokenSkill.Contains('shared/rules/copywriting-common-rules.md')) 'both copywriting Skills must use the shared common rules'
+Assert-True ($spokenSkill.Contains('references/chinese-spoken-naturalness.md')) 'spoken Skill must load the spoken-naturalness reference'
+Assert-True ($spokenNaturalness.Contains('applies ONLY to `spoken-copywriting`') -and $spokenNaturalness.Contains('MUST NOT be inherited by `text-broadcast-copywriting`')) 'spoken-naturalness reference must remain isolated from text-broadcast copywriting'
 Assert-True ($rootAgent.Contains('CONTENT_FORMAT') -and $rootAgent.Contains('text_broadcast') -and $rootAgent.Contains('spoken')) 'root AGENTS must route both content formats'
 Assert-True (-not $rootAgent.Contains('`video-copywriting`')) 'root AGENTS must not route formal copy to video-copywriting'
 $runtimeFiles = @(

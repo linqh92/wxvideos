@@ -31,7 +31,7 @@ Shared Skills / Schemas / Scripts
 - `idea-intake`：保存原始灵感并增量更新 Idea Index。
 - `topic-planning`：Index First 检索、按需读取少量相关正文，输出选题与建议载体；也支持灵感分析模式。
 - `text-broadcast-copywriting`：读取公共文案规则，生成短文字幕与文字播报文案。
-- `spoken-copywriting`：读取公共文案规则，生成可直接真人口播的文案。
+- `spoken-copywriting`：读取公共文案规则和专用的中式真人口语规则，生成可直接真人口播的文案。
 - `publish-archive`：仅在“实际发布 + 明确归档”同时成立时写历史并增量更新索引。
 
 正式内容生成按载体路由：
@@ -48,7 +48,7 @@ CONTENT_FORMAT
 publish-archive
 ```
 
-用户明确指定载体优先，其次使用候选的 `recommended_format`；旧候选或 `either` 默认短文字幕，以兼容原流程。两个文案 Skill 的公共规则统一位于 `shared/rules/copywriting-common-rules.md`。
+用户明确指定载体优先，其次使用候选的 `recommended_format`；旧候选或 `either` 默认短文字幕，以兼容原流程。两个文案 Skill 的公共规则统一位于 `shared/rules/copywriting-common-rules.md`。口播专用的真人中文语感规则位于 `.codex/skills/spoken-copywriting/references/chinese-spoken-naturalness.md`，不得继承到文字播报流程。
 
 ## 数据层级
 

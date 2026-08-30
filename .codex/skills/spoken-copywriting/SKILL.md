@@ -17,18 +17,18 @@ May output:
 - A requested length, version, tone, or rewrite direction
 
 Do NOT:
-- Re-plan topics
-- Switch to unrelated topics
-- Generate text-broadcast copy unless requested
-- Mark content as published
-- Archive or update history
-- Produce visuals, shot lists, editing plans, or video files
+- re-plan topics;
+- switch to unrelated topics;
+- generate text-broadcast copy unless requested;
+- mark content as published;
+- archive or update history;
+- produce visuals, shot lists, editing plans, or video files.
 
 After delivering the requested copy, STOP.
 
 ---
 
-## 2. Required Context and Common Rules（必读上下文）
+## 2. Required Context（必读上下文）
 
 Determine `CURRENT_ACCOUNT` exactly from repository-root `AGENTS.md`, then enforce Account Context Lock.
 
@@ -37,82 +37,91 @@ Read and obey, in order:
 1. `shared/rules/copywriting-common-rules.md`
 2. `accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号基本定位.md`
 3. `accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号人设与文风.md`
+4. `.codex/skills/spoken-copywriting/references/chinese-spoken-naturalness.md`
 
-Current-task facts explicitly confirmed by the user may supplement these files, but must not silently replace account identity, business scope, audience, persona, or factual boundaries.
+The common rules control shared factual and copywriting boundaries.
+The account files control who is speaking, to whom, and from what business position.
+The naturalness reference controls ONLY how valid content becomes natural Chinese speech.
+
+Do NOT apply the spoken naturalness reference to `text-broadcast-copywriting`.
 
 If any required file is missing or unreadable, report the blocking path. Do NOT borrow context from another account.
 
 ---
 
-## 3. Content Medium（内容载体）
+## 3. Medium Objective（载体目标）
 
-This Skill writes content primarily understood by listening to a real person.
+This Skill writes content that should work when heard once from a real person.
 
 Optimization priority:
 
-> Auditory clarity（听得懂）  
+> Fact accuracy（事实准确）  
+> → Natural human speech（像真人在说）  
+> → Auditory clarity（听得懂）  
 > → Retention（愿意继续听）  
 > → Reasoning comprehension（听懂为什么）  
 > → Judgment credibility（相信判断有依据）  
-> → Persona trust（建立人物信任）  
+> → Persona recognizability（听得出是谁）  
 > → Conversion readiness（愿意进一步了解）
 
-Subtitles may assist, but MUST NOT determine the script structure.
+Subtitles may assist, but MUST NOT determine sentence structure.
 
 Do NOT write:
-- A longer text-broadcast post
-- An article split into short lines
-- A report, course note, encyclopedia entry, official notice, or PPT narration
-- A mechanically expanded AI outline
+- a longer text-broadcast post;
+- an article cut into short lines;
+- a report or course outline;
+- an official notice;
+- a mechanically expanded AI outline;
+- a “口语化文章” that still sounds written when read aloud.
 
 Principle:
 
-> 口播不是加长版短文。  
-> Spoken copy is not a longer text-broadcast draft.
+> **口播不是把文章改短句，而是直接按人说话的方式生成。**
 
 ---
 
-## 4. Core Objective（核心目标）
+## 4. Core Content Requirement（内容核心）
 
-Each piece should contain:
+Each piece should stay centered on one meaningful problem.
 
-> One central question（一个中心问题）  
-> + One core judgment（一个核心判断）  
-> + Visible reasoning（可感知的判断过程）  
-> + Necessary conditions（必要条件）  
-> + One useful final direction（最终判断或行动方向）
+Internally identify:
+- one central question;
+- one core judgment;
+- the reasoning that makes the judgment credible;
+- the condition that may change the judgment;
+- the most useful thing the audience should know or check afterward.
 
-The audience should know:
-1. What the judgment is.
-2. Why it holds.
-3. What to check in their own situation.
+These elements are semantic requirements, NOT mandatory visible sections.
+
+The final script does NOT need to explicitly present all of them as separate paragraphs.
+
+Principle:
+
+> **逻辑要完整，表达不必工整。**
 
 ---
 
 ## 5. Trust Building（信任建立）
 
-Build trust by demonstrating judgment capability, NOT by self-promotion.
+Build trust by demonstrating judgment capability, NOT self-promotion.
 
 Prioritize:
-- Identifying the real variable behind a surface problem
-- Explaining why a conclusion holds
-- Distinguishing materially different situations
-- Showing which conditions change the conclusion
-- Stating what must be checked first
-- Acknowledging real uncertainty
-- Giving a useful decision framework
+- identifying the real variable behind the surface problem;
+- explaining why the result appears;
+- distinguishing materially different situations;
+- stating which condition changes the answer;
+- showing what should be checked first;
+- acknowledging real uncertainty;
+- giving a useful decision direction.
 
 Do NOT rely on:
-- Repeated self-praise
-- Unsupported experience claims
-- Fabricated client counts or cases
-- “相信我” style authority claims
-- Empty insider / expert posturing
+- repeated self-praise;
+- unsupported experience claims;
+- fabricated client counts or cases;
+- “相信我” authority language;
+- empty insider/expert posturing.
 
-Principle:
-
-> 专业感来自判断过程。  
-> Professional credibility comes from the reasoning process.
+> **专业感来自判断过程，不来自术语密度。**
 
 ---
 
@@ -128,69 +137,43 @@ Priority:
 ### Quick Spoken（快速口播）
 Approximately 180–280 Chinese characters.
 
-Use for:
-- One simple misconception
-- One direct judgment
-- One common mistake
-- One small decision problem
-
-Default structure:
-
-> Hook → Judgment → Why → Key condition → Action direction
+Use for one simple misconception, one direct judgment, one common mistake, or one small decision problem.
 
 ### Standard Spoken（标准口播）
 DEFAULT. Approximately 280–450 Chinese characters.
 
-Use for:
-- One problem requiring explanation
-- Two or three important variables
-- One short case
-- Cause-effect explanation
-- Decision comparison
-
-Default structure:
-
-> Hook → Core judgment → Why → 2–3 supporting points → Condition / exception → Final direction
+Use when the topic needs a short explanation, two or three meaningful variables, one short case, or a decision comparison.
 
 ### Deep Spoken（深度口播）
 Approximately 450–750 Chinese characters.
 
-Use ONLY when the topic genuinely requires:
-- Multiple necessary conditions
-- A business / decision chain
-- Case development
-- Policy interpretation
-- Multi-party relationship explanation
-- Two or more decision paths
-
-If the script needs substantially more than 750 Chinese characters, first split the topic, remove background, or defer secondary branches.
+Use ONLY when the topic genuinely requires multiple conditions, case development, policy interpretation, a business chain, or multiple decision paths.
 
 Do NOT choose a longer mode merely because more source material exists.
+
+Do NOT fill the target length with background, repeated warnings, or redundant conclusions.
 
 ---
 
 ## 7. Information Capacity（单篇信息容量）
 
 Default upper bound:
-- 1 central problem
-- 1 core conclusion
-- 2–4 supporting logic points
-- Necessary conditions or exceptions
-- At most 1 main case OR 1 main comparison
-- 1 final judgment / check / action direction
+- 1 central problem;
+- 1 core conclusion;
+- 1–4 supporting reasoning elements as actually needed;
+- necessary conditions or exceptions;
+- at most 1 main case OR 1 main comparison;
+- 1 useful final direction.
 
-Do NOT develop multiple unrelated problems, conclusions, or cases in one piece.
+The `1–4` range is a capacity limit, NOT a requirement to produce a list.
 
-Principle:
-
-> 可以把一个问题讲深。  
-> Go deeper on one problem; do not stack many problems into one script.
+Do NOT create “三点 / 四点” merely because a template expects them.
 
 ---
 
-## 8. Pre-Generation Judgment（生成前内部判断）
+## 8. Hidden Reasoning Skeleton（隐藏判断骨架）
 
-Internally determine:
+Before wording the script, internally determine:
 
 1. What is the single central question?
 2. What does the audience already know?
@@ -198,218 +181,232 @@ Internally determine:
 4. What is the strongest valid information gap?
 5. What is the core judgment?
 6. Why does it hold?
-7. Which variables determine the result?
+7. Which variables materially determine the result?
 8. Which condition could change the conclusion?
-9. Does the topic need a case, comparison, or process explanation?
+9. Does the topic genuinely need a case, comparison, or chain explanation?
 10. What best demonstrates professional judgment?
 11. What should the audience know how to check afterward?
 12. What must not be overstated?
-13. Would this persona naturally say it this way aloud?
+13. How would this specific persona naturally explain it face-to-face?
 
-Do NOT expose this checklist mechanically.
+Do NOT expose this checklist.
+Do NOT map checklist order directly into paragraph order.
 
 ---
 
-## 9. Structure Modes（正文结构模式）
+## 9. Structure Modes Are Internal Only（结构模式仅用于后台）
 
-Choose the structure that best fits the topic. Do NOT force one template.
+Possible internal reasoning structures include:
 
 ### Judgment Explanation（判断解释型）
 > Problem → Judgment → Why → Variables → Conditions → Check direction
 
-### Cognitive Reversal（认知纠偏型）
-> Common belief → Correction → Why it fails → Correct judgment → Conditions → Reminder
+### Cognitive Correction（认知纠偏型）
+> Common belief → Correction → Why it fails → Better judgment → Conditions
 
 ### Case Breakdown（案例拆解型）
-> Case result / conflict → What happened → Real break point → Why → What to check → General lesson
-
-Cases MUST be user-provided, verified, authorized project material, or clearly hypothetical.
+> Result / conflict → What happened → Break point → Why → What to check
 
 ### Decision Comparison（决策比较型）
-> Two choices → Core difference → Different outcomes → Applicable conditions → Decision standard
+> Two choices → Core difference → Different outcomes → Applicable conditions
 
 ### Chain Explanation（链条解释型）
-> Starting behavior → Intermediate change → Downstream impact → Final result → Key break point → Check direction
+> Starting behavior → Intermediate change → Downstream impact → Key break point
 
 ### Mechanism Explanation（机制拆解型）
 > Surface phenomenon → Underlying mechanism → Key steps → Why the result appears
 
-Use only when mechanism understanding improves judgment.
-
 ### Event / Policy Impact（事件或规则影响型）
 Use ONLY after current verification.
 
-> What happened → Who is affected → What changed → What did not change → Practical impact → Current judgment
+> What happened → Who is affected → What changed → What did not change → Practical impact
 
-Do NOT present historical information as a new change.
+These structures are reasoning aids.
+They MUST NOT automatically become visible sequential sections in the final script.
+
+If the final wording reads like a template because it follows the structure too neatly, rewrite it.
 
 ---
 
-## 10. Opening Hook（前3—5秒）
+## 10. Opening（开场）
 
-The opening MUST create a valid reason to continue listening.
+The opening must create immediate relevance, but it does NOT need a stock hook phrase.
 
-Prefer:
-- Familiar scenario + unexpected result
-- Common judgment + direct conflict
-- Specific result + why it happens
-- Concrete number / condition + cognitive difference
-- Real problem + hidden variable
+Possible forms:
+- direct judgment;
+- concrete action;
+- one number;
+- familiar scene;
+- visible contradiction;
+- real question;
+- consequence already happening.
 
-The opening SHOULD contain a recognizable audience/object/situation plus a concrete conflict, result, benefit, risk, or question.
+Prefer the current persona's natural first sentence over a universal short-video formula.
 
 Do NOT default to:
-- “大家好”
-- Long self-introduction
-- “今天跟大家分享一下”
-- “很多朋友问我”
-- Vague background
-- Empty emotion or unsupported fear
 
-Persona-specific greetings are allowed only when they fit the account voice and do not weaken retention.
+> 大家好。  
+> 今天跟大家分享一下。  
+> 很多朋友问我。  
+> 注意了。  
+> 重点来了。  
+> 跟你说个扎心的事实。  
+> 一定要看完。
+
+These are not absolute banned words; they are banned as automatic hooks.
 
 ---
 
 ## 11. Conclusion Timing（结论位置）
 
-Do NOT hide the conclusion until the end merely to manufacture suspense.
+Give an early directional judgment when the facts allow it.
 
-Default:
+Do NOT hide the answer until the end merely to create suspense.
 
-> Give an early directional judgment, then explain why.
+When a critical condition materially changes the answer, the opening may give only a conditional direction.
 
-Do not state certainty before critical conditions when those conditions materially change the result.
+Natural:
+
+> 这笔先别急着报，至少把供应商和付款对一下。  
+> 如果你这单走的是另外一种模式，那判断还得再分开。
 
 ---
 
 ## 12. Explanation Logic（解释逻辑）
 
-Prefer:
+Keep professional logic underneath and audience language on the surface.
+
+Useful internal relations include:
 
 > What happens → Why → What it affects
 
-or:
-
 > Behavior → Change → Result
-
-or:
 
 > Condition → Judgment → Consequence
 
-Keep professional logic underneath and audience language on the surface.
+But final Chinese may express these relations without explicit connectors or perfectly complete sentences.
 
-When a professional term is necessary, first explain what happens in plain language, then give the term.
+When a professional term is necessary:
+
+> **先说发生了什么，再补专业上叫什么。**
 
 Do NOT use terminology as a substitute for explanation.
 
 ---
 
-## 13. Auditory Clarity（听觉理解）
+## 13. Speaking Units（说话单元）
 
-Every sentence must remain understandable when heard once without subtitles.
+Generate the script as speaking units rather than article sentences.
+
+A speaking unit may be:
+- a short judgment;
+- a normal explanation;
+- a half-sentence supplement;
+- a question immediately answered;
+- a condition added afterward;
+- a brief correction;
+- a concrete object or number returned to for clarity.
+
+Allow controlled irregularity when meaning remains clear.
+
+Examples:
+
+> 钱是收到了。收哪儿了？这个先看。
+
+> 票有。能不能抵，得看这票对应的到底是哪笔业务。
+
+> 这个做法不一定错。准确一点讲，是不能只凭现在这一个条件就下结论。
+
+---
+
+## 14. Auditory Clarity（听觉理解）
+
+Every key sentence must remain understandable when heard once without subtitles.
 
 Prefer:
-- Short or medium spoken sentences
-- Clear subject-object relationships
-- One main idea per sentence
-- Concrete nouns
-- Explicit cause / contrast / condition markers
-- Repeating the key object when pronouns would become ambiguous
+- clear objects;
+- concrete nouns;
+- understandable cause/contrast/condition relations;
+- repeating the key object when a pronoun would become ambiguous;
+- sentence lengths that vary naturally.
 
-Check every long sentence:
+Do NOT reduce auditory clarity to “short sentences”.
 
-> Can a real person say it comfortably in one breath?
-
-If not, split or rewrite it.
+A longer sentence is acceptable if a real person can say it naturally and the listener can follow it once.
 
 Avoid:
-- Long nested clauses
-- Continuous definitions
-- Stacked abstract concepts
-- Written-language inversion
-- Excessive parentheses or abbreviations
-- Long unexplained enumerations
-- Article-style sentences that sound unnatural aloud
+- nested clauses;
+- definition chains;
+- abstract noun stacking;
+- written-language inversion;
+- long unexplained enumerations;
+- sentences that are grammatically correct but unnatural in face-to-face Chinese.
 
 ---
 
-## 14. Spoken Transitions（口语连接）
+## 15. Natural Chinese Speech（中式真人口语）
 
-Natural transitions may be used to:
-- Move to the key point
-- Ask and answer a question
-- Explain cause
-- Reframe a statement
-- Introduce an example
-- Return from a case to the core judgment
+Follow `references/chinese-spoken-naturalness.md`.
 
-Do NOT hard-code fixed transition phrases into this general Skill.
+Important permissions:
+- natural subject omission;
+- half-sentence supplements;
+- afterthought conditions;
+- light self-repair;
+- functional keyword repetition;
+- natural discourse particles;
+- mixed sentence length;
+- direct sentence-to-sentence continuation without forced connectors.
 
-Exact wording MUST come from the current persona.
-
-Do NOT mechanically repeat fixed phrases such as “重点来了”“你记住”“为什么”“注意了” unless they naturally fit the account voice.
-
----
-
-## 15. Functional Repetition（必要重复）
-
-Spoken content MAY use functional repetition for auditory comprehension.
-
-Allowed:
-- State the core judgment early, then restate it more precisely after explanation
-- Repeat the key object to avoid ambiguity
-- Summarize one complex comparison
-- Return to the original question after a case
-
-Not allowed:
-- Repeating the same conclusion with different adjectives
-- Repeating warnings or CTA
-- Repeating background only to extend duration
-
-Principle:
-
-> 允许帮助理解的重复，不允许无功能重复。  
-> Repeat only when it improves listening comprehension.
+Important restrictions:
+- no fixed character limit per sentence;
+- no forced `你 / 大家 / 咱们` quota;
+- no universal hook/transition/ending phrase bank;
+- no deliberate grammatical disorder;
+- no translationese disguised as polished Chinese.
 
 ---
 
 ## 16. Persona Expression（人物表达）
 
-Persona MUST be inherited from `账号人设与文风.md` and should materially affect:
-- Sentence rhythm
-- Directness
-- Explanation depth
-- Judgment tone
-- Humor / teasing
-- Analogy style
-- Question style
-- Forms of address
-- How disagreement, uncertainty, cases, and conclusions are expressed
+Persona MUST be inherited from `账号人设与文风.md`.
 
-Do NOT reduce persona to catchphrases.
+The persona must materially affect:
+- what the speaker notices first;
+- the order in which the speaker thinks;
+- how directly the speaker judges;
+- how much explanation is given;
+- sentence rhythm;
+- question habit;
+- afterthought habit;
+- uncertainty language;
+- humor/teasing style;
+- analogy style;
+- ending posture.
+
+Do NOT reduce persona to catchphrases or vocabulary.
 
 Principle:
 
-> 人物感来自怎么看问题、怎么解释、怎么下判断。  
-> Persona comes from how the speaker sees, explains, and judges the problem.
+> **人物感先来自“怎么看”，再来自“怎么说”。**
 
 ---
 
 ## 17. Professional Depth（专业深度）
 
 Professional depth means:
-- Better distinction
-- Better causal explanation
-- Better condition explanation
-- Better judgment
-- Better decision guidance
+- better distinction;
+- better causal explanation;
+- better condition explanation;
+- better judgment;
+- better decision guidance.
 
 It does NOT mean:
-- More terminology
-- More policy names
-- More definitions
-- More background
-- More industry jargon
+- more terminology;
+- more policy names;
+- more definitions;
+- more background;
+- more industry jargon.
 
 Remove detail that does not improve audience judgment.
 
@@ -418,34 +415,38 @@ Remove detail that does not improve audience judgment.
 ## 18. Conditions and Exceptions（条件与例外）
 
 Prioritize conditions that change:
-- The conclusion
-- Applicable audience
-- Result
-- Risk level
-- Recommended action
+- the conclusion;
+- applicable audience;
+- result;
+- risk level;
+- recommended action.
 
 Secondary conditions may be compressed.
 
-Do NOT hide a critical condition to strengthen the hook.
+Do NOT hide a critical condition to strengthen the opening.
 
-If the answer depends on missing information, state what must be checked instead of inventing certainty.
+If the answer depends on missing information, say what must be checked instead of inventing certainty.
+
+Natural qualification is encouraged:
+
+> 也不能直接说一定不行，先看你这笔业务到底怎么走。
 
 ---
 
 ## 19. Case Rules（案例规则）
 
 Cases may come from:
-1. User-provided material
-2. Verified source material
-3. Authorized project material
-4. Clearly labeled hypothetical examples
+1. user-provided material;
+2. verified source material;
+3. authorized project material;
+4. clearly labeled hypothetical examples.
 
 Do NOT fabricate:
-- Clients
-- Consultation conversations
-- Amounts
-- Penalties
-- Business outcomes
+- clients;
+- consultation conversations;
+- amounts;
+- penalties;
+- business outcomes.
 
 A case exists to clarify judgment, not to decorate the script.
 
@@ -456,129 +457,191 @@ A case exists to clarify judgment, not to decorate the script.
 Follow `copywriting-common-rules.md`.
 
 For spoken content, prefer emotion generated by:
-- Real consequences
-- Contrast
-- Case progression
-- Judgment conflict
-- Opportunity loss
-- Hidden variables
-- Decision uncertainty
-- Chain amplification
+- real consequences;
+- contrast;
+- case progression;
+- judgment conflict;
+- opportunity loss;
+- hidden variables;
+- decision uncertainty;
+- chain amplification.
 
 Do NOT rely on shouting language, repeated exclamation, threats, artificial urgency, or stacked high-pressure phrases.
 
-Spoken content may be calmer than text-broadcast content while building stronger trust.
+Natural spoken content may be calmer than text-broadcast content while building stronger trust.
 
 ---
 
-## 21. Title Rules（标题）
+## 21. Humor and Rhetorical Devices（幽默与修辞）
 
-Follow the common title rules.
+Humor, rhetorical questions, analogies and teasing are optional tools.
 
-Spoken titles may additionally favor:
-- Questions requiring explanation
-- Cognitive conflict
-- Decision conflict
-- Case result
-- Hidden reason
-- “Why” information gaps
-- Conditions that change a common conclusion
+Use them only when:
+- the persona naturally uses them;
+- the topic contains a real contradiction or useful image;
+- they improve understanding or memorability.
 
-The title MUST promise only what the script can support.
+Do NOT fill quotas.
+Do NOT add a joke simply because the persona is “幽默”.
+Do NOT turn every strong statement into a rhetorical question.
 
 ---
 
-## 22. Ending（结尾）
+## 22. Title Rules（标题）
 
-The ending should complete the current reasoning.
+Follow the common title rules and the current persona file.
 
-Prefer:
-- Final judgment
-- One check direction
-- One decision principle
-- One action
-- One naturally open question
-- One persona-consistent closing line
+Spoken titles may favor:
+- a direct owner-side question;
+- cognitive conflict;
+- decision conflict;
+- a case result;
+- a hidden reason;
+- a condition that changes a common conclusion.
 
-The audience should finish knowing how to look at the problem.
-
-Do NOT force follow / share / save / comment-keyword / contact / traffic-diversion / material-claim / service-promise CTA unless explicitly allowed by current account rules and user instruction.
+The title MUST promise only what the script supports.
 
 ---
 
-## 23. Script Formatting（口播稿格式）
+## 23. Ending（结尾）
+
+The ending should stop when the reasoning has delivered enough value.
+
+Possible endings:
+- final judgment;
+- one check direction;
+- one decision principle;
+- one practical action;
+- one unresolved condition that still needs real information;
+- one persona-consistent closing line.
+
+Do NOT force:
+- summary elevation;
+- a question;
+- follow/share/save prompts;
+- comment-keyword CTA;
+- contact or traffic diversion;
+- service promise.
+
+A script may end simply:
+
+> 这单先把付款和开票对上，别急着往后算。
+
+---
+
+## 24. Script Formatting（口播稿格式）
 
 Deliver directly usable spoken copy.
 
 Default:
-- Natural spoken paragraphs
-- One paragraph = one speaking unit
-- Punctuation for rhythm
-- Necessary paragraph breaks
-- No forced one-sentence-per-line formatting
-- No text-broadcast 7–15-character line rule
-- No artificial subtitle segmentation
+- natural spoken paragraphs;
+- paragraph breaks based on speaking sense, not a fixed number of sentences;
+- punctuation for rhythm;
+- no forced one-sentence-per-line formatting;
+- no text-broadcast 7–15-character line rule;
+- no artificial subtitle segmentation.
 
 Do NOT add performance or production markup by default, including:
-- `[停顿]`
-- `[重音]`
-- `[看镜头]`
-- `[字幕]`
-- `[BGM]`
-- Shot or editing instructions
+- `[停顿]`;
+- `[重音]`;
+- `[看镜头]`;
+- `[字幕]`;
+- `[BGM]`;
+- shot or editing instructions.
 
 This Skill writes copy, not directing notes.
 
 ---
 
-## 24. Mandatory Reduction Pass（强制删减）
+## 25. Mandatory Reduction Pass（强制删减）
 
-After drafting, remove in this order:
+After the factual draft is correct, remove in this order:
 
-1. Repeated conclusions
-2. Background that does not affect judgment
-3. Unnecessary definitions
-4. Replaceable jargon
-5. Repeated emotional warnings
-6. Transitions with no listening function
-7. Secondary examples
-8. Second or later CTA
-9. Persona performance with no informational function
+1. repeated conclusions;
+2. background that does not affect judgment;
+3. unnecessary definitions;
+4. replaceable jargon;
+5. repeated emotional warnings;
+6. connectors with no listening function;
+7. secondary examples;
+8. second or later CTA;
+9. persona performance with no informational function;
+10. polished summary sentences that only repeat what the audience already understood.
 
-Keep a paragraph only if removing it would lose a fact, reason, condition, judgment, case function, or necessary transition.
-
-Deep spoken content may be long; it must not be loose.
+Keep a unit only if removing it would lose a fact, reason, condition, judgment, case function, listening clarification, or necessary transition.
 
 ---
 
-## 25. Quality Control（质量控制）
+## 26. Naturalness Rewrite Pass（真人化重写）
+
+After reduction, run ONE dedicated natural-Chinese rewrite pass.
 
 Rewrite if ANY applies:
-- Opening has no concrete information
-- Opening is emotion-only
-- Script is merely a longer text-broadcast draft
-- Central question is unclear
-- Multiple unrelated problems are developed
-- No core judgment exists
-- Judgment exists but reasoning is missing
-- Multiple conclusions are stacked
-- Terminology replaces explanation
-- A conclusion-changing condition is omitted
-- Script sounds like an article, report, or course outline
-- Sentences are difficult to say naturally
-- Pronouns create listening ambiguity
-- Too much background appears before the core issue
-- Case content is fabricated
-- Trust relies mainly on self-praise
-- Persona is reduced to catchphrases
-- Emotion exceeds factual support
-- Length increases without increasing useful judgment
-- Ending introduces a new topic
-- CTA conflicts with account or platform boundaries
+- it sounds like an article read aloud;
+- it sounds like English reasoning translated into Chinese;
+- three or more consecutive sentences have similar length or structure;
+- every sentence is grammatically complete and polished;
+- the script relies on stock short-video phrases;
+- abstract nouns replace concrete actions;
+- connectors make the script sound like a report;
+- the persona's speaking habits are not audible;
+- a real person would rarely say a sentence this way face-to-face.
+
+Do NOT change facts or conclusions during this pass.
 
 ---
 
-## 26. Internal Scoring（内部评分）
+## 27. Quality Control（质量控制）
+
+Rewrite if ANY applies:
+- opening has no concrete relevance;
+- opening is emotion-only;
+- script is merely a longer text-broadcast draft;
+- central question is unclear;
+- multiple unrelated problems are developed;
+- no core judgment exists;
+- judgment exists but reasoning is missing;
+- multiple conclusions are stacked;
+- terminology replaces explanation;
+- a conclusion-changing condition is omitted;
+- script sounds like an article, report, course outline or policy narration;
+- sentences are difficult to say naturally;
+- pronouns create listening ambiguity;
+- too much background appears before the core issue;
+- case content is fabricated;
+- trust relies mainly on self-praise;
+- persona is reduced to catchphrases;
+- emotion exceeds factual support;
+- length increases without increasing useful judgment;
+- ending introduces a new topic;
+- CTA conflicts with account or platform boundaries.
+
+---
+
+## 28. Human Speech Test（真人朗读检查）
+
+Before final output, mentally perform these checks:
+
+### Face-to-face test
+> **如果客户坐在面前，这个人真的会这样说吗？**
+
+### No-subtitle test
+> **不看字幕，只听一遍，核心逻辑能不能跟上？**
+
+### De-copywriting test
+> **这是在聊天解释问题，还是在念一篇“很口语”的文案？**
+
+### Over-completeness test
+> **是不是为了显得完整，强行加了总结、升华、第三点或第二个案例？**
+
+### Persona identity test
+> **遮掉账号名以后，语言和判断方式还能不能看出是这个人？**
+
+If any answer is weak, rewrite once before output.
+
+---
+
+## 29. Internal Scoring（内部评分）
 
 Do NOT expose unless requested.
 
@@ -591,11 +654,17 @@ Understandable without subtitles.
 ### Reasoning Quality: 1–5
 The audience understands why the conclusion holds.
 
+### Natural Chinese Speech: 1–5
+Sounds like real face-to-face Simplified Chinese, not translated or written prose.
+
+### Persona Judgment Consistency: 1–5
+The speaker notices and judges the problem in the expected way.
+
+### Persona Voice Distinctiveness: 1–5
+The wording and rhythm are recognizably this persona rather than generic “professional口播”.
+
 ### Trust Building: 1–5
 The script demonstrates useful judgment rather than self-promotion.
-
-### Persona Consistency: 1–5
-Fits current persona and language habits.
 
 ### Retention Potential: 1–5
 The opening and body provide valid reasons to keep listening.
@@ -610,7 +679,7 @@ If any numeric score is below 3, rewrite first.
 
 ---
 
-## 27. Output Modes（输出模式）
+## 30. Output Modes（输出模式）
 
 Follow the user's request strictly.
 
@@ -620,20 +689,18 @@ Output ONLY title options.
 ### Spoken copy only
 Output ONLY the finalized spoken script.
 
-Do NOT expose structure mode, scoring, risk scoring, or creative process unless requested.
-
 ### Complete spoken package
 Default output ONLY:
-1. Three clearly different title directions
-2. One standard / search-recognition title
-3. One short title
-4. Final spoken script
+1. three clearly different title directions;
+2. one standard/search-recognition title;
+3. one short title;
+4. final spoken script.
 
-Do NOT automatically output source explanation, persona analysis, shot list, visual plan, editing plan, or archive actions.
+Do NOT expose structure mode, scoring, risk scoring, creative process, source explanation, shot list, visual plan, editing plan, or archive actions unless requested.
 
 ---
 
-## 28. User Override（用户优先）
+## 31. User Override（用户优先）
 
 If the user requests a specific length, duration, tone, depth, case emphasis, or structure, follow it within factual, account, platform, and safety boundaries.
 
@@ -643,52 +710,33 @@ If the user requests conversion between:
 
 do NOT re-plan the topic. Rewrite the same confirmed topic for the target medium.
 
+When converting TO `spoken`, apply this Skill and the naturalness reference.
+When converting TO `text_broadcast`, do NOT carry spoken-only language mechanics into the text-broadcast Skill unless that Skill requires them.
+
 ---
 
-## 29. Final Principles（最终原则）
+## 32. Final Principles（最终原则）
 
-> 口播不是加长版短文。  
-> Spoken copy is not a longer text-broadcast draft.
+> **口播不是加长版短文。**
 
-> 一条口播只解决一个中心问题。  
-> One spoken piece solves one central problem.
+> **口播不是把文章拆成短句。**
 
-> 能直接给方向，就不要故意拖结论。  
-> Give an early directional judgment when valid.
+> **一条口播只解决一个中心问题。**
 
-> 能解释为什么，就不要只重复结论。  
-> Explain why; do not merely repeat the conclusion.
+> **结构负责把逻辑想清楚，不负责把成稿写整齐。**
 
-> 能展示判断方法，就不要堆术语。  
-> Show judgment; do not stack jargon.
+> **能直接给方向，就不要故意拖结论。**
 
-> 复杂内容允许展开，但展开必须增加理解价值。  
-> Expansion must add comprehension value.
+> **能解释为什么，就不要只重复结论。**
 
-> 专业感来自区分、解释和判断。  
-> Professional credibility comes from distinction, explanation, and judgment.
+> **能用具体动作讲清楚，就不要先上抽象术语。**
 
-> 用户只听不看，也应理解核心逻辑。  
-> The core logic must work without subtitles.
+> **允许真实说话里的省略、补一句和轻微修正，但不能制造混乱。**
 
-> 情绪必须来自真实信息。  
-> Emotion must come from real information.
+> **专业感来自区分、解释和判断。**
 
-> 案例用于解释，不用于制造故事。  
-> Cases explain; they do not fabricate drama.
+> **人物感来自思考顺序、判断习惯和说话节奏，不来自口头禅。**
 
-> 关键条件不能为了传播效果被隐藏。  
-> Never hide conclusion-changing conditions.
+> **用户只听不看，也应理解核心逻辑。**
 
-Final spoken content should contain:
-
-> Effective hook  
-> + One central question  
-> + One core judgment  
-> + Understandable reasoning  
-> + Necessary conditions  
-> + Appropriate professional depth  
-> + Natural spoken language  
-> + Persona recognizability  
-> + Trust-building value  
-> + Factual credibility
+> **最终先像真人，再像文案。**
