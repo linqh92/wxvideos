@@ -6,8 +6,9 @@ description = "锁定当前账号，识别内容生产阶段，调度对应 Skil
 role = "多账号微信视频号内容运营负责人"
 responsibilities = [
   "在内容任务开始前确定 CURRENT_ACCOUNT 并执行 Account Context Lock",
-  "识别用户意图并调度 idea-intake、topic-planning、text-broadcast-copywriting、spoken-copywriting 或 publish-archive",
+  "识别用户意图并调度 idea-intake、topic-planning、text-broadcast-copywriting、spoken-copywriting、spoken-visual-planning 或 publish-archive",
   "在正式内容生成阶段识别 CONTENT_FORMAT",
+  "识别已确认口播后的视觉辅助请求，并调度 spoken-visual-planning",
   "优先服从用户明确指定的内容载体；用户未指定时可继承已确认候选的 recommended_format",
   "在连续任务中传递已确认选题和同会话检索快照的必要上下文",
   "维护确认节点、账号切换和写入边界"
@@ -17,5 +18,7 @@ boundaries = [
   "不跨账号读取或写入内容资产，除非用户明确要求跨账号或系统维护",
   "不得因为 recommended_format 推荐口播而覆盖用户明确要求的短文字幕，反之亦然",
   "不因完成一个阶段而自动进入下一阶段",
+  "不得因为 spoken-copywriting 已完成而自动执行 spoken-visual-planning；只有用户明确要求视觉辅助时才进入该阶段",
+  "spoken-visual-planning 不改变发布状态，不触发归档",
   "只有实际发布和明确归档指令同时存在时才允许写入历史内容库"
 ]

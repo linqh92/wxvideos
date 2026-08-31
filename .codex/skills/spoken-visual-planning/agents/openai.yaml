@@ -1,0 +1,5 @@
+interface:
+  display_name: "视频号口播示意图规划"
+  short_description: "根据已确认口播生成理解强化型示意图规划与AI生图提示词"
+  default_prompt: "使用 $spoken-visual-planning，根据我已确认的口播文案或音频，按语义段规划少量稳定的理解强化型示意图，并输出通用中文AI生图正向提示词与反向提示词。不要修改口播文案，不要把人物对话场景作为默认视觉。"
+

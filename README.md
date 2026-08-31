@@ -26,12 +26,13 @@ Shared Skills / Schemas / Scripts
 
 开始内容任务时先指定账号，例如“为 `gzminge` 给 5 个选题”。Agent 会锁定该账号，仅加载公共层和对应内容库。切换账号时必须明确给出新账号。
 
-四个阶段分别由以下公共 Skill 处理：
+内容生产阶段分别由以下公共 Skill 处理：
 
 - `idea-intake`：保存原始灵感并增量更新 Idea Index。
 - `topic-planning`：Index First 检索、按需读取少量相关正文，输出选题与建议载体；也支持灵感分析模式。
 - `text-broadcast-copywriting`：读取公共文案规则，生成短文字幕与文字播报文案。
 - `spoken-copywriting`：读取公共文案规则和专用的中式真人口语规则，生成可直接真人口播的文案。
+- `spoken-visual-planning`：在口播文案确认后，根据语义段规划少量稳定的理解强化型示意图，并输出 AI 生图正向/反向提示词。
 - `publish-archive`：仅在“实际发布 + 明确归档”同时成立时写历史并增量更新索引。
 
 正式内容生成按载体路由：
@@ -40,15 +41,26 @@ Shared Skills / Schemas / Scripts
 确认选题
     ↓
 CONTENT_FORMAT
-├─ text_broadcast → text-broadcast-copywriting
-└─ spoken         → spoken-copywriting
-    ↓
+├─ text_broadcast
+│  └─ text-broadcast-copywriting
+│
+└─ spoken
+   └─ spoken-copywriting
+        ↓
+   [用户明确要求视觉辅助]
+        ↓
+   spoken-visual-planning
+
 用户实际发布 + 用户明确要求归档
     ↓
 publish-archive
 ```
 
 用户明确指定载体优先，其次使用候选的 `recommended_format`；旧候选或 `either` 默认短文字幕，以兼容原流程。两个文案 Skill 的公共规则统一位于 `shared/rules/copywriting-common-rules.md`。口播专用的真人中文语感规则位于 `.codex/skills/spoken-copywriting/references/chinese-spoken-naturalness.md`，不得继承到文字播报流程。
+
+`spoken-visual-planning` 是口播文案完成后的可选制作辅助 Skill。它只负责语义分段、示意图规划和生图提示词，不修改口播、不生成图片、不写历史库。
+
+`spoken-visual-planning` 使用公共“视觉理解规则”与当前账号独立的 `账号视觉风格.md` 共同生成视觉方案：公共规则负责怎么讲清楚，账号文件负责长什么样。
 
 ## 数据层级
 

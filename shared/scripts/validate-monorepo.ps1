@@ -14,6 +14,8 @@ $ideaSkill = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot '.codex\s
 $textBroadcastSkill = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot '.codex\skills\text-broadcast-copywriting\SKILL.md'))
 $spokenSkill = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot '.codex\skills\spoken-copywriting\SKILL.md'))
 $spokenNaturalness = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot '.codex\skills\spoken-copywriting\references\chinese-spoken-naturalness.md'))
+$spokenVisualSkill = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot '.codex\skills\spoken-visual-planning\SKILL.md'))
+$spokenVisualRules = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot '.codex\skills\spoken-visual-planning\references\visual-aid-generation-rules.md'))
 $copyCommonRules = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\rules\copywriting-common-rules.md'))
 $archiveSkill = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot '.codex\skills\publish-archive\SKILL.md'))
 $stateSchema = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\schemas\content-state-machine.md'))
@@ -32,11 +34,20 @@ foreach ($relativePath in $requiredContentFormatPaths) {
     Assert-True (Test-Path -LiteralPath (Join-Path $script:RepoRoot $relativePath)) "missing content-format asset: $relativePath"
 }
 
+$requiredSpokenVisualPaths = @(
+    '.codex\skills\spoken-visual-planning\SKILL.md',
+    '.codex\skills\spoken-visual-planning\references\visual-aid-generation-rules.md',
+    '.codex\skills\spoken-visual-planning\agents\openai.yaml'
+)
+foreach ($relativePath in $requiredSpokenVisualPaths) {
+    Assert-True (Test-Path -LiteralPath (Join-Path $script:RepoRoot $relativePath)) "missing spoken-visual-planning asset: $relativePath"
+}
+
 Assert-True ($rootAgent.Contains('CURRENT_ACCOUNT') -and $rootAgent.Contains('Account Context Lock')) 'root AGENTS must define CURRENT_ACCOUNT and Account Context Lock'
 Assert-True ($rootAgent.Contains('默认禁止读取其他 `accounts/*`')) 'root AGENTS must forbid other accounts by default'
 
 $hardcoded = @('广州敏哥', '广州小张', '企业财税-老陈', '广州出口退税', '补充业务不得脱离', '成熟企业经营不得', '电商合规')
-$publicText = $topicSkill + $historyRules + $ideaSkill + $textBroadcastSkill + $spokenSkill + $copyCommonRules + $archiveSkill
+$publicText = $topicSkill + $historyRules + $ideaSkill + $textBroadcastSkill + $spokenSkill + $spokenVisualSkill + $spokenVisualRules + $copyCommonRules + $archiveSkill
 foreach ($term in $hardcoded) {
     Assert-True (-not $publicText.Contains($term)) "public Skills must not hardcode account rule: $term"
 }
@@ -50,6 +61,29 @@ Assert-True ($historyRules.Contains('不是普通选题的默认数据源')) 'de
 Assert-True ($textBroadcastSkill.Contains('shared/rules/copywriting-common-rules.md') -and $spokenSkill.Contains('shared/rules/copywriting-common-rules.md')) 'both copywriting Skills must use the shared common rules'
 Assert-True ($spokenSkill.Contains('references/chinese-spoken-naturalness.md')) 'spoken Skill must load the spoken-naturalness reference'
 Assert-True ($spokenNaturalness.Contains('applies ONLY to `spoken-copywriting`') -and $spokenNaturalness.Contains('MUST NOT be inherited by `text-broadcast-copywriting`')) 'spoken-naturalness reference must remain isolated from text-broadcast copywriting'
+Assert-True ($rootAgent.Contains('spoken-visual-planning') -and $rootAgent.Contains('不得自动进入 `spoken-visual-planning`')) 'root AGENTS must route spoken visual planning as an explicit-only stage'
+Assert-True ($rootAgent.Contains('账号视觉风格.md') -and $rootAgent.Contains('不得从账号人设与文风推断视觉风格') -and $rootAgent.Contains('不得借用其他账号视觉风格')) 'root AGENTS must define account visual style as an isolated source'
+Assert-True ($spokenVisualSkill.Contains('Do NOT automatically invoke this Skill after `spoken-copywriting`.') -and $spokenVisualSkill.Contains('After delivering the requested visual-planning materials, STOP.')) 'spoken visual planning must be explicit-only and stop after delivery'
+Assert-True ($spokenVisualSkill.Contains('Do not automatically:') -and $spokenVisualSkill.Contains('call image generation') -and $spokenVisualSkill.Contains('archive the content')) 'spoken visual planning must not generate images or archive automatically'
+Assert-True ($spokenVisualSkill.Contains('2. accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号视觉风格.md') -and $spokenVisualSkill.Contains('Do NOT read other accounts.')) 'spoken visual planning must require only the current account visual style'
+$doNotReadOffset = $spokenVisualSkill.IndexOf('### Do NOT automatically read')
+$personaPathOffset = $spokenVisualSkill.IndexOf('账号人设与文风.md')
+Assert-True ($doNotReadOffset -ge 0 -and $personaPathOffset -gt $doNotReadOffset) 'spoken visual planning must place persona under the do-not-read contract'
+Assert-True ($spokenVisualRules.Contains('Universal Quality Negatives') -and $spokenVisualRules.Contains('Account-Specific Style Negatives') -and $spokenVisualRules.Contains('Scene-Specific Negatives')) 'spoken visual prompts must contain universal, account, and scene negative layers'
+Assert-True ($spokenVisualRules.Contains('CURRENT_ACCOUNT visual-style injection') -and $spokenVisualSkill.Contains('Account Visual DNA')) 'spoken visual prompts must inject CURRENT_ACCOUNT visual DNA'
+$fixedGlobalVisualStyle = @(
+    '- semi-realistic or realistic business explanatory visual;',
+    '- blue-gray-white base;',
+    '- small red accents only for risk;',
+    '- light neutral background;',
+    '- restrained financial / compliance feel;',
+    '整体采用半写实或真实商业视觉风格',
+    '蓝灰白主色调',
+    '少量红色仅用于风险提示'
+)
+foreach ($term in $fixedGlobalVisualStyle) {
+    Assert-True (-not $spokenVisualRules.Contains($term)) "shared visual rules must not fix account style: $term"
+}
 Assert-True ($rootAgent.Contains('CONTENT_FORMAT') -and $rootAgent.Contains('text_broadcast') -and $rootAgent.Contains('spoken')) 'root AGENTS must route both content formats'
 Assert-True (-not $rootAgent.Contains('`video-copywriting`')) 'root AGENTS must not route formal copy to video-copywriting'
 $runtimeFiles = @(
@@ -80,6 +114,14 @@ foreach ($id in $script:KnownAccountIds) {
     Assert-True ($yaml -match "(?m)^id:\s*$id\s*$") "$id account.yaml id mismatch"
     Assert-True ((Test-Path -LiteralPath (Join-Path $vault '00-首页与维护规则\账号基本定位.md')) -and
                  (Test-Path -LiteralPath (Join-Path $vault '00-首页与维护规则\账号人设与文风.md'))) "$id positioning split missing"
+
+    $visualStylePath = Join-Path $vault '00-首页与维护规则\账号视觉风格.md'
+    Assert-True (Test-Path -LiteralPath $visualStylePath) "$id account visual style missing"
+    $visualStyle = [System.IO.File]::ReadAllText($visualStylePath)
+    Assert-True ($visualStyle.Contains('# Account Visual Style') -and
+                 -not $visualStyle.Contains(': ""') -and
+                 -not $visualStyle.Contains(': []') -and
+                 -not $visualStyle.Contains('- ""')) "$id account visual style contains unresolved blank fields"
 
     $basic = [System.IO.File]::ReadAllText((Join-Path $vault '00-首页与维护规则\账号基本定位.md'))
     $voice = [System.IO.File]::ReadAllText((Join-Path $vault '00-首页与维护规则\账号人设与文风.md'))

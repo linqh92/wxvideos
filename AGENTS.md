@@ -38,14 +38,19 @@ accounts/<id>/内容库/**
 | 给选题、分析内容缺口、分析灵感或判断是否入池 | `topic-planning` | 完成分析或给出 5 个候选后结束 |
 | 已确认选题，明确要求短文字幕、文字播报、打字字幕或短文 | `text-broadcast-copywriting` | 交付短文文案后结束 |
 | 已确认选题，明确要求真人口播、口播稿或出镜讲解 | `spoken-copywriting` | 交付口播文案后结束 |
+| 已有已确认口播文案或最终口播音频，并明确要求配图、示意图、中间画面、视觉分镜或 AI 生图提示词 | `spoken-visual-planning` | 输出语义分段、示意图规划和 AI 生图提示词后结束 |
 | 已确认选题，仅要求“写文案”但未指定载体 | 按 `CONTENT_FORMAT` 路由 | 交付对应载体文案后结束 |
 | 内容已实际发布且明确要求归档/写库 | `publish-archive` | 写历史、增量更新索引和候选状态后结束 |
 
 每次只完成用户当前明确要求的阶段。灵感录入不自动选题，选题不自动写文案，文案完成或用户采用不等于发布；仅说“已发布”但没有明确归档指令时也不得写库。
 
+`spoken-copywriting` 完成后不得自动进入 `spoken-visual-planning`。只有用户明确提出口播视觉辅助、示意图、配图或 AI 生图提示词需求时才路由到该 Skill。`spoken-visual-planning` 完成后不得自动生图、归档或进入其他生产阶段。
+
 ### CONTENT_FORMAT 路由
 
 `CONTENT_FORMAT` 只表示当前正式内容载体，允许值为 `text_broadcast`、`spoken`，不得加入内容状态机。
+
+`spoken-visual-planning` 是 `spoken` 内容完成后的可选生产阶段，不属于 `CONTENT_FORMAT` 枚举。
 
 判断优先级：用户明确指定 > 已确认候选的 `recommended_format` > 旧流程默认 `text_broadcast`。
 
@@ -60,6 +65,8 @@ accounts/<id>/内容库/**
 - `.codex/` 保存阶段路由和公共 SOP；`shared/` 保存唯一公共 Schema、索引规则和维护脚本。
 - 当前账号业务定位唯一来源：`accounts/<id>/内容库/00-首页与维护规则/账号基本定位.md`。
 - 当前账号人设与文风唯一来源：`accounts/<id>/内容库/00-首页与维护规则/账号人设与文风.md`。
+- 口播视觉生产的账号级视觉风格唯一来源：`accounts/<id>/内容库/00-首页与维护规则/账号视觉风格.md`。
+- `spoken-visual-planning` 必须使用公共视觉理解规则与 `CURRENT_ACCOUNT` 的账号视觉风格；不得从账号人设与文风推断视觉风格，不得借用其他账号视觉风格。公共视觉规则不得固定所有账号的色彩、渲染或构图风格。
 - 正式历史 Markdown 是已发布事实的最终来源；Index 只是可删除重建的检索层。
 - 内容地图、缺口分析、重复检查与复盘是派生资产，不是普通选题的默认读取入口。
 - 灵感、候选与发布状态只以 `shared/schemas/content-state-machine.md` 为公共定义来源。
