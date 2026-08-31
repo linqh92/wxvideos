@@ -122,6 +122,10 @@ Follow `references/visual-aid-generation-rules.md` for semantic segmentation, vi
 
 Apply the confirmed visual base specifications to every image prompt and to the editing segmentation table. Do not add an unconfirmed aspect ratio, resolution, safe area, text strategy, or tool-specific syntax.
 
+Write every copy-ready positive prompt and negative-constraint block in English unless the user explicitly requests another prompt language. This is a semantic rewrite for image-generation clarity, not a sentence-by-sentence translation of the spoken copy. Keep any text that must visibly appear inside the generated image as exact Chinese literals embedded in the English prompt. Do not translate or transliterate those literals. Default to Simplified Chinese unless the user explicitly requires Traditional Chinese.
+
+Keep the base prompt tool-neutral. Add platform-specific parameters or syntax only after the target image-generation tool is confirmed. If the tool has no separate negative-prompt field, express the same negative constraints as a concise English `Avoid:` clause in the main prompt.
+
 Treat the current account's `账号视觉风格.md` as its Account Visual DNA; it controls account-specific rendering, color, graphic language, composition, human presence, and avoid rules.
 
 For every final prompt, combine exactly these sources without changing their authority:
@@ -145,9 +149,20 @@ Unless the user requests a different deliverable format, create exactly two stan
 1. `AI生图执行指南.md` — a complete execution document that can be passed directly to an image-generation tool or operator.
 2. `剪辑分段表.md` — a brief segment table for the user to reference during editing.
 
+`AI生图执行指南.md` contains generation-execution information only. For each image, include:
+
+- a stable image ID;
+- an English positive prompt;
+- English negative constraints;
+- the exact required Chinese text, or an explicit `None` when no generated text is allowed;
+- confirmed canvas, placement, safe-area, and text-strategy requirements;
+- only the reference-asset, fidelity, or cross-image-continuity requirements needed for generation.
+
+Do not include an image-purpose field, spoken segment, spoken excerpt, or audio timestamp in `AI生图执行指南.md`. Those are planning or editing metadata and can distract an image-generation model.
+
 Provide both documents for download in the final response. Do not require the user to choose, manage, or see a delivery directory. Do not repeat either document's body in the chat response; include only the two document links or attachments and a concise completion note.
 
-The segmentation document must remain brief. It may map spoken ranges or actual audio timestamps to image sequence and viewer-understanding targets, but it must not expand into editing direction. Do NOT add transition, BGM, effect, performance, or archive suggestions unless the user explicitly requests them.
+The segmentation document must remain brief. It is the only deliverable that maps spoken ranges or actual audio timestamps to image IDs and viewer-understanding targets. It must not expand into editing direction. Do NOT add transition, BGM, effect, performance, or archive suggestions unless the user explicitly requests them.
 
 If a final audio file is available, use its real timing. If only finalized spoken text is available, segment by spoken range and do not fabricate timestamps.
 
@@ -172,7 +187,10 @@ Before output, verify:
 - Relationships / process / abnormal point are explicit.
 - Visual form is explicit.
 - Account visual DNA is explicitly applied.
-- Negative prompt includes universal + account + scene layers.
+- Every copy-ready positive prompt and negative-constraint block is in English unless the user requested otherwise.
+- Required in-image wording is listed as exact Chinese literals and is not translated or transliterated.
+- Negative constraints include universal + account + scene layers.
+- Tool-specific syntax appears only when the target tool is confirmed.
 
 ### Base-spec adherence
 - Every prompt uses the confirmed aspect ratio, display mode, safe area, and text strategy.
@@ -180,7 +198,9 @@ Before output, verify:
 
 ### Deliverable usability
 - `AI生图执行指南.md` is executable without reconstructing missing prompt context from the chat.
+- `AI生图执行指南.md` contains no image-purpose field, spoken segment, spoken excerpt, or audio timestamp.
 - `剪辑分段表.md` is concise and usable during editing.
+- Spoken-range or audio-timestamp mapping appears only in `剪辑分段表.md`.
 - The final response provides both documents for download without repeating their contents inline.
 
 If any item fails, revise before output.

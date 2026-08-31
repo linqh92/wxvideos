@@ -385,55 +385,74 @@ Every positive prompt must explicitly define:
 8. Output quality
 9. Confirmed task-level canvas, placement / safe-area, and text strategy
 
-### Standard Chinese Prompt Template
+### Prompt Language Contract
+
+- Write the copy-ready positive prompt and negative constraints in English unless the user explicitly requests another prompt language.
+- Convert the spoken meaning into concise visual instructions; do not translate the spoken script sentence by sentence.
+- Translate the effective CURRENT_ACCOUNT Visual DNA into precise English visual descriptors.
+- Keep any wording that must visibly appear in the image as exact Chinese literals inside the English prompt. Do not translate, transliterate, paraphrase, or silently correct those literals.
+- Default visible wording to Simplified Chinese unless the user explicitly requests Traditional Chinese.
+- Keep the base prompt tool-neutral. Add platform-specific syntax only when the target image-generation tool is confirmed.
+
+### Standard Tool-Neutral English Prompt Template
 
 ```text
-[业务主题]。
+Create a clear explanatory visual about [business theme].
 
-画面重点不是人物交流，而是清晰示意“[唯一核心信息]”。
+Communicate one idea at a glance: [single core message expressed as a visual outcome].
 
-画面包含：
-[核心对象1]、
-[核心对象2]、
-[必要对象3]。
+Show [core object 1], [core object 2], and [necessary object 3]. Clearly depict
+[relationship / process / comparison / risk], and emphasize [abnormal point / key
+node / break / item that must be reconciled]. People must not become the main
+information carrier unless their action is necessary to explain the relationship.
 
-重点表现：
-[对象之间的关系 / 流程 / 对比 / 风险点]，
-突出[异常点 / 关键节点 / 断点 / 需要梳理的内容]。
+Use a [relationship diagram / process demonstration / comparison / risk highlight /
+reconciliation structure / object-focused composition / real-scene support]. Build a
+clear information hierarchy so the main point is understandable within one second.
 
-采用[关系示意 / 流程示意 / 对比示意 / 风险点高亮 / 梳理闭环 / 单一对象聚焦 / 真实场景辅助]的视觉形式。
-构图清晰，重点信息一眼可懂，避免依赖大量文字阅读。
+Apply the CURRENT_ACCOUNT Visual DNA: [English rendering, color, material, graphic
+language, composition, human-presence, label-style, and information-density
+descriptors selected from the current account visual-style file].
 
-视觉风格严格遵循当前账号《账号视觉风格.md》：
-[从 CURRENT_ACCOUNT 视觉风格文件动态注入 Rendering / Color / Graphic Language / Composition / Human Presence / Information Density 等有效参数]。
+Canvas and placement: [confirmed aspect ratio, display mode, safe areas, and any
+confirmed resolution].
 
-高分辨率，
-[使用已确认的画面比例、展示方式、安全区域和图内文字策略；未确认的信息不得自行补充]，
-适合微信视频号口播中段示意图。
+Text strategy: [no generated text / reserve specified blank areas for later Chinese
+text / render only the exact Chinese literals listed below].
+
+Required Chinese text: [None / "中文标签一", "中文标签二"]. If Chinese text is listed,
+render only those exact Chinese literals in the confirmed script (Simplified Chinese by
+default, or Traditional Chinese when explicitly requested). Do not translate,
+transliterate, paraphrase, or add any other wording.
+
+High resolution, accurate object relationships, clean composition, clear focal point,
+and no unnecessary decorative elements.
 ```
 
 Do not insert a global fixed style string.
 
 Do not insert a default aspect ratio such as `9:16`. A platform name is not an aspect-ratio specification. Use tool-specific prompt syntax only when the target image-generation tool has been confirmed.
 
+The execution guide must separate each copy-ready prompt from editing metadata. Do not place image purpose, spoken ranges, spoken excerpts, or audio timestamps inside the prompt or its image entry.
+
 ---
 
 ## 11. Negative Prompt Architecture（反向提示词架构）
 
-Every final prompt must contain three negative layers.
+Every final prompt must contain three negative layers. Deliver all copy-ready negative constraints in English. If the confirmed tool has a separate negative-prompt field, place them there. Otherwise append them to the positive prompt as a concise English `Avoid:` clause.
 
 ### 11.1 Universal Quality Negatives（公共质量反向词）
 
 Always apply:
 
 ```text
-低清晰度，模糊，虚焦，错误透视，
-人物出现时的人体畸形、手部错误、五官崩坏、比例失衡，
-背景杂乱，元素无意义堆砌，画面信息过载，
-满屏小字，密集不可读文字，大段中文说明，
-伪造官方银行系统界面，伪造税务系统界面，伪造海关或政府系统界面，
-随机水印，错误Logo，表意不清，信息层级混乱，
-不必要的双人商务对话，人物抢占信息主体。
+low resolution, blur, soft focus, incorrect perspective,
+anatomical distortion when people appear, malformed hands, distorted facial features,
+incorrect body proportions, cluttered background, meaningless element stacking,
+information overload, dense unreadable small text, long paragraphs inside the image,
+fabricated official banking, tax, customs, or government interfaces,
+random watermarks, incorrect logos, unclear meaning, confused information hierarchy,
+unnecessary two-person business conversations, people dominating the information.
 ```
 
 These are quality / communication constraints.
@@ -479,7 +498,13 @@ Generate from the selected visual form.
 
 ## 12. Text-in-Image Rules（图片文字）
 
-Do not depend on long Chinese text.
+Use exactly one confirmed text strategy for each task or image:
+
+1. **No generated text** — the image contains no wording.
+2. **Reserved text area** — reserve the confirmed blank area for Chinese text added during editing.
+3. **Short Chinese labels** — generate only explicitly listed Chinese literals.
+
+Do not depend on long Chinese text. When generated labels are allowed, prefer the fewest short labels needed for comprehension.
 
 Prefer:
 - short labels;
@@ -501,6 +526,17 @@ Avoid:
 - policy text reproduced inside the image.
 
 If exact Chinese text is important, add it later in the editing layer.
+
+When short Chinese labels are generated:
+
+- list every permitted label verbatim in a separate `Required Chinese text` field;
+- repeat those exact Chinese literals inside the English prompt;
+- instruct the model not to translate, transliterate, paraphrase, or add text;
+- default to Simplified Chinese unless the user explicitly requests Traditional Chinese;
+- preserve confirmed numbers, punctuation, capitalization, and symbols exactly;
+- add `no English text, no extra characters, no garbled Chinese text, no invented numbers` to the English negative constraints.
+
+If exact wording is critical or too long for reliable generation, use the reserved-text-area strategy instead of asking the image model to typeset it.
 
 ---
 
@@ -567,9 +603,21 @@ If yes, preserve the explanatory structure and weaken the style constraint.
 
 If no, stop and confirm the missing specification instead of inventing it.
 
+### Prompt-language test
+
+> 可直接复制的正向 Prompt 和反向限制是否为英文，而画面内必须出现的文字是否仍是精确中文原文？
+
+If no, rewrite the prompt semantically in English and restore the exact Chinese literals.
+
+### Chinese-text fidelity test
+
+> 每张图允许生成的中文是否已逐字列明，并且 Prompt 禁止翻译、音译、改写或自行增字？
+
+If no, fix the text strategy or move the wording to the editing layer.
+
 ### Downloadable-deliverable test
 
-> 生图执行指南是否可以直接交给生图工具或执行者，剪辑分段表是否足够简短，并且最终回答没有重复展开文档正文？
+> 生图执行指南是否只包含生图执行信息，没有“图片用途”、口播分段、口播原文或音频时间；剪辑分段表是否独立承担口播范围与图片编号的映射，并且最终回答没有重复展开文档正文？
 
 If no, revise the documents and delivery response.
 
