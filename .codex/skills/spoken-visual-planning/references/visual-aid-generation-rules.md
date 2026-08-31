@@ -108,6 +108,20 @@ Good:
 
 > 观众应立即明白：供应商货款来自老板个人账户，而不是公司账户。
 
+### Visual Base Specifications Before Segmentation Output（输出分段前确认视觉基础规格）
+
+Formal prompt planning requires confirmed task-level visual specifications. Reuse specifications already supplied by the user or defined by an authoritative current-account rule. Never infer a canvas ratio merely because the content will be published on WeChat Channels or because the source is spoken video.
+
+Confirm these planning-critical specifications before producing final prompts:
+
+- canvas aspect ratio;
+- display mode and safe areas for the speaker, subtitles, title, or account information;
+- text-in-image strategy.
+
+Confirm exact pixel dimensions, image count or timing constraints, target generation tool, reference assets, cross-image continuity, and fidelity requirements only when they materially affect the requested output.
+
+If any planning-critical specification is missing, ask for all missing items in one concise request and pause formal prompt generation. Ratio-neutral semantic segmentation is allowed only when the user explicitly asks to proceed without final prompts.
+
 ---
 
 ## 5. Image Count Control（图片数量控制）
@@ -369,6 +383,7 @@ Every positive prompt must explicitly define:
 6. Composition
 7. CURRENT_ACCOUNT visual-style injection
 8. Output quality
+9. Confirmed task-level canvas, placement / safe-area, and text strategy
 
 ### Standard Chinese Prompt Template
 
@@ -393,11 +408,13 @@ Every positive prompt must explicitly define:
 [从 CURRENT_ACCOUNT 视觉风格文件动态注入 Rendering / Color / Graphic Language / Composition / Human Presence / Information Density 等有效参数]。
 
 高分辨率，
-画面比例按当前任务或账号视觉规范执行，
+[使用已确认的画面比例、展示方式、安全区域和图内文字策略；未确认的信息不得自行补充]，
 适合微信视频号口播中段示意图。
 ```
 
 Do not insert a global fixed style string.
+
+Do not insert a default aspect ratio such as `9:16`. A platform name is not an aspect-ratio specification. Use tool-specific prompt syntax only when the target image-generation tool has been confirmed.
 
 ---
 
@@ -543,6 +560,18 @@ If no, re-read the account visual-style file.
 > 为了账号风格，是否牺牲了信息理解效率？
 
 If yes, preserve the explanatory structure and weaken the style constraint.
+
+### Base-spec provenance test
+
+> 画面比例、展示位置、安全区域和图内文字策略，是否都来自用户、本次任务或当前账号的明确规则？
+
+If no, stop and confirm the missing specification instead of inventing it.
+
+### Downloadable-deliverable test
+
+> 生图执行指南是否可以直接交给生图工具或执行者，剪辑分段表是否足够简短，并且最终回答没有重复展开文档正文？
+
+If no, revise the documents and delivery response.
 
 ---
 

@@ -26,7 +26,8 @@ Do NOT automatically invoke this Skill after `spoken-copywriting`.
 
 - A finalized or user-confirmed spoken script, or a final voiceover/audio file;
 - The user's requested visual-plan or prompt deliverable;
-- `CURRENT_ACCOUNT` resolved under root `AGENTS.md`.
+- `CURRENT_ACCOUNT` resolved under root `AGENTS.md`;
+- Confirmed visual base specifications required by the planning gate below.
 
 ## Required Context
 
@@ -66,6 +67,35 @@ This Skill is content-first and visual-system-aware, not persona-first.
 
 ## Unique Logic
 
+### Visual Planning Declaration and Base-Spec Gate（视觉规划声明与基础规格确认）
+
+After the spoken content is confirmed and the user requests visual planning:
+
+1. State that the task is entering the visual-planning stage.
+2. State that this stage will not rewrite the spoken content, generate images, archive content, or change publication state.
+3. Extract visual specifications already provided by the user, the current task, or an authoritative current-account rule.
+4. Ask once for all missing planning-critical specifications, then stop and wait for the user's answer.
+5. Start formal visual planning only after the planning-critical specifications are confirmed.
+
+Planning-critical specifications:
+
+- **Canvas aspect ratio:** for example `9:16`, `16:9`, `1:1`, or a custom ratio. Never infer a ratio merely from the platform name or content format.
+- **Display mode and safe area:** full-screen visual, side visual, picture-in-picture, or another placement; include any area that must remain clear for the speaker, subtitles, title, or account information.
+- **Text-in-image strategy:** no generated text, short labels allowed, or reserved blank areas for text added during editing.
+
+Ask about these only when they materially affect the deliverable:
+
+- exact pixel dimensions or resolution;
+- fixed image count, timing, or switching cadence;
+- target image-generation tool;
+- required reference images, products, people, logos, or brand assets;
+- cross-image continuity requirements;
+- subject-fidelity or realism requirements.
+
+Do not ask again for information already confirmed. Keep the missing-information request concise and grouped into one message rather than spreading it across several turns.
+
+If the user explicitly asks to proceed before the aspect ratio or other planning-critical specifications are known, offer only ratio-neutral semantic segmentation. Do not produce the final image-generation execution guide until the missing specifications are confirmed.
+
 ### Missing Visual Style File（视觉风格文件缺失）
 
 If:
@@ -90,6 +120,8 @@ A temporary neutral baseline MUST NOT be treated as the account's permanent styl
 
 Follow `references/visual-aid-generation-rules.md` for semantic segmentation, visual-switch necessity, viewer-understanding targets, visual-type routing, image-count control, information density, human-presence limits, prompt construction, three-layer negative prompts, and universal quality checks.
 
+Apply the confirmed visual base specifications to every image prompt and to the editing segmentation table. Do not add an unconfirmed aspect ratio, resolution, safe area, text strategy, or tool-specific syntax.
+
 Treat the current account's `账号视觉风格.md` as its Account Visual DNA; it controls account-specific rendering, color, graphic language, composition, human presence, and avoid rules.
 
 For every final prompt, combine exactly these sources without changing their authority:
@@ -108,49 +140,16 @@ Choose semantics and explanatory form before applying account style. Account sty
 
 ## Output
 
-Unless the user requests a different structure, output only:
+Unless the user requests a different deliverable format, create exactly two standalone downloadable Markdown documents:
 
-### A. 口播语义分段表
+1. `AI生图执行指南.md` — a complete execution document that can be passed directly to an image-generation tool or operator.
+2. `剪辑分段表.md` — a brief segment table for the user to reference during editing.
 
-```markdown
-| 图序 | 对应口播范围 | 核心信息 | 观看者理解目标 | 推荐视觉形式 | 建议图片数量 |
-|---|---|---|---|---|---|
-```
+Provide both documents for download in the final response. Do not require the user to choose, manage, or see a delivery directory. Do not repeat either document's body in the chat response; include only the two document links or attachments and a concise completion note.
 
-### B. 当前账号视觉基准
+The segmentation document must remain brief. It may map spoken ranges or actual audio timestamps to image sequence and viewer-understanding targets, but it must not expand into editing direction. Do NOT add transition, BGM, effect, performance, or archive suggestions unless the user explicitly requests them.
 
-```markdown
-## 当前账号视觉基准
-- Rendering:
-- Color:
-- Graphic language:
-- Composition:
-- Human presence:
-- Account-specific avoid:
-```
-
-### C. Final Prompt Blocks
-
-```markdown
-## 图X｜[核心主题]
-
-### 对应口播
-[对应口播范围]
-
-### 观看者理解目标
-[看完应立即理解什么]
-
-### 推荐视觉形式
-[relationship / process / comparison / risk_highlight / reconciliation / object_focus / real_scene_support]
-
-### 正向提示词
-[完整中文通用AI生图提示词：语义 + 解释结构 + 当前账号视觉DNA]
-
-### 反向提示词
-[公共质量反向词 + 当前账号风格反向词 + 当前图专属反向约束]
-```
-
-Do NOT add editing suggestions, transition suggestions, BGM suggestions, confirmation checklists, internal scoring, or archive instructions.
+If a final audio file is available, use its real timing. If only finalized spoken text is available, segment by spoken range and do not fabricate timestamps.
 
 ---
 
@@ -175,20 +174,29 @@ Before output, verify:
 - Account visual DNA is explicitly applied.
 - Negative prompt includes universal + account + scene layers.
 
+### Base-spec adherence
+- Every prompt uses the confirmed aspect ratio, display mode, safe area, and text strategy.
+- No unconfirmed ratio, resolution, tool syntax, or asset requirement is invented.
+
+### Deliverable usability
+- `AI生图执行指南.md` is executable without reconstructing missing prompt context from the chat.
+- `剪辑分段表.md` is concise and usable during editing.
+- The final response provides both documents for download without repeating their contents inline.
+
 If any item fails, revise before output.
 
 ---
 
 ## Stop
 
-This Skill ends when the requested visual plan and image prompts are delivered.
+This Skill ends when the two requested downloadable documents are delivered.
 
 Do not automatically:
 - rewrite or optimize the spoken script;
 - re-plan the topic or produce text-broadcast copy;
 - change confirmed facts or conclusions;
 - call image generation;
-- create files in the account vault;
+- persist delivery documents in the account vault unless the user explicitly requests that location;
 - archive the content;
 - move candidate states;
 - start editing instructions;
