@@ -6,20 +6,16 @@ Do NOT duplicate these rules inside individual Skills unless a short reference i
 
 ---
 
-## 1. Account Context Lock（账号上下文锁定）
+## 1. Required Account Context（必读账号上下文）
 
-Before writing, determine `CURRENT_ACCOUNT` exactly from repository-root `AGENTS.md` and enforce Account Context Lock.
+Account selection, isolation, and switching follow repository-root `AGENTS.md`; this file does not redefine Account Context Lock.
 
-Read ONLY the locked account's relevant context unless the user explicitly requests cross-account comparison or system maintenance.
-
-Required account files:
+After the root rules have uniquely determined `CURRENT_ACCOUNT`, read:
 
 1. `accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号基本定位.md`
 2. `accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号人设与文风.md`
 
-If `CURRENT_ACCOUNT` cannot be uniquely determined, follow repository-root routing rules. If a required file is missing or unreadable, report the blocking path.
-
-Do NOT infer missing account information from another account.
+If a required file is missing or unreadable, report the blocking path. Do NOT infer missing account information from another account.
 
 ---
 
@@ -264,6 +260,8 @@ It may affect:
 
 Persona performance MUST serve information.
 
+Humor, rhetorical questions, analogies, and teasing are optional. Use them only when they fit the persona and improve understanding or memorability; do not fill quotas or turn every strong statement into a rhetorical question.
+
 Do NOT mechanically create persona through:
 - Fixed catchphrases
 - Forced jokes
@@ -276,6 +274,12 @@ Principle:
 
 > 人物感来自看问题和说问题的方式。  
 > Persona comes from how the person sees and explains the problem.
+
+### Trust and professional credibility（信任与专业感）
+
+Build trust by demonstrating useful judgment: identify the real variable, explain why the result appears, distinguish materially different situations, preserve conclusion-changing conditions, acknowledge uncertainty, and give a useful check or decision direction.
+
+Do NOT rely on self-praise, unsupported experience claims, fabricated client counts, empty expert posturing, terminology density, or authority language such as “相信我”.
 
 ---
 
@@ -398,6 +402,10 @@ Includes, but is not limited to:
 - Statistical data
 
 If it cannot be confirmed, do NOT state it as definite fact.
+
+Cases may come only from user-provided material, verified sources, authorized project material, or clearly labeled hypothetical examples. Do NOT fabricate clients, consultation conversations, amounts, penalties, or outcomes. Never generalize one case into a universal rule.
+
+Prioritize conditions that change the conclusion, applicable audience, result, risk level, or recommended action. Secondary conditions may be compressed, but conclusion-changing conditions must not be hidden for impact.
 
 Do NOT:
 - Present local / partial situations as universal

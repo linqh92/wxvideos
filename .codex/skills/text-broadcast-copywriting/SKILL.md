@@ -5,21 +5,29 @@ description: Generate finalized WeChat Video Account text-broadcast / subtitle c
 
 # WeChat Video Account Text-Broadcast Copywriting（微信视频号短文字幕文案生成）
 
-## 职责与前置读取
+## Trigger
 
 本 Skill 只处理 `CONTENT_FORMAT=text_broadcast`：从已确认选题生成短文字幕、文字播报或打字字幕文案。用户明确要求口播、真人口播、出镜讲或口播稿时，不使用本 Skill。
 
-正式生成前必须完整读取并遵守：
+## Required Input
+
+- 已确认选题，或用户当前直接给出的明确题目；
+- 用户要求的标题、正文或完整文案模式；
+- 根 `AGENTS.md` 已确定的 `CURRENT_ACCOUNT` 与 `CONTENT_FORMAT=text_broadcast`。
+
+## Required Context
+
+账号选择、隔离和阶段边界服从根 `AGENTS.md`。正式生成前完整读取并遵守：
 
 ```text
 shared/rules/copywriting-common-rules.md
 ```
 
-公共规则负责账号锁定、定位与人设继承、受众语言、业务边界、信息差、情绪、表达强度、事实核验、平台边界、标题、CTA、公共质检和评分。本文件只定义文字播报载体特有规则；冲突时以用户明确要求、当前账号规则和公共规则为先。
+公共规则负责定位与人设继承、受众语言、业务边界、信息差、情绪、表达强度、事实核验、平台边界、标题、CTA、公共质检和评分。本文件只定义文字播报载体特有规则；冲突时以用户明确要求、当前账号规则和公共规则为先。
 
-交付用户要求的标题、正文或完整文案后立即停止。不得重新选题、标记发布、写历史库、更新内容地图、自动归档或制作视觉素材。
+## Unique Logic
 
-## Content Medium（内容载体）
+### Content Medium（内容载体）
 
 文字播报内容通过逐行文字、短文字幕或打字效果呈现，用户主要依靠视觉阅读获取信息，不依赖真人声音、表情或表演。
 
@@ -32,7 +40,7 @@ shared/rules/copywriting-common-rules.md
 
 不得写成真人口播演讲稿、长文章、公文、培训材料、咨询报告、百科解释或通用 AI 总结稿。
 
-## First Screen（第一屏）
+### First Screen（第一屏）
 
 第一屏负责停留、对号入座和建立信息差，最多 4 行，必须包含受众能立即理解的场景或对象，以及具体影响、结果、利益、风险或认知冲突。
 
@@ -46,7 +54,7 @@ shared/rules/copywriting-common-rules.md
 
 不得只写情绪、空泛背景、寒暄、课程式开场或模板化提醒。可延后非关键条件，但不得隐藏会改变结论的条件。
 
-## Single-Point High Density（单点高密度）
+### Single-Point High Density（单点高密度）
 
 默认正文链路：
 
@@ -60,7 +68,7 @@ shared/rules/copywriting-common-rules.md
 
 不要为完整而展开多个逻辑线程，不要重复受众已知现象，不要堆叠背景、定义、转场、重复结论或无信息功能的人设表演。
 
-## Main-Copy Modes（正文模式）
+### Main-Copy Modes（正文模式）
 
 按题目自动选择，不长期固定一种模板：
 
@@ -74,7 +82,7 @@ shared/rules/copywriting-common-rules.md
 
 事件、政策或平台变化未经核验时，不得为了套模板编造变化、趋势或结果。
 
-## Text-Broadcast Length（短文长度）
+### Text-Broadcast Length（短文长度）
 
 优先级：
 
@@ -86,7 +94,7 @@ shared/rules/copywriting-common-rules.md
 
 超过默认长度时先检查：是否重复已知信息、背景过多、铺垫无效、同时解释太多问题、连接句可删除、长句可拆分，或为了显得专业而添加无用内容。
 
-## Per-Piece Information Limit（单篇信息上限）
+### Per-Piece Information Limit（单篇信息上限）
 
 - 每篇只表达一个核心结论；
 - 最多一个核心压力点或利益点；
@@ -98,7 +106,7 @@ shared/rules/copywriting-common-rules.md
 
 存在多个必要条件时，只展开当前场景直接相关的条件，其余以简短边界保留。压缩不得隐去会改变结论的条件。
 
-## Visual Reading and Line Breaks（视觉阅读与换行）
+### Visual Reading and Line Breaks（视觉阅读与换行）
 
 正文必须保留可直接用于文字播报的最终换行：
 
@@ -117,7 +125,9 @@ shared/rules/copywriting-common-rules.md
 
 强表达只能通过结论前置、结果更直接和减少铺垫实现，不得仅因强度增加正文长度。仅在并列信息、步骤或检查项确实更易扫描时使用编号，不默认写固定数量的清单。
 
-## Text-Broadcast Quality Control（短文专项质检）
+## Quality Gate
+
+### Text-Broadcast Quality Control（短文专项质检）
 
 出现以下任一问题必须重写：
 
@@ -142,7 +152,7 @@ shared/rules/copywriting-common-rules.md
 5. 删除第二个及以后的结果提醒或 CTA；
 6. 超过 130 字时先缩小内容范围，不靠机械缩句硬塞信息。
 
-## Text-Broadcast Output Modes（输出模式）
+## Output
 
 严格按用户请求交付，不追加无关内容。
 
@@ -165,6 +175,8 @@ shared/rules/copywriting-common-rules.md
 
 不得输出创作过程、内部判断、人设参数清单、长来源列表、无关选题、视觉制作方案或归档操作。
 
-## 最终媒介检查
+## Stop
 
 交付前确认：用户不听声音，只读字幕，也能快速获得一个完整判断；第一屏能停留，正文单点高密度，条件不被误删，换行可直接使用。若结果只是把口播稿切成多行，视为不合格并重写。
+
+交付用户要求的标题、正文或完整文案后立即停止。不得重新选题、标记发布、写历史库、更新内容地图、自动归档或制作视觉素材。

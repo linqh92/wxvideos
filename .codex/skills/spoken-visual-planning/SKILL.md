@@ -5,36 +5,7 @@ description: Plan explanatory supporting visuals and AI image-generation prompts
 
 # WeChat Video Account Spoken Visual Planning（微信视频号口播示意图规划）
 
-## 1. Scope（职责范围）
-
-This Skill converts a finalized spoken script and/or final voiceover audio into a compact set of explanatory supporting visuals for the middle visual area of a spoken WeChat Channels video.
-
-It MAY output:
-- Spoken semantic segmentation
-- Recommended image count
-- Viewer-understanding target for each segment
-- Recommended explanatory visual form
-- Account-specific visual-style adaptation
-- Final Chinese AI image-generation prompts
-- Positive and negative prompts
-
-It MUST NOT:
-- rewrite or optimize the spoken script;
-- re-plan the topic;
-- change confirmed facts or conclusions;
-- produce text-broadcast copy;
-- produce editing plans, transition instructions, BGM notes, or camera directing notes;
-- automatically generate images unless the user explicitly asks for actual image generation in a separate step;
-- mark content as published;
-- archive or update history;
-- change candidate or idea states;
-- update content maps or indexes.
-
-After delivering the requested visual-planning materials, STOP.
-
----
-
-## 2. Trigger Conditions（触发条件）
+## Trigger
 
 Use this Skill only when BOTH conditions are satisfied:
 
@@ -51,22 +22,15 @@ Use this Skill only when BOTH conditions are satisfied:
 
 Do NOT automatically invoke this Skill after `spoken-copywriting`.
 
----
+## Required Input
 
-## 3. Account Lock（账号隔离）
+- A finalized or user-confirmed spoken script, or a final voiceover/audio file;
+- The user's requested visual-plan or prompt deliverable;
+- `CURRENT_ACCOUNT` resolved under root `AGENTS.md`.
 
-Determine `CURRENT_ACCOUNT` according to repository-root `AGENTS.md`.
+## Required Context
 
-Use `CURRENT_ACCOUNT` to:
-- prevent cross-account context leakage;
-- load the correct account-level visual style;
-- keep visual identity separate between accounts.
-
-Do NOT read other accounts.
-
----
-
-## 4. Required Context（必读上下文）
+Account selection, isolation, and stage boundaries follow root `AGENTS.md`; this Skill does not redefine them.
 
 Before planning visuals, read and obey in this order:
 
@@ -100,7 +64,9 @@ This Skill is content-first and visual-system-aware, not persona-first.
 
 ---
 
-## 5. Missing Visual Style File（视觉风格文件缺失）
+## Unique Logic
+
+### Missing Visual Style File（视觉风格文件缺失）
 
 If:
 
@@ -120,184 +86,27 @@ A temporary neutral baseline MUST NOT be treated as the account's permanent styl
 
 ---
 
-## 6. Core Medium Objective（媒介目标）
+### Planning and Prompt Assembly（规划与提示词合成）
 
-Optimization priority:
+Follow `references/visual-aid-generation-rules.md` for semantic segmentation, visual-switch necessity, viewer-understanding targets, visual-type routing, image-count control, information density, human-presence limits, prompt construction, three-layer negative prompts, and universal quality checks.
 
-> Information accuracy（信息准确）  
-> → Comprehension acceleration（加快理解）  
-> → Semantic correspondence（与当前口播贴合）  
-> → Best explanatory visual form（选择最适合的解释形式）  
-> → Account visual identity（账号视觉辨识度）  
-> → Stable viewing rhythm（减少无意义切图）  
-> → Decorative aesthetics（装饰性美观）
+Treat the current account's `账号视觉风格.md` as its Account Visual DNA; it controls account-specific rendering, color, graphic language, composition, human presence, and avoid rules.
 
-The default question for every segment is:
-
-> **观众只靠“听”可能卡在哪里？这张图怎样让他“看一眼就懂”？**
-
-Visual style MUST NOT override comprehension.
-
----
-
-## 7. Three-Layer Visual Assembly（三层视觉合成逻辑）
-
-Every final prompt must be assembled from three layers:
-
-### Layer A — Shared Comprehension Logic（公共理解机制）
-
-Defined by:
+For every final prompt, combine exactly these sources without changing their authority:
 
 ```text
-visual-aid-generation-rules.md
+Current spoken semantics
++ best explanatory form from the reference
++ CURRENT_ACCOUNT visual DNA
++ shared quality and scene constraints
+= final image-generation prompt
 ```
 
-Controls:
-- semantic segmentation;
-- image-count control;
-- viewer-understanding targets;
-- explanatory visual types;
-- information density;
-- person-use restrictions;
-- quality and safety constraints.
-
-### Layer B — Account Visual DNA（账号视觉DNA）
-
-Defined by:
-
-```text
-accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号视觉风格.md
-```
-
-Controls:
-- color system;
-- rendering language;
-- graphic language;
-- composition tendency;
-- material / texture language;
-- typography / label tendency;
-- human-presence preference;
-- preferred visual forms;
-- account-specific avoid rules.
-
-### Layer C — Current Content Adaptation（当前内容适配）
-
-Determined from the current spoken segment.
-
-Controls:
-- which business objects appear;
-- which relationship or process is shown;
-- which abnormality is highlighted;
-- whether realism or abstraction is more effective for this segment;
-- how much of the account style can be applied without reducing clarity.
-
-Final prompt logic:
-
-```text
-Current semantic meaning
-+
-Best explanatory form
-+
-CURRENT_ACCOUNT Visual DNA
-+
-Shared quality constraints
-=
-Final image-generation prompt
-```
+Choose semantics and explanatory form before applying account style. Account style must not alter facts or reduce comprehension. Do not copy a global style string or silently default all accounts to the same business look.
 
 ---
 
-## 8. Visual-Type Routing（示意图类型路由）
-
-For each semantic segment, select ONE primary visual form:
-
-- `relationship` — 关系示意
-- `process` — 流程示意
-- `comparison` — 对比示意
-- `risk_highlight` — 风险点高亮
-- `reconciliation` — 梳理 / 对账 / 闭环示意
-- `object_focus` — 单一业务对象聚焦
-- `real_scene_support` — 真实场景辅助，仅当它确实提高理解时
-
-Choose the visual form from semantic need first.
-
-Then apply the account Visual DNA.
-
----
-
-## 9. Image Count Rule（图片数量）
-
-Do not use a fixed image count.
-
-Default guidance:
-- One stable image normally supports approximately 6–10 seconds of spoken content.
-- A 30–60 second spoken video often needs approximately 4–6 images.
-- Use fewer images if several consecutive lines explain the same idea.
-- Use more only when the semantic subject or logic genuinely changes.
-
-The final count should be the smallest set that keeps semantic correspondence clear.
-
----
-
-## 10. Prompt Generation Rules（提示词生成规则）
-
-Each final prompt must include four effective layers:
-
-1. **Semantic content**
-2. **Explanatory visual structure**
-3. **Account visual DNA**
-4. **Quality / negative constraints**
-
-Do not copy a fixed global style string into every prompt.
-
-Do not automatically use:
-- blue-gray-white;
-- red warning accents;
-- realistic business photography;
-- light neutral background;
-- finance / compliance look;
-
-unless the CURRENT_ACCOUNT visual-style file explicitly defines them for that account or the current content independently requires them.
-
----
-
-## 11. Negative Prompt Layering（反向提示词分层）
-
-Final negative prompts must be composed from:
-
-### A. Universal Quality Negatives（公共质量反向词）
-
-Always apply:
-- low resolution;
-- blur;
-- broken perspective;
-- malformed anatomy when people appear;
-- unreadable dense text;
-- clutter;
-- meaningless decorative elements;
-- fake official interfaces;
-- watermarks;
-- wrong logos;
-- unclear information hierarchy;
-- generic two-person business dialogue when it does not improve understanding.
-
-### B. Account-Specific Style Negatives（账号风格反向词）
-
-Read from:
-
-```text
-账号视觉风格.md
-```
-
-These MUST NOT be hard-coded globally.
-
-### C. Scene-Specific Negatives（当前场景专属反向词）
-
-Generate from the current visual form and semantic risk.
-
----
-
-## 12. Output Format（输出格式）
+## Output
 
 Unless the user requests a different structure, output only:
 
@@ -345,7 +154,7 @@ Do NOT add editing suggestions, transition suggestions, BGM suggestions, confirm
 
 ---
 
-## 13. Final Quality Gate（最终质检）
+## Quality Gate
 
 Before output, verify:
 
@@ -370,11 +179,14 @@ If any item fails, revise before output.
 
 ---
 
-## 14. Completion Boundary（完成边界）
+## Stop
 
 This Skill ends when the requested visual plan and image prompts are delivered.
 
 Do not automatically:
+- rewrite or optimize the spoken script;
+- re-plan the topic or produce text-broadcast copy;
+- change confirmed facts or conclusions;
 - call image generation;
 - create files in the account vault;
 - archive the content;

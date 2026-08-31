@@ -1,3 +1,8 @@
+[CmdletBinding()]
+param(
+    [switch]$RulesOnly
+)
+
 . (Join-Path $PSScriptRoot 'index-common.ps1')
 
 $script:Checks = 0
@@ -63,9 +68,9 @@ Assert-True ($spokenSkill.Contains('references/chinese-spoken-naturalness.md')) 
 Assert-True ($spokenNaturalness.Contains('applies ONLY to `spoken-copywriting`') -and $spokenNaturalness.Contains('MUST NOT be inherited by `text-broadcast-copywriting`')) 'spoken-naturalness reference must remain isolated from text-broadcast copywriting'
 Assert-True ($rootAgent.Contains('spoken-visual-planning') -and $rootAgent.Contains('不得自动进入 `spoken-visual-planning`')) 'root AGENTS must route spoken visual planning as an explicit-only stage'
 Assert-True ($rootAgent.Contains('账号视觉风格.md') -and $rootAgent.Contains('不得从账号人设与文风推断视觉风格') -and $rootAgent.Contains('不得借用其他账号视觉风格')) 'root AGENTS must define account visual style as an isolated source'
-Assert-True ($spokenVisualSkill.Contains('Do NOT automatically invoke this Skill after `spoken-copywriting`.') -and $spokenVisualSkill.Contains('After delivering the requested visual-planning materials, STOP.')) 'spoken visual planning must be explicit-only and stop after delivery'
+Assert-True ($spokenVisualSkill.Contains('Do NOT automatically invoke this Skill after `spoken-copywriting`.') -and $spokenVisualSkill.Contains('## Stop')) 'spoken visual planning must be explicit-only and stop after delivery'
 Assert-True ($spokenVisualSkill.Contains('Do not automatically:') -and $spokenVisualSkill.Contains('call image generation') -and $spokenVisualSkill.Contains('archive the content')) 'spoken visual planning must not generate images or archive automatically'
-Assert-True ($spokenVisualSkill.Contains('2. accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号视觉风格.md') -and $spokenVisualSkill.Contains('Do NOT read other accounts.')) 'spoken visual planning must require only the current account visual style'
+Assert-True ($spokenVisualSkill.Contains('2. accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号视觉风格.md') -and $spokenVisualSkill.Contains('Account selection, isolation, and stage boundaries follow root `AGENTS.md`')) 'spoken visual planning must require only the current account visual style under the root account lock'
 $doNotReadOffset = $spokenVisualSkill.IndexOf('### Do NOT automatically read')
 $personaPathOffset = $spokenVisualSkill.IndexOf('账号人设与文风.md')
 Assert-True ($doNotReadOffset -ge 0 -and $personaPathOffset -gt $doNotReadOffset) 'spoken visual planning must place persona under the do-not-read contract'
@@ -94,13 +99,18 @@ foreach ($runtimeFile in $runtimeFiles) {
     $runtimeText = [System.IO.File]::ReadAllText($runtimeFile.FullName)
     Assert-True (-not $runtimeText.Contains('$video-copywriting')) "stale runtime invocation in $(Get-RepositoryRelativePath -Path $runtimeFile.FullName)"
 }
-Assert-True ($ideaSkill.Contains('_idea-index.jsonl') -and $ideaSkill.Contains('不得自动执行选题')) 'idea intake must update Idea Index and stop'
+Assert-True ($ideaSkill.Contains('_idea-index.jsonl') -and $ideaSkill.Contains('不做选题分析') -and $ideaSkill.Contains('## Stop')) 'idea intake must update Idea Index and stop'
 Assert-True ($archiveSkill.Contains('_history-index.jsonl') -and $archiveSkill.Contains('_candidate-index.jsonl')) 'archive must update history and candidate indexes'
-Assert-True ($archiveSkill.Contains('以下两项必须同时成立')) 'archive must require publication and explicit archive instruction'
+Assert-True ($archiveSkill.Contains('仅当以下两项同时成立')) 'archive must require publication and explicit archive instruction'
 Assert-True ($archiveSkill.Contains('content_format') -and $archiveSkill.Contains('recommended_format')) 'archive must record actual content format instead of the recommendation'
 Assert-True ($historySchema.Contains('content_type') -and $historySchema.Contains('content_format')) 'history schema must keep content type and add content format'
 Assert-True ($historyRebuild.Contains('content_type =') -and $historyRebuild.Contains('content_format =')) 'history rebuild must emit content type and content format separately'
 Assert-True ($stateSchema.Contains('待分析 → 可入池 → 已转选题') -and $stateSchema.Contains('待核验 → 可推荐 → 已采用 → 已发布')) 'state schema must contain both repaired state machines'
+
+if ($RulesOnly) {
+    Write-Output "RULE VALIDATION PASSED checks=$script:Checks"
+    return
+}
 
 $validIdea = @('待分析', '可入池', '已转选题', '已放弃')
 $validCandidate = @('待核验', '可推荐', '已采用', '已发布', '已放弃')

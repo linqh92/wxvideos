@@ -5,20 +5,29 @@ description: 仅在内容已实际发布且用户明确要求归档时，将内�
 
 # 微信视频号发布归档
 
-只归档已实际发布且收到明确归档指令的内容。状态含义与转换统一引用 `shared/schemas/content-state-machine.md`。
+## Trigger
 
-## Account Lock 与触发条件
-
-先按根 `AGENTS.md` 唯一确定 `CURRENT_ACCOUNT`，只可读写当前账号目录。
-
-以下两项必须同时成立：
+仅当以下两项同时成立时使用：
 
 1. 用户明确确认内容已实际发布或更新完成；
 2. 用户明确要求归档、写入知识库或保存到历史内容。
 
 如果用户只说“已发布”，只准备可唯一识别的归档预览，不写文件。实际发布标题、正文或日期不能唯一确定时先询问；不得猜测或覆盖现有记录。
 
-## 归档执行
+## Required Input
+
+- 实际发布标题、正文和发布日期；
+- 实际发布载体；
+- 用户的实际发布确认与明确归档指令；
+- 根 `AGENTS.md` 已唯一确定的 `CURRENT_ACCOUNT`。
+
+## Required Context
+
+账号选择、隔离、阶段边界和项目级写入权限服从根 `AGENTS.md`。状态含义与转换引用：
+
+```text
+shared/schemas/content-state-machine.md
+```
 
 归档前完整读取并严格遵循：
 
@@ -28,7 +37,9 @@ accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/历史内容归档
 
 该文件是当前账号历史路径、文件名、Frontmatter、正文结构和完成检查的事实来源。
 
-归档前必须唯一确认实际发布内容的 `content_format`，只允许：
+## Unique Logic
+
+归档前唯一确认实际发布内容的 `content_format`，只允许：
 
 ```text
 text_broadcast
@@ -43,8 +54,16 @@ spoken
 4. 找到对应候选时，将候选 Markdown 和 `_candidate-index.jsonl` 同步更新为公共状态机中的发布终态。只有本 Skill 可以执行此转换。
 5. 不自动重建内容地图、内容缺口、重复检查、月度复盘或统计。用户明确要求时才运行 `shared/scripts/rebuild-derived-assets.ps1`。
 
-## 灵感回流
+### 灵感回流
 
 保留原有内容资产回流机制：从已发布内容提取 1～2 个不重复的后续问题，每个问题建立一篇 `历史延展` 灵感；真实评论、咨询或交付反馈存在时可分别建立灵感并关联历史内容。
 
-新灵感使用公共状态机的初始状态，并以单条 append/update 方式同步 `_idea-index.jsonl`。完成后停止，不自动生成下一批选题或文案。
+新灵感使用公共状态机的初始状态，并以单条 append/update 方式同步 `_idea-index.jsonl`。
+
+## Output
+
+写入一篇符合当前账号归档规范的正式历史 Markdown，增量更新对应 History Index；存在对应候选时同步更新候选 Markdown 与 Candidate Index，并按既有回流机制新增 1～2 条不重复后续灵感。
+
+## Stop
+
+完成允许的归档、索引同步、候选终态更新和灵感回流后立即停止。不得自动生成下一批选题或文案，也不得自动重建内容地图、缺口分析、重复检查、月度复盘或其他派生资产。

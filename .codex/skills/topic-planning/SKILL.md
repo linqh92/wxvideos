@@ -5,19 +5,28 @@ description: 基于当前账号定位和三个 JSONL 索引，以 Metadata First
 
 # 视频号选题规划
 
-负责候选来源分析、实质查重、服务承接判断、推荐内容载体、必要事实核验与排序。完成用户要求的分析或输出 5 个候选后停止；不得自动生成正式文案、标记发布或归档。
+## Trigger
 
-## Account Lock 与必读
+用户要求选题、内容规划、覆盖分析、灵感分析或判断灵感是否入池时使用。负责候选来源分析、实质查重、服务承接判断、推荐内容载体、最终候选必要事实核验与排序。
 
-先按根 `AGENTS.md` 唯一确定 `CURRENT_ACCOUNT`，只读取公共层和 `accounts/{CURRENT_ACCOUNT}/**`。正式选题前读取：
+## Required Input
+
+- 根 `AGENTS.md` 已唯一确定的 `CURRENT_ACCOUNT`；
+- 用户指定的业务方向、客户类型、经营问题或待分析灵感（如有）。
+
+## Required Context
+
+账号选择、隔离和阶段边界服从根 `AGENTS.md`。正式选题前读取：
 
 1. `accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号基本定位.md`；
 2. [历史内容库读取规则](references/history-vault-rules.md)；
 3. 当前账号的 `_history-index.jsonl`、`_candidate-index.jsonl`、`_idea-index.jsonl`。
 
-选题阶段默认不读 `账号人设与文风.md`。索引缺失或损坏时，使用 `shared/scripts/rebuild-*-index.ps1 -AccountId {CURRENT_ACCOUNT}` 从 Markdown 重建；无法可靠重建时，不输出正式推荐。
+选题阶段默认不读 `账号人设与文风.md`。状态含义引用 `shared/schemas/content-state-machine.md`。索引缺失或损坏时，使用 `shared/scripts/rebuild-*-index.ps1 -AccountId {CURRENT_ACCOUNT}` 从 Markdown 重建；无法可靠重建时，不输出正式推荐。
 
-## 普通选题流程
+## Unique Logic
+
+### 普通选题流程
 
 ```text
 锁定账号
@@ -35,7 +44,7 @@ description: 基于当前账号定位和三个 JSONL 索引，以 Metadata First
 - 不固定读取“最新 10 篇”。相关性优先于发布时间。
 - 不使用热点 API，不按时段安排选题。
 
-## 候选来源优先级
+### 候选来源优先级
 
 1. 用户本次指定的业务方向、客户类型或经营问题；
 2. History Index 暴露的覆盖缺口和可延展方向；
@@ -46,19 +55,19 @@ description: 基于当前账号定位和三个 JSONL 索引，以 Metadata First
 
 具体业务规则只读取当前账号 `账号基本定位.md`，公共 Skill 不硬编码任何账号业务。
 
-## 灵感分析模式
+### 灵感分析模式
 
 当用户明确要求“分析灵感、整理灵感、判断哪些能做、把灵感入池”时：
 
 1. 由 Idea Index 定位待处理笔记，只打开必要正文；
 2. 补齐场景、通过 History Index 查重，并只在必要时核验事实；
-3. 按 `shared/schemas/content-state-machine.md` 给出判断；
+3. 按公共状态机给出判断；
 4. 用户未要求写回时，只输出分析结果，不修改笔记或 Index；
 5. 用户明确要求入池或更新状态时，才同步更新灵感 Markdown 与 Idea Index；形成正式候选时再写候选卡并更新 Candidate Index。
 
 普通“给我 5 个选题”不得擅自整理或批量修改整个灵感库。
 
-## 筛选、核验与排序
+### 筛选、核验与排序
 
 依次检查：
 
@@ -70,7 +79,7 @@ description: 基于当前账号定位和三个 JSONL 索引，以 Metadata First
 
 按客户与财税相关度 30、服务承接价值 25、场景紧迫性 15、内容缺口 15、近期差异度 10、事实可核验性 5 的权重排序。
 
-## 推荐内容载体
+### 推荐内容载体
 
 每个正式候选必须判断 `recommended_format`，候选 Markdown 使用中文字段 `建议载体`，Candidate Index 使用稳定枚举：
 
@@ -82,10 +91,12 @@ description: 基于当前账号定位和三个 JSONL 索引，以 Metadata First
 
 载体建议只是选题阶段建议，不代表实际生成或发布载体。用户明确指定时永远优先；本 Skill 只推荐载体，不得自动执行 `text-broadcast-copywriting` 或 `spoken-copywriting`。
 
-## 输出与连续请求
+## Output
 
 输出正好 5 个彼此不复用客户场景、核心痛点或服务机会的方案。每项包含：选题、目标客户与场景、服务关联、入选依据、核验状态、建议载体、与近期历史内容的差异说明。
 
 对于“再换 5 个、第二个换掉、只看某方向”等连续请求，如果历史、灵感和候选数据没有变化，复用当前 `account context + index snapshot + dedupe result`，不得重新扫描全库。账号切换或任何相关数据变化后使快照失效。
 
-用户未明确确认时，不生成定稿，也不将候选视为已发布。
+## Stop
+
+完成用户要求的分析或输出 5 个候选后立即停止。不得自动生成正式文案、调用文案 Skill、标记发布或归档；用户未明确确认时，不生成定稿，也不将候选视为已发布。

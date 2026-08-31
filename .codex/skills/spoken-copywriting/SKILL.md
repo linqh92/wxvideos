@@ -5,51 +5,32 @@ description: Generate finalized WeChat Video Account spoken-camera scripts from 
 
 # WeChat Video Account Spoken Copywriting（微信视频号口播文案生成）
 
-## 1. Scope（职责范围）
+## Trigger
 
-Generate finalized spoken-camera content ONLY from a confirmed topic.
+Use only when the user requests 口播、真人口播、口播稿 or spoken-camera explanation from a confirmed topic, or when root routing resolves the confirmed topic to `CONTENT_FORMAT=spoken`.
 
-May output:
-- Title（标题）
-- Short title（短标题）
-- Spoken script（口播正文）
-- Complete spoken package（完整口播文案）
-- A requested length, version, tone, or rewrite direction
+Do not use for topic planning, text-broadcast copy, visual production, publication state changes, or archiving.
 
-Do NOT:
-- re-plan topics;
-- switch to unrelated topics;
-- generate text-broadcast copy unless requested;
-- mark content as published;
-- archive or update history;
-- produce visuals, shot lists, editing plans, or video files.
+## Required Input
 
-After delivering the requested copy, STOP.
+- A confirmed topic or a clear topic supplied directly by the user;
+- The requested title, script, complete package, length, tone, or rewrite direction;
+- `CURRENT_ACCOUNT` and `CONTENT_FORMAT=spoken` resolved under root `AGENTS.md`.
 
----
+## Required Context
 
-## 2. Required Context（必读上下文）
+Account selection, isolation, content-format routing, and stage boundaries follow root `AGENTS.md`.
 
-Determine `CURRENT_ACCOUNT` exactly from repository-root `AGENTS.md`, then enforce Account Context Lock.
+Read and obey:
 
-Read and obey, in order:
+1. `shared/rules/copywriting-common-rules.md` for account context, factual boundaries, audience language, persona, titles, endings, trust, cases, common quality control, and output discipline;
+2. `references/chinese-spoken-naturalness.md` for spoken-only Chinese naturalness.
 
-1. `shared/rules/copywriting-common-rules.md`
-2. `accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号基本定位.md`
-3. `accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号人设与文风.md`
-4. `.codex/skills/spoken-copywriting/references/chinese-spoken-naturalness.md`
+Do not apply the naturalness reference to `text-broadcast-copywriting`. If required account context or either rule file is missing, report the blocking path and do not borrow another account's context.
 
-The common rules control shared factual and copywriting boundaries.
-The account files control who is speaking, to whom, and from what business position.
-The naturalness reference controls ONLY how valid content becomes natural Chinese speech.
+## Unique Logic
 
-Do NOT apply the spoken naturalness reference to `text-broadcast-copywriting`.
-
-If any required file is missing or unreadable, report the blocking path. Do NOT borrow context from another account.
-
----
-
-## 3. Medium Objective（载体目标）
+### Medium Objective（载体目标）
 
 This Skill writes content that should work when heard once from a real person.
 
@@ -80,7 +61,7 @@ Principle:
 
 ---
 
-## 4. Core Content Requirement（内容核心）
+### Core Content Requirement（内容核心）
 
 Each piece should stay centered on one meaningful problem.
 
@@ -101,31 +82,7 @@ Principle:
 
 ---
 
-## 5. Trust Building（信任建立）
-
-Build trust by demonstrating judgment capability, NOT self-promotion.
-
-Prioritize:
-- identifying the real variable behind the surface problem;
-- explaining why the result appears;
-- distinguishing materially different situations;
-- stating which condition changes the answer;
-- showing what should be checked first;
-- acknowledging real uncertainty;
-- giving a useful decision direction.
-
-Do NOT rely on:
-- repeated self-praise;
-- unsupported experience claims;
-- fabricated client counts or cases;
-- “相信我” authority language;
-- empty insider/expert posturing.
-
-> **专业感来自判断过程，不来自术语密度。**
-
----
-
-## 6. Length Modes（内容幅度）
+### Length Modes（内容幅度）
 
 Priority:
 
@@ -134,17 +91,17 @@ Priority:
 > → Topic complexity  
 > → Default mode
 
-### Quick Spoken（快速口播）
+#### Quick Spoken（快速口播）
 Approximately 180–280 Chinese characters.
 
 Use for one simple misconception, one direct judgment, one common mistake, or one small decision problem.
 
-### Standard Spoken（标准口播）
+#### Standard Spoken（标准口播）
 DEFAULT. Approximately 280–450 Chinese characters.
 
 Use when the topic needs a short explanation, two or three meaningful variables, one short case, or a decision comparison.
 
-### Deep Spoken（深度口播）
+#### Deep Spoken（深度口播）
 Approximately 450–750 Chinese characters.
 
 Use ONLY when the topic genuinely requires multiple conditions, case development, policy interpretation, a business chain, or multiple decision paths.
@@ -155,7 +112,7 @@ Do NOT fill the target length with background, repeated warnings, or redundant c
 
 ---
 
-## 7. Information Capacity（单篇信息容量）
+### Information Capacity（单篇信息容量）
 
 Default upper bound:
 - 1 central problem;
@@ -171,7 +128,7 @@ Do NOT create “三点 / 四点” merely because a template expects them.
 
 ---
 
-## 8. Hidden Reasoning Skeleton（隐藏判断骨架）
+### Hidden Reasoning Skeleton（隐藏判断骨架）
 
 Before wording the script, internally determine:
 
@@ -194,29 +151,29 @@ Do NOT map checklist order directly into paragraph order.
 
 ---
 
-## 9. Structure Modes Are Internal Only（结构模式仅用于后台）
+### Structure Modes Are Internal Only（结构模式仅用于后台）
 
 Possible internal reasoning structures include:
 
-### Judgment Explanation（判断解释型）
+#### Judgment Explanation（判断解释型）
 > Problem → Judgment → Why → Variables → Conditions → Check direction
 
-### Cognitive Correction（认知纠偏型）
+#### Cognitive Correction（认知纠偏型）
 > Common belief → Correction → Why it fails → Better judgment → Conditions
 
-### Case Breakdown（案例拆解型）
+#### Case Breakdown（案例拆解型）
 > Result / conflict → What happened → Break point → Why → What to check
 
-### Decision Comparison（决策比较型）
+#### Decision Comparison（决策比较型）
 > Two choices → Core difference → Different outcomes → Applicable conditions
 
-### Chain Explanation（链条解释型）
+#### Chain Explanation（链条解释型）
 > Starting behavior → Intermediate change → Downstream impact → Key break point
 
-### Mechanism Explanation（机制拆解型）
+#### Mechanism Explanation（机制拆解型）
 > Surface phenomenon → Underlying mechanism → Key steps → Why the result appears
 
-### Event / Policy Impact（事件或规则影响型）
+#### Event / Policy Impact（事件或规则影响型）
 Use ONLY after current verification.
 
 > What happened → Who is affected → What changed → What did not change → Practical impact
@@ -228,7 +185,7 @@ If the final wording reads like a template because it follows the structure too 
 
 ---
 
-## 10. Opening（开场）
+### Opening（开场）
 
 The opening must create immediate relevance, but it does NOT need a stock hook phrase.
 
@@ -255,9 +212,11 @@ Do NOT default to:
 
 These are not absolute banned words; they are banned as automatic hooks.
 
+Spoken titles follow the shared title baseline and may foreground a direct audience question, decision conflict, case result, hidden reason, or a condition that changes the conclusion. The title must promise only what the script supports.
+
 ---
 
-## 11. Conclusion Timing（结论位置）
+### Conclusion Timing（结论位置）
 
 Give an early directional judgment when the facts allow it.
 
@@ -272,7 +231,7 @@ Natural:
 
 ---
 
-## 12. Explanation Logic（解释逻辑）
+### Explanation Logic（解释逻辑）
 
 Keep professional logic underneath and audience language on the surface.
 
@@ -294,7 +253,7 @@ Do NOT use terminology as a substitute for explanation.
 
 ---
 
-## 13. Speaking Units（说话单元）
+### Speaking Units（说话单元）
 
 Generate the script as speaking units rather than article sentences.
 
@@ -319,7 +278,7 @@ Examples:
 
 ---
 
-## 14. Auditory Clarity（听觉理解）
+### Auditory Clarity（听觉理解）
 
 Every key sentence must remain understandable when heard once without subtitles.
 
@@ -344,7 +303,7 @@ Avoid:
 
 ---
 
-## 15. Natural Chinese Speech（中式真人口语）
+### Natural Chinese Speech（中式真人口语）
 
 Follow `references/chinese-spoken-naturalness.md`.
 
@@ -367,169 +326,7 @@ Important restrictions:
 
 ---
 
-## 16. Persona Expression（人物表达）
-
-Persona MUST be inherited from `账号人设与文风.md`.
-
-The persona must materially affect:
-- what the speaker notices first;
-- the order in which the speaker thinks;
-- how directly the speaker judges;
-- how much explanation is given;
-- sentence rhythm;
-- question habit;
-- afterthought habit;
-- uncertainty language;
-- humor/teasing style;
-- analogy style;
-- ending posture.
-
-Do NOT reduce persona to catchphrases or vocabulary.
-
-Principle:
-
-> **人物感先来自“怎么看”，再来自“怎么说”。**
-
----
-
-## 17. Professional Depth（专业深度）
-
-Professional depth means:
-- better distinction;
-- better causal explanation;
-- better condition explanation;
-- better judgment;
-- better decision guidance.
-
-It does NOT mean:
-- more terminology;
-- more policy names;
-- more definitions;
-- more background;
-- more industry jargon.
-
-Remove detail that does not improve audience judgment.
-
----
-
-## 18. Conditions and Exceptions（条件与例外）
-
-Prioritize conditions that change:
-- the conclusion;
-- applicable audience;
-- result;
-- risk level;
-- recommended action.
-
-Secondary conditions may be compressed.
-
-Do NOT hide a critical condition to strengthen the opening.
-
-If the answer depends on missing information, say what must be checked instead of inventing certainty.
-
-Natural qualification is encouraged:
-
-> 也不能直接说一定不行，先看你这笔业务到底怎么走。
-
----
-
-## 19. Case Rules（案例规则）
-
-Cases may come from:
-1. user-provided material;
-2. verified source material;
-3. authorized project material;
-4. clearly labeled hypothetical examples.
-
-Do NOT fabricate:
-- clients;
-- consultation conversations;
-- amounts;
-- penalties;
-- business outcomes.
-
-A case exists to clarify judgment, not to decorate the script.
-
----
-
-## 20. Emotional Expression（情绪表达）
-
-Follow `copywriting-common-rules.md`.
-
-For spoken content, prefer emotion generated by:
-- real consequences;
-- contrast;
-- case progression;
-- judgment conflict;
-- opportunity loss;
-- hidden variables;
-- decision uncertainty;
-- chain amplification.
-
-Do NOT rely on shouting language, repeated exclamation, threats, artificial urgency, or stacked high-pressure phrases.
-
-Natural spoken content may be calmer than text-broadcast content while building stronger trust.
-
----
-
-## 21. Humor and Rhetorical Devices（幽默与修辞）
-
-Humor, rhetorical questions, analogies and teasing are optional tools.
-
-Use them only when:
-- the persona naturally uses them;
-- the topic contains a real contradiction or useful image;
-- they improve understanding or memorability.
-
-Do NOT fill quotas.
-Do NOT add a joke simply because the persona is “幽默”.
-Do NOT turn every strong statement into a rhetorical question.
-
----
-
-## 22. Title Rules（标题）
-
-Follow the common title rules and the current persona file.
-
-Spoken titles may favor:
-- a direct owner-side question;
-- cognitive conflict;
-- decision conflict;
-- a case result;
-- a hidden reason;
-- a condition that changes a common conclusion.
-
-The title MUST promise only what the script supports.
-
----
-
-## 23. Ending（结尾）
-
-The ending should stop when the reasoning has delivered enough value.
-
-Possible endings:
-- final judgment;
-- one check direction;
-- one decision principle;
-- one practical action;
-- one unresolved condition that still needs real information;
-- one persona-consistent closing line.
-
-Do NOT force:
-- summary elevation;
-- a question;
-- follow/share/save prompts;
-- comment-keyword CTA;
-- contact or traffic diversion;
-- service promise.
-
-A script may end simply:
-
-> 这单先把付款和开票对上，别急着往后算。
-
----
-
-## 24. Script Formatting（口播稿格式）
+### Script Formatting（口播稿格式）
 
 Deliver directly usable spoken copy.
 
@@ -553,7 +350,9 @@ This Skill writes copy, not directing notes.
 
 ---
 
-## 25. Mandatory Reduction Pass（强制删减）
+## Quality Gate
+
+### Mandatory Reduction Pass（强制删减）
 
 After the factual draft is correct, remove in this order:
 
@@ -570,116 +369,53 @@ After the factual draft is correct, remove in this order:
 
 Keep a unit only if removing it would lose a fact, reason, condition, judgment, case function, listening clarification, or necessary transition.
 
----
-
-## 26. Naturalness Rewrite Pass（真人化重写）
-
-After reduction, run ONE dedicated natural-Chinese rewrite pass.
-
-Rewrite if ANY applies:
-- it sounds like an article read aloud;
-- it sounds like English reasoning translated into Chinese;
-- three or more consecutive sentences have similar length or structure;
-- every sentence is grammatically complete and polished;
-- the script relies on stock short-video phrases;
-- abstract nouns replace concrete actions;
-- connectors make the script sound like a report;
-- the persona's speaking habits are not audible;
-- a real person would rarely say a sentence this way face-to-face.
-
-Do NOT change facts or conclusions during this pass.
+After reduction, run one naturalness rewrite pass from `references/chinese-spoken-naturalness.md` without changing facts or conclusions.
 
 ---
 
-## 27. Quality Control（质量控制）
+### Spoken Quality Control（口播专项质检）
 
 Rewrite if ANY applies:
 - opening has no concrete relevance;
-- opening is emotion-only;
 - script is merely a longer text-broadcast draft;
 - central question is unclear;
 - multiple unrelated problems are developed;
 - no core judgment exists;
 - judgment exists but reasoning is missing;
 - multiple conclusions are stacked;
-- terminology replaces explanation;
-- a conclusion-changing condition is omitted;
 - script sounds like an article, report, course outline or policy narration;
 - sentences are difficult to say naturally;
 - pronouns create listening ambiguity;
 - too much background appears before the core issue;
-- case content is fabricated;
-- trust relies mainly on self-praise;
-- persona is reduced to catchphrases;
-- emotion exceeds factual support;
 - length increases without increasing useful judgment;
-- ending introduces a new topic;
-- CTA conflicts with account or platform boundaries.
+- ending introduces a new topic.
 
 ---
 
-## 28. Human Speech Test（真人朗读检查）
+### Human Speech Test（真人朗读检查）
 
 Before final output, mentally perform these checks:
 
-### Face-to-face test
+#### Face-to-face test
 > **如果客户坐在面前，这个人真的会这样说吗？**
 
-### No-subtitle test
+#### No-subtitle test
 > **不看字幕，只听一遍，核心逻辑能不能跟上？**
 
-### De-copywriting test
+#### De-copywriting test
 > **这是在聊天解释问题，还是在念一篇“很口语”的文案？**
 
-### Over-completeness test
+#### Over-completeness test
 > **是不是为了显得完整，强行加了总结、升华、第三点或第二个案例？**
 
-### Persona identity test
+#### Persona identity test
 > **遮掉账号名以后，语言和判断方式还能不能看出是这个人？**
 
 If any answer is weak, rewrite once before output.
 
 ---
 
-## 29. Internal Scoring（内部评分）
-
-Do NOT expose unless requested.
-
-### Information Value: 1–5
-Useful information gap, judgment, or explanation.
-
-### Auditory Clarity: 1–5
-Understandable without subtitles.
-
-### Reasoning Quality: 1–5
-The audience understands why the conclusion holds.
-
-### Natural Chinese Speech: 1–5
-Sounds like real face-to-face Simplified Chinese, not translated or written prose.
-
-### Persona Judgment Consistency: 1–5
-The speaker notices and judges the problem in the expected way.
-
-### Persona Voice Distinctiveness: 1–5
-The wording and rhythm are recognizably this persona rather than generic “professional口播”.
-
-### Trust Building: 1–5
-The script demonstrates useful judgment rather than self-promotion.
-
-### Retention Potential: 1–5
-The opening and body provide valid reasons to keep listening.
-
-### Conversion Capability: 1–5
-The audience can identify relevance, perceive capability, and reasonably want further understanding.
-
-### Platform Risk: Low / Medium / High
-Use the common rules for fact risk, absolute claims, manufactured fear, authority misrepresentation, interaction inducement, traffic diversion, and service promises.
-
-If any numeric score is below 3, rewrite first.
-
----
-
-## 30. Output Modes（输出模式）
+## Output
 
 Follow the user's request strictly.
 
@@ -700,7 +436,7 @@ Do NOT expose structure mode, scoring, risk scoring, creative process, source ex
 
 ---
 
-## 31. User Override（用户优先）
+## User Override
 
 If the user requests a specific length, duration, tone, depth, case emphasis, or structure, follow it within factual, account, platform, and safety boundaries.
 
@@ -715,28 +451,6 @@ When converting TO `text_broadcast`, do NOT carry spoken-only language mechanics
 
 ---
 
-## 32. Final Principles（最终原则）
+## Stop
 
-> **口播不是加长版短文。**
-
-> **口播不是把文章拆成短句。**
-
-> **一条口播只解决一个中心问题。**
-
-> **结构负责把逻辑想清楚，不负责把成稿写整齐。**
-
-> **能直接给方向，就不要故意拖结论。**
-
-> **能解释为什么，就不要只重复结论。**
-
-> **能用具体动作讲清楚，就不要先上抽象术语。**
-
-> **允许真实说话里的省略、补一句和轻微修正，但不能制造混乱。**
-
-> **专业感来自区分、解释和判断。**
-
-> **人物感来自思考顺序、判断习惯和说话节奏，不来自口头禅。**
-
-> **用户只听不看，也应理解核心逻辑。**
-
-> **最终先像真人，再像文案。**
+After delivering the requested title, spoken script, or complete spoken package, stop. Do not generate visual plans, shot lists, editing instructions, video files, publication-state changes, or archive writes; visual support requires a separate explicit request routed by root `AGENTS.md`.
