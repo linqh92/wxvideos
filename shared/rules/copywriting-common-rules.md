@@ -95,6 +95,17 @@ Execution priority:
 
 Do NOT sacrifice accuracy or critical conditions for retention.
 
+Default information order when the facts support a decision:
+
+> Strongest valid information / hook
+> → Direct or directional conclusion
+> → Audience result / benefit / loss
+> → Reason or core mechanism
+> → 1–3 conclusion-changing conditions as needed
+> → Final judgment or one useful action
+
+This is a decision sequence, not a mandatory visible template. Use only the parts the topic and medium genuinely need. Conditions define the boundary of a conclusion; they MUST NOT replace or bury the conclusion.
+
 ---
 
 ## 5. Known vs. Unknown Information（已知与未知）
@@ -124,6 +135,32 @@ If the topic lacks enough factual support:
 - Do NOT force high-pressure wording
 - State the limitation when necessary
 - Recommend adding data, conditions, cases, comparison, or outcome evidence when appropriate
+
+### Explicit Conclusion Mechanism（明确结论机制）
+
+Before drafting, internally determine:
+
+1. What exact question is the topic asking?
+2. Is the available information sufficient for a reliable conclusion?
+3. What is the default conclusion under the stated facts?
+4. Which conditions would materially change that conclusion?
+5. What practical result matters most to the audience?
+
+When information is sufficient, answer the decision directly: will / will not, can / cannot, should / should not, affects / does not affect, higher / lower risk, worthwhile / not worthwhile, or which option better fits the stated situation.
+
+When one universal answer would be inaccurate but meaningful branches are known, give branch conclusions:
+
+> Condition A → Conclusion 1
+> Condition B → Conclusion 2
+
+Do NOT retreat to “视情况而定 / 需要综合判断” when a usable branch judgment can be given.
+
+When decisive information is genuinely missing, state only:
+- which decisive information is missing;
+- why it prevents a reliable conclusion;
+- what the user must provide or verify next.
+
+Do NOT stack non-decisive conditions merely to appear professional.
 
 ---
 
@@ -183,7 +220,7 @@ Emotion MUST NOT exist independently of facts.
 ## 8. Expression Intensity（表达强度）
 
 ### Level 1 | Conservative / Steady（稳健型）
-Use when facts are incomplete, the topic is sensitive, outcomes are uncertain, or the account/user requires restraint.
+Use when facts are incomplete, the conclusion is highly uncertain, the topic is sensitive, an authoritative source cannot be verified, a critical applicability condition is unknown, or the account/user requires restraint.
 
 Requirements:
 - Preserve specific impacts
@@ -195,10 +232,12 @@ Requirements:
 DEFAULT.
 
 Requirements:
-- Lead with a valid result, benefit, risk, or cognitive conflict appropriate to the medium
+- Lead with the strongest valid result, conclusion, benefit, risk, or cognitive conflict appropriate to the medium
+- Give a direct answer when the facts permit one
+- State what the conclusion means for the audience
 - Provide at least one information gap
 - Explain one meaningful impact or judgment chain
-- State conclusion-changing conditions in time
+- Place conditions after the main direction when possible, but state conclusion-changing conditions in time
 
 ### Level 3 | Aggressive Test（进攻测试型）
 Use ONLY when:
@@ -209,9 +248,13 @@ Use ONLY when:
 Requirements:
 - Put the strongest valid information first
 - Reduce setup
+- Give the supported conclusion directly rather than weakening it by default
 - Focus on 1–2 strongest valid pressure / benefit points
 - Preserve every critical condition
+- Remove cautionary buffer language that does not change the judgment
 - Never increase intensity by inventing facts
+
+If all Level 3 conditions are met, do not silently downgrade the draft because of generic model caution. Level 3 still does not permit absolute claims, hidden conditions, unsupported urgency, or exaggerated causality.
 
 Principle:
 
@@ -233,6 +276,14 @@ Prioritize:
 Translate professional logic into:
 
 > Behavior → Change → Result
+
+For every core point, internally ask:
+
+> So what does this mean for the target audience?
+
+If a sentence only explains a policy, definition, term, process, compliance principle, or industry background, continue translating it until the practical consequence is clear. Prefer concrete effects on money, cost, qualification, time, progress, risk, choice, operating result, whether action is needed, or what to do next.
+
+Keep a technical explanation only when it supports the conclusion, changes the audience's judgment, or explains a necessary condition.
 
 When a professional concept is necessary:
 
@@ -295,6 +346,11 @@ Rewrite when the draft contains:
 - Repeated sentence patterns
 - Language inconsistent with the persona
 - Wording a real person with this persona would not naturally use
+- “需要结合实际情况 / 需要综合判断 / 视具体情况而定” without an immediate judgment standard or branch conclusion
+- “建议关注 / 需要重视 / 规范经营 / 做好风险防范” without a concrete object, consequence, condition, or action
+- Analysis that never answers the decision question asked by the topic
+
+Do not use professional caution as a substitute for judgment. If deleting a formally correct sentence does not reduce the user's ability to decide, understand a result, or act, delete it.
 
 Do NOT hard-code account-specific catchphrases, forms of address, title patterns, humor methods, recommended words, banned words, or CTA patterns here.
 
@@ -303,11 +359,13 @@ Do NOT hard-code account-specific catchphrases, forms of address, title patterns
 ## 12. Title Baseline（标题基础规则）
 
 Before generating titles, internally extract:
-- Strongest valid outcome
-- Largest information gap
+- Clearest supported conclusion
+- Largest real benefit / loss
 - Strongest cognitive conflict
-- Most concrete behavior / scenario
-- Most valuable number or condition
+- Most valuable number
+- Most consequential wrong assumption
+- Largest information gap
+- Most concrete behavior / scenario or conclusion-changing condition
 - Best-fitting emotional driver
 
 Every title MUST fit:
@@ -321,6 +379,7 @@ Do NOT:
 - Center a title on jargon merely because the topic contains it
 - Remove a conclusion-changing condition for impact
 - State only “what the content is about” without a reason to continue
+- Default to generic “注意事项 / 需要注意什么 / 如何处理” phrasing when a supported result, conflict, benefit, loss, or judgment is available
 
 For a complete package, default to three clearly different title directions unless the account defines another system:
 
@@ -353,6 +412,8 @@ Choose based on account positioning, topic, and content objective:
 - One core judgment
 - One action
 - One check direction
+- One branch conclusion or decision standard
+- One concrete audience result
 - One specific question
 - One open judgment space
 - One persona-consistent closing line
@@ -453,15 +514,19 @@ Before writing, internally confirm:
 1. Who is the current account/persona?
 2. Who is the audience?
 3. What is the content objective?
-4. What does the audience already know?
-5. What new information does this piece add?
-6. What is the strongest real outcome / benefit / conflict?
-7. Why does it happen?
-8. Which condition determines whether the conclusion holds?
-9. Which emotional driver fits best?
-10. Why might the audience naturally share, act, or learn more?
-11. Would this persona naturally say it this way?
-12. Is the current intensity fully supported by facts?
+4. What exact decision question must the piece answer?
+5. Is the information sufficient for a direct conclusion, a branch conclusion, or only a precise information gap?
+6. What does the audience already know?
+7. What new information does this piece add?
+8. What is the strongest real outcome / benefit / conflict?
+9. What does it concretely mean for the audience?
+10. Why does it happen?
+11. Which condition determines whether the conclusion holds?
+12. Which emotional driver fits best?
+13. Why might the audience naturally share, act, or learn more?
+14. Would this persona naturally say it this way?
+15. Is the current intensity fully supported by facts?
+16. Is any supported conclusion being delayed or weakened without a factual reason?
 
 If there is no valid information gap or real impact, do NOT use emotion to fake distribution intensity.
 
@@ -481,6 +546,24 @@ Rewrite if ANY applies:
 - The same conclusion is repeated without new function
 - Background is added only to appear professional
 - CTA conflicts with account or platform boundaries
+- The audience still cannot answer the topic's central question after consuming the piece
+- Conditions are listed without a direct or branch conclusion
+- “需要综合判断” or equivalent wording replaces an available judgment
+- Policy, terminology, or process is explained without an audience result
+- A risk is stated without the condition that makes it relevant
+- “需要注意 / 建议关注” appears without what, why, consequence, or next action
+- The strongest valid information appears late without a medium-specific reason
+- A conclusion that can be stated clearly is deliberately weakened
+- Verified facts support stronger directness, but generic caution reduces the draft to vague language
+- The ending stops at a generic compliance reminder instead of a judgment, result, decision standard, or useful action
+
+Final audience-decision check:
+
+1. Can the target audience answer in one sentence: “所以这件事到底会怎样？”
+2. Did the audience receive an answer, or only a list of considerations?
+3. Is there a supported conclusion that could be stated earlier?
+
+If the answer is weak, rewrite before output.
 
 Medium-specific Skills MUST add their own format checks.
 
@@ -562,6 +645,15 @@ Only disclose a factual limitation when necessary for correctness.
 
 > 条件可以分层表达，但不能故意隐瞒。  
 > Conditions may be layered, but never intentionally hidden.
+
+> 能下结论时直接回答；不能一刀切时给分支结论。
+> Answer directly when possible; give branch conclusions when one universal answer would be inaccurate.
+
+> 条件负责限定结论，不负责掩盖结论。
+> Conditions define the conclusion's boundary; they do not hide it.
+
+> 用户最终需要的是可靠判断，不是一份正确但没有答案的注意事项。
+> The audience needs a reliable judgment, not a correct-looking list with no answer.
 
 > 专业逻辑留在底层，受众语言放在表层。  
 > Keep professional logic underneath; present audience language on the surface.

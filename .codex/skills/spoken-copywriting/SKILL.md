@@ -66,10 +66,12 @@ Principle:
 Each piece should stay centered on one meaningful problem.
 
 Internally identify:
-- one central question;
-- one core judgment;
+- the exact central question the audience needs answered;
+- whether the facts support a direct conclusion, branch conclusions, or only a precise information gap;
+- the default core judgment under the stated facts;
 - the reasoning that makes the judgment credible;
 - the condition that may change the judgment;
+- the practical audience result;
 - the most useful thing the audience should know or check afterward.
 
 These elements are semantic requirements, NOT mandatory visible sections.
@@ -145,6 +147,9 @@ Before wording the script, internally determine:
 11. What should the audience know how to check afterward?
 12. What must not be overstated?
 13. How would this specific persona naturally explain it face-to-face?
+14. Can the audience restate the answer in one sentence after hearing it once?
+15. Is the draft giving an answer or only a list of considerations?
+16. Is a supported conclusion being delayed or weakened without a factual reason?
 
 Do NOT expose this checklist.
 Do NOT map checklist order directly into paragraph order.
@@ -156,27 +161,27 @@ Do NOT map checklist order directly into paragraph order.
 Possible internal reasoning structures include:
 
 #### Judgment Explanation（判断解释型）
-> Problem → Judgment → Why → Variables → Conditions → Check direction
+> Direct or directional judgment → Audience result → Why → Variables → Conditions → Useful action
 
 #### Cognitive Correction（认知纠偏型）
-> Common belief → Correction → Why it fails → Better judgment → Conditions
+> Common belief → Direct correction → Supported conclusion → Why it fails → Conditions → Practical result
 
 #### Case Breakdown（案例拆解型）
-> Result / conflict → What happened → Break point → Why → What to check
+> Verified result / conflict → What happened → Break point → Why → Reusable judgment → What to check
 
 #### Decision Comparison（决策比较型）
-> Two choices → Core difference → Different outcomes → Applicable conditions
+> Two choices → Core difference → Different outcomes → Applicable conditions → Clear decision standard
 
 #### Chain Explanation（链条解释型）
-> Starting behavior → Intermediate change → Downstream impact → Key break point
+> Starting behavior → Intermediate change → Audience result → Key break point → Judgment
 
 #### Mechanism Explanation（机制拆解型）
-> Surface phenomenon → Underlying mechanism → Key steps → Why the result appears
+> Surface phenomenon → Underlying mechanism → Key steps → Why the result appears → So what for the audience
 
 #### Event / Policy Impact（事件或规则影响型）
 Use ONLY after current verification.
 
-> What happened → Who is affected → What changed → What did not change → Practical impact
+> What happened → Who is affected → What changed → What did not change → Practical impact → Current judgment or action
 
 These structures are reasoning aids.
 They MUST NOT automatically become visible sequential sections in the final script.
@@ -191,12 +196,25 @@ The opening must create immediate relevance, but it does NOT need a stock hook p
 
 Possible forms:
 - direct judgment;
+- direct result, benefit, loss, or useful action;
 - concrete action;
 - one number;
 - familiar scene;
 - visible contradiction;
 - real question;
 - consequence already happening.
+
+Prefer opening information in this order when it fits the topic and persona:
+
+1. direct result;
+2. direct or directional conclusion;
+3. audience benefit, loss, or next action;
+4. cognitive conflict;
+5. valuable number;
+6. concrete scene conflict;
+7. a real decision question.
+
+The opening speaking units must establish useful relevance quickly. A scene may support the answer, but it must not delay the core direction merely for immersion. Reduce weak setup such as “很多老板不知道”“这个问题要注意”“今天聊一下” unless a high-value conclusion follows immediately.
 
 Prefer the current persona's natural first sentence over a universal short-video formula.
 
@@ -222,7 +240,9 @@ Give an early directional judgment when the facts allow it.
 
 Do NOT hide the answer until the end merely to create suspense.
 
-When a critical condition materially changes the answer, the opening may give only a conditional direction.
+When information is sufficient, answer directly. When a critical condition materially changes the answer, give an early direction and then branch the conclusion. When decisive information is genuinely missing, name the missing variable and explain why it blocks the conclusion.
+
+Do NOT use “需要结合实际情况 / 需要综合判断 / 视情况而定” as an endpoint when a direct answer, branch conclusion, or concrete decision standard is available.
 
 Natural:
 
@@ -242,6 +262,12 @@ Useful internal relations include:
 > Behavior → Change → Result
 
 > Condition → Judgment → Consequence
+
+For every core explanation, internally ask:
+
+> So what does this mean for the listener?
+
+If a policy, term, process, mechanism, or compliance principle does not change the listener's judgment, explain a necessary condition, or lead to a practical result, compress or remove it. Practical results may include money, cost, qualification, time, progress, risk, choice, operating result, whether action is needed, or what to check first.
 
 But final Chinese may express these relations without explicit connectors or perfectly complete sentences.
 
@@ -377,10 +403,15 @@ After reduction, run one naturalness rewrite pass from `references/chinese-spoke
 
 Rewrite if ANY applies:
 - opening has no concrete relevance;
+- the strongest valid information is delayed without a spoken-naturalness reason;
 - script is merely a longer text-broadcast draft;
 - central question is unclear;
 - multiple unrelated problems are developed;
 - no core judgment exists;
+- the shared explicit-conclusion check fails when the script is heard once, leaving only analysis or a list of considerations;
+- branch conditions are present but their different conclusions cannot be distinguished by listening;
+- policy, terminology, or mechanism dominates the speech while the practical audience result remains unclear;
+- a supported conclusion is weakened into verbal hedging or delayed until the listener is likely to miss it;
 - judgment exists but reasoning is missing;
 - multiple conclusions are stacked;
 - script sounds like an article, report, course outline or policy narration;
@@ -388,7 +419,9 @@ Rewrite if ANY applies:
 - pronouns create listening ambiguity;
 - too much background appears before the core issue;
 - length increases without increasing useful judgment;
-- ending introduces a new topic.
+- ending introduces a new topic;
+- ending stops at generic “规范 / 关注 / 重视” language instead of a judgment, result, decision standard, or useful action;
+- intensity comes mainly from loud, absolute, threatening, or stock short-video language rather than verified information.
 
 ---
 
@@ -410,6 +443,21 @@ Before final output, mentally perform these checks:
 
 #### Persona identity test
 > **遮掉账号名以后，语言和判断方式还能不能看出是这个人？**
+
+#### Audience decision test
+> **听完以后，用户能不能用一句话回答“所以这件事到底会怎样”？**
+
+#### Answer-not-checklist test
+> **用户得到的是一个答案，还是只得到了一份注意事项？**
+
+#### Conclusion timing test
+> **有没有一个可靠结论本可以更早说，却被放到了后半段？**
+
+#### Condition-boundary test
+> **条件是在限定结论，还是在掩盖结论？**
+
+#### Intensity-source test
+> **表达力度来自真实结果和判断，还是来自情绪词和音量感？**
 
 If any answer is weak, rewrite once before output.
 
@@ -452,5 +500,7 @@ When converting TO `text_broadcast`, do NOT carry spoken-only language mechanics
 ---
 
 ## Stop
+
+Before delivery, confirm that the listener can follow the logic once, answer “所以到底会怎样” in one sentence, and understand the key boundary or next action. The conclusion must be clear without sounding like a slogan; conditions must define the conclusion rather than hide it.
 
 After delivering the requested title, spoken script, or complete spoken package, stop. Do not generate visual plans, shot lists, editing instructions, video files, publication-state changes, or archive writes; visual support requires a separate explicit request routed by root `AGENTS.md`.

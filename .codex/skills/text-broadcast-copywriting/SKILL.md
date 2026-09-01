@@ -7,176 +7,216 @@ description: Generate finalized WeChat Video Account text-broadcast / subtitle c
 
 ## Trigger
 
-本 Skill 只处理 `CONTENT_FORMAT=text_broadcast`：从已确认选题生成短文字幕、文字播报或打字字幕文案。用户明确要求口播、真人口播、出镜讲或口播稿时，不使用本 Skill。
+Use only for `CONTENT_FORMAT=text_broadcast`: generate 短文字幕、文字播报, or 打字字幕 copy from a confirmed topic.
+
+Do not use when the user requests 口播、真人口播、出镜讲, or 口播稿.
 
 ## Required Input
 
-- 已确认选题，或用户当前直接给出的明确题目；
-- 用户要求的标题、正文或完整文案模式；
-- 根 `AGENTS.md` 已确定的 `CURRENT_ACCOUNT` 与 `CONTENT_FORMAT=text_broadcast`。
+- A confirmed topic or a clear topic supplied directly by the user;
+- The requested title, body copy, or complete package mode;
+- `CURRENT_ACCOUNT` and `CONTENT_FORMAT=text_broadcast` resolved under root `AGENTS.md`.
 
 ## Required Context
 
-账号选择、隔离和阶段边界服从根 `AGENTS.md`。正式生成前完整读取并遵守：
+Account selection, isolation, content-format routing, and stage boundaries follow root `AGENTS.md`.
+
+Before drafting, read and obey:
 
 ```text
 shared/rules/copywriting-common-rules.md
 ```
 
-公共规则负责定位与人设继承、受众语言、业务边界、信息差、情绪、表达强度、事实核验、平台边界、标题、CTA、公共质检和评分。本文件只定义文字播报载体特有规则；冲突时以用户明确要求、当前账号规则和公共规则为先。
+The shared rules control account and persona inheritance, audience language, business boundaries, information gap, emotion, expression intensity, fact verification, platform boundaries, titles, CTA, common quality control, and scoring.
+
+This file defines only text-broadcast-specific execution constraints. When rules conflict, follow the user's explicit request, current-account rules, and shared rules in that order.
 
 ## Unique Logic
 
 ### Content Medium（内容载体）
 
-文字播报内容通过逐行文字、短文字幕或打字效果呈现，用户主要依靠视觉阅读获取信息，不依赖真人声音、表情或表演。
+Text-broadcast content is presented through line-by-line text, short subtitles, or a typing effect. The audience receives the information primarily through visual reading, without relying on a real speaker's voice, expression, or performance.
 
-因此必须：
+Therefore, the copy MUST:
 
-- 为视觉阅读优化信息顺序、句长和换行；
-- 用单点高密度结构快速传播一个判断；
-- 第一屏建立明确的信息差、影响或认知冲突；
-- 保留可直接交给后期使用的最终换行。
+- optimize information order, sentence length, and line breaks for visual reading;
+- communicate one judgment quickly through a single-point, high-density structure;
+- establish a clear information gap, impact, result, or cognitive conflict on the first screen;
+- preserve final line breaks that can be handed directly to post-production.
 
-不得写成真人口播演讲稿、长文章、公文、培训材料、咨询报告、百科解释或通用 AI 总结稿。
+Do NOT write a spoken-camera script, long article, official document, training material, consulting report, encyclopedia explanation, or generic AI summary.
+
+---
 
 ### First Screen（第一屏）
 
-第一屏负责停留、对号入座和建立信息差，最多 4 行，必须包含受众能立即理解的场景或对象，以及具体影响、结果、利益、风险或认知冲突。
+The first screen supports retention, immediate relevance, and information-gap recognition. It MUST contain no more than 4 lines and prioritize at least one of the following:
 
-按题目选择最合适的一种结构：
+- a direct result;
+- a direct conclusion;
+- a real benefit or loss;
+- correction of a common wrong judgment;
+- a strong, valid information gap.
 
-- 熟悉行为或场景 + 被低估的结果；
-- 表面现象 + 真实结果；
-- 小问题 + 放大后的影响；
-- 明确数字或事实 + 认知冲突；
-- 常见判断 + 直接纠正。
+When choosing the opening information, prefer this order when it fits the topic:
 
-不得只写情绪、空泛背景、寒暄、课程式开场或模板化提醒。可延后非关键条件，但不得隐藏会改变结论的条件。
+1. direct result;
+2. clear conclusion;
+3. cognitive conflict;
+4. audience benefit or loss;
+5. valuable number;
+6. concrete scene conflict;
+7. a question with real decision value.
+
+A scene or audience object may appear, but it MUST NOT delay the core conclusion merely for “代入感”. If the first 2–4 lines still contain only background, emotion, questions, setup, or a restatement of the visible situation, the opening fails.
+
+Do NOT use greetings, course-like introductions, or template reminders as the only opening value. Reduce weak hooks such as “很多老板不知道”“这个问题需要注意”“今天来说一下”“最近有人问” unless a high-value conclusion follows immediately.
+
+Non-critical conditions may appear later, but every conclusion-changing condition must remain visible in time.
+
+---
 
 ### Single-Point High Density（单点高密度）
 
-默认正文链路：
+Default main-copy flow:
 
 ```text
-具体场景或认知冲突
-→ 核心判断与必要条件
-→ 一个结果或行动方向
+Strongest valid information or cognitive conflict
+→ Direct conclusion
+→ Audience benefit, loss, or practical result
+→ Reason or core mechanism
+→ Conclusion-changing condition
+→ Final judgment or one action direction
 ```
 
-每句话至少承担一项功能：事实、数字、对象、行为、信息差、原因、条件、影响、判断或行动方向。删除后不降低有效信息量的句子应优先删除。
+Not every piece must display every step. Each sentence must perform at least one function: fact, number, object, behavior, information gap, reason, condition, impact, judgment, audience result, or action direction.
 
-不要为完整而展开多个逻辑线程，不要重复受众已知现象，不要堆叠背景、定义、转场、重复结论或无信息功能的人设表演。
+Delete any sentence whose removal does not reduce useful information. Do NOT develop multiple logic threads for completeness or stack familiar observations, background, definitions, transitions, repeated conclusions, or persona performance with no information function.
+
+---
 
 ### Main-Copy Modes（正文模式）
 
-按题目自动选择，不长期固定一种模板：
+Select automatically based on the topic. Do not default to one fixed template:
 
-- **结果直击型**：结果 → 原因 → 条件 → 影响范围 → 判断方向；
-- **认知翻转型**：常见判断 → 直接纠正 → 关键条件 → 真实结果；
-- **累积升级型**：当前现象 → 累积方式 → 放大结果 → 当前检查点；
-- **链条传导型**：起点问题 → 中间影响 → 最终落点 → 判断方向；
-- **数字对比型**：数字或比例 → 直接差异 → 隐藏条件 → 最终结果；
-- **决策比较型**：两个选择 → 核心差异 → 各自结果 → 判断标准；
-- **事件影响型**：已核验事件 → 受影响人群 → 变化 → 具体影响 → 当前判断。
+- **Outcome-First（结果直击型）**: Result → Clear conclusion → Reason → Critical condition → Audience result;
+- **Cognitive Correction（认知翻转型）**: Common judgment → Direct correction → Supported conclusion → Critical condition → Practical result;
+- **Accumulation Escalation（累积升级型）**: Current situation → Accumulation path → Amplified result → Clear conclusion → Current action;
+- **Chain Propagation（链条传导型）**: Starting problem → Intermediate impact → Audience result → Critical break point → Clear conclusion;
+- **Numeric Comparison（数字对比型）**: Number or ratio → Direct difference → Clear conclusion → Critical condition → Audience benefit or loss;
+- **Decision Comparison（决策比较型）**: Two choices → Core difference → Different results → Clear decision standard;
+- **Event Impact（事件影响型）**: Verified event → Affected audience → Change → Practical impact → Current judgment or action.
 
-事件、政策或平台变化未经核验时，不得为了套模板编造变化、趋势或结果。
+Do NOT invent a change, trend, or result merely to fit a mode. Events, policies, and platform changes require current verification before use.
+
+---
 
 ### Text-Broadcast Length（短文长度）
 
-优先级：
+Priority:
 
-1. 用户明确字数或参考长度；
-2. 当前账号明确长度规则；
-3. 本 Skill 默认规则。
+1. user-specified length or reference length;
+2. explicit current-account length rules;
+3. this Skill's default.
 
-未指定时，正文默认约 90～130 个汉字。规则、专业判断或业务链较复杂时，先缩小角度，只讲一个核心判断；确实无法压缩时可扩展到约 160 字，不默认写成 200 字以上。
+When unspecified, the body defaults to approximately 90–130 Chinese characters. If a rule, professional judgment, or business chain is complex, narrow the angle first and keep only one core judgment. Extend to approximately 160 Chinese characters only when accurate compression is genuinely impossible. Do not default to more than 200 Chinese characters.
 
-超过默认长度时先检查：是否重复已知信息、背景过多、铺垫无效、同时解释太多问题、连接句可删除、长句可拆分，或为了显得专业而添加无用内容。
+Before exceeding the default length, check for repeated known information, excessive background, ineffective setup, too many questions being explained at once, removable connectors, splittable long sentences, or content added merely to appear professional.
+
+---
 
 ### Per-Piece Information Limit（单篇信息上限）
 
-- 每篇只表达一个核心结论；
-- 最多一个核心压力点或利益点；
-- 显性展开的判断条件最多三个；
-- 最多解释一个专业概念；
-- 只保留一个结果、风险或行动方向；
-- 不用不同说法重复同一结论；
-- 不为显得专业而补齐所有规则背景或操作步骤。
+- Express only one core conclusion;
+- Use at most one core pressure point or benefit point;
+- Explicitly develop no more than three judgment conditions;
+- Explain at most one professional concept;
+- Keep only one result, risk, or action direction;
+- Do not repeat the same conclusion in different wording;
+- Do not add complete rule background or operating steps merely to appear professional.
 
-存在多个必要条件时，只展开当前场景直接相关的条件，其余以简短边界保留。压缩不得隐去会改变结论的条件。
+When multiple necessary conditions exist, develop only those directly relevant to the current scenario and preserve the others as concise boundaries. Compression MUST NOT hide a condition that changes the conclusion.
+
+---
 
 ### Visual Reading and Line Breaks（视觉阅读与换行）
 
-正文必须保留可直接用于文字播报的最终换行：
+The body MUST preserve final line breaks that can be used directly for text broadcast:
 
-- 一行一个核心信息单元；
-- 默认 10～16 行；
-- 每行优先 7～15 个汉字；
-- 重要数字、结果或判断可以单独成行；
-- 在条件、结果或逻辑变化处优先换行；
-- 超过 30 个汉字的句子必须检查能否拆分；
-- 每个信息块建议 2～4 行；
-- 第一屏最多 4 行，并建立场景和核心冲突；
-- 不连续堆叠超过两个解释性信息块；
-- 结尾最多 3 行；
-- 不把整段长文交给后期再拆；
-- 不为追求短行而切碎完整语义。
+- one core information unit per line;
+- 10–16 lines by default;
+- preferably 7–15 Chinese characters per line;
+- important numbers, results, or judgments may stand alone;
+- prefer line breaks at condition, result, or logic changes;
+- check whether any sentence longer than 30 Chinese characters can be split;
+- preferably 2–4 lines per information block;
+- no more than 4 lines on the first screen, with a concrete conflict, result, or judgment established;
+- do not stack more than two explanatory information blocks consecutively;
+- no more than 3 lines in the ending;
+- do not hand a solid paragraph to post-production for later splitting;
+- do not break complete meaning merely to create short lines.
 
-强表达只能通过结论前置、结果更直接和减少铺垫实现，不得仅因强度增加正文长度。仅在并列信息、步骤或检查项确实更易扫描时使用编号，不默认写固定数量的清单。
+Stronger expression may come only from earlier conclusions, more direct results, and reduced setup. Do not increase body length merely to increase intensity.
+
+Use numbering only when parallel information, steps, or checks genuinely become easier to scan. Do not default to a fixed-size list.
 
 ## Quality Gate
 
 ### Text-Broadcast Quality Control（短文专项质检）
 
-出现以下任一问题必须重写：
+Rewrite if ANY applies:
 
-- 第一屏没有有效信息，或前两行只有情绪；
-- 同时展开多个核心结论或多个逻辑线程；
-- 全文像文章、报告、培训材料或更长的口播稿；
-- 句子过长，不适合逐行展示；
-- 正文没有最终换行，或换行破坏语义；
-- 默认正文少于 10 行或超过 16 行却没有合理原因；
-- 每行长期过短、过长，导致阅读节奏失衡；
-- 第一屏超过 4 行仍未建立具体冲突；
-- 超出 130 字却未先缩小选题角度；
-- 为完整而加入规则背景、定义、无关条件或第二个结果提醒；
-- 机械使用编号、统一句式或重复结论。
+- the first screen lacks the strongest valid information, or its first 2–4 lines contain only background, emotion, questions, setup, or restated observations;
+- the shared explicit-conclusion check fails in visual-only reading, so the audience still cannot answer the topic;
+- conditions, policy, or terminology occupy most lines, making the body a list of considerations rather than an answer;
+- a supported conclusion is weakened, delayed until the second half, or replaced by a generic reminder;
+- multiple core conclusions or logic threads are developed;
+- the draft reads like an article, report, training material, or longer spoken script;
+- sentences are too long for line-by-line display;
+- final line breaks are missing or break complete meaning;
+- the default body has fewer than 10 or more than 16 lines without a valid reason;
+- line lengths remain too short or too long and damage reading rhythm;
+- the first screen exceeds 4 lines before establishing a concrete conflict, result, or judgment;
+- the body exceeds 130 Chinese characters before the topic angle has been narrowed;
+- rule background, definitions, irrelevant conditions, or a second result reminder are added for completeness;
+- numbering, parallel sentence patterns, or repeated conclusions are used mechanically.
 
-完成初稿后强制删减一次：
+After the first draft, run one mandatory reduction pass:
 
-1. 删除重复结论；
-2. 删除规则背景和定义式解释；
-3. 删除不改变核心判断的条件；
-4. 删除纯转场句；
-5. 删除第二个及以后的结果提醒或 CTA；
-6. 超过 130 字时先缩小内容范围，不靠机械缩句硬塞信息。
+1. remove repeated conclusions;
+2. remove rule background and definition-style explanations;
+3. remove conditions that do not change the core judgment;
+4. remove transition-only sentences;
+5. remove the second and later result reminders or CTAs;
+6. when the body exceeds 130 Chinese characters, narrow the scope instead of mechanically shortening sentences to force all information in.
 
 ## Output
 
-严格按用户请求交付，不追加无关内容。
+Follow the user's requested output strictly. Do not append unrelated content.
 
-### 只要标题
+### Titles Only（只要标题）
 
-只输出标题选项。除非用户要求，不附理由、评分或风险分析。
+Output title options only. Do not include reasons, scoring, or risk analysis unless requested.
 
-### 只要正文
+### Body Copy Only（只要正文）
 
-只输出按最终视觉节奏换行的正文。默认不输出模式说明、评分、风险分析或创作解释；只有必须披露的事实风险或核验限制，才在正文后加一条简短说明。
+Output only the body copy with final visual line breaks. By default, do not expose mode names, scoring, risk analysis, or creative explanation. Add one brief note after the body only when a factual risk or verification limitation must be disclosed for correctness.
 
-### 要完整文案
+### Complete Package（要完整文案）
 
-默认只输出：
+By default, output only:
 
-1. 三个方向明显不同的标题；
-2. 一个常规标题；
-3. 一个短标题；
-4. 一版按最终文字播报换行格式交付的正文。
+1. three clearly different title directions;
+2. one standard/search-recognition title;
+3. one short title;
+4. one finalized body with text-broadcast line breaks.
 
-不得输出创作过程、内部判断、人设参数清单、长来源列表、无关选题、视觉制作方案或归档操作。
+Do NOT output the creative process, internal judgment, persona parameter checklist, long source list, unrelated topics, visual production plan, or archive operations.
 
 ## Stop
 
-交付前确认：用户不听声音，只读字幕，也能快速获得一个完整判断；第一屏能停留，正文单点高密度，条件不被误删，换行可直接使用。若结果只是把口播稿切成多行，视为不合格并重写。
+Before delivery, confirm that an audience reading without sound can quickly obtain one complete judgment and answer “所以这件事到底会怎样” in one sentence. The audience must receive an answer, not merely a list of considerations.
 
-交付用户要求的标题、正文或完整文案后立即停止。不得重新选题、标记发布、写历史库、更新内容地图、自动归档或制作视觉素材。
+The first screen must contain the strongest valid information. The body must remain single-point and high-density. Conditions must define the conclusion rather than hide it, and line breaks must be directly usable. If the result is merely a spoken script cut into multiple lines, rewrite it.
+
+After delivering the requested titles, body copy, or complete package, stop. Do not re-plan the topic, mark content as published, write to history, update the content map, archive automatically, or produce visual assets.
