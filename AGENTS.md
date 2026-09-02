@@ -38,13 +38,15 @@ accounts/<id>/内容库/**
 | 给选题、分析内容缺口、分析灵感或判断是否入池 | `topic-planning` | 完成分析或给出 5 个候选后结束 |
 | 已确认选题，明确要求短文字幕、文字播报、打字字幕或短文 | `text-broadcast-copywriting` | 交付短文文案后结束 |
 | 已确认选题，明确要求真人口播、口播稿或出镜讲解 | `spoken-copywriting` | 交付口播文案后结束 |
-| 已有已确认口播文案或最终口播音频，并明确要求配图、示意图、中间画面、视觉分镜或 AI 生图提示词 | `spoken-visual-planning` | 输出语义分段、示意图规划和 AI 生图提示词后结束 |
+| 已有已确认口播文案或最终口播音频，并明确要求 PPT 图片、PPT 页面视觉、口播 PPT 配图、PPT 生图 Prompt、配图、示意图、中间画面、视觉分镜或 AI 生图提示词 | `spoken-visual-planning` | 先交付 3:4 视频号封面文案与 PPT 分页文案并等待确认；确认后完成封面 Prompt、一页一个内容页 Prompt 与整体视觉 QA，交付原有双文档后结束 |
 | 已确认选题，仅要求“写文案”但未指定载体 | 按 `CONTENT_FORMAT` 路由 | 交付对应载体文案后结束 |
 | 内容已实际发布且明确要求归档/写库 | `publish-archive` | 写历史、增量更新索引和候选状态后结束 |
 
 每次只完成用户当前明确要求的阶段。灵感录入不自动选题，选题不自动写文案，文案完成或用户采用不等于发布；仅说“已发布”但没有明确归档指令时也不得写库。
 
-`spoken-copywriting` 完成后不得自动进入 `spoken-visual-planning`。只有用户明确提出口播视觉辅助、示意图、配图或 AI 生图提示词需求时才路由到该 Skill。`spoken-visual-planning` 完成后不得自动生图、归档或进入其他生产阶段。
+`spoken-copywriting` 完成后不得自动进入 `spoken-visual-planning`。只有用户明确提出 PPT 图片、PPT 页面视觉、口播 PPT 配图、PPT 生图 Prompt、口播视觉辅助、示意图、配图或 AI 生图提示词需求时才路由到该 Skill。`spoken-visual-planning` 完成后不得自动生图、归档或进入其他生产阶段。
+
+`spoken-visual-planning` 的内容页固定使用 `16:9` 完整 PPT 页面，并额外规划一张用于微信视频号列表展示的 `3:4` 获客封面。封面不计入内容页数量，也不进入口播剪辑分段。该阶段不再把安全区、展示位置或是否生成文字作为前置确认项；必须先确认封面文案与分页文案，之后才能生成最终生图 Prompt。
 
 ### CONTENT_FORMAT 路由
 
