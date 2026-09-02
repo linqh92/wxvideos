@@ -1,6 +1,6 @@
 ---
 name: spoken-visual-planning
-description: Plan one acquisition-focused 3:4 WeChat Channels cover plus complete professional 16:9 PPT content pages and AI image-generation prompts from a finalized spoken script or voiceover. Use after spoken copy is confirmed and the user explicitly requests PPT视觉、PPT配图、视觉分镜或AI生图提示词. Apply CURRENT_ACCOUNT visual DNA, require cover-copy and page-copy confirmation, and do not rewrite the script, generate images, or archive content.
+description: Plan one acquisition-focused 3:4 WeChat Channels cover, one retention-focused 16:9 PPT cover, complete professional 16:9 detail pages, and AI image-generation prompts from a finalized spoken script or voiceover. Use after spoken copy is confirmed and the user explicitly requests PPT视觉、PPT配图、视觉分镜或AI生图提示词. Apply CURRENT_ACCOUNT visual DNA, require cover-copy and page-copy confirmation, and do not rewrite the script, generate images, or archive content.
 ---
 
 # WeChat Video Account Spoken PPT Visual Planning（微信视频号口播 PPT 图片规划）
@@ -72,14 +72,15 @@ After the spoken content is confirmed and the user requests visual planning:
 3. Apply the following defaults without asking the user to confirm them.
 
 ```text
-Content pages: fixed 16:9 landscape, one complete full-frame PPT information page per image
 Video cover: one fixed 3:4 image for WeChat Channels list and search display
+PPT cover: one independent fixed 16:9 opening cover as the first in-video PPT image
+Detail pages: fixed 16:9 landscape, one complete full-frame PPT information page per image
 Safe area: no special subtitle, speaker, title, or account-information band
 Visible copy: concise Chinese cover and PPT copy determined during planning
 Tool mode: tool-neutral unless the user names a generation tool
 ```
 
-The 3:4 cover is additional and never counts toward the 16:9 content-page count. Use normal professional margins. Do not ask the user to choose these ratios, safe area, display placement, or whether text should appear. Ask about exact resolution, fixed page count, target tool, reference assets, logos, or fidelity only when the user explicitly makes them relevant.
+The `3:4` video cover is additional and never counts toward the `16:9` PPT-page count. The independent `16:9` PPT cover is always the first in-video page and must be included in the spoken-range or audio-timestamp mapping. Use normal professional margins. Do not ask the user to choose these ratios, safe area, display placement, or whether text should appear. Ask about exact resolution, fixed page count, target tool, reference assets, logos, or fidelity only when the user explicitly makes them relevant.
 
 ### Missing Visual Style File（视觉风格文件缺失）
 
@@ -109,19 +110,19 @@ Run this two-phase workflow:
 Finalized Spoken Content / Final Voiceover
 → Content Analysis
 → Page Count Decision
-→ 3:4 Cover Copy + PPT Page Copy
+→ 3:4 Video Cover Copy + 16:9 PPT Cover Copy + Detail-Page Copy
 → User Confirmation
-→ Cover Visual Design + PPT Page Visual Design
-→ One Cover Prompt + One Prompt per PPT Page
+→ Video-Cover Visual Design + PPT-Cover Visual Design + Detail-Page Visual Design
+→ One Video-Cover Prompt + One PPT-Cover Prompt + One Prompt per Detail Page
 → Cover-to-deck Visual Consistency QA
 → AI生图执行指南.md + 剪辑分段表.md
 ```
 
 #### Phase 1 — PPT Page Copy Confirmation
 
-If the user specifies a page count, follow it exactly. Otherwise choose `3–6` pages according to content complexity and use the minimum count that preserves the full logic without overload.
+If the user specifies a total `16:9` page count, follow it exactly, reserve its first page for the PPT cover, and use the remaining pages for detail. If the user specifies a detail-page count, follow that count and add the independent PPT cover. Otherwise choose `3–6` detail pages according to content complexity and use the minimum count that preserves the full logic without overload.
 
-Before listing pages, state `本次建议整理为 1 张3:4视频封面 + X 页16:9内容PPT。`
+Before listing pages, state `本次建议整理为 1 张3:4视频号封面 + 1 张16:9 PPT封面 + X 张16:9内容页。`
 
 Present the cover first:
 
@@ -137,10 +138,24 @@ Present the cover first:
 视觉建议：
 ```
 
-Then use this format for each content page:
+Then present the independent PPT cover:
 
 ```markdown
-# P1｜页面名称
+# P1｜PPT封面
+
+## 主标题
+
+辅助钩子：
+
+停留理由：
+
+视觉建议：
+```
+
+Then use this format for every detail page, beginning with `P2`:
+
+```markdown
+# P2｜页面名称
 
 ## 标题
 
@@ -149,9 +164,11 @@ Then use this format for each content page:
 视觉建议：
 ```
 
-The cover must extract the current content's strongest source-supported pain point, conclusion, benefit, risk, or cognitive contrast. Its job is to win visual attention from the target user in WeChat Channels list/search results without using misleading clickbait or inventing claims.
+The `3:4` video cover must extract the current content's strongest source-supported pain point, conclusion, benefit, risk, or cognitive contrast. Its job is to win visual attention from the target user in WeChat Channels list/search results without using misleading clickbait or inventing claims.
 
-At this stage, `视觉建议` is conceptual only. Do not write final image prompts. After presenting the cover and all page copy, stop and wait for explicit confirmation of cover wording, acquisition angle, page count, titles, sequence, wording, and conceptual visual direction. If the user requests changes, remain in Phase 1.
+The `16:9` PPT cover must directly support target-viewer retention in the natural-feed viewing path. It must connect to the spoken opening, make the relevant viewer recognize that the topic concerns them, surface the core change, risk, benefit, or conflict, and provide a reason to keep watching. Keep it lower-density and visually stronger than every detail page. Do not use it to explain a process, calculation, comparison, checklist, or multi-part solution.
+
+At this stage, `视觉建议` is conceptual only. Do not write final image prompts. After presenting both covers and all detail-page copy, stop and wait for explicit confirmation of the video-cover wording and acquisition angle, PPT-cover wording and retention angle, page count, titles, sequence, wording, and conceptual visual direction. If the user requests changes, remain in Phase 1.
 
 #### Phase 2 — Visual Translation
 
@@ -176,11 +193,15 @@ Read the complete spoken content first. Internally extract only what exists: top
 
 Follow `references/visual-aid-generation-rules.md` for page segmentation, page functions, page count, information density, page-module routing, prompt construction, three-layer negative constraints, and cross-page QA.
 
+Treat the reference's universal whitespace, element-scale, typography-ratio, and overload-handling rules as execution constraints for every account. Account Visual DNA may make a composition more spacious or change its stylistic expression, but it must not reduce the universal minimum margins, legibility, or negative-space floor. Express these constraints inside the positive layout instructions, not only inside `Avoid` clauses.
+
 Each page must have one primary viewer-understanding target, one main title hierarchy, one core information module, only necessary support, one clear visual structure, and meaningful progression from adjacent pages. Internally complete:
 
 > After seeing this page, the viewer should immediately understand: ________.
 
 The answer must be a business understanding outcome, not merely an object to draw.
+
+If confirmed copy would force undersized text, more modules than the universal density limit, or inadequate whitespace, resolve it during Phase 1 by consolidating wording or increasing the page count with user confirmation. Never preserve a crowded page by shrinking the type or filling the canvas.
 
 Create one independent cover prompt with stable ID `COVER-01`. The cover is not a PPT content page. It must:
 
@@ -192,7 +213,18 @@ Create one independent cover prompt with stable ID `COVER-01`. The cover is not 
 - create stronger visual contrast than an inner page while preserving the same CURRENT_ACCOUNT colors, typography character, graphic language, and finish;
 - avoid misleading urgency, unsupported promises, fabricated results, and unrelated decorative imagery.
 
-Use complete PPT page archetypes such as opening hook, conclusion, comparison, status dashboard, checklist, decision split, or short timeline. Do not default to realistic export-business objects, chain-diagnosis diagrams, semi-realistic document piles, multi-arrow relationship structures, standalone illustrations, or generic flowcharts. Use such elements only when the confirmed page meaning genuinely requires them and keep them subordinate to the PPT hierarchy.
+Create one independent `16:9` PPT-cover prompt with stable ID `IMG-01`. It is the first in-video PPT image and must:
+
+- connect directly to the spoken opening;
+- make the target viewer recognize immediate relevance without requiring prior context;
+- foreground one source-supported change, risk, benefit, or conflict and imply a reason to continue watching;
+- use one dominant Chinese headline, at most one short supporting hook, and one primary visual focus;
+- remain lower-density but visually stronger than every detail page through hierarchy, contrast, scale, and composition rather than added elements;
+- avoid process diagrams, calculations, comparisons, checklists, multiple cards, or detailed solutions;
+- use a native `16:9` composition and never be a crop or mechanical reuse of the `3:4` video cover;
+- preserve the same CURRENT_ACCOUNT colors, typography character, graphic language, and finish as the detail pages.
+
+Use complete detail-page archetypes such as conclusion, comparison, status dashboard, checklist, decision split, or short timeline. Do not let a detail archetype replace the independent PPT cover. Do not default to realistic export-business objects, chain-diagnosis diagrams, semi-realistic document piles, multi-arrow relationship structures, standalone illustrations, or generic flowcharts. Use such elements only when the confirmed page meaning genuinely requires them and keep them subordinate to the PPT hierarchy.
 
 One PPT page must map to one independent image-generation prompt. Every prompt must explicitly include:
 
@@ -206,7 +238,8 @@ One PPT page must map to one independent image-generation prompt. Every prompt m
 8. Relevant CURRENT_ACCOUNT Visual DNA;
 9. Fixed 16:9 Complete-Page Output;
 10. Quality Requirements;
-11. Page-Specific Negative Constraints.
+11. Spatial Budget and Typography Scale;
+12. Page-Specific Negative Constraints.
 
 The cover prompt must explicitly include:
 
@@ -218,13 +251,28 @@ The cover prompt must explicitly include:
 6. Relevant CURRENT_ACCOUNT Visual DNA;
 7. Fixed 3:4 Output;
 8. Cover-to-deck Continuity Requirements;
-9. Cover-Specific Negative Constraints.
+9. Cover Spatial Budget and Typography Scale;
+10. Cover-Specific Negative Constraints.
+
+The `IMG-01` PPT-cover prompt must explicitly include:
+
+1. Natural-Feed Retention Objective;
+2. Target Viewer and Immediate Relevance;
+3. Connection to the Spoken Opening;
+4. Exact Required Chinese PPT-Cover Copy;
+5. First-Glance Reading Order;
+6. One Visual Attention Device;
+7. Stronger-Than-Detail Visual Hierarchy;
+8. Relevant CURRENT_ACCOUNT Visual DNA;
+9. Fixed Native 16:9 Output;
+10. PPT-Cover Spatial Budget and Typography Scale;
+11. PPT-Cover-Specific Negative Constraints.
 
 Write copy-ready positive prompts and negative constraints in English unless the user explicitly requests another prompt language. Keep required visible wording as exact Chinese literals. Do not translate, transliterate, paraphrase, silently correct, or add wording. Default to Simplified Chinese unless explicitly overridden.
 
 Keep prompts tool-neutral until the target image-generation tool is confirmed. If the tool has no separate negative-prompt field, include the same constraints as a concise English `Avoid:` clause.
 
-Visible Chinese copy is decided and confirmed during Phase 1. For the cover, prefer one dominant headline and zero or one short supporting hook. For content pages, prefer one title and `1–3` short supporting strings. List every visible string verbatim in the prompt. The image model must not translate, paraphrase, or invent page copy, policies, tax rates, numbers, English labels, or small print.
+Visible Chinese copy is decided and confirmed during Phase 1. For either cover, prefer one dominant headline and zero or one short supporting hook. For detail pages, prefer one title and `1–3` short supporting strings. List every visible string verbatim in the prompt. The image model must not translate, paraphrase, or invent page copy, policies, tax rates, numbers, English labels, or small print.
 
 Treat the current account's `账号视觉风格.md` as its Account Visual DNA. It controls account-specific rendering, color, background, material, UI/card/icon language, typography tendency, composition, whitespace, human presence, and avoid rules. It must not alter facts or reduce comprehension. Do not copy a global style string or silently default all accounts to one business/PPT look.
 
@@ -239,9 +287,10 @@ Treat the current account's `账号视觉风格.md` as its Account Visual DNA. I
 3. `Confirmed Page Structure / 已确认页面语义`
 4. `Unified Visual System / 统一视觉系统`
 5. `3:4 Video Cover Execution / 3:4视频封面执行`
-6. One execution section per 16:9 content slide
-7. `Visual Continuity and Quality Check / 视觉连续性与质量检查`
-8. `Final Core Rules / 最终核心规则`
+6. `16:9 PPT Cover Execution / 16:9 PPT封面执行`
+7. One execution section per 16:9 detail slide
+8. `Visual Continuity and Quality Check / 视觉连续性与质量检查`
+9. `Final Core Rules / 最终核心规则`
 
 This is not an ordinary bilingual translation:
 
@@ -272,7 +321,7 @@ Do not replace them with a combined document, page-copy confirmation document, J
 - concise English negative constraints;
 - only the asset, fidelity, or continuity requirements needed for generation.
 
-The same document must include one `COVER-01` section with the final `3:4` WeChat Channels cover prompt. The cover is additional to the confirmed content-page count and must not be placed in `剪辑分段表.md`.
+The same document must include one `COVER-01` section with the final `3:4` WeChat Channels cover prompt and one `IMG-01` section with the independent `16:9` PPT-cover prompt. `COVER-01` is additional to the confirmed PPT-page count and must not be placed in `剪辑分段表.md`; `IMG-01` is the first in-video PPT page and must be mapped there.
 
 Do not include spoken segments, spoken excerpts, audio timestamps, editing advice, BGM, transitions, performance direction, or publishing advice in `AI生图执行指南.md`. Page intent and Chinese semantic interpretation are allowed only when they improve AI execution.
 
@@ -298,10 +347,20 @@ Before output, verify:
 - Text and visual modules serve the understanding target rather than decoration.
 
 ### Complete PPT quality
-- Every 16:9 content image is a complete, professionally designed PPT information page.
-- The deck has an effective cover/hook, readable inner-page progression, and a resolved conclusion.
+- Every `16:9` image is a complete, professionally designed PPT page.
+- The deck begins with an independent `IMG-01` PPT cover, followed by readable detail-page progression and a resolved conclusion.
 - No page defaults to realistic export objects, chain-diagnosis diagrams, semi-realistic documents, or multi-relationship structures.
 - Hierarchy, alignment, whitespace, and component finish are aesthetically resolved.
+
+### PPT cover quality
+- Exactly one independent `16:9` PPT cover is included as `IMG-01`.
+- `IMG-01` connects directly to the spoken opening and gives the target viewer an immediate reason to remain in the natural-feed viewing path.
+- The relevant viewer can recognize within one glance that the topic concerns them and see one core change, risk, benefit, or conflict.
+- `IMG-01` is visually stronger and less information-dense than every detail page.
+- Its visual strength comes from hierarchy, contrast, scale, and composition rather than more modules or decoration.
+- It contains one dominant headline, at most one supporting hook, and one primary visual focus.
+- It contains no process, calculation, comparison, checklist, multi-card explanation, or detailed solution.
+- It is a native `16:9` composition, not a crop or mechanical reuse of `COVER-01`.
 
 ### Video cover quality
 - Exactly one `3:4` cover prompt is included as `COVER-01`.
@@ -325,13 +384,15 @@ Before output, verify:
 - Tool-specific syntax appears only when the target tool is confirmed.
 
 ### Cross-page consistency
-- `COVER-01` uses `3:4`; every content page uses `16:9`.
+- `COVER-01` uses `3:4`; `IMG-01` and every detail page use `16:9`.
 - Background, color roles, UI/card/icon language, material, and rendering language are consistent.
 - Title, body, label, and emphasis systems are consistent.
 - Pages have sufficient whitespace, clear focal points, and professional page margins.
+- Pages satisfy the universal margin, negative-space, module-scale, typography-ratio, line-count, and overload-handling constraints in the shared reference.
+- Positive prompts explicitly request restrained element scale and visible breathing room; they do not rely on negative prompts alone.
 - Icons, business relationships, process direction, comparison objects, and risk mapping are accurate.
 - No policy, system, number, or document is fabricated.
-- The `3:4` acquisition cover and `16:9` content pages may use different composition roles while remaining one visual system.
+- The `3:4` acquisition cover, `16:9` PPT cover, and `16:9` detail pages may use different composition roles while remaining one visual system.
 - Adjacent pages do not repeat the same idea in different compositions.
 
 ### Deliverable usability
@@ -339,6 +400,7 @@ Before output, verify:
 - `AI生图执行指南.md` contains no spoken segment, spoken excerpt, audio timestamp, or editing metadata.
 - `剪辑分段表.md` is concise and usable during editing.
 - `COVER-01` does not appear in the spoken-range or audio-timestamp mapping.
+- `IMG-01` appears as the first in-video PPT mapping and aligns with the spoken opening.
 - Spoken-range or audio-timestamp mapping appears only in `剪辑分段表.md`.
 - Timestamps are never fabricated when no final audio exists.
 - The final response provides both documents for download without repeating their contents inline.
