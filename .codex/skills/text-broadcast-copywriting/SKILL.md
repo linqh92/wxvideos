@@ -24,7 +24,8 @@ Account selection, isolation, content-format routing, and stage boundaries follo
 Before drafting, read and obey:
 
 ```text
-shared/rules/copywriting-common-rules.md
+1. shared/rules/acquisition-and-fact-framing.md
+2. shared/rules/copywriting-common-rules.md
 ```
 
 The shared rules control account and persona inheritance, audience language, business boundaries, information gap, emotion, expression intensity, fact verification, platform boundaries, titles, CTA, common quality control, and scoring.
@@ -167,6 +168,10 @@ Use numbering only when parallel information, steps, or checks genuinely become 
 Rewrite if ANY applies:
 
 - the first screen lacks the strongest valid information, or its first 2–4 lines contain only background, emotion, questions, setup, or restated observations;
+- a discussion hook is treated as a determinative case despite an adjacent discussion cue;
+- a requested reference's strongest number, result, loss, audience callout, or suspense is removed without a role-based reason;
+- a result-first discussion hook is softened into a generic question only because it lacks an official case source;
+- a generated precise case is disguised with hearsay language;
 - the shared explicit-conclusion check fails in visual-only reading, so the audience still cannot answer the topic;
 - conditions, policy, or terminology occupy most lines, making the body a list of considerations rather than an answer;
 - a supported conclusion is weakened, delayed until the second half, or replaced by a generic reminder;

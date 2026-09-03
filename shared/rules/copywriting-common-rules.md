@@ -2,6 +2,8 @@
 
 This file defines shared rules for all copywriting media. Medium-specific Skills MUST inherit these rules and only add format-specific execution constraints.
 
+All copywriting also follows `shared/rules/acquisition-and-fact-framing.md`. That file controls information-role classification, source boundaries, verification decisions, and acquisition preservation.
+
 Do NOT duplicate these rules inside individual Skills unless a short reference is required for clarity.
 
 ---
@@ -84,16 +86,17 @@ Every piece should move through as much of this chain as the medium supports:
 
 Execution priority:
 
-> Fact accuracy  
-> → Account / platform boundaries  
-> → Effective information gap  
-> → Real impact  
-> → Appropriate emotional intensity  
-> → Audience comprehension  
-> → Persona consistency  
-> → Conversion capability
+> Legal / platform / business boundaries
+> → Information-role fidelity
+> → Acquisition strength
+> → Reliable professional judgment
+> → Effective information gap
+> → Real impact
+> → Audience comprehension
+> → Persona consistency
+> → Conversion readiness
 
-Do NOT sacrifice accuracy or critical conditions for retention.
+Use the strongest acquisition expression permitted by the information's role and source. Keep determinative facts and professional conclusions accurate, and keep conclusion-changing conditions visible.
 
 Default information order when the facts support a decision:
 
@@ -434,20 +437,19 @@ CTA MUST obey current account and platform boundaries.
 
 ## 14. Facts and Verification（事实与核验）
 
-From user material, references, cases, or competitor content, extract ONLY:
+First classify every material claim under `shared/rules/acquisition-and-fact-framing.md` as a determinative fact, discussion claim, hypothetical scenario, or professional conclusion.
+
+From user material, references, cases, or competitor content, extract:
 - Facts
 - Scenarios
 - Data
 - Judgment logic
 - Expression methods
+- Acquisition devices such as numeric contrast, audience callout, loss, suspense, and service-relevant CTA
 
-Do NOT:
-- Copy wording verbatim
-- Perform superficial synonym replacement
-- Fabricate cases, people, data, results, events, or trends
-- Generalize an individual case into a universal rule
+Do not mechanically copy a reference or perform superficial synonym replacement. When the user explicitly asks to follow a reference or preserve its acquisition points, retain or reconstruct its high-value hook functions and any wording that remains appropriate for the current account, topic, and information role.
 
-Whenever information is time-sensitive or requires deterministic judgment, verify a currently valid authoritative source when tools are available and the workflow permits it.
+Whenever a determinative fact or professional conclusion is time-sensitive, verify a currently valid authoritative source when tools are available and the workflow permits it.
 
 Includes, but is not limited to:
 - Policies
@@ -462,9 +464,9 @@ Includes, but is not limited to:
 - Current events
 - Statistical data
 
-If it cannot be confirmed, do NOT state it as definite fact.
+If it cannot be confirmed, do not state it as a determinative fact or use it as the basis for a professional conclusion. Preserve it as a discussion claim when it satisfies the shared discussion-role rules, or convert it into a clearly hypothetical scenario when the source and meaning permit that treatment.
 
-Cases may come only from user-provided material, verified sources, authorized project material, or clearly labeled hypothetical examples. Do NOT fabricate clients, consultation conversations, amounts, penalties, or outcomes. Never generalize one case into a universal rule.
+Cases and specific numeric scenarios may come from user-provided material, verified sources, authorized project material, or clearly labeled hypothetical examples. A user-provided anonymous claim with an adjacent hearsay or discussion cue may remain a discussion hook without official case verification. Do not add invented identifying details, present it as officially confirmed, or generalize its result into a universal rule.
 
 Prioritize conditions that change the conclusion, applicable audience, result, risk level, or recommended action. Secondary conditions may be compressed, but conclusion-changing conditions must not be hidden for impact.
 
@@ -472,22 +474,25 @@ Do NOT:
 - Present local / partial situations as universal
 - Present possibility as certainty
 - Package historical information as current change
-- Present a risk as if it already happened
+- Present a generated hypothetical risk as if it already happened
 - Present speculation as an official conclusion
+- Invent a precise case and disguise it with hearsay language
 
 ---
 
 ## 15. Strong Expression Boundaries（强表达边界）
 
-Strong expression is allowed ONLY when:
-- Facts are true
-- Audience / object scope is accurate
-- Causal relationship is valid
-- Critical conditions are preserved
-- Outcomes are evidence-supported
-- Intensity fits account positioning
+Strong expression is the default when:
+- the information role is clear;
+- the source is permitted for that role;
+- determinative facts and professional conclusions are reliable;
+- the audience / object scope is accurate;
+- critical conditions are preserved;
+- the intensity fits account positioning and platform boundaries.
 
-Do NOT use without evidence:
+Discussion claims may use strong numbers, results, losses, risk language, and audience callouts when the discussion framing remains clear and the body supplies an independent professional judgment. Hypothetical scenarios may use strong calculated outcomes when their assumptions are visible.
+
+Do not use the following as the authorial conclusion, factual endorsement, or promise:
 - Absolute or universal judgments
 - Inevitable outcomes
 - False urgency
@@ -499,11 +504,11 @@ Do NOT use without evidence:
 
 Principle:
 
-> 可以把真实影响说重。  
-> You may emphasize a real impact strongly.
+> 合规边界内，优先把目标客户最关心的冲突和结果说到位。
+> Within the compliance boundary, foreground the strongest customer-relevant conflict and result.
 
-> 不能把不存在的影响说出来。  
-> You may not invent an impact that does not exist.
+> 讨论内容标明讨论身份，专业结论保持可靠。
+> Frame discussion as discussion and keep professional conclusions reliable.
 
 ---
 
@@ -515,20 +520,20 @@ Before writing, internally confirm:
 2. Who is the audience?
 3. What is the content objective?
 4. What exact decision question must the piece answer?
-5. Is the information sufficient for a direct conclusion, a branch conclusion, or only a precise information gap?
-6. What does the audience already know?
-7. What new information does this piece add?
-8. What is the strongest real outcome / benefit / conflict?
+5. What role does each key claim play: determinative fact, discussion claim, hypothetical scenario, or professional conclusion?
+6. Does the source permit that role and level of specificity?
+7. Is the information sufficient for a direct conclusion, a branch conclusion, or only a precise information gap?
+8. What is the strongest usable outcome / benefit / conflict?
 9. What does it concretely mean for the audience?
 10. Why does it happen?
 11. Which condition determines whether the conclusion holds?
 12. Which emotional driver fits best?
 13. Why might the audience naturally share, act, or learn more?
 14. Would this persona naturally say it this way?
-15. Is the current intensity fully supported by facts?
-16. Is any supported conclusion being delayed or weakened without a factual reason?
+15. Is the current intensity appropriate for the information role and source?
+16. Is any acquisition-relevant number, result, audience callout, or supported conclusion being weakened without a role-based reason?
 
-If there is no valid information gap or real impact, do NOT use emotion to fake distribution intensity.
+If there is no valid information gap or role-appropriate impact, do NOT use emotion to fake distribution intensity.
 
 ---
 
@@ -543,6 +548,11 @@ Rewrite if ANY applies:
 - Persona conflicts with account positioning
 - Business language or traits from another account appear
 - Facts, results, events, or trends are fabricated
+- A discussion claim is misclassified as a determinative case
+- An adjacent discussion cue is ignored
+- A result-first hook is weakened into a generic question only because the anonymous discussion claim lacks an official case source
+- Reference-provided numbers, losses, audience callouts, suspense, or service-relevant CTA are removed without a role-based reason
+- A generated precise case is disguised as a discussion claim
 - The same conclusion is repeated without new function
 - Background is added only to appear professional
 - CTA conflicts with account or platform boundaries
@@ -554,7 +564,7 @@ Rewrite if ANY applies:
 - “需要注意 / 建议关注” appears without what, why, consequence, or next action
 - The strongest valid information appears late without a medium-specific reason
 - A conclusion that can be stated clearly is deliberately weakened
-- Verified facts support stronger directness, but generic caution reduces the draft to vague language
+- The information role permits stronger directness, but generic caution reduces the draft to vague language
 - The ending stops at a generic compliance reminder instead of a judgment, result, decision standard, or useful action
 
 Final audience-decision check:

@@ -59,13 +59,14 @@ It should not merely make the screen look less empty.
 
 Use this priority:
 
-1. Information accuracy
-2. Viewer understands faster
-3. Image matches the current spoken topic
-4. Best PPT information structure
-5. Account visual identity
-6. Stable page-switch rhythm
-7. Decorative aesthetics
+1. Confirmed information-role fidelity
+2. Acquisition strength for covers
+3. Viewer understands faster
+4. Image matches the current spoken topic
+5. Best PPT information structure
+6. Account visual identity
+7. Stable page-switch rhythm
+8. Decorative aesthetics
 
 The account visual style is important, but it is subordinate to comprehension.
 
@@ -217,7 +218,7 @@ Then present every detail page, beginning with `P2`, in this format:
 视觉建议：
 ```
 
-The `3:4` video cover must use the strongest source-supported core point from an acquisition perspective: a pain point, decisive conclusion, relevant benefit, risk, or cognitive contrast. It must match the target user's likely search intent without misleading clickbait or unsupported promises.
+The `3:4` video cover must use the strongest confirmed, role-appropriate core point from an acquisition perspective: a number, result, loss, pain point, decisive conclusion, relevant benefit, risk, or cognitive contrast. It must match the target user's likely search intent without inventing claims or changing a discussion or hypothetical statement into an official fact.
 
 The `16:9` PPT cover must support retention after the video enters the target viewer's natural-feed path. It must connect to the spoken opening, establish immediate relevance, surface one core change, risk, benefit, or conflict, and create a reason to continue watching. It is not a detail page and must not begin explaining the process, calculation, comparison, checklist, or solution.
 
@@ -252,7 +253,7 @@ Requirements:
 - one obvious focal device: contrast, key number, status conflict, or decisive conclusion;
 - strong thumbnail readability;
 - direct relevance to the target user's search intent;
-- no unsupported result promise, misleading urgency, or sensational wording;
+- no invented result promise, false urgency, or wording that changes a discussion or hypothetical claim into an official fact;
 - the same account colors, typography character, graphic language, and finish as the content deck;
 - stronger emphasis and contrast than an inner slide without becoming a disconnected advertising poster.
 
@@ -266,7 +267,7 @@ Choose the page archetype from the confirmed communication task. Do not begin fr
 
 ### 7.1 PPT Cover Page（PPT封面）
 
-The first `16:9` page is always the independent PPT cover. Its functional job is to retain the relevant target viewer after the video appears in the natural-feed viewing path. Use one source-supported conflict, pain point, change, risk, benefit, question, or decisive conclusion that connects directly to the spoken opening. Prefer one dominant title, zero or one short supporting hook, one primary visual focus, and a restrained background.
+The first `16:9` page is always the independent PPT cover. Its functional job is to retain the relevant target viewer after the video appears in the natural-feed viewing path. Use the strongest confirmed conflict, number, result, pain point, change, risk, benefit, question, or decisive conclusion that connects directly to the spoken opening, while preserving its information role. Prefer one dominant title, zero or one short supporting hook, one primary visual focus, and a restrained background.
 
 The PPT cover must be visually stronger than every detail page through hierarchy, contrast, scale, and composition, not through higher information density. It must not contain a process diagram, calculation structure, comparison layout, checklist, multi-card explanation, or detailed solution. Build it natively for `16:9`; do not crop or mechanically reuse the `3:4` list/search cover.
 
@@ -925,10 +926,12 @@ After the video-cover prompt, PPT-cover prompt, and all detail-page prompts are 
 
 ### Semantic accuracy
 
+- information role remains consistent with the confirmed content;
 - correct icon meaning and business relationships;
 - correct process direction;
 - valid comparison objects and risk mapping;
 - no fabricated policy, system, number, interface, or document.
+- no acquisition-relevant number, result, loss, or conflict is weakened without a readability or information-role reason.
 
 ### Cross-page continuity
 

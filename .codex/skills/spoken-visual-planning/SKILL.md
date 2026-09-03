@@ -32,9 +32,10 @@ Account selection, isolation, and stage boundaries follow root `AGENTS.md`; this
 Before planning visuals, read and obey in this order:
 
 ```text
-1. .codex/skills/spoken-visual-planning/references/visual-aid-generation-rules.md
-2. accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号视觉风格.md
-3. Finalized spoken script and/or final voiceover provided in the current task
+1. shared/rules/acquisition-and-fact-framing.md
+2. .codex/skills/spoken-visual-planning/references/visual-aid-generation-rules.md
+3. accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号视觉风格.md
+4. Finalized spoken script and/or final voiceover provided in the current task
 ```
 
 The shared reference defines **how visuals improve understanding**.
@@ -164,7 +165,7 @@ Then use this format for every detail page, beginning with `P2`:
 视觉建议：
 ```
 
-The `3:4` video cover must extract the current content's strongest source-supported pain point, conclusion, benefit, risk, or cognitive contrast. Its job is to win visual attention from the target user in WeChat Channels list/search results without using misleading clickbait or inventing claims.
+The `3:4` video cover must extract the current content's strongest acquisition-ready pain point, conclusion, benefit, risk, number, loss, or cognitive contrast while preserving its confirmed information role. Its job is to win visual attention from the target user in WeChat Channels list/search results without inventing claims or turning discussion into an official fact.
 
 The `16:9` PPT cover must directly support target-viewer retention in the natural-feed viewing path. It must connect to the spoken opening, make the relevant viewer recognize that the topic concerns them, surface the core change, risk, benefit, or conflict, and provide a reason to keep watching. Keep it lower-density and visually stronger than every detail page. Do not use it to explain a process, calculation, comparison, checklist, or multi-part solution.
 
@@ -184,7 +185,7 @@ Start only after unambiguous confirmation such as `确认`, `可以`, `没问题
 
 Use three authority layers:
 
-1. **Content layer:** finalized spoken content is the only authoritative business-content source. Extract, condense, reorganize, and convert it into PPT-friendly titles, conclusions, labels, or lists without adding policies, data, cases, numbers, facts, or changed conclusions.
+1. **Content layer:** finalized spoken content is the only authoritative business-content source. Extract, condense, reorganize, and convert it into PPT-friendly titles, conclusions, labels, or lists without adding policies, data, cases, numbers, facts, or changed conclusions. Preserve whether a hook is a determinative fact, discussion claim, hypothetical scenario, or professional conclusion, and retain the strongest confirmed acquisition function on the covers.
 2. **Structure layer:** determine page count, order, function, information progression, title hierarchy, density, and reading path. Reorganize for PPT reading rather than mechanically splitting sentences.
 3. **Visual layer:** determine layouts, modules, color, graphic language, whitespace, and emphasis without changing the business meaning.
 
@@ -225,7 +226,7 @@ Create one independent `16:9` PPT-cover prompt with stable ID `IMG-01`. It is th
 
 - connect directly to the spoken opening;
 - make the target viewer recognize immediate relevance without requiring prior context;
-- foreground one source-supported change, risk, benefit, or conflict and imply a reason to continue watching;
+- foreground the strongest confirmed, role-appropriate number, result, loss, change, risk, benefit, or conflict and imply a reason to continue watching;
 - use one dominant Chinese headline, at most one short supporting hook, and one primary visual focus;
 - remain lower-density but visually stronger than every detail page through hierarchy, contrast, scale, and composition rather than added elements;
 - avoid process diagrams, calculations, comparisons, checklists, multiple cards, or detailed solutions;

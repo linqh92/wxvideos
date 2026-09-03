@@ -28,14 +28,17 @@ Core principle:
 
 When rules conflict, use this priority:
 
-> Fact accuracy  
+> Legal / platform / business boundaries
+> → Information-role fidelity
+> → Acquisition hook function
+> → Reliable professional judgment
 > → Critical conditions  
 > → Account persona  
 > → Audience comprehension  
 > → Natural Chinese speech  
 > → Rhetorical polish
 
-Naturalness MUST NOT weaken factual precision, hide a conclusion-changing condition, or broaden a narrow topic into a generic professional explanation.
+Naturalness MUST keep determinative facts and professional conclusions reliable, preserve discussion or hypothetical framing, retain the useful acquisition function, and keep conclusion-changing conditions visible.
 
 ---
 

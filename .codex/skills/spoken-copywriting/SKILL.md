@@ -23,8 +23,9 @@ Account selection, isolation, content-format routing, and stage boundaries follo
 
 Read and obey:
 
-1. `shared/rules/copywriting-common-rules.md` for account context, factual boundaries, audience language, persona, titles, endings, trust, cases, common quality control, and output discipline;
-2. `references/chinese-spoken-naturalness.md` for spoken-only Chinese naturalness.
+1. `shared/rules/acquisition-and-fact-framing.md` for information roles, source boundaries, verification decisions, and acquisition preservation;
+2. `shared/rules/copywriting-common-rules.md` for account context, audience language, persona, titles, endings, trust, cases, common quality control, and output discipline;
+3. `references/chinese-spoken-naturalness.md` for spoken-only Chinese naturalness.
 
 Do not apply the naturalness reference to `text-broadcast-copywriting`. If required account context or either rule file is missing, report the blocking path and do not borrow another account's context.
 
@@ -36,7 +37,10 @@ This Skill writes content that should work when heard once from a real person.
 
 Optimization priority:
 
-> Fact accuracy（事实准确）  
+> Legal / platform / business boundaries（合规边界）
+> → Information-role fidelity（信息身份准确）
+> → Acquisition strength（获客强度）
+> → Reliable professional judgment（专业结论可靠）
 > → Natural human speech（像真人在说）  
 > → Auditory clarity（听得懂）  
 > → Retention（愿意继续听）  
@@ -223,7 +227,7 @@ Principle:
 
 Use this only when the user provides or explicitly designates a reference video, audio, transcript, script, competitor example, or style sample.
 
-First extract only high-level speaking characteristics that can transfer across topics, such as:
+First extract high-level speaking characteristics that can transfer across topics, such as:
 - how quickly useful information begins;
 - whether the speaker reveals the conclusion directly or progressively;
 - overall information density;
@@ -235,13 +239,15 @@ First extract only high-level speaking characteristics that can transfer across 
 - how naturally the content creates willingness to learn more;
 - whether the ending closes on a judgment, action, unresolved condition, or natural continuation.
 
-Do NOT convert the reference into a reusable content template.
+When the user asks to follow the reference, preserve or reconstruct its acquisition function at equal or stronger usable intensity. High-value elements may include numeric contrast, result or loss, audience callout, risk tension, curiosity, and a service-relevant CTA. Keep the original information role: discussion remains discussion, a hypothesis remains a hypothesis, and a determinative claim remains subject to verification.
 
-Do NOT copy or preserve by default:
+Do NOT convert the reference into a universal content template.
+
+Do NOT mechanically copy:
 - paragraph count;
 - sentence count;
 - exact information order;
-- hook formula;
+- a hook formula when it does not fit the current topic or requested reference treatment;
 - recurring question form;
 - CTA form;
 - professional-object combinations;
@@ -252,6 +258,8 @@ Do NOT copy or preserve by default:
 
 Generate from the current topic, current facts, current persona, and current audience after calibration.
 
+Do not weaken an anonymous, user-provided discussion hook into a generic question solely because it contains an unverified amount or result. Preserve the adjacent discussion cue and keep the body conclusion independently reliable.
+
 Principle:
 
 > **学参考内容的说话状态和信息释放方式，不学它的固定骨架。**
@@ -260,7 +268,7 @@ Principle:
 
 ### Opening（开场）
 
-The opening must create immediate relevance, but it does NOT need a stock hook phrase.
+The opening must create immediate relevance and use the strongest acquisition angle permitted by the information role and source. It does NOT need a stock hook phrase.
 
 Possible forms include:
 - direct judgment;
@@ -466,6 +474,10 @@ If the topic is already complete before reaching the nominal length mode, stop. 
 Rewrite if ANY applies:
 - opening has no concrete relevance;
 - the strongest valid information is delayed without a spoken-naturalness reason;
+- a discussion hook is treated as a determinative case despite an adjacent hearsay or discussion cue;
+- a result, number, loss, audience callout, or suspense element from a requested reference is removed without a role-based reason;
+- a result-first discussion hook is softened into a generic question only because it lacks an official case source;
+- a generated precise case is disguised with hearsay language;
 - script is merely a longer text-broadcast draft;
 - central question is unclear;
 - multiple unrelated problems are developed;
@@ -532,7 +544,7 @@ Before final output, mentally perform these checks:
 > **表达力度来自真实结果和判断，还是来自情绪词和音量感？**
 
 #### Reference-calibration test
-> **如果有参考内容，学到的是说话状态，还是不小心复制了它的结构和内容组件？**
+> **如果有参考内容，获客功能是否保留，信息身份是否清楚，表达是否仍然属于当前账号和题目，并避免了与任务无关的机械照搬？**
 
 If any answer is weak, rewrite once before output.
 
