@@ -45,6 +45,8 @@ Optimization priority:
 > → Persona recognizability（听得出是谁）  
 > → Conversion readiness（愿意进一步了解）
 
+`Conversion readiness` is an outcome of useful content, credible judgment, and audience relevance. It is NOT a mandatory visible section, consultation gap, CTA, or ending pattern in every script.
+
 Subtitles may assist, but MUST NOT determine sentence structure.
 
 Do NOT write:
@@ -93,24 +95,33 @@ Priority:
 > → Topic complexity  
 > → Default mode
 
+Length modes define practical content capacity, NOT a target that should be filled.
+
 #### Quick Spoken（快速口播）
-Approximately 180–280 Chinese characters.
+
+Usually up to approximately 280 Chinese characters.
 
 Use for one simple misconception, one direct judgment, one common mistake, or one small decision problem.
 
-#### Standard Spoken（标准口播）
-DEFAULT. Approximately 280–450 Chinese characters.
+A complete answer may be substantially shorter. Do NOT add secondary conditions, general checks, extra examples, or background merely to approach the upper bound.
 
-Use when the topic needs a short explanation, two or three meaningful variables, one short case, or a decision comparison.
+#### Standard Spoken（标准口播）
+
+DEFAULT. Usually up to approximately 450 Chinese characters.
+
+Use when the topic needs a short explanation, two or three genuinely conclusion-relevant variables, one short case, or a decision comparison.
+
+A script may stay below the common 280–450 range when the topic is already fully explained.
 
 #### Deep Spoken（深度口播）
-Approximately 450–750 Chinese characters.
 
-Use ONLY when the topic genuinely requires multiple conditions, case development, policy interpretation, a business chain, or multiple decision paths.
+Usually up to approximately 750 Chinese characters.
+
+Use ONLY when the topic genuinely requires multiple conclusion-changing conditions, case development, policy interpretation, a business chain, or multiple decision paths.
 
 Do NOT choose a longer mode merely because more source material exists.
 
-Do NOT fill the target length with background, repeated warnings, or redundant conclusions.
+Do NOT fill available length with background, repeated warnings, generic professional checks, or redundant conclusions.
 
 ---
 
@@ -119,14 +130,38 @@ Do NOT fill the target length with background, repeated warnings, or redundant c
 Default upper bound:
 - 1 central problem;
 - 1 core conclusion;
-- 1–4 supporting reasoning elements as actually needed;
-- necessary conditions or exceptions;
+- only the supporting reasoning elements actually needed;
+- necessary conclusion-changing conditions or exceptions;
 - at most 1 main case OR 1 main comparison;
-- 1 useful final direction.
-
-The `1–4` range is a capacity limit, NOT a requirement to produce a list.
+- 1 useful final direction when the topic naturally needs one.
 
 Do NOT create “三点 / 四点” merely because a template expects them.
+
+#### Topic-local Reasoning（本题局部推理）
+
+Use the full professional knowledge base internally, but expose only what this specific topic needs.
+
+The final spoken script should contain only:
+- facts that affect this topic;
+- variables that materially change this topic's conclusion;
+- conditions necessary to keep the conclusion accurate;
+- reasoning needed to make the judgment understandable and credible;
+- practical audience impact that follows from the current topic.
+
+Broader professional frameworks, recurring diagnostic systems, standard checklists, triads, quadrants, “closed-loop” models, or industry-wide verification routines are internal reasoning tools by default.
+
+Do NOT surface them merely:
+- to make the answer look complete;
+- to demonstrate professionalism;
+- because they are commonly used in the industry;
+- because they appeared in previous successful scripts;
+- because the account often talks about them.
+
+A recurring professional framework may appear ONLY when it directly explains or changes the current topic's conclusion.
+
+Principle:
+
+> **后台可以判断得完整，前台只说这个题真正需要说的话。**
 
 ---
 
@@ -140,15 +175,15 @@ Before wording the script, internally determine:
 4. What is the strongest valid information gap?
 5. What is the core judgment?
 6. Why does it hold?
-7. Which variables materially determine the result?
-8. Which condition could change the conclusion?
-9. Does the topic genuinely need a case, comparison, or chain explanation?
-10. What best demonstrates professional judgment?
-11. What should the audience know how to check afterward?
+7. Which variable or variables materially determine this result?
+8. Which condition could actually change the conclusion?
+9. What information is necessary for this topic, and what professional knowledge can stay internal?
+10. Does the topic genuinely need a case, comparison, mechanism, or branch explanation?
+11. What best demonstrates professional judgment without broadening the topic?
 12. What must not be overstated?
-13. How would this specific persona naturally explain it face-to-face?
+13. How would this specific persona naturally explain this exact issue face-to-face?
 14. Can the audience restate the answer in one sentence after hearing it once?
-15. Is the draft giving an answer or only a list of considerations?
+15. Is the draft giving an answer or expanding into a general checklist?
 16. Is a supported conclusion being delayed or weakened without a factual reason?
 
 Do NOT expose this checklist.
@@ -158,35 +193,68 @@ Do NOT map checklist order directly into paragraph order.
 
 ### Structure Modes Are Internal Only（结构模式仅用于后台）
 
-Possible internal reasoning structures include:
+Structure must emerge from the current topic's factual relationship, not from a preselected visible template.
 
-#### Judgment Explanation（判断解释型）
-> Direct or directional judgment → Audience result → Why → Variables → Conditions → Useful action
+Internally, the topic may require:
+- a judgment;
+- a correction of a misconception;
+- a case;
+- a comparison;
+- a causal chain;
+- a mechanism;
+- an event or policy impact;
+- or another structure that fits the actual information.
 
-#### Cognitive Correction（认知纠偏型）
-> Common belief → Direct correction → Supported conclusion → Why it fails → Conditions → Practical result
+Do NOT select a structure merely to create variety.
+Do NOT force every topic through the same sequence of hook, conclusion, reason, conditions, self-check, and CTA.
+Do NOT treat internal reasoning order as final speaking order.
 
-#### Case Breakdown（案例拆解型）
-> Verified result / conflict → What happened → Break point → Why → Reusable judgment → What to check
+If one sentence is enough to establish the judgment, do not create an extra section.
+If one condition changes the answer, explain that condition; do not add unrelated conditions for completeness.
+If the final wording reads like a reusable template instead of a person explaining this specific topic, rewrite it.
 
-#### Decision Comparison（决策比较型）
-> Two choices → Core difference → Different outcomes → Applicable conditions → Clear decision standard
+Principle:
 
-#### Chain Explanation（链条解释型）
-> Starting behavior → Intermediate change → Audience result → Key break point → Judgment
+> **结构跟着问题走，不跟着 Skill 走。**
 
-#### Mechanism Explanation（机制拆解型）
-> Surface phenomenon → Underlying mechanism → Key steps → Why the result appears → So what for the audience
+---
 
-#### Event / Policy Impact（事件或规则影响型）
-Use ONLY after current verification.
+### Reference Style Calibration（参考内容校准）
 
-> What happened → Who is affected → What changed → What did not change → Practical impact → Current judgment or action
+Use this only when the user provides or explicitly designates a reference video, audio, transcript, script, competitor example, or style sample.
 
-These structures are reasoning aids.
-They MUST NOT automatically become visible sequential sections in the final script.
+First extract only high-level speaking characteristics that can transfer across topics, such as:
+- how quickly useful information begins;
+- whether the speaker reveals the conclusion directly or progressively;
+- overall information density;
+- continuity versus pause / breathing space;
+- sentence-length variation;
+- conversational versus explanatory feel;
+- how professional judgment is demonstrated;
+- emotional intensity;
+- how naturally the content creates willingness to learn more;
+- whether the ending closes on a judgment, action, unresolved condition, or natural continuation.
 
-If the final wording reads like a template because it follows the structure too neatly, rewrite it.
+Do NOT convert the reference into a reusable content template.
+
+Do NOT copy or preserve by default:
+- paragraph count;
+- sentence count;
+- exact information order;
+- hook formula;
+- recurring question form;
+- CTA form;
+- professional-object combinations;
+- checklist items;
+- diagnostic framework;
+- catchphrases;
+- characteristic wording.
+
+Generate from the current topic, current facts, current persona, and current audience after calibration.
+
+Principle:
+
+> **学参考内容的说话状态和信息释放方式，不学它的固定骨架。**
 
 ---
 
@@ -194,7 +262,7 @@ If the final wording reads like a template because it follows the structure too 
 
 The opening must create immediate relevance, but it does NOT need a stock hook phrase.
 
-Possible forms:
+Possible forms include:
 - direct judgment;
 - direct result, benefit, loss, or useful action;
 - concrete action;
@@ -202,19 +270,14 @@ Possible forms:
 - familiar scene;
 - visible contradiction;
 - real question;
-- consequence already happening.
+- consequence already happening;
+- another opening that is more natural for this specific topic and persona.
 
-Prefer opening information in this order when it fits the topic and persona:
+There is no fixed priority among these forms.
 
-1. direct result;
-2. direct or directional conclusion;
-3. audience benefit, loss, or next action;
-4. cognitive conflict;
-5. valuable number;
-6. concrete scene conflict;
-7. a real decision question.
+Choose the opening that lets this topic enter naturally and usefully. A scene may support the answer, but it must not delay the core direction merely for immersion.
 
-The opening speaking units must establish useful relevance quickly. A scene may support the answer, but it must not delay the core direction merely for immersion. Reduce weak setup such as “很多老板不知道”“这个问题要注意”“今天聊一下” unless a high-value conclusion follows immediately.
+Reduce weak setup such as “很多老板不知道”“这个问题要注意”“今天聊一下” unless a high-value statement immediately makes it useful.
 
 Prefer the current persona's natural first sentence over a universal short-video formula.
 
@@ -240,14 +303,11 @@ Give an early directional judgment when the facts allow it.
 
 Do NOT hide the answer until the end merely to create suspense.
 
-When information is sufficient, answer directly. When a critical condition materially changes the answer, give an early direction and then branch the conclusion. When decisive information is genuinely missing, name the missing variable and explain why it blocks the conclusion.
+When information is sufficient, answer directly. When a critical condition materially changes the answer, give enough direction for the listener to understand the decision and then explain the branch naturally. When decisive information is genuinely missing, name the missing variable and explain why it blocks the conclusion.
 
 Do NOT use “需要结合实际情况 / 需要综合判断 / 视情况而定” as an endpoint when a direct answer, branch conclusion, or concrete decision standard is available.
 
-Natural:
-
-> 这笔先别急着报，至少把供应商和付款对一下。  
-> 如果你这单走的是另外一种模式，那判断还得再分开。
+The conclusion does not have to appear in the same sentence position across different scripts. It only needs to arrive before unnecessary setup or explanation obscures the answer.
 
 ---
 
@@ -263,11 +323,15 @@ Useful internal relations include:
 
 > Condition → Judgment → Consequence
 
+These are reasoning relations, not required visible sequences.
+
 For every core explanation, internally ask:
 
 > So what does this mean for the listener?
 
-If a policy, term, process, mechanism, or compliance principle does not change the listener's judgment, explain a necessary condition, or lead to a practical result, compress or remove it. Practical results may include money, cost, qualification, time, progress, risk, choice, operating result, whether action is needed, or what to check first.
+If a policy, term, process, mechanism, or compliance principle does not change the listener's judgment, explain a necessary condition, or lead to a practical result, compress or remove it.
+
+Practical results may include money, cost, qualification, time, progress, risk, choice, operating result, whether action is needed, or what to verify next.
 
 But final Chinese may express these relations without explicit connectors or perfectly complete sentences.
 
@@ -275,7 +339,7 @@ When a professional term is necessary:
 
 > **先说发生了什么，再补专业上叫什么。**
 
-Do NOT use terminology as a substitute for explanation.
+Do NOT use terminology or a familiar industry framework as a substitute for topic-specific explanation.
 
 ---
 
@@ -294,13 +358,7 @@ A speaking unit may be:
 
 Allow controlled irregularity when meaning remains clear.
 
-Examples:
-
-> 钱是收到了。收哪儿了？这个先看。
-
-> 票有。能不能抵，得看这票对应的到底是哪笔业务。
-
-> 这个做法不一定错。准确一点讲，是不能只凭现在这一个条件就下结论。
+The examples in `references/chinese-spoken-naturalness.md` demonstrate language transformation only. They are NOT content patterns, preferred business objects, or reusable diagnostic sequences.
 
 ---
 
@@ -348,7 +406,8 @@ Important restrictions:
 - no forced `你 / 大家 / 咱们` quota;
 - no universal hook/transition/ending phrase bank;
 - no deliberate grammatical disorder;
-- no translationese disguised as polished Chinese.
+- no translationese disguised as polished Chinese;
+- no reuse of calibration examples as account-default expression patterns.
 
 ---
 
@@ -386,16 +445,19 @@ After the factual draft is correct, remove in this order:
 2. background that does not affect judgment;
 3. unnecessary definitions;
 4. replaceable jargon;
-5. repeated emotional warnings;
-6. connectors with no listening function;
-7. secondary examples;
-8. second or later CTA;
-9. persona performance with no informational function;
-10. polished summary sentences that only repeat what the audience already understood.
+5. non-decisive professional framework or checklist content;
+6. repeated emotional warnings;
+7. connectors with no listening function;
+8. secondary examples;
+9. second or later CTA;
+10. persona performance with no informational function;
+11. polished summary sentences that only repeat what the audience already understood.
 
-Keep a unit only if removing it would lose a fact, reason, condition, judgment, case function, listening clarification, or necessary transition.
+Keep a unit only if removing it would lose a fact, reason, conclusion-changing condition, judgment, case function, listening clarification, necessary transition, or useful audience result.
 
 After reduction, run one naturalness rewrite pass from `references/chinese-spoken-naturalness.md` without changing facts or conclusions.
+
+If the topic is already complete before reaching the nominal length mode, stop. Do NOT refill removed material with new generic content.
 
 ---
 
@@ -410,18 +472,22 @@ Rewrite if ANY applies:
 - no core judgment exists;
 - the shared explicit-conclusion check fails when the script is heard once, leaving only analysis or a list of considerations;
 - branch conditions are present but their different conclusions cannot be distinguished by listening;
-- policy, terminology, or mechanism dominates the speech while the practical audience result remains unclear;
+- policy, terminology, mechanism, or a familiar industry framework dominates the speech while the current topic's practical result remains unclear;
 - a supported conclusion is weakened into verbal hedging or delayed until the listener is likely to miss it;
 - judgment exists but reasoning is missing;
 - multiple conclusions are stacked;
+- a narrow question has expanded into a general compliance / diagnostic checklist;
+- professional objects or checks appear only because they are common in the account's industry, not because they change this topic's answer;
 - script sounds like an article, report, course outline or policy narration;
 - sentences are difficult to say naturally;
 - pronouns create listening ambiguity;
 - too much background appears before the core issue;
 - length increases without increasing useful judgment;
 - ending introduces a new topic;
+- ending adds a CTA or consultation gap that the content does not naturally require;
 - ending stops at generic “规范 / 关注 / 重视” language instead of a judgment, result, decision standard, or useful action;
-- intensity comes mainly from loud, absolute, threatening, or stock short-video language rather than verified information.
+- intensity comes mainly from loud, absolute, threatening, or stock short-video language rather than verified information;
+- a supplied reference has been copied as a visible structure instead of being used only for high-level calibration.
 
 ---
 
@@ -439,7 +505,13 @@ Before final output, mentally perform these checks:
 > **这是在聊天解释问题，还是在念一篇“很口语”的文案？**
 
 #### Over-completeness test
-> **是不是为了显得完整，强行加了总结、升华、第三点或第二个案例？**
+> **是不是为了显得完整，强行加了总结、升华、第三点、第二个案例，或者一套通用检查框架？**
+
+#### Topic-local test
+> **留下来的每个专业点，真的都在回答这一条内容的问题吗？**
+
+#### Framework-leak test
+> **有没有把后台常用的专业判断框架，习惯性说到了前台？**
 
 #### Persona identity test
 > **遮掉账号名以后，语言和判断方式还能不能看出是这个人？**
@@ -458,6 +530,9 @@ Before final output, mentally perform these checks:
 
 #### Intensity-source test
 > **表达力度来自真实结果和判断，还是来自情绪词和音量感？**
+
+#### Reference-calibration test
+> **如果有参考内容，学到的是说话状态，还是不小心复制了它的结构和内容组件？**
 
 If any answer is weak, rewrite once before output.
 
@@ -486,7 +561,9 @@ Do NOT expose structure mode, scoring, risk scoring, creative process, source ex
 
 ## User Override
 
-If the user requests a specific length, duration, tone, depth, case emphasis, or structure, follow it within factual, account, platform, and safety boundaries.
+If the user requests a specific length, duration, tone, depth, case emphasis, structure, or reference style, follow it within factual, account, platform, and safety boundaries.
+
+When a reference is supplied, apply `Reference Style Calibration` unless the user explicitly requests another treatment.
 
 If the user requests conversion between:
 
@@ -501,6 +578,10 @@ When converting TO `text_broadcast`, do NOT carry spoken-only language mechanics
 
 ## Stop
 
-Before delivery, confirm that the listener can follow the logic once, answer “所以到底会怎样” in one sentence, and understand the key boundary or next action. The conclusion must be clear without sounding like a slogan; conditions must define the conclusion rather than hide it.
+Before delivery, confirm that the listener can follow the logic once, answer “所以到底会怎样” in one sentence, and understand the key boundary or next action when one is actually needed.
+
+The conclusion must be clear without sounding like a slogan; conditions must define the conclusion rather than hide it.
+
+The script may end naturally after the useful decision point. Do not force a consultation gap, CTA, extra checklist, or generic professional closing merely because the content is intended to acquire leads.
 
 After delivering the requested title, spoken script, or complete spoken package, stop. Do not generate visual plans, shot lists, editing instructions, video files, publication-state changes, or archive writes; visual support requires a separate explicit request routed by root `AGENTS.md`.

@@ -8,7 +8,7 @@ It controls how a valid content judgment is turned into natural Simplified Chine
 
 It MUST NOT be inherited by `text-broadcast-copywriting` unless a future task explicitly changes that Skill.
 
-Its job is NOT to change facts, business conclusions, account identity, or topic logic.
+Its job is NOT to change facts, business conclusions, account identity, topic logic, or add professional content that the topic does not require.
 
 Its job is to remove:
 - translationese;
@@ -35,7 +35,7 @@ When rules conflict, use this priority:
 > → Natural Chinese speech  
 > → Rhetorical polish
 
-Naturalness MUST NOT weaken factual precision or hide a conclusion-changing condition.
+Naturalness MUST NOT weaken factual precision, hide a conclusion-changing condition, or broaden a narrow topic into a generic professional explanation.
 
 ---
 
@@ -57,14 +57,17 @@ A speaking unit may be:
 
 The unit does not need to be grammatically symmetrical with the previous one.
 
-Natural:
+Calibration example:
 
-> 这笔钱先别急着算利润。票都还没对上，后面怎么算都容易偏。  
-> 当然，如果你这单本来就不是这么走的，那要另外看。
+Written:
 
-Avoid:
+> 该方案在现有条件下并不适合继续推进，建议先核实关键参数后再作决定。
 
-> 首先需要判断利润。其次需要核对发票。最后需要结合具体业务情况进行分析。
+Spoken:
+
+> 这个先别往下推。真正卡住你的不是流程，是前面那个关键参数还没确定。参数一变，后面的判断也会跟着变。
+
+The example demonstrates speech transformation only. It is NOT a reusable structure.
 
 ---
 
@@ -81,14 +84,17 @@ Avoid 3 or more consecutive sentences that are all:
 - `判断 → 原因` pairs;
 - `问题 → 风险 → 建议` pairs.
 
-Natural Chinese speech often mixes:
+Natural Chinese speech may mix:
 
 > 短判断 + 正常解释 + 补一句 + 稍长条件句
 
+This description is a listening characteristic, NOT a required four-part sentence pattern.
+
 Example:
 
-> 执照是办下来了。先别急着觉得事情结束了，后面税务、银行、记账这些还得接上。  
-> 哪一步没接，后面都可能回来找你。
+> 执照是办下来了。先别急着觉得事情结束了，后面还有几步要接。哪一步没接上，问题就可能从那一步回来。
+
+Do NOT reuse the example's business objects by default.
 
 ---
 
@@ -105,11 +111,11 @@ Allowed:
 
 Examples:
 
-> 钱是收到了。收哪儿了？这个才要先看。
+> 这个能做。现在差的是条件，不是再补一堆解释。
 
-> 票有。能不能用，另说。
+> 先把这一项定下来。后面的，等它确定了再判断。
 
-> 这一步先处理。后面的，等资料对上再判断。
+> 这里已经讲清楚了，到这儿就可以停。
 
 Do NOT manufacture grammatical mistakes merely to look conversational.
 
@@ -123,36 +129,39 @@ Use this only when it improves precision or realism.
 
 Natural forms include:
 
-> 这个做法不太稳。准确一点讲，是你现在这个资料条件下不太稳。
+> 这个做法不太稳。准确一点讲，是你现在这个条件下不太稳。
 
-> 也不能说一定有问题，主要还是看这笔业务怎么走的。
+> 也不能直接说一定不行，关键变量还没确定。
 
-> 先看付款。哦，报关方式也得一起看，不然这个判断下不完整。
+> 先看这个数。哦，还有一个前提得一起确认，不然这个判断下不完整。
 
 Do NOT overuse self-correction as a performance trick.
+
+Do NOT turn self-repair into a recurring account catchphrase.
 
 ---
 
 ## 7. Concrete Chinese Before Abstract Labels（先说具体，再说概念）
 
-Prefer objects, actions, money, people, time and visible outcomes before abstract nouns.
+Prefer objects, actions, people, time, numbers and visible outcomes before abstract nouns.
 
 Written:
 
-> 企业存在资金流与业务流不匹配的风险。
+> 当前方案存在执行路径不匹配的问题。
 
 Spoken:
 
-> 货是这家公司出的，钱却打到另外一个账户，后面解释的时候就容易卡。  
-> 专业上你可以把它理解成资金和业务没对上。
+> 你现在按 A 的方式在做，后面的资料却是按 B 准备的，这两边接不上。专业上可以叫路径不匹配，但先把哪里接不上说清楚更重要。
 
 Written:
 
-> 应提升单证管理能力。
+> 企业应提升资料管理能力。
 
 Spoken:
 
-> 合同、报关单、发票、收汇别各放各的，先把同一笔业务对到一起。
+> 同一件事用到的资料先放到一起，谁负责、做到哪一步、还缺什么，一眼能看出来就行。
+
+The examples show “concrete before abstract”. They do NOT define preferred account content.
 
 ---
 
@@ -166,15 +175,15 @@ Written:
 
 Spoken:
 
-> 缺哪份资料就先补哪份，别一上来把整套文件重新做一遍。
+> 缺哪份就先补哪份，别一上来把整套东西全部重做。
 
 Written:
 
-> 该问题可能导致申报被退回。
+> 该问题可能导致申请被退回。
 
 Spoken:
 
-> 这块没对上，系统或者审核环节就可能把申报退回来。
+> 这一项没满足，审核的时候就可能把申请退回来。
 
 Do not force a subject when Chinese naturally omits it.
 
@@ -200,7 +209,7 @@ Prefer:
 > 对老板来说 → 老板最关心的是……  
 > 进行核对 → 对一下  
 > 予以处理 → 先处理  
-> 存在风险 → 容易卡 / 容易出问题 / 还要再核对
+> 存在风险 → 容易卡 / 容易出问题 / 还要再确认
 
 These are direction examples, NOT a fixed replacement dictionary.
 
@@ -222,12 +231,11 @@ Reduce mechanical use of:
 
 Natural:
 
-> 票已经开了。问题是，货到底是不是这家供应商出的？  
-> 这个对不上，后面就不是“有票没票”这么简单了。
+> 表面上看已经满足了。问题在后面那个条件，它一变，前面的结论就不能直接照搬。
 
 Avoid:
 
-> 发票已经开具。此外，需要注意的是货物来源是否一致。因此，应进一步核实供应商情况。
+> 当前条件已经满足。此外，需要注意的是后续条件可能发生变化。因此，应进一步进行综合判断。
 
 ---
 
@@ -245,13 +253,14 @@ Possible functions:
 
 Examples:
 
-> 这个你先别急。  
-> 其实吧，关键还在付款。  
-> 你看，这两张单子数字就没对上。  
-> 那这种情况，就得分开看了。
+> 这个先别急。  
+> 其实吧，关键不在这里。  
+> 你看，这两个数字已经对不上了。  
+> 那这种情况，就得另外判断。
 
 Do NOT assign quotas such as “three particles per paragraph”.
 Do NOT force `啊、呢、吧、你看、说白了` into every script.
+Do NOT reuse the same particle pattern merely because it sounded natural in a previous example.
 
 ---
 
@@ -261,13 +270,15 @@ Chinese speech may repeat the same key noun rather than constantly replacing it 
 
 Useful repetition:
 
-> 这笔退税先看供应商。供应商一旦出了异常，你这边就要回头看以前这几笔采购。
+> 这个比例先看基数。基数一变，同样的比例代表的东西就不一样。
 
 Avoid decorative repetition:
 
 > 这很危险，非常危险，真的特别危险。
 
 Repeat for listening clarity, not emotional inflation.
+
+Functional repetition applies to the CURRENT topic's key object. It does NOT justify repeatedly introducing the same professional objects across unrelated topics.
 
 ---
 
@@ -279,7 +290,7 @@ Use a question when a real speaker would naturally ask it to expose a missing co
 
 Good:
 
-> 钱已经收了。收公司账户，还是个人账户？这个结果差很多。
+> 现在看着是符合。可这个条件能不能一直成立？这个才决定后面要不要调整。
 
 Avoid stacking:
 
@@ -300,13 +311,18 @@ Possible opening forms:
 - familiar scene;
 - visible contradiction;
 - a real question;
-- a consequence already happening.
+- a consequence already happening;
+- another form that is more natural for the current topic and persona.
+
+There is no fixed preferred order.
 
 Examples:
 
-> 公司账户都开始收钱了，这时候还一直零申报，就得先看看业务到底做到哪一步了。
+> 这事看着麻烦，其实先把一个条件搞清楚，结论就出来了。
 
-> 货已经出了，票还没来。退税先别急着报，这一段要先对清楚。
+> 同样是这个结果，换一个前提，处理方式可能完全不一样。
+
+Examples demonstrate opening naturalness only. Do NOT reuse them as universal hooks.
 
 Do NOT default to:
 
@@ -328,27 +344,31 @@ Do not force every script to end with:
 - a slogan;
 - a question;
 - a CTA;
+- a consultation gap;
 - an emotional uplift.
 
 A natural ending may simply stop after:
 - the final judgment;
-- the first thing to check;
+- the first thing to verify;
 - a condition that still needs confirmation;
-- one practical action.
+- one practical action;
+- the last sentence needed to make the current answer complete.
 
 Examples:
 
-> 所以这单先把付款和开票对上，别急着往后算。
+> 所以现在先把这个条件定下来，别急着往后推。
 
-> 如果你们后面还准备融资，那这个比例现在就要重新看。
+> 这个比例如果后面还会变，现在就不用先下死结论。
 
-> 资料没齐之前，我不会先下“能退还是不能退”的结论。
+> 关键资料没确定之前，这个答案就只能到这里。
+
+Do NOT add another general checklist after the topic is already complete.
 
 ---
 
 ## 16. Before / After Calibration（改写前后语感标尺）
 
-Use these examples to learn the transformation pattern, NOT to reuse the final wording.
+Use these examples to learn the transformation pattern, NOT to reuse the final wording, business objects, reasoning sequence, or conclusion pattern.
 
 ### Example 1｜去报告腔
 
@@ -358,48 +378,51 @@ Before:
 
 After:
 
-> 公司刚开始做生意，账和税别先放一边。前面随手处理的东西，后面真有业务了，经常还得回来补。
+> 公司刚开始做生意，前面有些东西别随手处理。现在觉得省事，真有业务了，经常还得回来补。
 
 ### Example 2｜抽象变具体
 
 Before:
 
-> 企业应关注资金流、票据流与业务流的一致性。
+> 企业应关注关键业务信息之间的一致性。
 
 After:
 
-> 谁卖货、谁开票、钱打给谁，这三件事别各走各的。放到同一笔业务里能对得上，后面才好解释。
+> 同一件事是谁做的、做到哪一步、最后结果是什么，前后得接得上。哪一段突然换了口径，后面解释就会变麻烦。
 
 ### Example 3｜允许补一句
 
 Before:
 
-> 供应商异常可能对企业出口退税产生影响，企业应及时核查相关业务。
+> 某项异常可能影响后续处理结果，企业应及时核查相关业务。
 
 After:
 
-> 供应商一旦异常，你这边的退税确实可能被带着一起核。  
-> 不是说一定有问题，先把跟这家供应商有关的几笔采购找出来，这个最实际。
+> 这项异常确实可能影响后面的处理。  
+> 不是说一出现就一定有问题，先看它到底碰到了哪一步，这个更重要。
 
 ### Example 4｜不强行三段式
 
 Before:
 
-> 首先核对合同，其次核对发票，最后核对银行流水，并综合判断业务真实性。
+> 首先核对基础信息，其次核对执行情况，最后结合结果进行综合判断。
 
 After:
 
-> 先别急着下结论。合同拿出来，发票放旁边，再看钱到底怎么走。三样一对，很多问题自己就出来了。
+> 先别急着下结论。把最关键的那个条件拿出来，看它现在到底是什么状态。很多时候，这一个地方就已经能决定方向。
 
 ### Example 5｜去短句工厂
 
 Avoid:
 
-> 钱收了。票开了。合同有了。资料齐了。风险还在。
+> 条件有了。数据有了。结果有了。资料齐了。问题还在。
 
 Prefer:
 
-> 钱收了、票也开了，看着资料挺齐。可合同里写的交易方式跟实际走法不一样，这个才是要继续问的地方。
+> 看着东西都齐了，可真正决定结果的那个条件还没确定。前面再完整，也替代不了这一项。
+
+Calibration examples MUST stay domain-light where possible.
+Do NOT treat any example's nouns, order, or diagnostic method as preferred content for the account.
 
 ---
 
@@ -418,6 +441,14 @@ The final wording should be generated from:
 
 not from phrase retrieval.
 
+The same applies to professional frameworks:
+
+> current topic  
+> + current decisive variable  
+> + only the necessary professional reasoning
+
+not from a recurring industry checklist.
+
 ---
 
 ## 18. Naturalness Rewrite Pass（真人化重写）
@@ -435,9 +466,15 @@ Rewrite when ANY applies:
 8. The script sounds translated from English reasoning.
 9. The persona disappears if account names are removed.
 10. A sentence can be deleted with almost no information loss.
+11. A narrow topic has been expanded into a broad professional checklist.
+12. A recurring industry framework appears even though the current conclusion does not require it.
+13. A calibration example has leaked into the final wording as a preferred noun set, sentence pattern, or reasoning sequence.
+14. The script continues after the useful decision point only to make the content feel more complete.
 
-Final test:
+Final tests:
 
 > **先关掉字幕想象真人说一遍：现实里会这么说吗？**
 
-If the answer is no, rewrite.
+> **再把行业通用框架拿掉看一遍：这个题本身还成立吗？如果成立，就别把那套框架硬说出来。**
+
+If the answer is weak, rewrite.
