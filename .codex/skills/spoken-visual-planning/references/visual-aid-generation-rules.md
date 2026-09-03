@@ -168,8 +168,8 @@ Do not create one page per sentence. Every page must have:
 
 1. one primary understanding target;
 2. one main title hierarchy;
-3. one core information module;
-4. only necessary supporting information;
+3. one primary semantic structure, which may contain several coordinated components serving the same meaning;
+4. only necessary supporting semantic details;
 5. one clear visual structure;
 6. a meaningful relationship to adjacent pages.
 
@@ -223,6 +223,16 @@ The `16:9` PPT cover must support retention after the video enters the target vi
 
 The visual suggestion remains conceptual at this stage.
 
+### Title punctuation normalization
+
+Before showing cover and page titles for confirmation, optimize them as display typography rather than preserving sentence punctuation mechanically:
+
+- remove non-semantic pause punctuation, especially Chinese commas `，`, full stops `。`, semicolons `；`, and duplicated punctuation;
+- create rhythm with line breaks, spacing, weight, or alignment instead of leaving a comma in a display title;
+- retain a question mark, colon, dash, or other punctuation only when it carries necessary meaning or defines the title structure;
+- preserve every fact, number, term, and conclusion;
+- once the user confirms the normalized title, use that exact literal consistently in the execution guide and final prompt.
+
 ### Mandatory confirmation gate
 
 After presenting both covers and all detail-page copy, stop. Wait for explicit confirmation of the video-cover headline, supporting hook and acquisition angle; the PPT-cover headline, supporting hook and retention angle; the page count, titles, sequence, wording, and conceptual visual direction. If changes are requested, revise the copy and remain at this stage. Do not generate final image prompts until the user gives unambiguous confirmation.
@@ -252,7 +262,7 @@ Do not create the cover by cropping a `16:9` page. Recompose it specifically for
 
 ## 7. Complete PPT Page Archetypes（完整PPT页面原型）
 
-Choose the page archetype from the confirmed communication task. Do not begin from an object, illustration, or diagram type.
+Choose the page archetype from the confirmed communication task. Do not begin from card count, an object, illustration, diagram type, or fixed layout template. A page may use several coordinated components when they form one primary semantic structure and explain the same business meaning.
 
 ### 7.1 PPT Cover Page（PPT封面）
 
@@ -262,7 +272,7 @@ The PPT cover must be visually stronger than every detail page through hierarchy
 
 ### 7.2 Conclusion Page（结论页）
 
-Use one large conclusion, number, or judgment supported by one restrained visual module. Do not dilute the conclusion with several equal cards.
+Use one visually dominant conclusion, number, or judgment. It may be integrated with a timing arc, marker, status cue, key-object relationship, or other restrained support when those components clarify the same conclusion. Do not dilute it with several equal cards.
 
 ### 7.3 Comparison Page（对比页）
 
@@ -274,11 +284,11 @@ Use only when order is essential. Keep `3–5` visible stages, one direction, an
 
 ### 7.5 Checklist or Diagnostic Page（检查或诊断页）
 
-Use for concrete actions or multiple checks. Prefer `2–4` aligned cards or rows with consistent hierarchy. Do not imply sequence unless one exists.
+Use for concrete actions or multiple checks. Use `2–4` aligned cards or rows only when independent items genuinely need separation; otherwise prefer a visual checkpoint sequence, diagnostic field, or semantic node cluster. Do not imply sequence unless one exists.
 
 ### 7.6 Status or Dashboard Page（状态或看板页）
 
-Use neutral cards, status labels, metrics, or review modules only when they directly explain the confirmed content. Do not add random charts, fake data, or fabricated interfaces merely to look professional.
+Use a status track, layered state field, verification panel, semantic node cluster, or restrained cards only when they directly explain the confirmed content. Cards are a separation tool, not the default page skeleton. Do not add random charts, fake data, or fabricated interfaces merely to look professional.
 
 ### 7.7 Decision Split Page（分支判断页）
 
@@ -291,6 +301,25 @@ Use only when the source contains a real case. Present it as a clear information
 ### Legacy visual forms
 
 Relationship maps, realistic business scenes, object-focused visuals, semi-realistic documents, and multi-arrow structures are not default page archetypes. Use them only when the confirmed meaning cannot be expressed more clearly through the professional PPT archetypes above, and keep them subordinate to the page hierarchy.
+
+### 7.9 Reusable Semantic Composition Vocabulary（可复用语义构图词汇）
+
+Select the smallest useful form that explains the page meaning. Reusable options include:
+
+- editorial infographic composition;
+- large-number composition;
+- status track;
+- decision axis;
+- layered state field;
+- semantic node cluster;
+- split-field comparison;
+- visual checkpoint sequence;
+- key-object composition;
+- reconciliation structure;
+- large typographic statement integrated with a visual system;
+- structured geometric field.
+
+Allow top-left editorial, top-centered, asymmetric left-weighted, split, large-number-led, visual-right/text-left, visual-left/text-right, or centered-statement compositions when appropriate. Do not force consecutive slides into the same title position or card arrangement unless repetition is semantically useful.
 
 ---
 
@@ -325,6 +354,8 @@ This is a communication rule, not a style rule.
 
 ## 9. Account Visual DNA Injection（账号视觉DNA注入）
 
+This section is the `CURRENT_ACCOUNT visual-style injection` boundary. It applies account identity after the best semantic structure has been selected and must never redefine shared comprehension or factual rules.
+
 After choosing the best explanatory visual form, read:
 
 ```text
@@ -350,6 +381,8 @@ Inject the account Visual DNA into:
 Do not let Visual DNA change the factual relationship being explained.
 
 Do not let Visual DNA force a less understandable visual form.
+
+The account file is an internal source, not something the image-generation tool can resolve. Compile its relevant rules into concrete visual instructions. Never place the account ID, account name, creator name, persona, speaker identity, `CURRENT_ACCOUNT`, `Visual DNA`, or a reference such as `apply the account style` inside a copy-ready final prompt.
 
 Do not hard-code a government-grade SaaS Dashboard style, one blue-gray/orange palette, one background, a no-people rule, a `40% left / 60% right` layout, or white rounded cards for every account. The shared workflow fixes one `3:4` acquisition cover, one `16:9` PPT cover, and `16:9` detail pages; visual identity comes from the current account's authoritative visual-style file.
 
@@ -378,44 +411,49 @@ Avoid:
 
 The viewer should identify the page's main point within roughly one second. Exact density may vary by account, but comprehension remains the upper bound.
 
-### 10.1 Universal Spatial Budget（通用空间预算）
+### 10.1 Three-Layer Semantic Richness（三级语义视觉层）
 
-Use relative canvas proportions so the rules remain usable across resolutions and image-generation tools. These are universal comprehension floors, not an account style. An account may use more whitespace, smaller modules, or a calmer composition; it must not become denser than these bounds merely to express its Visual DNA.
+Unless an intentionally ultra-minimal page is justified by its communication role, define a controlled three-layer composition:
+
+1. **Background Structure** — low-contrast, non-factual structure such as restrained gradients, structural grids, cropped numerals, soft geometric fields, subtle paths, section framing, abstract business-network traces, understated scale/tick motifs, or page-edge accents.
+2. **Primary Semantic Structure** — the dominant business meaning, such as a decisive number, state conflict, comparison, decision split, timeline, diagnostic relationship, reconciliation, or key-object relationship.
+3. **Supporting Semantic Details** — normally `2–4` useful markers, status dots, short labels, micro-icons, breakpoint indicators, supporting nodes, restrained highlights, or secondary shape transitions.
+
+Every layer must support the same viewer-understanding target. Background structure must not create new business claims, and supporting details must explain rather than decorate empty space. The layers may remain visually restrained; this is a completeness model, not a requirement to make every layer busy.
+
+### 10.2 Universal Spatial Readability Guardrails（通用空间可读性护栏）
+
+Use spatial restraint as a readability outcome, not a mechanical canvas quota. The safe-margin and minimum-legibility rules below are hard constraints; all other scale and whitespace guidance is a soft guardrail and overload warning. An account may use a calmer or denser composition when its Visual DNA supports it, provided the page remains immediately scannable and does not crowd required copy.
 
 For every `16:9` content page:
 
 - keep an outer safe margin of at least `7%` of the canvas short side;
-- preserve `25%–35%` of the canvas as intentional negative space;
-- keep the gap between separate modules at least `1.5×` their internal padding;
-- limit the primary information module to `35%` of canvas area, or `40%` only for a true single-conclusion page;
-- limit each supporting module to `20%` of canvas area;
-- keep all information modules together within `65%–70%` of canvas area;
-- keep a functional icon within roughly `8%` of canvas height unless the icon itself is the confirmed primary meaning;
-- use no more than three purely decorative elements.
+- compose enough negative space to separate hierarchy and keep the page breathable;
+- allow the primary semantic structure to occupy a large, visually dominant region when the page meaning requires it;
+- keep clear gaps between distinct semantic groups and align supporting details to the primary structure;
+- use only as many non-semantic decorative elements as the account style needs for a resolved finish, without competing with the message.
 
 For the independent `16:9` PPT cover:
 
 - keep the same outer safe-margin floor as other `16:9` pages;
-- preserve `35%–45%` of the canvas as intentional negative space;
 - use one primary visual focus and no explanatory module set;
-- keep the primary non-text visual within roughly `30%` of canvas area;
-- use no more than two purely decorative elements;
-- create stronger visual contrast than every detail page without filling the canvas.
+- create a lower-density but fully composed background field and enough open space for immediate headline recognition;
+- allow the headline, core status, number, or semantic shape to become visually dominant when that is the retention device;
+- create stronger visual contrast than every detail page without adding unrelated modules.
 
 For every `3:4` acquisition cover:
 
 - keep an outer safe margin of at least `8%` of the canvas short side;
-- preserve at least `20%–25%` visibly open space;
-- give the main headline roughly `35%–45%` of perceived visual weight without treating that percentage as occupied canvas area;
-- keep the main headline within roughly `75%` of canvas width;
+- preserve visibly intentional open space around the reading path;
+- make the main headline the dominant first-glance element without crowding the frame or safe margin;
 - keep the supporting hook to one short block;
-- keep the primary non-text visual within `30%` of canvas area.
+- size the primary non-text visual according to its semantic importance rather than a fixed area cap.
 
-Do not use undefined scale commands such as `large card`, `huge icon`, `wide module`, or `full-width strip` unless the same prompt also states a restrained proportional limit. Prefer `compact`, `restrained scale`, `surrounded by generous negative space`, and `do not fill the canvas` when they express the intended hierarchy accurately.
+Do not shrink the main visual merely to satisfy an occupied-area percentage. When using scale language, explain the intended hierarchy and relationship: what dominates, what remains secondary, how the eye moves, and how surrounding space is composed. Oversized numerals, cropped semantic shapes, large status fields, relationship paths, and strongly weighted regions are allowed when they are the confirmed meaning and remain readable and intentional.
 
-**中文语义：** 留白是主动保留的阅读空间，不是把内容排完以后剩下的空位。重点应通过层级、对比和位置建立，而不是依靠放大卡片、图标或数字占满画面。
+**中文语义：** 留白是主动组织阅读节奏的空间，不是必须达标的固定面积。主语义结构该大时可以大，但必须有清晰层级、稳定边距和有意设计的周边空间。
 
-### 10.2 Universal Typography Proportion（通用字体比例）
+### 10.3 Universal Typography Proportion（通用字体比例）
 
 Treat body copy as the `1.0` visual-size baseline. Use perceived cap-height ratios rather than tool-specific point sizes:
 
@@ -433,7 +471,7 @@ For the `16:9` PPT cover, keep the headline to no more than two balanced lines a
 
 **中文语义：** 字号层级服务于阅读顺序。标题先被看到，关键数字或结论获得强调，正文保持稳定可读；不得为了塞进更多内容而缩小正文、压缩行距或制造过多字号层级。
 
-### 10.3 Universal Overload Thresholds（通用超载阈值）
+### 10.4 Universal Overload Thresholds（通用超载阈值）
 
 For a normal content page, prefer one title plus `1–3` supporting strings. As operational limits:
 
@@ -497,25 +535,21 @@ The cover section must contain:
 [Concise English cover-specific negative constraints]
 ```
 
-The final cover prompt must define:
+The final cover prompt must define, in this priority order:
 
-1. target viewer and search intent;
-2. acquisition objective;
-3. exact Chinese headline and optional supporting hook;
-4. thumbnail-first reading order;
-5. visual attention device;
-6. relevant CURRENT_ACCOUNT Visual DNA;
-7. fixed `3:4` output;
-8. continuity with the 16:9 content deck;
-9. cover-specific quality failures to avoid.
+1. exact Chinese headline and optional supporting hook;
+2. dominant attention device;
+3. native `3:4` composition and thumbnail-first reading order;
+4. background structure;
+5. concrete color, typography, graphic, material, depth, and finish specifications compiled from the account style;
+6. spatial readability;
+7. complete-cover finish;
+8. cover-specific failures to avoid.
 
 ### Compact 3:4 Cover Prompt Template
 
 ```text
 Create one professional 3:4 WeChat Channels video cover for list and search discovery.
-
-Target viewer and search intent: [who is searching and what problem they want solved].
-Acquisition objective: [why this relevant viewer should open the video].
 
 Render exactly this Simplified Chinese cover copy and no other visible text:
 Main headline: "[exact Chinese headline]"
@@ -524,16 +558,20 @@ Supporting hook: "[exact Chinese hook]" or None
 Design for small-thumbnail readability. Make the main headline the first focal point,
 followed by [key number / status conflict / decisive conclusion / benefit or risk cue].
 Use a strong but professional vertical 3:4 composition; do not crop a 16:9 slide.
-Preserve the universal cover safe margin and negative-space floor. Keep the headline,
-supporting hook, and primary non-text visual within the universal scale limits; do not
-fill the frame. Apply the universal cover typography hierarchy and line-count limits.
+Composition and reading path: [state the visual center of gravity, direction, alignment,
+scale contrast, and relationship between headline, attention device, and supporting hook].
+Background structure: [state the low-contrast structural layer that makes the frame feel
+complete without adding a business claim]. Preserve the universal safe margin and apply
+the universal cover typography hierarchy and line-count limits.
 
-Apply the CURRENT_ACCOUNT Visual DNA: [relevant account-specific descriptors].
-Use the same color roles, typography character, icon/card language, and finish as the
-16:9 content deck, with slightly stronger contrast and emphasis for acquisition.
+Use these concrete visual specifications compiled for this execution: [exact color roles,
+typography character, graphic language, material, depth, spacing, and finish]. Maintain
+the same specified visual system as the 16:9 content deck, with slightly stronger
+contrast and emphasis for acquisition.
 
 High-resolution, visually distinctive, credible, relevant, uncluttered, and readable
-at thumbnail size. No unsupported promises, misleading urgency, or unrelated imagery.
+at thumbnail size. Deliver a fully resolved cover with intentional hierarchy, depth,
+spatial balance, visual-system consistency, and no visually unfinished region.
 ```
 
 The PPT-cover section must contain:
@@ -554,28 +592,21 @@ The PPT-cover section must contain:
 [Concise English PPT-cover-specific negative constraints]
 ```
 
-The final PPT-cover prompt must define:
+The final PPT-cover prompt must define, in this priority order:
 
-1. target viewer and immediate relevance;
-2. retention objective in the natural-feed viewing path;
-3. direct connection to the spoken opening;
-4. exact Chinese headline and optional supporting hook;
-5. first-glance reading order;
-6. one visual attention device;
-7. stronger visual hierarchy than every detail page;
-8. relevant CURRENT_ACCOUNT Visual DNA;
-9. fixed native `16:9` output;
-10. PPT-cover spatial budget, typography scale, and specific failures to avoid.
+1. exact Chinese headline and optional supporting hook;
+2. primary visual conflict or focus;
+3. composition strategy and first-glance reading order;
+4. background structure;
+5. concrete color, typography, graphic, material, depth, and finish specifications compiled from the account style;
+6. stronger-than-detail hierarchy and spatial readability;
+7. fixed native `16:9` complete-page finish;
+8. PPT-cover-specific failures to avoid.
 
 ### Compact 16:9 PPT Cover Prompt Template
 
 ```text
 Create one independent, professional 16:9 PPT cover as the first in-video page.
-
-Target viewer and immediate relevance: [who must recognize that this topic concerns them].
-Retention objective: [why the relevant viewer should stop scrolling and continue watching].
-Connection to the spoken opening: [the source-supported conflict, change, risk, benefit,
-question, or conclusion introduced at the beginning].
 
 Render exactly this Simplified Chinese PPT-cover copy and no other visible text:
 Main headline: "[exact Chinese headline]"
@@ -583,17 +614,21 @@ Supporting hook: "[exact Chinese hook]" or None
 
 Use one primary visual focus and a native 16:9 composition. Make this cover visually
 stronger than every detail page through hierarchy, contrast, scale, and composition,
-not through additional elements. Preserve 35%–45% intentional negative space, keep the
-primary non-text visual within roughly 30% of the canvas, and keep the headline to no
-more than two balanced lines at roughly 1.2–1.4× the perceived size of detail-page titles.
+not through unrelated elements. Composition strategy: [state the visual center of gravity,
+direction, dominant shape or field, alignment logic, scale contrast, and first-glance path].
+Background structure: [state the low-contrast structural field and how open space is
+intentionally composed]. Keep the headline to no more than two balanced lines at roughly
+1.2–1.4× the perceived size of detail-page titles.
 
-Apply the CURRENT_ACCOUNT Visual DNA: [relevant account-specific descriptors]. Maintain
-the same color roles, typography character, graphic language, and finish as the detail
-pages while giving the PPT cover a stronger first-glance focal hierarchy.
+Use these concrete visual specifications compiled for this execution: [exact color roles,
+typography character, graphic language, material, depth, spacing, and finish]. Maintain
+the same specified system as the detail pages while giving the PPT cover a stronger
+first-glance focal hierarchy.
 
 Do not crop or mechanically reuse the 3:4 video cover. Do not explain a process,
 calculation, comparison, checklist, multi-part solution, or detailed conclusion here.
-High-resolution, presentation-ready, credible, uncluttered, and immediately relevant.
+High-resolution, presentation-ready, credible, immediately relevant, and fully resolved
+as a complete cover rather than a title plus one floating object.
 ```
 
 Every detail-slide section, beginning with `IMG-02`, must contain:
@@ -614,19 +649,19 @@ Every detail-slide section, beginning with `IMG-02`, must contain:
 [Concise English page-specific negative constraints]
 ```
 
-Each final prompt must define:
+Each final prompt must define, in this priority order:
 
 1. slide role;
 2. one viewer-understanding outcome;
 3. exact required Chinese copy;
-4. page archetype;
-5. layout and reading order;
-6. information hierarchy;
-7. key emphasis;
-8. relevant CURRENT_ACCOUNT Visual DNA;
-9. fixed `16:9` complete-page output;
-10. quality requirements;
-11. spatial budget and typography scale;
+4. primary semantic structure;
+5. supporting semantic details;
+6. background structure;
+7. composition and reading path;
+8. visual hierarchy and scale;
+9. concrete visual specifications compiled from the account style;
+10. spatial and typography readability;
+11. fixed `16:9` complete-page finish;
 12. page-specific failures to avoid.
 
 ### Compact Tool-Neutral English Prompt Template
@@ -641,29 +676,53 @@ Render exactly this Simplified Chinese PPT copy and no other visible text:
 Title: "[exact Chinese title]"
 Supporting copy: "[exact Chinese string]", "[exact Chinese string]"
 
-Use [page archetype and visual module].
-Layout: [clear page-specific grid and reading order].
-Information hierarchy: [title > conclusion > support > visual module].
-Emphasize: [key term, number, contrast, or status].
-Spatial budget: preserve the required negative space and safe margins; keep the primary
-and supporting modules within the universal proportional limits; do not fill the canvas.
+Primary semantic structure: [the dominant composition that explains the business meaning].
+Supporting semantic details: [2–4 useful markers, labels, nodes, highlights, or transitions,
+or explicitly justify fewer for an ultra-minimal page].
+Background structure: [a low-contrast structural layer with no new factual claim].
+Composition and reading path: [visual center of gravity, direction, foreground/middle/background
+relationship, dominant shape, secondary structure, alignment logic, and visual rhythm].
+Information hierarchy and scale: [title > conclusion > semantic structure > support], with
+[key term, number, contrast, status, or relationship] visually dominant when appropriate.
+Spatial readability: preserve the safe margins, use enough intentionally composed open space
+for immediate scanning, and do not shrink the primary structure to satisfy a fixed area quota.
 Typography scale: apply the universal title/body/label ratios and line-count limits.
 
-Apply the CURRENT_ACCOUNT Visual DNA: [relevant account-specific descriptors].
-Maintain the same deck-level color roles, typography hierarchy, UI/card language,
-icon style, spacing rhythm, and finish as the other slides.
+Use these concrete visual specifications compiled for this execution: [exact color roles,
+typography hierarchy, UI/card language, icon style, material, depth, spacing rhythm,
+and finish]. Maintain this same specified system across the deck.
 
-High-resolution, presentation-ready, sufficient whitespace, precise alignment,
-clear focal point, and complete PPT composition.
+High-resolution and presentation-ready. Deliver a fully resolved composition with intentional
+hierarchy, depth, spatial balance, visual-system consistency, precise alignment, and complete-page finish.
 ```
 
 Keep prompts tool-neutral until the user names a generation tool. Do not promise exact cross-slide pixel identity unless a real reference slide, template, or asset is supplied. Do not place spoken excerpts, audio timing, or editing metadata inside the execution guide.
+
+### 11.1 Single-Execution Prompt Purity（单次执行提示词纯度）
+
+Treat every `Final Cover Prompt` and `Final Image Prompt` as a standalone instruction pasted into an image-generation tool with no memory or account context.
+
+The copy-ready prompt must not contain:
+
+- account ID, account name, creator name, persona, speaker identity, or business-role biography;
+- `CURRENT_ACCOUNT`, `Visual DNA`, `apply the account style`, or any unresolved reference to another file, page, prompt, chat, or workflow;
+- target-audience profiles, search intent, acquisition rationale, retention rationale, spoken-opening explanation, publishing state, or campaign strategy unless one of these directly defines a visible object or composition;
+- editing advice, timestamps, spoken excerpts, BGM, transitions, performance notes, or archive instructions;
+- internal planning labels that do not change the rendered image.
+
+Compile account style into explicit pixel-affecting instructions: colors and their roles, background treatment, typography character, alignment, composition, scale, graphic language, icon treatment, material, depth, whitespace, and finish.
+
+After drafting each final prompt, apply the pixel-impact test:
+
+> If a sentence does not change visible text, objects, relationships, hierarchy, composition, color, material, depth, legibility, output format, or negative constraints, remove it from the final prompt.
+
+Planning rationale may remain concise in `Rule Logic` and `中文语义` for operator verification, but it must not leak into the copy-ready prompt.
 
 ---
 
 ## 12. Negative Prompt Architecture（反向提示词架构）
 
-Every final prompt must contain three negative layers. Deliver all copy-ready negative constraints in English. If the confirmed tool has a separate negative-prompt field, place them there. Otherwise append them to the positive prompt as a concise English `Avoid:` clause.
+Use three negative layers, but state each shared layer only once and keep the positive composition instructions longer and more operational than the negatives. Deliver all copy-ready negative constraints in English. If the confirmed tool has a separate negative-prompt field, place them there. Otherwise append them to the positive prompt as a concise English `Avoid:` clause.
 
 ### 12.1 Universal Quality Negatives（公共质量反向词）
 
@@ -673,9 +732,10 @@ Define once at deck level:
 low resolution, blur, malformed layout, clutter, weak information hierarchy,
 unreadable or garbled Chinese, invented text or numbers, fabricated official interfaces,
 watermarks, incorrect logos, cropped important content, meaningless decorative UI,
-insufficient whitespace, oversized cards, oversized icons, canvas-filling modules,
-compressed margins, undersized body text, too many type-size levels,
-standalone illustration composition, generic flowchart styling.
+compressed margins, undersized body text, too many type-size levels, unfinished slide draft,
+title with one floating card, isolated icon composition, stock SaaS template,
+mostly empty canvas with a tiny module, generic three-column presentation template,
+decorative UI with no semantic relationship.
 ```
 
 These are quality / communication constraints.
@@ -690,7 +750,7 @@ Read from:
 
 These are NOT global rules.
 
-### 12.3 Page-Specific Negatives（页面专属反向词）
+### 12.3 Scene-Specific Negatives / Page-Specific Negatives（页面专属反向词）
 
 Generate only the failures relevant to the selected page archetype. Do not repeat the complete universal list in every slide.
 
@@ -773,10 +833,12 @@ When short Chinese labels are generated:
 - repeat those exact Chinese literals inside the English prompt;
 - instruct the model not to translate, transliterate, paraphrase, or add text;
 - default to Simplified Chinese unless the user explicitly requests Traditional Chinese;
-- preserve confirmed numbers, punctuation, capitalization, and symbols exactly;
+- preserve confirmed numbers, capitalization, symbols, and normalized confirmed punctuation exactly;
 - add `no English text, no extra characters, no garbled Chinese text, no invented text, no invented numbers` to the English negative constraints.
 
 Never translate, transliterate, paraphrase, or invent page text, policy names, tax rates, numbers, English labels, or unauthorized small print merely to complete the layout.
+
+For titles, “preserve punctuation exactly” applies only after display-title normalization and user confirmation. Do not copy sentence-style commas into a title by habit. A confirmed title should normally express pauses through line breaks or spacing; retain punctuation only when it carries necessary meaning.
 
 ---
 
@@ -845,19 +907,21 @@ After the video-cover prompt, PPT-cover prompt, and all detail-page prompts are 
 - consistent emphasis behavior.
 - title, body, label, and annotation sizes satisfy the universal visual-size ratios;
 - titles and supporting points satisfy the universal line-count limits;
+- display titles contain no unnecessary sentence-style commas or other pause punctuation;
 - no page uses smaller text or tighter line spacing to compensate for overload.
 
 ### Layout
 
 - no page is overfilled;
-- cards are not crowded;
-- sufficient whitespace;
+- cards appear only when item separation improves comprehension;
+- open space is intentionally composed rather than left as an unfinished void;
 - clear primary focal point;
 - important elements are not too close to edges;
-- no meaningless decoration.
-- intentional negative space satisfies the universal floor;
-- primary and supporting modules remain within the universal area limits;
-- no oversized card, icon, number, or full-width strip fills the composition merely to create emphasis.
+- no meaningless decoration;
+- the primary semantic structure has enough visual authority for the page meaning;
+- supporting semantic details reinforce the same meaning;
+- scale is judged by hierarchy and readability rather than fixed occupied-area limits;
+- the page does not resemble a title with one floating card, an isolated icon, a stock SaaS template, or a mostly empty unfinished canvas.
 
 ### Semantic accuracy
 
@@ -872,7 +936,17 @@ After the video-cover prompt, PPT-cover prompt, and all detail-page prompts are 
 - similar modules remain visually stable;
 - adjacent pages are not merely different compositions of the same idea;
 - information progression is continuous;
-- every page has a distinct primary communication task.
+- every page has a distinct primary communication task;
+- consecutive pages do not mechanically repeat the same card arrangement, title position, or internal skeleton unless the repeated structure carries meaning;
+- the deck intentionally varies page archetypes and visual weight while retaining continuity through Account Visual DNA, typography character, color logic, graphic language, and finish.
+
+### Final-prompt purity
+
+- every copy-ready prompt is independently executable with no assumed account or chat context;
+- no account ID, account name, creator name, persona, speaker identity, `CURRENT_ACCOUNT`, `Visual DNA`, or unresolved style reference appears in a final prompt;
+- target profiles, search intent, acquisition or retention rationale, workflow commentary, and other non-pixel information remain outside final prompts;
+- account style is compiled into concrete colors, typography, layout, graphic language, material, depth, spacing, and finish;
+- every sentence in a final prompt changes visible output or constrains generation.
 
 ## 16. Mandatory Self-Check（强制自检）
 
@@ -894,11 +968,17 @@ If yes, remove or weaken the person.
 
 If no, simplify.
 
-### Breathing-space and scale test
+### Breathing-space, dominance, and scale test
 
-> 页面是否达到通用安全边距和留白下限，并且没有通过超大卡片、图标、数字或满宽色块制造重点？
+> 页面是否保留安全边距和清晰阅读空间，同时允许真正的核心数字、状态或语义关系获得足够视觉主导性？
 
-If no, reduce element scale, restore the spatial budget, and rewrite the positive layout instruction before relying on negative constraints.
+If no, rebalance hierarchy, supporting details, and intentionally composed open space; do not solve the problem by mechanically shrinking the primary semantic structure or adding prohibitions.
+
+### Complete-page finish test
+
+> 这一页是否已经形成完整、可直接演示的页面，而不是“标题＋一个小卡片/图标＋大片未设计背景”？
+
+If no, strengthen the background structure, primary semantic structure, supporting semantic details, depth treatment, alignment logic, and spatial balance without adding unsupported facts or unrelated decoration.
 
 ### Typography proportion test
 
@@ -911,6 +991,12 @@ If no, remove decoration, consolidate subordinate wording, reduce support weight
 > 相邻两页是否只是换了构图，但表达同一个意思？
 
 If yes, merge or revise their page functions.
+
+### Cross-page rhythm test
+
+> 连续页面是否在保持账号视觉统一的同时，使用了与各自语义任务匹配的不同页面原型和视觉重量？
+
+If no, vary the composition archetype, title position, dominant region, or reading direction. Keep repetition only when it communicates a meaningful comparison, sequence, or recurring state.
 
 ### Account differentiation test
 

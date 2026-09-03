@@ -170,6 +170,14 @@ The `16:9` PPT cover must directly support target-viewer retention in the natura
 
 At this stage, `视觉建议` is conceptual only. Do not write final image prompts. After presenting both covers and all detail-page copy, stop and wait for explicit confirmation of the video-cover wording and acquisition angle, PPT-cover wording and retention angle, page count, titles, sequence, wording, and conceptual visual direction. If the user requests changes, remain in Phase 1.
 
+Before presenting any visible title for confirmation, normalize it for image typography:
+
+- remove sentence-style pause punctuation that does not carry meaning, especially `，`, `。`, `；`, and duplicate punctuation;
+- express the intended pause through line breaking, spacing, or hierarchy instead of a comma;
+- preserve punctuation only when it materially changes meaning, such as a necessary question mark, contrast marker, or semantic colon;
+- never change business facts, numbers, terms, or conclusions while cleaning punctuation;
+- treat the normalized and user-confirmed title as the exact visible literal used in all later prompts.
+
 #### Phase 2 — Visual Translation
 
 Start only after unambiguous confirmation such as `确认`, `可以`, `没问题`, `继续`, or `下一步`.
@@ -191,11 +199,11 @@ Spoken facts
 
 Read the complete spoken content first. Internally extract only what exists: topic, audience pain point, core conclusion, case, risk, cause, misconception, method, action direction, and CTA. Do not expose this analysis as a separate deliverable.
 
-Follow `references/visual-aid-generation-rules.md` for page segmentation, page functions, page count, information density, page-module routing, prompt construction, three-layer negative constraints, and cross-page QA.
+Follow `references/visual-aid-generation-rules.md` for page segmentation, page functions, page count, controlled semantic density, semantic-structure selection, three-layer visual richness, prompt construction, negative-constraint hierarchy, cross-page rhythm, and QA.
 
-Treat the reference's universal whitespace, element-scale, typography-ratio, and overload-handling rules as execution constraints for every account. Account Visual DNA may make a composition more spacious or change its stylistic expression, but it must not reduce the universal minimum margins, legibility, or negative-space floor. Express these constraints inside the positive layout instructions, not only inside `Avoid` clauses.
+Treat the reference's safe margins, minimum legibility, typography-ratio, and overload-handling rules as execution constraints for every account. Treat other whitespace and element-scale guidance as readability guardrails rather than fixed canvas quotas. Account Visual DNA may change density and stylistic expression, but it must not reduce minimum margins or legibility. Express the intended spatial result inside positive layout instructions, not only inside `Avoid` clauses.
 
-Each page must have one primary viewer-understanding target, one main title hierarchy, one core information module, only necessary support, one clear visual structure, and meaningful progression from adjacent pages. Internally complete:
+Each page must have one primary viewer-understanding target, one main title hierarchy, one primary semantic structure, only necessary supporting semantic details, one clear reading path, and meaningful progression from adjacent pages. The primary semantic structure may contain multiple coordinated components when all of them explain the same business meaning. Internally complete:
 
 > After seeing this page, the viewer should immediately understand: ________.
 
@@ -226,49 +234,76 @@ Create one independent `16:9` PPT-cover prompt with stable ID `IMG-01`. It is th
 
 Use complete detail-page archetypes such as conclusion, comparison, status dashboard, checklist, decision split, or short timeline. Do not let a detail archetype replace the independent PPT cover. Do not default to realistic export-business objects, chain-diagnosis diagrams, semi-realistic document piles, multi-arrow relationship structures, standalone illustrations, or generic flowcharts. Use such elements only when the confirmed page meaning genuinely requires them and keep them subordinate to the PPT hierarchy.
 
-One PPT page must map to one independent image-generation prompt. Every prompt must explicitly include:
+One PPT page must map to one independent image-generation prompt. Every prompt must explicitly include only generation-relevant information:
 
 1. Slide Role;
 2. Viewer Understanding Target;
 3. Exact Required Chinese Copy;
-4. PPT Page Archetype;
-5. Layout and Reading Order;
-6. Information Hierarchy;
-7. Key Emphasis;
-8. Relevant CURRENT_ACCOUNT Visual DNA;
-9. Fixed 16:9 Complete-Page Output;
-10. Quality Requirements;
-11. Spatial Budget and Typography Scale;
+4. Primary Semantic Structure;
+5. Supporting Semantic Details;
+6. Background Structure;
+7. Composition and Reading Path;
+8. Visual Hierarchy and Scale;
+9. Concrete visual specifications compiled from CURRENT_ACCOUNT Visual DNA;
+10. Spatial and Typography Readability;
+11. Fixed 16:9 Complete-Page Finish;
 12. Page-Specific Negative Constraints.
 
 The cover prompt must explicitly include:
 
-1. Search/List Acquisition Objective;
-2. Target Viewer and Search Intent;
-3. Exact Required Chinese Cover Copy;
-4. Thumbnail Reading Order;
-5. Visual Attention Device;
-6. Relevant CURRENT_ACCOUNT Visual DNA;
-7. Fixed 3:4 Output;
-8. Cover-to-deck Continuity Requirements;
-9. Cover Spatial Budget and Typography Scale;
-10. Cover-Specific Negative Constraints.
+1. Exact Required Chinese Cover Copy;
+2. Dominant Attention Device;
+3. Native 3:4 Composition and Thumbnail Reading Order;
+4. Background Structure;
+5. Concrete color, typography, graphic, material, and finish specifications compiled from CURRENT_ACCOUNT Visual DNA;
+6. Spatial and Typography Readability;
+7. Complete-Cover Finish and Cover-to-Deck Continuity;
+8. Cover-Specific Negative Constraints.
 
 The `IMG-01` PPT-cover prompt must explicitly include:
 
-1. Natural-Feed Retention Objective;
-2. Target Viewer and Immediate Relevance;
-3. Connection to the Spoken Opening;
-4. Exact Required Chinese PPT-Cover Copy;
-5. First-Glance Reading Order;
-6. One Visual Attention Device;
-7. Stronger-Than-Detail Visual Hierarchy;
-8. Relevant CURRENT_ACCOUNT Visual DNA;
-9. Fixed Native 16:9 Output;
-10. PPT-Cover Spatial Budget and Typography Scale;
-11. PPT-Cover-Specific Negative Constraints.
+1. Exact Required Chinese PPT-Cover Copy;
+2. Primary Visual Conflict or Focus;
+3. Composition Strategy and First-Glance Reading Order;
+4. Background Structure;
+5. Concrete color, typography, graphic, material, and finish specifications compiled from CURRENT_ACCOUNT Visual DNA;
+6. Stronger-Than-Detail Visual Hierarchy and Spatial Readability;
+7. Fixed Native 16:9 Complete-Page Finish;
+8. PPT-Cover-Specific Negative Constraints.
+
+Build prompts in this priority order:
+
+```text
+Viewer Understanding Target
+→ Exact Business Meaning / Required Copy
+→ Best Primary Semantic Structure
+→ Three-Layer Composition and Visual Richness
+→ CURRENT_ACCOUNT Visual DNA
+→ Spatial and Typography Readability
+→ Complete-Page Finish
+→ Page-Specific Negative Constraints
+```
+
+Positive instructions must describe what to build more specifically than negatives describe what to avoid. Translate abstract terms such as `premium`, `professional`, or `rich` into executable composition, hierarchy, scale, spatial, material, depth, and visual-layer behavior.
 
 Write copy-ready positive prompts and negative constraints in English unless the user explicitly requests another prompt language. Keep required visible wording as exact Chinese literals. Do not translate, transliterate, paraphrase, silently correct, or add wording. Default to Simplified Chinese unless explicitly overridden.
+
+### Single-Execution Prompt Purity（单次执行提示词纯度）
+
+`AI生图执行指南.md` is a single-execution generation document. Assume the image tool has no knowledge of the account, creator, persona, content workflow, marketing plan, or previous chat.
+
+The guide itself must resolve all account-style references into concrete instructions. Do not require the generation tool to infer any visual rule from an account name, role, external file, previous prompt, or prior page.
+
+In every copy-ready `Final Cover Prompt` and `Final Image Prompt`:
+
+- never mention the account ID, account name, creator name, persona, speaker role, `CURRENT_ACCOUNT`, `Visual DNA`, or phrases such as `apply the account style`;
+- compile account style into concrete executable visual instructions: exact colors and their roles, typography character, alignment, layout, graphic language, materials, depth, icon treatment, whitespace, and finish;
+- exclude target-audience descriptions, search intent, acquisition strategy, retention strategy, spoken-opening commentary, page-planning rationale, and other business context unless it directly changes a visible object, relationship, label, hierarchy, or composition;
+- do not refer to information located elsewhere in the guide or prior conversation; each final prompt must be independently executable when copied by itself;
+- include no editing metadata, content-state information, publishing advice, account-management wording, or process commentary;
+- after drafting, remove every sentence that does not change pixels, visible text, spatial relationships, semantic graphics, or generation constraints.
+
+Planning rationale may remain concise in `Rule Logic` or `中文语义` only when it helps an operator verify semantic accuracy. It must not leak into the copy-ready final prompt.
 
 Keep prompts tool-neutral until the target image-generation tool is confirmed. If the tool has no separate negative-prompt field, include the same constraints as a concise English `Avoid:` clause.
 
@@ -298,6 +333,7 @@ This is not an ordinary bilingual translation:
 - Chinese is the semantic interpretation layer for business meaning, page intent, and the relationship the viewer must understand.
 - Do not translate every English sentence into Chinese line by line.
 - Keep exact visible Simplified Chinese copy as quoted literals inside the English image prompt.
+- Final prompts are self-contained single-execution instructions and contain no account, creator, persona, audience-profile, workflow, or campaign metadata.
 
 Write deck-wide rules once. Do not repeat long master descriptions, precise coordinate grids, or identical negative lists on every slide. Each slide should focus on its page-specific visual task.
 
@@ -351,6 +387,8 @@ Before output, verify:
 - The deck begins with an independent `IMG-01` PPT cover, followed by readable detail-page progression and a resolved conclusion.
 - No page defaults to realistic export objects, chain-diagnosis diagrams, semi-realistic documents, or multi-relationship structures.
 - Hierarchy, alignment, whitespace, and component finish are aesthetically resolved.
+- Each page uses one primary semantic structure with enough visual authority, supported by an intentional background structure and useful semantic details unless an ultra-minimal treatment is justified.
+- No page can be reasonably satisfied by a title plus one floating card or icon, a tiny module on a mostly empty canvas, a stock SaaS template, or a generic three-column presentation layout.
 
 ### PPT cover quality
 - Exactly one independent `16:9` PPT cover is included as `IMG-01`.
@@ -382,14 +420,23 @@ Before output, verify:
 - Deck-wide rules are stated once; slide prompts contain only necessary page-specific differences.
 - Each prompt describes a complete PPT page rather than a standalone explanatory illustration.
 - Tool-specific syntax appears only when the target tool is confirmed.
+- Positive instructions operationally define composition, hierarchy, scale, spatial relationships, semantic support, depth, and finish before concise negative constraints.
+- Generic adjectives such as `premium`, `professional`, or `rich` never substitute for concrete design behavior.
+- Every final prompt is independently executable with no assumed account, creator, persona, audience-profile, workflow, or prior-chat context.
+- No account ID, account name, creator name, persona, speaker identity, `CURRENT_ACCOUNT`, `Visual DNA`, or unresolved style reference appears in a final prompt.
+- Account style is compiled into concrete colors, typography, alignment, composition, graphic language, material, depth, spacing, and finish.
+- Every sentence in a final prompt changes visible output or constrains generation.
+- Display titles contain no unnecessary sentence-style commas or other pause punctuation.
 
 ### Cross-page consistency
 - `COVER-01` uses `3:4`; `IMG-01` and every detail page use `16:9`.
 - Background, color roles, UI/card/icon language, material, and rendering language are consistent.
 - Title, body, label, and emphasis systems are consistent.
 - Pages have sufficient whitespace, clear focal points, and professional page margins.
-- Pages satisfy the universal margin, negative-space, module-scale, typography-ratio, line-count, and overload-handling constraints in the shared reference.
-- Positive prompts explicitly request restrained element scale and visible breathing room; they do not rely on negative prompts alone.
+- Pages satisfy the universal safe-margin, spatial-readability, typography-ratio, line-count, and overload-handling constraints in the shared reference.
+- Positive prompts explicitly define intentional breathing room and allow semantically dominant elements to become appropriately large; they do not rely on negative prompts alone.
+- Consecutive pages do not mechanically repeat the same card arrangement or internal layout unless repetition is semantically justified.
+- Cross-page continuity comes from Account Visual DNA, typography character, color logic, graphic language, and finish rather than identical templates.
 - Icons, business relationships, process direction, comparison objects, and risk mapping are accurate.
 - No policy, system, number, or document is fabricated.
 - The `3:4` acquisition cover, `16:9` PPT cover, and `16:9` detail pages may use different composition roles while remaining one visual system.
