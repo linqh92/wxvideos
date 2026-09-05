@@ -1,4 +1,4 @@
 interface:
   display_name: "视频号口播PPT图片规划"
   short_description: "规划3:4获客封面及16:9专业PPT生图提示词"
-  default_prompt: "使用 $spoken-visual-planning，根据已确认的口播先规划一张3:4视频号获客封面文案和16:9 PPT分页文案并等待我确认；确认后再生成英文执行逻辑加中文语义说明的AI生图执行指南和剪辑分段表。"
+  default_prompt: "使用 $spoken-visual-planning，根据已确认的口播先确定视觉基调、视觉基础与连续性语言，再规划一张3:4视频号获客封面和完整16:9 PPT页面；明确每页的主要信息载体、辅助解释载体与背景职责，展示封面文案、分页文案与设计系统并等待我确认，确认后生成逐图独立执行的生图指南和剪辑分段表。"

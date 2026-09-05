@@ -13,6 +13,7 @@ function Assert-True {
 }
 
 $rootAgent = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'AGENTS.md'))
+$readme = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'README.md'))
 $topicSkill = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot '.codex\skills\topic-planning\SKILL.md'))
 $historyRules = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot '.codex\skills\topic-planning\references\history-vault-rules.md'))
 $ideaSkill = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot '.codex\skills\idea-intake\SKILL.md'))
@@ -21,6 +22,7 @@ $spokenSkill = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot '.codex
 $spokenNaturalness = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot '.codex\skills\spoken-copywriting\references\chinese-spoken-naturalness.md'))
 $spokenVisualSkill = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot '.codex\skills\spoken-visual-planning\SKILL.md'))
 $spokenVisualRules = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot '.codex\skills\spoken-visual-planning\references\visual-aid-generation-rules.md'))
+$spokenVisualAgent = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot '.codex\skills\spoken-visual-planning\agents\openai.yaml'))
 $copyCommonRules = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\rules\copywriting-common-rules.md'))
 $archiveSkill = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot '.codex\skills\publish-archive\SKILL.md'))
 $stateSchema = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\schemas\content-state-machine.md'))
@@ -67,15 +69,58 @@ Assert-True ($textBroadcastSkill.Contains('shared/rules/copywriting-common-rules
 Assert-True ($spokenSkill.Contains('references/chinese-spoken-naturalness.md')) 'spoken Skill must load the spoken-naturalness reference'
 Assert-True ($spokenNaturalness.Contains('applies ONLY to `spoken-copywriting`') -and $spokenNaturalness.Contains('MUST NOT be inherited by `text-broadcast-copywriting`')) 'spoken-naturalness reference must remain isolated from text-broadcast copywriting'
 Assert-True ($rootAgent.Contains('spoken-visual-planning') -and $rootAgent.Contains('不得自动进入 `spoken-visual-planning`')) 'root AGENTS must route spoken visual planning as an explicit-only stage'
-Assert-True ($rootAgent.Contains('账号视觉风格.md') -and $rootAgent.Contains('不得从账号人设与文风推断视觉风格') -and $rootAgent.Contains('不得借用其他账号视觉风格')) 'root AGENTS must define account visual style as an isolated source'
-Assert-True ($spokenVisualSkill.Contains('Do NOT automatically invoke this Skill after `spoken-copywriting`.') -and $spokenVisualSkill.Contains('## Stop')) 'spoken visual planning must be explicit-only and stop after delivery'
-Assert-True ($spokenVisualSkill.Contains('Do not automatically:') -and $spokenVisualSkill.Contains('call image generation') -and $spokenVisualSkill.Contains('archive the content')) 'spoken visual planning must not generate images or archive automatically'
-Assert-True ($spokenVisualSkill.Contains('2. accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号视觉风格.md') -and $spokenVisualSkill.Contains('Account selection, isolation, and stage boundaries follow root `AGENTS.md`')) 'spoken visual planning must require only the current account visual style under the root account lock'
-$doNotReadOffset = $spokenVisualSkill.IndexOf('### Do NOT automatically read')
-$personaPathOffset = $spokenVisualSkill.IndexOf('账号人设与文风.md')
-Assert-True ($doNotReadOffset -ge 0 -and $personaPathOffset -gt $doNotReadOffset) 'spoken visual planning must place persona under the do-not-read contract'
-Assert-True ($spokenVisualRules.Contains('Universal Quality Negatives') -and $spokenVisualRules.Contains('Account-Specific Style Negatives') -and $spokenVisualRules.Contains('Scene-Specific Negatives')) 'spoken visual prompts must contain universal, account, and scene negative layers'
-Assert-True ($spokenVisualRules.Contains('CURRENT_ACCOUNT visual-style injection') -and $spokenVisualSkill.Contains('Account Visual DNA')) 'spoken visual prompts must inject CURRENT_ACCOUNT visual DNA'
+Assert-True ($rootAgent.Contains('设计师主导') -and $rootAgent.Contains('账号基本定位.md') -and $rootAgent.Contains('账号人设与文风.md') -and $rootAgent.Contains('账号视觉风格.md')) 'root AGENTS must define designer-led visual authority and account-context sources'
+Assert-True ($rootAgent.Contains('视觉基础与连续性语言') -and $rootAgent.Contains('背景在前景信息关系明确后回应页面')) 'root AGENTS must define designer-led carrier assignment and responsive background design'
+Assert-True ($readme.Contains('视觉基础与连续性语言') -and $readme.Contains('背景在前景信息关系明确后回应页面需要')) 'README must explain designer-led carrier assignment and responsive background design'
+Assert-True ($spokenVisualSkill.Contains('Do not invoke it automatically after spoken copywriting.') -and $spokenVisualSkill.Contains('## Stop')) 'spoken visual planning must be explicit-only and stop after delivery'
+Assert-True ($spokenVisualSkill.Contains('This stage does not:') -and $spokenVisualSkill.Contains('generate images') -and $spokenVisualSkill.Contains('archive content')) 'spoken visual planning must not generate images or archive automatically'
+Assert-True ($spokenVisualSkill.Contains('accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号基本定位.md') -and
+             $spokenVisualSkill.Contains('accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号人设与文风.md') -and
+             $spokenVisualSkill.Contains('accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号视觉风格.md')) 'spoken visual planning must load current-account positioning, persona, and visual context'
+Assert-True ($spokenVisualSkill.Contains('The designer defines how the current brief should look.') -and
+             $spokenVisualSkill.Contains('Aesthetic direction') -and
+             $spokenVisualSkill.Contains('Deck Design System') -and
+             $spokenVisualSkill.Contains('Establish the Visual Foundation and Continuity Language') -and
+             $spokenVisualSkill.Contains('Assign Page Attention and Information Carriers') -and
+             $spokenVisualSkill.Contains('primary information carrier') -and
+             $spokenVisualSkill.Contains('supporting explanation carrier') -and
+             $spokenVisualSkill.Contains('environment and continuity carrier') -and
+             $spokenVisualSkill.Contains('attention-map test') -and
+             $spokenVisualSkill.Contains('semantic-ownership test') -and
+             $spokenVisualSkill.Contains('background-response test') -and
+             $spokenVisualSkill.Contains('complexity-reason test') -and
+             $spokenVisualSkill.Contains('system-inheritance test') -and
+             $spokenVisualSkill.Contains('subtraction test')) 'spoken visual planning must preserve designer authority and responsibility-led workflow'
+Assert-True ($spokenVisualAgent.Contains('视觉基调、视觉基础与连续性语言') -and
+             $spokenVisualAgent.Contains('主要信息载体、辅助解释载体与背景职责') -and
+             $spokenVisualAgent.Contains('展示封面文案、分页文案与设计系统并等待我确认')) 'spoken visual planning default prompt must expose direction-first confirmation'
+Assert-True ($spokenVisualRules.Contains('Account Context, Brand Assets, and Designer Authority') -and
+             $spokenVisualRules.Contains('Aesthetic Direction and Deck Design System') -and
+             $spokenVisualRules.Contains('Visual foundation') -and
+             $spokenVisualRules.Contains('Continuity language') -and
+             $spokenVisualRules.Contains('Optional expression resources') -and
+             $spokenVisualRules.Contains('Page Attention and Information-Carrying Roles') -and
+             $spokenVisualRules.Contains('Background as a Page Response') -and
+             $spokenVisualRules.Contains('Attention-map test') -and
+             $spokenVisualRules.Contains('Semantic-ownership test') -and
+             $spokenVisualRules.Contains('Background-response test') -and
+             $spokenVisualRules.Contains('Complexity-reason test') -and
+             $spokenVisualRules.Contains('Subtraction test') -and
+             $spokenVisualRules.Contains('System-drift test') -and
+             $spokenVisualRules.Contains('Role-to-style shortcut test') -and
+             $spokenVisualRules.Contains('Cross-account template test')) 'shared visual rules must enforce a designer-led responsibility system and role context without persona-to-style presets'
+Assert-True (-not $spokenVisualSkill.Contains('背景语义层') -and
+             -not $spokenVisualSkill.Contains('background-decision test') -and
+             -not $spokenVisualSkill.Contains('background-system test') -and
+             -not $spokenVisualSkill.Contains('background state selected from') -and
+             -not $spokenVisualSkill.Contains('canonical Deck Design System block') -and
+             -not $spokenVisualRules.Contains('Every page receives an explicit background decision') -and
+             -not $spokenVisualRules.Contains('Assign exactly one background state to each page') -and
+             -not $spokenVisualRules.Contains('every page uses exactly one permitted background state') -and
+             -not $spokenVisualRules.Contains('one primary motif or environmental language') -and
+             -not $spokenVisualRules.Contains('permitted page states') -and
+             -not $spokenVisualRules.Contains('Background-inheritance test') -and
+             -not $spokenVisualRules.Contains('Background and Scene Strategy')) 'spoken visual rules must not solve background quality through mandatory states or page-local invention'
 $fixedGlobalVisualStyle = @(
     '- semi-realistic or realistic business explanatory visual;',
     '- blue-gray-white base;',
@@ -126,12 +171,23 @@ foreach ($id in $script:KnownAccountIds) {
                  (Test-Path -LiteralPath (Join-Path $vault '00-首页与维护规则\账号人设与文风.md'))) "$id positioning split missing"
 
     $visualStylePath = Join-Path $vault '00-首页与维护规则\账号视觉风格.md'
-    Assert-True (Test-Path -LiteralPath $visualStylePath) "$id account visual style missing"
+    Assert-True (Test-Path -LiteralPath $visualStylePath) "$id account visual context missing"
     $visualStyle = [System.IO.File]::ReadAllText($visualStylePath)
-    Assert-True ($visualStyle.Contains('# Account Visual Style') -and
+    Assert-True ($visualStyle.Contains('# Account Visual Context') -and
+                 $visualStyle.Contains('## Explicit Brand Assets') -and
+                 $visualStyle.Contains('## Designer Authority') -and
+                 $visualStyle.Contains('## Visual Fact Boundaries') -and
                  -not $visualStyle.Contains(': ""') -and
                  -not $visualStyle.Contains(': []') -and
-                 -not $visualStyle.Contains('- ""')) "$id account visual style contains unresolved blank fields"
+                 -not $visualStyle.Contains('- ""')) "$id account visual context contains unresolved blank fields"
+    Assert-True (-not $visualStyle.Contains('background_preference') -and
+                 -not $visualStyle.Contains('primary_colors') -and
+                 -not $visualStyle.Contains('fixed_layout') -and
+                 -not $visualStyle.Contains('rendering:')) "$id account visual context must not prescribe a visual treatment"
+    Assert-True ($visualStyle.Contains('主要信息、辅助解释、环境与连续性') -and
+                 $visualStyle.Contains('当前内容需要什么视觉证据') -and
+                 $visualStyle.Contains('背景是否回应当前页面的实际需要') -and
+                 -not $visualStyle.Contains('背景语义层')) "$id account visual context must support designer-led carrier assignment without background obligation"
 
     $basic = [System.IO.File]::ReadAllText((Join-Path $vault '00-首页与维护规则\账号基本定位.md'))
     $voice = [System.IO.File]::ReadAllText((Join-Path $vault '00-首页与维护规则\账号人设与文风.md'))

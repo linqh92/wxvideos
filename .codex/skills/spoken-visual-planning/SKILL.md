@@ -1,142 +1,175 @@
 ---
 name: spoken-visual-planning
-description: Plan one acquisition-focused 3:4 WeChat Channels cover, one retention-focused 16:9 PPT cover, complete professional 16:9 detail pages, and AI image-generation prompts from a finalized spoken script or voiceover. Use after spoken copy is confirmed and the user explicitly requests PPT视觉、PPT配图、视觉分镜或AI生图提示词. Apply CURRENT_ACCOUNT visual DNA, require cover-copy and page-copy confirmation, and do not rewrite the script, generate images, or archive content.
+description: Act as a designer-led enterprise-information visual lead to turn a finalized WeChat Channels spoken script or voiceover into one acquisition-focused 3:4 cover, one retention-focused 16:9 PPT cover, complete 16:9 detail-page concepts, and independently executable AI image prompts. Use only after spoken content is confirmed and the user requests PPT视觉、PPT配图、视觉分镜或AI生图提示词. Understand the current account's role, audience, business context, and explicit brand assets; define and confirm one aesthetic direction, Deck Design System, cover, and page plan before final prompting; and do not rewrite the script, generate images, or archive content.
 ---
 
-# WeChat Video Account Spoken PPT Visual Planning（微信视频号口播 PPT 图片规划）
+# WeChat Video Account Spoken Visual Planning（微信视频号口播视觉规划）
 
-## Trigger
+## Role
 
-Use this Skill only when BOTH conditions are satisfied:
+Work as an **enterprise-information visual design lead and information designer**, not as a prompt assembler.
 
-1. A finalized or user-confirmed spoken script already exists, or the user provides a final voiceover/audio file.
-2. The user explicitly requests a post-copy visual task such as:
-   - PPT 图片 / PPT 页面视觉
-   - 口播 PPT 配图 / PPT 生图 Prompt
-   - 配图 / 示意图 / 中间画面
-   - 视觉分镜 / AI 生图提示词
-   - 根据口播或音频规划图片
+Receive the finalized spoken content as a professional designer receives a client brief. Understand what the audience must notice, compare, connect, question, or decide; then establish a content-specific visual thesis, deck rhythm, page information architecture, and complete compositions. Translate those finished design decisions into image-generation prompts only after the visual plan is coherent.
 
-Do NOT automatically invoke this Skill after `spoken-copywriting`.
+Make deliberate, brief-specific choices. The account context defines who is speaking, whom the content serves, and what professional impression must be preserved. The designer defines how the current brief should look. A palette, background, texture, rendering language, large number, numbered steps, card grid, dashboard, flowchart, photograph, illustration, or industry motif is a possible design decision, never an automatic consequence of the persona.
 
-## Required Input
+The design must feel authored for this content. If the same layout could accept an unrelated topic with only the words changed, redesign it.
 
-- A finalized or user-confirmed spoken script, or a final voiceover/audio file;
-- The user's requested visual-plan or prompt deliverable;
-- `CURRENT_ACCOUNT` resolved under root `AGENTS.md`.
+## Trigger and Boundary
+
+Use this Skill only when both conditions are satisfied:
+
+1. A finalized or user-confirmed spoken script exists, or the user provides final voiceover/audio.
+2. The user explicitly requests PPT visuals, supporting images, visual storyboards, PPT image prompts, or AI image-generation prompts.
+
+Do not invoke it automatically after spoken copywriting.
+
+This stage does not:
+
+- rewrite the spoken content;
+- change confirmed facts or conclusions;
+- generate images;
+- archive content or change publication state;
+- produce editing, animation, BGM, performance, or publishing direction.
 
 ## Required Context
 
-Account selection, isolation, and stage boundaries follow root `AGENTS.md`; this Skill does not redefine them.
-
-Before planning visuals, read and obey in this order:
+Resolve `CURRENT_ACCOUNT` under root `AGENTS.md`, then read and obey:
 
 ```text
 1. shared/rules/acquisition-and-fact-framing.md
-2. .codex/skills/spoken-visual-planning/references/visual-aid-generation-rules.md
-3. accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号视觉风格.md
-4. Finalized spoken script and/or final voiceover provided in the current task
+2. references/visual-aid-generation-rules.md
+3. accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号基本定位.md
+4. accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号人设与文风.md
+5. accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号视觉风格.md
+6. Finalized spoken script and/or final voiceover for this task
 ```
 
-The shared reference defines **how visuals improve understanding**.
+Use each source for one authority layer:
 
-The account visual-style file defines **how this account should look**.
+- finalized spoken content: business meaning and permitted visible copy;
+- shared fact framing: information role and factual strength;
+- account positioning: business scope, service object, and audience relevance;
+- account persona: role, communication character, and intended audience impression;
+- account visual-context file: explicit brand assets and true visual prohibitions only; absence of a locked asset grants designer freedom;
+- visual-planning reference: design process, density decisions, prompt translation, and QA.
 
-The finalized spoken content defines **what this specific piece needs to explain**.
+Understand the persona as a human and professional context, not as a style preset. Do not map age, gender, seniority, personality, or profession mechanically to a palette, background, rendering style, layout, material, or industry motif. Do not borrow another account's finished visual solution. Do not automatically read history, ideas, candidates, reviews, or content maps.
 
-### Do NOT automatically read
+If an account visual-context file contains no confirmed logo, palette, font, or other brand asset, do not invent a permanent one. The designer may still create a complete task-specific visual system from the account role, audience, business context, and current content. If a confirmed brand asset is unavailable, that is design freedom rather than a blocker.
+
+## Fixed Deliverables
+
+Use these defaults without asking the user to reconfirm them:
 
 ```text
-accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号人设与文风.md
-accounts/{CURRENT_ACCOUNT}/内容库/01-历史内容/**
-accounts/{CURRENT_ACCOUNT}/内容库/02-内容地图/**
-accounts/{CURRENT_ACCOUNT}/内容库/03-选题规划/**
-accounts/{CURRENT_ACCOUNT}/内容库/04-内容复盘/**
-accounts/{CURRENT_ACCOUNT}/内容库/05-内容素材库/**
-_history-index.jsonl
-_idea-index.jsonl
-_candidate-index.jsonl
+Video cover: one native 3:4 image for WeChat Channels list/search discovery
+PPT cover: one independent native 16:9 opening page for in-video retention
+Detail pages: native 16:9 complete PPT information pages
+Safe area: designer-selected spacious outer margins on all sides; avoid edge-crowded composition without imposing a fixed percentage
+Visible copy: concise Simplified Chinese confirmed during planning
+Prompt language: English for generation logic and visual direction; exact Simplified Chinese only for required visible semantics
 ```
 
-This Skill is content-first and visual-system-aware, not persona-first.
+The `3:4` cover is additional to the PPT-page count. `IMG-01` is the first in-video PPT page and must appear in the spoken-range or audio-timestamp mapping.
 
----
+### Constraint levels
 
-## Unique Logic
+Treat factual boundaries, user-confirmed copy, requested ratios, independent image outputs, guide structure, prompt language split, and filename format as delivery invariants.
 
-### Fixed Production Defaults（固定生产默认值）
+Treat page count when unspecified, cover focus, headline-to-graphic balance, supporting-copy amount, composition, information density, and margin size as designer-led decisions. The guidance below defines preferred communication outcomes and failure modes; it does not impose fixed word counts, element counts, layout ratios, or universal spacing quotas.
 
-After the spoken content is confirmed and the user requests visual planning:
-
-1. State that the task is entering the visual-planning stage.
-2. State that this stage will not rewrite the spoken content, generate images, archive content, or change publication state.
-3. Apply the following defaults without asking the user to confirm them.
-
-```text
-Video cover: one fixed 3:4 image for WeChat Channels list and search display
-PPT cover: one independent fixed 16:9 opening cover as the first in-video PPT image
-Detail pages: fixed 16:9 landscape, one complete full-frame PPT information page per image
-Safe area: no special subtitle, speaker, title, or account-information band
-Visible copy: concise Chinese cover and PPT copy determined during planning
-Tool mode: tool-neutral unless the user names a generation tool
-```
-
-The `3:4` video cover is additional and never counts toward the `16:9` PPT-page count. The independent `16:9` PPT cover is always the first in-video page and must be included in the spoken-range or audio-timestamp mapping. Use normal professional margins. Do not ask the user to choose these ratios, safe area, display placement, or whether text should appear. Ask about exact resolution, fixed page count, target tool, reference assets, logos, or fidelity only when the user explicitly makes them relevant.
-
-### Missing Visual Style File（视觉风格文件缺失）
-
-If:
-
-```text
-accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号视觉风格.md
-```
-
-is missing or unreadable:
-
-1. Do NOT borrow another account's visual style.
-2. Do NOT silently fall back to a fixed blue-gray business style.
-3. Use only the shared comprehension rules plus the current content's semantic needs.
-4. Report the missing path before producing a final account-branded prompt package.
-5. If the user explicitly allows a temporary neutral style, use a content-adaptive neutral baseline only for the current task.
-
-A temporary neutral baseline MUST NOT be treated as the account's permanent style.
-
----
-
-### PPT Planning and Prompt Assembly（PPT 规划与提示词合成）
-
-Run this two-phase workflow:
+## Design-First Workflow
 
 ```text
 Finalized Spoken Content / Final Voiceover
-→ Content Analysis
-→ Page Count Decision
-→ 3:4 Video Cover Copy + 16:9 PPT Cover Copy + Detail-Page Copy
-→ User Confirmation
-→ Video-Cover Visual Design + PPT-Cover Visual Design + Detail-Page Visual Design
-→ One Video-Cover Prompt + One PPT-Cover Prompt + One Prompt per Detail Page
-→ Cover-to-deck Visual Consistency QA
-→ AI生图执行指南.md + 剪辑分段表.md
+→ Understand the Brief
+→ Build a Content and Density Profile
+→ Commit to an Aesthetic Direction
+→ Establish the Visual Foundation and Continuity Language
+→ Decide Page Count and Page Roles
+→ Assign Page Attention and Information Carriers
+→ Plan Confirmable Cover and Page Copy
+→ WAIT FOR EXPLICIT CONFIRMATION
+→ Complete the Foreground Information Composition
+→ Design the Background as a Response to the Page
+→ Critique Against the Brief and AI Defaults
+→ Translate Each Finished Page Design into One Independent-Image Prompt
+→ Run Cover-to-Deck and Execution QA
+→ <角色><2–5字内容>生图指南.md + 剪辑分段表.md
 ```
 
-#### Phase 1 — PPT Page Copy Confirmation
+Prompt writing is the last translation step. Do not use prompt vocabulary as a substitute for visual design.
 
-If the user specifies a total `16:9` page count, follow it exactly, reserve its first page for the PPT cover, and use the remaining pages for detail. If the user specifies a detail-page count, follow that count and add the independent PPT cover. Otherwise choose `3–6` detail pages according to content complexity and use the minimum count that preserves the full logic without overload.
+## Phase 1 — Brief, Page Plan, and Confirmation
 
-Before listing pages, state `本次建议整理为 1 张3:4视频号封面 + 1 张16:9 PPT封面 + X 张16:9内容页。`
+Read the complete spoken content. Internally identify only what exists:
 
-Present the cover first:
+- audience relevance;
+- information role;
+- core conflict or conclusion;
+- causes, conditions, comparisons, stages, risks, evidence, misconceptions, or actions;
+- the natural opening-to-conclusion progression.
+
+### Aesthetic direction
+
+Before deciding page count or page layouts, commit to one coherent aesthetic direction for the complete deck. Define:
+
+- **design purpose:** what the visual system must help the audience notice, understand, feel, or decide;
+- **audience experience:** the level of familiarity, trust, urgency, clarity, or emotional distance the design must support;
+- **tone:** a precise aesthetic attitude suited to the current role, audience, and content;
+- **constraints:** factual, brand, platform, legibility, image-source, and production limits;
+- **differentiation:** the one visual idea, spatial behavior, or image language that makes this deck recognizable.
+
+Use one committed direction. Do not combine unrelated aesthetics merely to create variety.
+
+### Deck Design System
+
+Define one system for the complete deck through three coordinated layers:
+
+- **visual foundation:** palette roles, typography character, geometry, material behavior, spatial rhythm, alignment logic, and overall atmosphere;
+- **continuity language:** the compositional behavior, visual gesture, or recurring relationship that makes the sequence feel related;
+- **optional expression resources:** selection criteria and suitable examples for photographs, illustrations, diagrams, icons, business objects, environmental scenes, textures, and other media the designer may choose for a specific page.
+
+Every page inherits the visual foundation and continuity language. Describe optional expression resources as a vocabulary for judgment rather than an inventory to render. A resource enters a page through a page-specific design decision and carries a named information role.
+
+### Page count
+
+Follow a user-specified page count exactly. Otherwise choose the minimum number of detail pages that preserves the complete communication logic and gives every page readable capacity. Short content normally produces fewer pages; do not stretch one statement into several visually thin pages.
+
+Before listing pages, state:
+
+`本次建议整理为 1 张3:4视频号封面 + 1 张16:9 PPT封面 + X 张16:9内容页。`
+
+### Deck design brief
+
+Before the page list, provide a concise design brief containing:
+
+- **整套视觉命题：** one content-specific visual idea that can govern the whole deck;
+- **视觉基调：** the committed purpose, audience experience, tone, constraints, and differentiation;
+- **Deck Design System：** the visual foundation, continuity language, and optional expression resources available to the designer;
+- **信息密度判断：** the amount of confirmed meaning, expected viewing effort, and the hierarchy needed to make it understandable;
+- **注意力策略：** the intended first fixation, supporting reading path, and final takeaway across the deck;
+- **视觉节奏：** how the covers generally attract through a focused unresolved point before detail pages explain it, adapted to the actual content rather than imposed as a fixed writing formula;
+- **背景设计原则：** the base atmosphere, the relationship between foreground and background, and how page purpose determines whether the background stays quiet, supports continuity, or carries context;
+- **参考提取：** only when references are supplied, state the useful structural traits to carry forward without copying their industry or literal objects.
+
+### Confirmation format
+
+Present the `3:4` cover first:
 
 ```markdown
 # COVER｜视频号3:4封面
 
 ## 封面主标题
 
-辅助钩子：
+辅助钩子或说明：
+
+辅助信息线索（可选）：
 
 获客角度：
 
-视觉建议：
+设计概念：
 ```
 
 Then present the independent PPT cover:
@@ -146,14 +179,16 @@ Then present the independent PPT cover:
 
 ## 主标题
 
-辅助钩子：
+辅助钩子或说明：
+
+辅助信息线索（可选）：
 
 停留理由：
 
-视觉建议：
+设计概念：
 ```
 
-Then use this format for every detail page, beginning with `P2`:
+Then present every detail page beginning with `P2`:
 
 ```markdown
 # P2｜页面名称
@@ -162,312 +197,218 @@ Then use this format for every detail page, beginning with `P2`:
 
 内容：
 
-视觉建议：
+观众看完应立即明白：
+
+设计概念：
 ```
 
-The `3:4` video cover must extract the current content's strongest acquisition-ready pain point, conclusion, benefit, risk, number, loss, or cognitive contrast while preserving its confirmed information role. Its job is to win visual attention from the target user in WeChat Channels list/search results without inventing claims or turning discussion into an official fact.
+At this stage, `设计概念` describes the intended information relationship and page experience. It is not a final prompt and must not be a list of rendering adjectives.
 
-The `16:9` PPT cover must directly support target-viewer retention in the natural-feed viewing path. It must connect to the spoken opening, make the relevant viewer recognize that the topic concerns them, surface the core change, risk, benefit, or conflict, and provide a reason to keep watching. Keep it lower-density and visually stronger than every detail page. Do not use it to explain a process, calculation, comparison, checklist, or multi-part solution.
+Normalize display-title punctuation before confirmation. Preserve facts, numbers, terms, and conclusions; use line breaks, spacing, weight, or hierarchy for non-semantic pauses.
 
-At this stage, `视觉建议` is conceptual only. Do not write final image prompts. After presenting both covers and all detail-page copy, stop and wait for explicit confirmation of the video-cover wording and acquisition angle, PPT-cover wording and retention angle, page count, titles, sequence, wording, and conceptual visual direction. If the user requests changes, remain in Phase 1.
+Stop after presenting the design brief, both covers, and all detail-page copy. Wait for explicit confirmation of the wording, page count, sequence, aesthetic direction, Deck Design System, and conceptual visual direction.
 
-Before presenting any visible title for confirmation, normalize it for image typography:
+## Phase 2 — Professional Visual Design
 
-- remove sentence-style pause punctuation that does not carry meaning, especially `，`, `。`, `；`, and duplicate punctuation;
-- express the intended pause through line breaking, spacing, or hierarchy instead of a comma;
-- preserve punctuation only when it materially changes meaning, such as a necessary question mark, contrast marker, or semantic colon;
-- never change business facts, numbers, terms, or conclusions while cleaning punctuation;
-- treat the normalized and user-confirmed title as the exact visible literal used in all later prompts.
+Begin only after unambiguous confirmation.
 
-#### Phase 2 — Visual Translation
+### Apply the confirmed visual foundation
 
-Start only after unambiguous confirmation such as `确认`, `可以`, `没问题`, `继续`, or `下一步`.
+Treat the confirmed aesthetic direction, visual foundation, and continuity language as the canonical visual specification for the deliverable. Each page applies them through its own information hierarchy and selected expression resources.
 
-Use three authority layers:
+The designer resolves page-specific composition inside that system. Any material change to the aesthetic direction, visual foundation, continuity language, or explicit brand treatment requires renewed confirmation.
 
-1. **Content layer:** finalized spoken content is the only authoritative business-content source. Extract, condense, reorganize, and convert it into PPT-friendly titles, conclusions, labels, or lists without adding policies, data, cases, numbers, facts, or changed conclusions. Preserve whether a hook is a determinative fact, discussion claim, hypothetical scenario, or professional conclusion, and retain the strongest confirmed acquisition function on the covers.
-2. **Structure layer:** determine page count, order, function, information progression, title hierarchy, density, and reading path. Reorganize for PPT reading rather than mechanically splitting sentences.
-3. **Visual layer:** determine layouts, modules, color, graphic language, whitespace, and emphasis without changing the business meaning.
+The shared enterprise/B2B context is an audience and clarity requirement, not a fixed SaaS-card template, industry, interface, or palette.
 
-Use this priority:
+### Design every page before prompting
+
+For each page, internally complete a page design specification:
+
+1. page role and viewer-understanding outcome;
+2. content/copy density and expected viewing effort;
+3. one-sentence visual concept;
+4. primary information carrier and intended first fixation;
+5. supporting explanation carrier and its relationship to the primary carrier;
+6. environment and continuity carrier;
+7. information zones and the true relationship between them;
+8. foreground composition, reading path, alignment axes, scale behavior, and intentional open space;
+9. background response: what the page still needs from atmosphere, context, continuity, or spatial depth after the foreground is resolved;
+10. selected expression resources and the information role of each;
+11. relationship to adjacent pages and any explicit brand asset or prohibition that must remain stable.
+
+Compose the foreground information relationship first. Let the background answer the remaining page need and yield to the chosen attention hierarchy. One understanding target may use several coordinated modules when they jointly explain the same meaning.
+
+### Critique the design
+
+Before writing any final prompt, test the design:
+
+- **brief-specific test:** would the composition still make sense for an unrelated topic after replacing the words?
+- **default-answer test:** did the design fall back to a huge number, generic `01/02/03`, identical rounded cards, a generic dashboard, or the same dark-background accent treatment without semantic justification?
+- **structure-is-information test:** does every division, number, border, label, icon, object, image, or connector communicate a real relationship?
+- **attention-map test:** when the page is viewed quickly or at reduced size, is the intended first fixation still clear and followed by a readable path?
+- **semantic-ownership test:** does each important relationship have one clear visual carrier, with other layers supporting rather than repeating it?
+- **background-response test:** does the background answer a specific remaining need of the page while preserving the foreground hierarchy?
+- **complexity-reason test:** does the perceived complexity come from the content relationship rather than from repeated methods of expression?
+- **subtraction test:** when a background object or secondary device is mentally removed, does its unique contribution become clear?
+- **short-content test:** is visual completeness coming from hierarchy, proportion, grouping, and rhythm rather than invented facts or an enlarged filler element?
+- **deck-system test:** do pages vary by communication task while remaining recognizably one visual system?
+- **system-inheritance test:** does every page express the confirmed visual foundation and continuity language through its own role?
+- **role-to-style shortcut test:** did age, gender, seniority, personality, or profession get converted directly into a preset palette, background, rendering style, or layout without design reasoning?
+- **cross-account template test:** would another account receive essentially the same visual system with only the colors changed?
+
+Revise failed designs internally before prompt translation. Do not write this critique or revision history into the deliverables.
+
+## Density Logic
+
+Treat density through three connected judgments:
+
+- **Content/copy density:** the amount of confirmed facts, labels, explanations, and relationships available.
+- **Relationship density:** the number and complexity of distinctions the viewer genuinely needs to understand.
+- **Perceptual load:** the effort required to find the first fixation, follow the reading path, and reach the takeaway during playback.
+
+For short, fast spoken content:
+
+1. reduce page count so the available meaning is not diluted;
+2. extract every supported semantic layer without creating new facts;
+3. build completeness through proportion, grouping, alignment, contrast, and open space before selecting additional visual resources;
+4. keep text quickly readable for video viewing;
+5. if the source supports only one statement, design an intentional statement page and accept lower content density rather than simulating analysis with oversized numerals, arbitrary cards, or invented microcopy.
+
+Useful information density is an outcome of confirmed meaning, clear relationships, and manageable perceptual load. It is not a universal appearance target for every page.
+
+## Covers
+
+### `COVER-01`
+
+The native `3:4` cover wins relevant list/search attention. As a default narrative direction, concentrate attention on the strongest confirmed information point and create a reason to ask “why?” before the later pages explain it. Treat this as a design intention, not a fixed copy formula.
+
+The headline should clearly lead the visual hierarchy. The designer decides how strongly to separate it from illustrations, schematics, labels, and supporting copy through scale, contrast, occupied area, and open space according to the actual title and concept. Supporting visuals should intensify the headline rather than accidentally creating an equal focal point. Preserve the claim's information role and a clear thumbnail reading path without enforcing a fixed number of words, elements, or layout ratios.
+
+### `IMG-01`
+
+The native `16:9` PPT cover connects directly to the spoken opening and gives the relevant viewer a reason to remain. It generally establishes one focused conflict, result, risk, or question before later pages unpack why, but the designer may adapt the emphasis when the confirmed content requires another opening structure.
+
+Its headline should normally be the first and strongest fixation. The designer determines the relative weight of diagrams, illustrations, numbers, and secondary copy so they support rather than accidentally rival the title. It should remain less explanatory than detail pages and use an independent native `16:9` composition rather than a crop or mechanical reuse of the `3:4` cover.
+
+Both covers are attraction-oriented and `IMG-02` onward are explanation-oriented. Use that role difference to guide hierarchy rather than as a rigid content template. Avoid accidental title–graphic competition on covers, and do not mechanically carry cover-scale headline treatment into detail pages. A large number or statement on a detail page should participate in a meaningful information relationship rather than occupy the canvas as filler.
+
+## Reference Handling
+
+When the user supplies visual references, inspect them before planning. Extract transferable design behavior such as:
+
+- information hierarchy;
+- number and type of visual zones;
+- module depth;
+- balance of type, icons, images, diagrams, and open space;
+- page framing and recurring deck devices;
+- layout variation and rhythm;
+- overall visual weight.
+
+Do not copy reference business content, industry identity, logos, colors, objects, or surface effects unless the user explicitly requests them and they fit the current role, audience, brief, and confirmed brand constraints. Translate the reference's structural qualities into the current content.
+
+## Prompt Translation and Independent-Image Execution
+
+Every page design maps to one self-contained final prompt. Write all generation logic, composition, hierarchy, style, spacing, and avoid instructions in English. Keep Chinese only where it is necessary visible semantic content, written as exact quoted Simplified Chinese literals. This is a functional language split, not a bilingual translation.
+
+Each prompt must directly express:
+
+- one target image ID and one canvas ratio;
+- exact permitted Chinese copy;
+- the finished page's visual concept;
+- information hierarchy, zones, relationships, and reading path;
+- the primary information carrier, supporting explanation carrier, and environment or continuity carrier;
+- the canonical visual foundation and continuity language, including task-designed palette, typography, geometry, material, spatial rhythm, and any confirmed brand assets;
+- only the expression resources selected for this page and the information role of each;
+- the page-specific background response and its relationship to the foreground;
+- legibility and complete-page composition;
+- a concise page-specific `Avoid` clause.
+
+Begin every final prompt with an explicit independent-output contract that also works when several prompts are submitted in one ChatGPT conversation:
 
 ```text
-Spoken facts
-> PPT information structure
-> Visual presentation
-> Decorative aesthetics
+Generate one independent image for [IMAGE_ID]: one native edge-to-edge [3:4 or 16:9] canvas containing one complete cover or PPT page. If this prompt is submitted together with other image IDs, still return [IMAGE_ID] as its own separate image. Never create a collage, contact sheet, storyboard, slide overview, split-screen, presentation mockup, or multi-page composition.
 ```
 
-Read the complete spoken content first. Internally extract only what exists: topic, audience pain point, core conclusion, case, risk, cause, misconception, method, action direction, and CTA. Do not expose this analysis as a separate deliverable.
+End with a concise instruction to return that ID as one complete separate image.
 
-Follow `references/visual-aid-generation-rules.md` for page segmentation, page functions, page count, controlled semantic density, semantic-structure selection, three-layer visual richness, prompt construction, negative-constraint hierarchy, cross-page rhythm, and QA.
+Do not use abstract quality words such as `rich`, `premium`, `professional`, or `high density` without describing the visible design behavior. Do not instruct the model to make an element `oversized`, `huge`, or `dominant` unless its scale is essential to the confirmed page meaning and its relationship to supporting information is fully specified.
 
-Treat the reference's safe margins, minimum legibility, typography-ratio, and overload-handling rules as execution constraints for every account. Treat other whitespace and element-scale guidance as readability guardrails rather than fixed canvas quotas. Account Visual DNA may change density and stylistic expression, but it must not reduce minimum margins or legibility. Express the intended spatial result inside positive layout instructions, not only inside `Avoid` clauses.
+Every final prompt must be independently executable. Resolve all design and brand references into concrete instructions; do not mention account IDs, account names, creator names, personas, `CURRENT_ACCOUNT`, account-context files, brand-asset files, another prompt, or prior chat context.
 
-Each page must have one primary viewer-understanding target, one main title hierarchy, one primary semantic structure, only necessary supporting semantic details, one clear reading path, and meaningful progression from adjacent pages. The primary semantic structure may contain multiple coordinated components when all of them explain the same business meaning. Internally complete:
+If the target tool has no separate negative-prompt field, keep the concise `Avoid` clause inside the final prompt.
 
-> After seeing this page, the viewer should immediately understand: ________.
+## Image-Generation Guide Document
 
-The answer must be a business understanding outcome, not merely an object to draw.
+The guide is a direct-input prompt document for a normal GPT image-generation conversation, not an Agent operating package.
 
-If confirmed copy would force undersized text, more modules than the universal density limit, or inadequate whitespace, resolve it during Phase 1 by consolidating wording or increasing the page count with user confirmation. Never preserve a crowded page by shrinking the type or filling the canvas.
+Its complete structure is only:
 
-Create one independent cover prompt with stable ID `COVER-01`. The cover is not a PPT content page. It must:
-
-- use a fixed `3:4` canvas;
-- target WeChat Channels list/search discovery;
-- communicate the strongest acquisition-relevant core point from the confirmed content;
-- remain readable at thumbnail size;
-- use one dominant Chinese headline and at most one short supporting hook;
-- create stronger visual contrast than an inner page while preserving the same CURRENT_ACCOUNT colors, typography character, graphic language, and finish;
-- avoid misleading urgency, unsupported promises, fabricated results, and unrelated decorative imagery.
-
-Create one independent `16:9` PPT-cover prompt with stable ID `IMG-01`. It is the first in-video PPT image and must:
-
-- connect directly to the spoken opening;
-- make the target viewer recognize immediate relevance without requiring prior context;
-- foreground the strongest confirmed, role-appropriate number, result, loss, change, risk, benefit, or conflict and imply a reason to continue watching;
-- use one dominant Chinese headline, at most one short supporting hook, and one primary visual focus;
-- remain lower-density but visually stronger than every detail page through hierarchy, contrast, scale, and composition rather than added elements;
-- avoid process diagrams, calculations, comparisons, checklists, multiple cards, or detailed solutions;
-- use a native `16:9` composition and never be a crop or mechanical reuse of the `3:4` video cover;
-- preserve the same CURRENT_ACCOUNT colors, typography character, graphic language, and finish as the detail pages.
-
-Use complete detail-page archetypes such as conclusion, comparison, status dashboard, checklist, decision split, or short timeline. Do not let a detail archetype replace the independent PPT cover. Do not default to realistic export-business objects, chain-diagnosis diagrams, semi-realistic document piles, multi-arrow relationship structures, standalone illustrations, or generic flowcharts. Use such elements only when the confirmed page meaning genuinely requires them and keep them subordinate to the PPT hierarchy.
-
-One PPT page must map to one independent image-generation prompt. Every prompt must explicitly include only generation-relevant information:
-
-1. Slide Role;
-2. Viewer Understanding Target;
-3. Exact Required Chinese Copy;
-4. Primary Semantic Structure;
-5. Supporting Semantic Details;
-6. Background Structure;
-7. Composition and Reading Path;
-8. Visual Hierarchy and Scale;
-9. Concrete visual specifications compiled from CURRENT_ACCOUNT Visual DNA;
-10. Spatial and Typography Readability;
-11. Fixed 16:9 Complete-Page Finish;
-12. Page-Specific Negative Constraints.
-
-The cover prompt must explicitly include:
-
-1. Exact Required Chinese Cover Copy;
-2. Dominant Attention Device;
-3. Native 3:4 Composition and Thumbnail Reading Order;
-4. Background Structure;
-5. Concrete color, typography, graphic, material, and finish specifications compiled from CURRENT_ACCOUNT Visual DNA;
-6. Spatial and Typography Readability;
-7. Complete-Cover Finish and Cover-to-Deck Continuity;
-8. Cover-Specific Negative Constraints.
-
-The `IMG-01` PPT-cover prompt must explicitly include:
-
-1. Exact Required Chinese PPT-Cover Copy;
-2. Primary Visual Conflict or Focus;
-3. Composition Strategy and First-Glance Reading Order;
-4. Background Structure;
-5. Concrete color, typography, graphic, material, and finish specifications compiled from CURRENT_ACCOUNT Visual DNA;
-6. Stronger-Than-Detail Visual Hierarchy and Spatial Readability;
-7. Fixed Native 16:9 Complete-Page Finish;
-8. PPT-Cover-Specific Negative Constraints.
-
-Build prompts in this priority order:
+~~~markdown
+# COVER-01
 
 ```text
-Viewer Understanding Target
-→ Exact Business Meaning / Required Copy
-→ Best Primary Semantic Structure
-→ Three-Layer Composition and Visual Richness
-→ CURRENT_ACCOUNT Visual DNA
-→ Spatial and Typography Readability
-→ Complete-Page Finish
-→ Page-Specific Negative Constraints
+<one self-contained prompt>
 ```
 
-Positive instructions must describe what to build more specifically than negatives describe what to avoid. Translate abstract terms such as `premium`, `professional`, or `rich` into executable composition, hierarchy, scale, spatial, material, depth, and visual-layer behavior.
+# IMG-01
 
-Write copy-ready positive prompts and negative constraints in English unless the user explicitly requests another prompt language. Keep required visible wording as exact Chinese literals. Do not translate, transliterate, paraphrase, silently correct, or add wording. Default to Simplified Chinese unless explicitly overridden.
+```text
+<one self-contained prompt>
+```
+~~~
 
-### Single-Execution Prompt Purity（单次执行提示词纯度）
+Continue the same pattern for every confirmed image ID. Do not add a document preface, execution protocol, purpose, deck direction, page queue, Chinese-semantic subsection, page-design specification, QA checklist, validation procedure, troubleshooting, operator notes, or Agent actions.
 
-`AI生图执行指南.md` is a single-execution generation document. Assume the image tool has no knowledge of the account, creator, persona, content workflow, marketing plan, or previous chat.
-
-The guide itself must resolve all account-style references into concrete instructions. Do not require the generation tool to infer any visual rule from an account name, role, external file, previous prompt, or prior page.
-
-In every copy-ready `Final Cover Prompt` and `Final Image Prompt`:
-
-- never mention the account ID, account name, creator name, persona, speaker role, `CURRENT_ACCOUNT`, `Visual DNA`, or phrases such as `apply the account style`;
-- compile account style into concrete executable visual instructions: exact colors and their roles, typography character, alignment, layout, graphic language, materials, depth, icon treatment, whitespace, and finish;
-- exclude target-audience descriptions, search intent, acquisition strategy, retention strategy, spoken-opening commentary, page-planning rationale, and other business context unless it directly changes a visible object, relationship, label, hierarchy, or composition;
-- do not refer to information located elsewhere in the guide or prior conversation; each final prompt must be independently executable when copied by itself;
-- include no editing metadata, content-state information, publishing advice, account-management wording, or process commentary;
-- after drafting, remove every sentence that does not change pixels, visible text, spatial relationships, semantic graphics, or generation constraints.
-
-Planning rationale may remain concise in `Rule Logic` or `中文语义` only when it helps an operator verify semantic accuracy. It must not leak into the copy-ready final prompt.
-
-Keep prompts tool-neutral until the target image-generation tool is confirmed. If the tool has no separate negative-prompt field, include the same constraints as a concise English `Avoid:` clause.
-
-Visible Chinese copy is decided and confirmed during Phase 1. For either cover, prefer one dominant headline and zero or one short supporting hook. For detail pages, prefer one title and `1–3` short supporting strings. List every visible string verbatim in the prompt. The image model must not translate, paraphrase, or invent page copy, policies, tax rates, numbers, English labels, or small print.
-
-Treat the current account's `账号视觉风格.md` as its Account Visual DNA. It controls account-specific rendering, color, background, material, UI/card/icon language, typography tendency, composition, whitespace, human presence, and avoid rules. It must not alter facts or reduce comprehension. Do not copy a global style string or silently default all accounts to one business/PPT look.
-
----
-
-## AI Execution Document Architecture（AI执行文档结构）
-
-`AI生图执行指南.md` must be optimized for AI-tool comprehension and execution stability. Use this order:
-
-1. `Purpose / 目的`
-2. `Execution Objective / 执行目标`
-3. `Confirmed Page Structure / 已确认页面语义`
-4. `Unified Visual System / 统一视觉系统`
-5. `3:4 Video Cover Execution / 3:4视频封面执行`
-6. `16:9 PPT Cover Execution / 16:9 PPT封面执行`
-7. One execution section per 16:9 detail slide
-8. `Visual Continuity and Quality Check / 视觉连续性与质量检查`
-9. `Final Core Rules / 最终核心规则`
-
-This is not an ordinary bilingual translation:
-
-- English is the authoritative execution layer for priority, composition, layout behavior, hierarchy, required copy, style application, and prohibitions.
-- Chinese is the semantic interpretation layer for business meaning, page intent, and the relationship the viewer must understand.
-- Do not translate every English sentence into Chinese line by line.
-- Keep exact visible Simplified Chinese copy as quoted literals inside the English image prompt.
-- Final prompts are self-contained single-execution instructions and contain no account, creator, persona, audience-profile, workflow, or campaign metadata.
-
-Write deck-wide rules once. Do not repeat long master descriptions, precise coordinate grids, or identical negative lists on every slide. Each slide should focus on its page-specific visual task.
-
----
+Compile one canonical visual-foundation block directly into every image prompt with materially identical wording: aesthetic direction, palette relationships, typography character, geometry, material behavior, spatial rhythm, continuity language, confirmed brand assets, and output separation. Build the page-specific portion in this order: viewer-understanding outcome, attention hierarchy, foreground relationship, selected expression resources, background response, open-space behavior, and finish. Include an expression resource only when the page design selected it for a named role. Each prompt must work alone. The entire document may also be submitted at once; each ID must still request and produce a separate image rather than a combined sheet.
 
 ## Output
 
 Create exactly two standalone downloadable Markdown documents:
 
-1. `AI生图执行指南.md` — a complete execution document that can be passed directly to an image-generation tool or operator.
-2. `剪辑分段表.md` — a brief segment table for the user to reference during editing.
+1. the image-generation guide, named `<角色><内容简称>生图指南.md`;
+2. `剪辑分段表.md`
 
-Do not replace them with a combined document, page-copy confirmation document, JSON, ordinary chat output, or a plain prompt list.
+For the guide filename:
 
-`AI生图执行指南.md` contains generation-execution information only. For each PPT page/image, include:
+- `角色` is the current account's public-facing short creator or role name, such as `敏哥`;
+- `内容简称` is a distinctive `2–5` Chinese-character summary of the current topic, not the full title;
+- concatenate the three parts without spaces or separators;
+- the suffix is always exactly `生图指南`.
 
-- a stable image ID;
-- concise English execution rules;
-- necessary Chinese semantic interpretation;
-- one final English image prompt containing exact Chinese literals;
-- concise English negative constraints;
-- only the asset, fidelity, or continuity requirements needed for generation.
+Example: `敏哥多主体生图指南.md`.
 
-The same document must include one `COVER-01` section with the final `3:4` WeChat Channels cover prompt and one `IMG-01` section with the independent `16:9` PPT-cover prompt. `COVER-01` is additional to the confirmed PPT-page count and must not be placed in `剪辑分段表.md`; `IMG-01` is the first in-video PPT page and must be mapped there.
+The guide contains only image IDs and their prompt code blocks. Do not include spoken excerpts, timestamps, editing direction, BGM, transitions, performance notes, publishing advice, account-management notes, validation, troubleshooting, or internal critique history.
 
-Do not include spoken segments, spoken excerpts, audio timestamps, editing advice, BGM, transitions, performance direction, or publishing advice in `AI生图执行指南.md`. Page intent and Chinese semantic interpretation are allowed only when they improve AI execution.
-
-Provide both documents for download in the final response. Do not require the user to choose, manage, or see a delivery directory. Do not repeat either document's body in the chat response; include only the two document links or attachments and a concise completion note.
-
-The segmentation document must remain brief. It is the only deliverable that maps spoken ranges or actual audio timestamps to PPT image IDs and viewer-understanding targets. It must not expand into editing direction. Do NOT add transitions, BGM, sound effects, animation, camera movement, performance direction, or publishing advice by default.
-
-If a final audio file is available, use its real timing. If only finalized spoken text is available, segment by spoken range and do not fabricate timestamps.
-
----
+The segmentation table alone maps spoken ranges or actual audio timestamps to `IMG-01` and subsequent PPT image IDs. `COVER-01` never appears in this mapping. Use real timing only when final audio is available; otherwise map spoken ranges without fabricated timestamps.
 
 ## Quality Gate
 
-Before output, verify:
+Before delivery, verify:
 
-### Content and page structure
-- Spoken facts and conclusions are unchanged.
-- Confirmed page count, titles, wording, and sequence are unchanged.
-- Pages are determined by communication function, not punctuation or source paragraphs.
-- Every page has one clear understanding target and a distinct primary communication task.
-- Pages have meaningful information progression.
-- One complete PPT page maps to one prompt.
-- Text and visual modules serve the understanding target rather than decoration.
+- confirmed facts, information roles, wording, page count, and sequence remain unchanged;
+- the deck has one content-specific visual thesis rather than a generic template identity;
+- short content uses fewer pages and a hierarchy appropriate to the confirmed meaning;
+- every detail page makes its intended first fixation, supporting path, and takeaway legible;
+- page completeness comes from composition and relationships rather than canvas occupancy;
+- numbering, arrows, cards, dashboards, images, and diagrams appear only when they express real meaning;
+- cover intensity does not leak mechanically into detail pages;
+- `COVER-01` and `IMG-01` show a deliberate attraction hierarchy, normally led by the headline, with supporting elements weighted by the designer to reinforce rather than accidentally compete with it;
+- pages vary by communication task while preserving the task-designed visual foundation, continuity language, and any explicit brand assets;
+- every page assigns clear responsibility to its primary information carrier, supporting explanation carrier, and environment or continuity carrier;
+- the background responds to a specific page need and preserves the foreground attention hierarchy;
+- semantic relationships have clear ownership across foreground and background rather than being repeated through several visual devices;
+- different accounts do not collapse into the same visual template with only a palette substitution;
+- every final prompt contains the same canonical visual-foundation wording and adds only the expression resources selected by the page design;
+- every final prompt begins and ends with independent-image instructions, works alone or in a multi-ID chat request, and contains no unresolved context reference;
+- all Chinese literals are exact and no unauthorized text, fact, interface, logo, seal, or document is requested;
+- generation logic and visual direction are English while only necessary visible semantics remain exact Chinese literals;
+- all `16:9` pages and the `3:4` cover use designer-selected, visibly comfortable outer margins on every side, with no fixed percentage and no edge-crowded composition;
+- the guide contains only image-ID headings and self-contained prompt code blocks;
+- the guide filename follows `<角色><2–5字内容>生图指南.md`;
+- the two requested documents are downloadable and contain no internal revision narrative.
 
-### Complete PPT quality
-- Every `16:9` image is a complete, professionally designed PPT page.
-- The deck begins with an independent `IMG-01` PPT cover, followed by readable detail-page progression and a resolved conclusion.
-- No page defaults to realistic export objects, chain-diagnosis diagrams, semi-realistic documents, or multi-relationship structures.
-- Hierarchy, alignment, whitespace, and component finish are aesthetically resolved.
-- Each page uses one primary semantic structure with enough visual authority, supported by an intentional background structure and useful semantic details unless an ultra-minimal treatment is justified.
-- No page can be reasonably satisfied by a title plus one floating card or icon, a tiny module on a mostly empty canvas, a stock SaaS template, or a generic three-column presentation layout.
-
-### PPT cover quality
-- Exactly one independent `16:9` PPT cover is included as `IMG-01`.
-- `IMG-01` connects directly to the spoken opening and gives the target viewer an immediate reason to remain in the natural-feed viewing path.
-- The relevant viewer can recognize within one glance that the topic concerns them and see one core change, risk, benefit, or conflict.
-- `IMG-01` is visually stronger and less information-dense than every detail page.
-- Its visual strength comes from hierarchy, contrast, scale, and composition rather than more modules or decoration.
-- It contains one dominant headline, at most one supporting hook, and one primary visual focus.
-- It contains no process, calculation, comparison, checklist, multi-card explanation, or detailed solution.
-- It is a native `16:9` composition, not a crop or mechanical reuse of `COVER-01`.
-
-### Video cover quality
-- Exactly one `3:4` cover prompt is included as `COVER-01`.
-- The cover uses the strongest confirmed acquisition angle from the current content.
-- The main message remains readable at WeChat Channels thumbnail size.
-- The cover earns attention through hierarchy, contrast, and relevance rather than clickbait.
-- The cover is visually continuous with the account's 16:9 content deck.
-
-### Account differentiation
-- Every page explicitly applies CURRENT_ACCOUNT Visual DNA.
-- The final prompts actually reflect CURRENT_ACCOUNT Visual DNA.
-- The result is not silently falling back to a universal business style.
-- Account style does not override comprehension.
-
-### Prompt quality
-- English instructions are direct, concise, and ordered by importance.
-- Chinese content explains semantics rather than duplicating the English rules.
-- Required in-image wording is listed as exact Chinese literals and is not translated or transliterated.
-- Deck-wide rules are stated once; slide prompts contain only necessary page-specific differences.
-- Each prompt describes a complete PPT page rather than a standalone explanatory illustration.
-- Tool-specific syntax appears only when the target tool is confirmed.
-- Positive instructions operationally define composition, hierarchy, scale, spatial relationships, semantic support, depth, and finish before concise negative constraints.
-- Generic adjectives such as `premium`, `professional`, or `rich` never substitute for concrete design behavior.
-- Every final prompt is independently executable with no assumed account, creator, persona, audience-profile, workflow, or prior-chat context.
-- No account ID, account name, creator name, persona, speaker identity, `CURRENT_ACCOUNT`, `Visual DNA`, or unresolved style reference appears in a final prompt.
-- Account style is compiled into concrete colors, typography, alignment, composition, graphic language, material, depth, spacing, and finish.
-- Every sentence in a final prompt changes visible output or constrains generation.
-- Display titles contain no unnecessary sentence-style commas or other pause punctuation.
-
-### Cross-page consistency
-- `COVER-01` uses `3:4`; `IMG-01` and every detail page use `16:9`.
-- Background, color roles, UI/card/icon language, material, and rendering language are consistent.
-- Title, body, label, and emphasis systems are consistent.
-- Pages have sufficient whitespace, clear focal points, and professional page margins.
-- Pages satisfy the universal safe-margin, spatial-readability, typography-ratio, line-count, and overload-handling constraints in the shared reference.
-- Positive prompts explicitly define intentional breathing room and allow semantically dominant elements to become appropriately large; they do not rely on negative prompts alone.
-- Consecutive pages do not mechanically repeat the same card arrangement or internal layout unless repetition is semantically justified.
-- Cross-page continuity comes from Account Visual DNA, typography character, color logic, graphic language, and finish rather than identical templates.
-- Icons, business relationships, process direction, comparison objects, and risk mapping are accurate.
-- No policy, system, number, or document is fabricated.
-- The `3:4` acquisition cover, `16:9` PPT cover, and `16:9` detail pages may use different composition roles while remaining one visual system.
-- Adjacent pages do not repeat the same idea in different compositions.
-
-### Deliverable usability
-- `AI生图执行指南.md` is executable without reconstructing missing prompt context from the chat.
-- `AI生图执行指南.md` contains no spoken segment, spoken excerpt, audio timestamp, or editing metadata.
-- `剪辑分段表.md` is concise and usable during editing.
-- `COVER-01` does not appear in the spoken-range or audio-timestamp mapping.
-- `IMG-01` appears as the first in-video PPT mapping and aligns with the spoken opening.
-- Spoken-range or audio-timestamp mapping appears only in `剪辑分段表.md`.
-- Timestamps are never fabricated when no final audio exists.
-- The final response provides both documents for download without repeating their contents inline.
-
-If any item fails, revise before output.
-
----
+Revise any failed design or prompt before delivery.
 
 ## Stop
 
-This Skill ends when the two requested downloadable documents are delivered.
-
-Do not automatically:
-- rewrite or optimize the spoken script;
-- re-plan the topic or produce text-broadcast copy;
-- change confirmed facts or conclusions;
-- call image generation;
-- persist delivery documents in the account vault unless the user explicitly requests that location;
-- archive the content;
-- move candidate states;
-- start editing instructions;
-- start a new content-production stage.
+This Skill ends when the two documents are delivered. Do not continue into image generation, editing direction, publication, or archiving.
