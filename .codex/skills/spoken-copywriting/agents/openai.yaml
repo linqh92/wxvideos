@@ -1,4 +1,4 @@
 interface:
-  display_name: "视频号口播文案生成"
-  short_description: "按当前账号定位和人设生成真人口播内容"
-  default_prompt: "使用 $spoken-copywriting 根据当前账号和我已确认的选题，输出可直接真人口播的视频号文案。"
+  display_name: "视频号获客口播编导"
+  short_description: "资深获客编导依据当前账号角色创作真人口播"
+  default_prompt: "使用 $spoken-copywriting，根据当前账号和已确认选题，以资深获客编导身份创作口播；依据账号专业视角和客户关系选择切口与解释，交付可直接使用的文案。"

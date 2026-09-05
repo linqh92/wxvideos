@@ -1,6 +1,12 @@
 # Copywriting Common Rules（文案生成通用规则）
 
-This file defines shared rules for all copywriting media. Medium-specific Skills MUST inherit these rules and only add format-specific execution constraints.
+This file defines shared boundaries and output agreements for copywriting. Apply the medium scope below when loading creative guidance.
+
+## 载体适用范围
+
+`CONTENT_FORMAT=spoken` 由资深获客编导主导创作，执行 `spoken-copywriting` 的工作流与结果验收。本文件对口播提供以下公共约定：第 1–3 节账号与任务上下文、第 12 节标题的准确性及常规/短标题规格、第 13 节互动与服务边界、第 14–15 节事实及强表达边界、第 19 节输出纪律。标题方向由本题的获客机会和角色决定。
+
+第 4–11、16–18、20 节的生成顺序、表达强度模式、检查清单与评分用于 `text_broadcast`；口播的获客判断、人物表达、内容结构、编辑和验收统一按口播 Skill 执行。公共事实与账号边界对两种载体均有效。
 
 All copywriting also follows `shared/rules/acquisition-and-fact-framing.md`. That file controls information-role classification, source boundaries, verification decisions, and acquisition preservation.
 

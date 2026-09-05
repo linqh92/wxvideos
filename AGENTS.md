@@ -54,6 +54,8 @@ accounts/<id>/内容库/**
 
 `spoken-visual-planning` 是 `spoken` 内容完成后的可选生产阶段，不属于 `CONTENT_FORMAT` 枚举。
 
+口播创作流程：选题确定 → 确定内容载体 → `spoken` 由资深获客编导主导内容生成。获客是最高创作优先级；事实可靠、信息身份准确、平台与账号业务边界是必要条件。编导依据当前账号的目标客户、服务场景、专业视角和客户关系决定切口、信息取舍、解释与咨询承接，具体工作流由 `spoken-copywriting` 定义。
+
 判断优先级：用户明确指定 > 已确认候选的 `recommended_format` > 旧流程默认 `text_broadcast`。
 
 - 用户明确要求口播、真人口播、出镜讲或口播稿：`spoken`。
