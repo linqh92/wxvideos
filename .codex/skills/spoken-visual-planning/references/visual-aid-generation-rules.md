@@ -143,9 +143,13 @@ Define the stable visual relationships shared by the deck:
 - geometry, material, surface, and depth behavior;
 - alignment logic, spacing rhythm, and overall atmosphere.
 
+Resolve the spatial foundation through section 15: choose content boundaries, alignment anchors, a spacing scale, and typography relationships for this deck. These are concrete task decisions, not universal percentages, column counts, or a permanent account template. Establish separate applications for 3:4 and 16:9.
+
 ### 6.2 Continuity language
 
 Define the compositional behavior, visual gesture, or recurring relationship that makes the sequence feel related. Continuity may come from alignment, framing, directional movement, cropping behavior, typographic rhythm, or another brief-specific design idea.
+
+Continuity does not require a repeated object. Let shared type, spacing, line weight, or framing carry quiet pages. Use a recurring semantic motif prominently only where it explains this page; do not turn a business chain or symbol family into mandatory background artwork.
 
 ### 6.3 Optional expression resources
 
@@ -242,6 +246,8 @@ Any visible words in framing must come from confirmed copy or explicitly permitt
 
 Choose composition after understanding the relationship.
 
+Separate the actual copy into communication roles before assigning positions. A headline, audience cue, qualification, and takeaway may need different placements even though all are text. Consider the natural line lengths, the graphic's shape and breadth, the combined visual weight, and where open space will help reading. Compare plausible arrangements internally when the fit is uncertain, then commit to one. Avoid automatically placing all text on one side and all imagery on the other, or automatically replacing that choice with a vertical three-band template.
+
 Possible forms include:
 
 - split field for a true contrast or paired explanation;
@@ -293,6 +299,10 @@ Age, gender, seniority, personality, and profession are human context. They do n
 
 Establish the deck's base atmosphere as part of the visual foundation. Resolve the page background after the foreground information composition is clear.
 
+Design the background as a visible contributor to the complete composition. Select its forms, material, scale, depth, distribution, and contrast variation for the deck. Beauty, atmosphere, visual balance, and continuity are valid contributions in their own right. Give each page a deliberate application of that language, with enough visible character to fulfill its selected role.
+
+Distribute intensity spatially: keep text regions clear while allowing recognizable texture, contours, color fields, or environmental detail elsewhere. Open space may contain material and depth while remaining restful. A plain field is appropriate when it is an intentional page decision supported by the complete composition. Select the medium for the brief; city silhouettes, paper grain, and other motifs are optional design choices.
+
 Ask what the page still needs:
 
 - quiet support for typography or a diagram;
@@ -306,6 +316,10 @@ Let the answer determine the background treatment. A quiet field, a restrained c
 When a scene carries the explanation, the foreground composition gives it room to do that work. When the foreground already explains the relationship, the background supplies atmosphere, context, continuity, or spatial support. Industry objects, patterns, photographs, illustrations, and environmental details belong to the page only through a designer-authored role and remain subordinate to factual accuracy and confirmed copy.
 
 Judge the background through its relationship with the foreground: attention order, semantic ownership, spatial interaction, tone, and contribution to the complete composition.
+
+Specify layer and overlap behavior. Decorative textures and continuity marks live behind information: foreground text and modules may cover them. Resolve collisions locally through contrast, masking, cropping, or placement while preserving the background's visible character across the composition. Keep foreground spacing governed by the information layout and allow decorative marks to extend behind it.
+
+A connector, boundary, or scene detail needed to understand the claim is a semantic graphic even if visually behind another object. Keep its necessary path or endpoints understandable. If one motif performs both roles, identify its explanatory portion and its expendable decorative continuation; do not give the entire motif protected space.
 
 ## 11. Reference Images and Documents
 
@@ -359,7 +373,13 @@ Selected expression resources and their roles:
 Reading path and alignment axes:
 Scale behavior:
 Intentional open space:
+Content boundary and grid application:
+Within-group and between-group spacing:
+Text roles, line breaks, line spacing, and width fit:
+Diagram objects, count where meaningful, connections, and label ownership:
+Icon/container padding and optical scale, when used:
 Background response and foreground relationship:
+Layer order and permitted overlap:
 Explicit brand assets or prohibitions:
 Relationship to adjacent pages:
 ~~~
@@ -370,11 +390,9 @@ A valid specification describes a designed page. It does not consist of generic 
 
 Run this critique before writing final prompts.
 
-### Brief-specific test
+### Brief-fit test
 
-Would the same composition work for an unrelated topic after replacing the words?
-
-If yes, make the visual concept more specific to the present content.
+Do the selected grouping, proportions, reading order, and visual relationships fit the actual content? A reusable layout can be the clearest answer. Revise a poor fit, not familiarity itself; do not invent unusual shapes or metaphors merely to distinguish the page.
 
 ### Default-answer test
 
@@ -394,9 +412,7 @@ A familiar form is acceptable only when it is the clearest expression of the mea
 
 ### Structure-is-information test
 
-Does every border, divider, number, icon, image, shape, connector, label, and module encode a true distinction or relationship?
-
-Remove or redesign anything that exists only to fill space.
+Do information-bearing borders, dividers, numbers, connectors, labels, and modules encode true distinctions or relationships? Decorative marks may support atmosphere, hierarchy, or continuity without encoding a business fact, provided their subordinate role is clear. Remove devices that only fill space or accidentally imply unsupported relationships.
 
 ### Designed-completeness test
 
@@ -432,6 +448,8 @@ Does each important relationship have one clear visual carrier? Do the remaining
 
 What specific need does the background answer after the foreground composition is resolved? Does its visual weight preserve the intended attention order?
 
+Check both visual contribution and readability: is the selected background language perceptible enough to provide beauty, context, balance, or depth, and are text and semantic graphics clear? Evaluate local contrast and overlap as well as the whole-page appearance.
+
 ### Complexity-reason test
 
 Does the perceived complexity come from the content relationship, or from expressing the same meaning through several simultaneous devices?
@@ -456,7 +474,7 @@ The critique is internal. Deliverables contain the resolved design only.
 
 ### 14.1 COVER-01
 
-The 3:4 cover serves list/search acquisition.
+The 3:4 cover serves active browsing in platform lists and search results: recognizable topic, relevant attraction point, and a reason to open the video. Its message stands on its own at thumbnail size.
 
 Use the following as designer-led direction rather than a fixed content-writing formula:
 
@@ -475,7 +493,7 @@ The attention device may be a number, conflict, comparison, status, object, or t
 
 ### 14.2 IMG-01
 
-The 16:9 PPT cover serves opening retention.
+The 16:9 PPT cover serves retention during natural-feed playback: immediate connection to the target customer's business and a reason to continue watching. Its information and imagery work with the actual spoken opening.
 
 Use the following as designer-led direction rather than a fixed content-writing formula:
 
@@ -490,7 +508,23 @@ Use the following as designer-led direction rather than a fixed content-writing 
 
 Both covers generally follow this narrative division: **state one important point first; detail pages then explain why**. This is a preferred communication rhythm, not a compulsory copy template. Cover strength comes from intentional hierarchy, unresolved tension, contrast, and composition. Avoid accidental title–illustration competition, and do not use cover-level title scale as the default for detail pages.
 
-## 15. Spatial and Typography Readability
+### 14.3 Paired cover review
+
+Establish each cover's information emphasis and visual concept separately, then compose it for its viewing context. Share palette, typography, and material language while resolving subject relationships, hierarchy, and spatial organization for each role. Compare the pair side by side: the communication and visible structure should distinguish list discovery from playback retention beyond a ratio change or an extra line of text. Shared headlines or objects are appropriate when used in purpose-specific compositions. Choose scenes, diagrams, and other media according to the content, with no fixed medium assigned to either cover.
+
+## 15. Spatial, Typography, and Component Design
+
+### 15.1 Deck spatial system
+
+Choose an invisible organizing grid appropriate to this content. Define content boundaries, useful alignment anchors, and a small spacing scale for text lines, related elements, separate groups, and major page regions. Related items should read as a group through proximity; gaps between independent groups should make their separation clear. Consistent spacing means consistent relationships, not equal gaps everywhere.
+
+State the chosen system concretely enough to apply across the deck. Relative units, approximate canvas proportions, or a few reference dimensions are useful when they remove ambiguity; select their values for this task. Do not prescribe a universal grid, margin percentage, icon ratio, or number of layers. Keep the grid invisible unless visible rules carry a separate intended role.
+
+Allocate the foreground footprint and open areas together. Check total text height, graphic extent, group gaps, and outer margins against the available canvas before prompting. “Generous whitespace” is incomplete unless the design identifies where that space is and what it separates. A long heading may need more width, while a wide relationship diagram may need its own region. Permit optical adjustment to balance visual mass rather than forcing geometric symmetry.
+
+Keep cover and detail-page type roles distinct while maintaining a recognizable family. Adapt the grid to 3:4 and 16:9 rather than scaling or cropping one layout into the other.
+
+### 15.2 Readability and capacity
 
 For every 16:9 page:
 
@@ -513,6 +547,26 @@ For the 3:4 cover:
 - avoid filling the frame edge to edge with headline text.
 
 The intended result is visibly spacious on every side, never merely technically inside a narrow safe area. Margin size remains a design judgment, not a fixed quota.
+
+After copy confirmation, first resolve crowding through regrouping, width allocation, and graphic simplification within the agreed concept. Do not silently shrink text, omit qualifications, rewrite copy, or add pages; return to confirmation only if a material change is needed.
+
+### 15.3 Exact text fit
+
+Assign every permitted string a role, location, alignment, and relative type scale. Plan natural line breaks and text-region widths from the actual Chinese copy, preserving semantic units, numbers with their units, and meaningful punctuation. State critical breaks explicitly in the prompt. Keep line spacing comfortable within multiline text and distinguish it from the larger gap between text groups.
+
+Keep labels visually attached to their owning object or connection. Long qualifications need a readable text region rather than being squeezed onto a tiny node. Avoid making every sentence equally bold or every detail-page title cover-sized. Check that the longest text fits alongside the graphic and that supporting text remains readable at the intended viewing size.
+
+### 15.4 Icons and containers
+
+Choose a container only when it improves grouping, contrast, or meaning; a circle is not a default wrapper. When used, design the outer container and inner symbol separately: specify visible internal breathing room, the symbol's optical size, stroke weight, and the gap to its label. An icon should not expand to touch its enclosure merely because space is available.
+
+Match perceived weight across the icon family. A broad solid symbol, a narrow outline symbol, and an asymmetric object may need different bounding-box sizes and small optical offsets to look balanced. Select a task-specific size relationship when useful, then allow shape-dependent correction. Keep container borders, icon strokes, diagram lines, and text weight compatible; inspect tangencies, clipping, and tiny internal details at reduced size.
+
+### 15.5 Diagram clarity
+
+Translate metaphors into drawable relationships: identify visible objects, their arrangement, meaningful counts, which endpoints connect, whether direction matters, and which label belongs where. Terms such as “assessment surface,” “hollow service branch,” or “operating chain” are insufficient alone. Specify the visible form that conveys the intended meaning, or choose a simpler representation.
+
+Reduce unnecessary crossings, repeated symbols, and nested containers before sacrificing space or type size. Keep a representative symbol when a whole inventory adds no explanation. Do not use sequence arrows for concurrent dimensions or decorative tangles that obscure the actual relationship.
 
 ## 16. Text and Interface Handling
 
@@ -538,11 +592,11 @@ Every final prompt must contain:
 1. a single-image execution contract;
 2. one image ID and one canvas ratio;
 3. exact permitted Chinese copy;
-4. the page's visual concept;
-5. the primary information carrier, supporting explanation carrier, and environment or continuity carrier;
-6. hierarchy, information zones, true relationships, and foreground composition;
-7. only the expression resources selected for this page, with the role and relative importance of each;
-8. reading path, alignment, scale, and open-space behavior;
+4. visible subjects and their arrangement;
+5. exact text placement, relative size, weight, color, and alignment;
+6. object relationships, connections, label ownership, and layer order;
+7. selected expression resources described by shape, material, and appearance;
+8. spacing, relative scale, and the location of open areas;
 9. the canonical visual-foundation and continuity-language block using materially identical wording across all prompts;
 10. the page-specific background response and its relationship to the foreground;
 11. complete-page and legibility requirements;
@@ -551,12 +605,11 @@ Every final prompt must contain:
 Write the page-specific design instructions in this order:
 
 ~~~text
-Viewer-understanding outcome
-→ Attention hierarchy
-→ Foreground relationship
-→ Selected expression resources
-→ Background response
-→ Open-space behavior and finish
+Visible subjects and overall composition
+→ Text placement and typographic treatment
+→ Object arrangement, connections, and relative scale
+→ Background forms, material, distribution, and contrast
+→ Spacing, overlap, and finish
 ~~~
 
 Use English for all executable rules, layout logic, hierarchy, visual styling, spacing, and avoidance instructions. Keep Chinese only for necessary visible semantic copy, written as exact Simplified Chinese literals. Do not produce a line-by-line bilingual prompt.
@@ -564,6 +617,22 @@ Use English for all executable rules, layout logic, hierarchy, visual styling, s
 Do not use oversized, huge, dominant, rich, premium, professional, or high density as standalone instructions. State what the page should visibly contain and how the parts relate.
 
 The positive design description must be more informative than the negative clause.
+
+Audience goals, communication strategy, expected understanding, and reasons for design choices belong in planning. Final image prompts express drawable appearance and necessary output constraints. Convert “the viewer should first notice” into the selected element's position, scale, weight, color, and surrounding space. Convert “creates trust” into the actual material and styling decisions. Convert “symbolizes a shared operation” into the visible objects and their connections. Apply this translation to the canonical block as well as page-specific text. Review each sentence for a concrete rendering instruction, exact visible copy, or an output requirement.
+
+### 17.1 Preserve design decisions during translation
+
+Compile stable palette, type relationships, spacing behavior, line treatment, and continuity into the canonical block. Keep page-specific objects out of that block; select them in the page instructions. Repeating an optional inventory in every prompt encourages needless objects even when qualified by “only if useful.”
+
+Describe the selected composition with enough concrete anchors to locate its parts: content boundary, main alignment, relative region sizes, text-to-graphic scale, group gaps, intended open areas, and layer order. Use only the measurements or relationships needed to disambiguate this page, not an exhaustive coordinate sheet. The final prompt should state one resolved design rather than ask the image model to choose among layouts or supply missing hierarchy.
+
+Bind exact copy to those regions and specify critical line breaks and label ownership. If an icon container is selected, carry its inner spacing and optical size into the prompt. If background marks are selected, state that foreground information may overlap decorative portions and identify any semantic connections that must stay visible.
+
+Replace abstract metaphor alone with the visible objects and topology from section 15.5. Remove references to “the same environment,” “the previous knot,” or other unseen images; describe the required appearance directly. A still image suggesting a transition needs a spatial description of both states, not an animation instruction.
+
+Resolve conflicts before delivery: full-canvas background does not mean edge-filling content; exact visible copy does not invite duplicated labels; title emphasis does not mean enlarging it until other information is crowded. Explain that edge-to-edge describes the canvas/background while foreground content follows the designed margins. Keep concise avoidance instructions specific to likely failures and subordinate to the positive composition.
+
+For prompt fidelity, reconstruct the page mentally from the final prompt alone. If a central decision in the page specification has disappeared, restore it. If the prompt can be satisfied while crowding text, filling icon containers, or reserving space for decoration, resolve that ambiguity rather than adding another generic quality adjective.
 
 ## 18. Independent-Image Execution Contract
 
@@ -613,7 +682,7 @@ The document contains only one heading and one prompt code block per confirmed i
 
 Continue the same pattern for all remaining IDs. Do not include a preface, execution protocol, purpose, overall direction, page queue, separate Chinese-semantic section, page-design specification, QA checklist, validation procedure, troubleshooting, operator notes, or Agent actions.
 
-Place one canonical visual-foundation block in every individual prompt with materially identical wording: aesthetic direction, palette relationships, typography character, geometry, material behavior, spatial rhythm, continuity language, confirmed brand assets, and spatial margins. Add the target ratio, independent-output contract, page-specific understanding outcome, attention hierarchy, foreground relationship, selected expression resources, background response, exact visible Chinese copy, and a concise page-specific avoid clause. An expression resource appears only when the page design has given it a named role. Each prompt must be executable without reading another prompt or any preceding context.
+Place one canonical visual-foundation block in every individual prompt with materially identical rendering descriptions: palette, typography, geometry, material, spacing, recurring visual treatment, confirmed brand assets, and spatial margins. Add the target ratio, independent-output contract, visible subjects, text treatment, object arrangement and connections, background appearance, spacing and overlap, exact visible Chinese copy, and a concise page-specific avoid clause. Include resources selected during page design and describe their visible appearance. Each prompt must be executable without reading another prompt or any preceding context.
 
 The whole document may be supplied to GPT at once to request several independent images. This does not change the document into a multi-page image prompt: each ID still specifies its own separate output.
 
@@ -652,7 +721,7 @@ Rules:
 - density reflects confirmed relationships and manageable viewing effort;
 - a statement page is intentional rather than falsely analytical;
 - page completeness comes from hierarchy, proportion, grouping, rhythm, and open space;
-- every visual device communicates information;
+- semantic devices communicate accurate relationships and decorative devices have a clear subordinate role;
 - pages vary by role while preserving one visual foundation and continuity language;
 - every page has a clear primary information carrier, supporting explanation carrier, and environment or continuity carrier;
 - each important semantic relationship has one clear visual owner;
@@ -660,6 +729,10 @@ Rules:
 - background and foreground maintain a deliberate attention order and spatial relationship;
 - optional expression resources appear through page-specific design decisions rather than as a repeated deck-wide object inventory;
 - references influence structure without importing unrelated industry identity.
+
+Review the two covers together under section 14.3. Check the background for visible aesthetic contribution and foreground clarity under section 10.1. Review final prompts under section 17 for concrete rendering descriptions throughout, with communication rationale retained in planning.
+
+Apply section 15 to inspect spatial capacity, group spacing, longest-line fit, type hierarchy, label ownership, icon padding and optical balance, and the permitted overlap of foreground and decoration. Compare adjacent pages for consistent spatial relationships without requiring identical compositions. Use section 17.1 to verify that those decisions remain explicit in every independent prompt.
 
 ### Role, brief, and brand fit
 
@@ -693,6 +766,10 @@ Rules:
 - deliverables contain final-state instructions and no internal critique or revision narrative.
 
 ## 22. Completion Standard
+
+Separate evidence levels: completing the design and prompt checks establishes readiness for image generation. It does not demonstrate stable rendering, exact typography, or multi-image output behavior in a particular tool. Do not promise those outcomes solely because the prompt requests them.
+
+When the user explicitly requests a subsequent image test, follow the applicable image-generation workflow; do not start it automatically from this skill. Select representative pages for the failure modes under review, such as a cover, a text-heavy page, and a diagram or icon page. When generated images are supplied, inspect them directly. Check full-size text and reduced-size hierarchy, margins, grouping, background interference, and component proportions. Record which results were actually inspected; distinguish a single successful sample from repeated success. Use observed failures to make focused corrections and retest affected cases within the authorized scope. Keep any test findings outside the direct-input guide and retain this stage's two-document deliverable boundary.
 
 A qualified result should feel like a capable information designer received the spoken brief, created a specific visual system for it, designed every page, and then wrote the prompts.
 
