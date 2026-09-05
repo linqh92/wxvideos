@@ -77,50 +77,20 @@ Assert-True ($spokenVisualSkill.Contains('This stage does not:') -and $spokenVis
 Assert-True ($spokenVisualSkill.Contains('accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号基本定位.md') -and
              $spokenVisualSkill.Contains('accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号人设与文风.md') -and
              $spokenVisualSkill.Contains('accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号视觉风格.md')) 'spoken visual planning must load current-account positioning, persona, and visual context'
-Assert-True ($spokenVisualSkill.Contains('The designer defines how the current brief should look.') -and
-             $spokenVisualSkill.Contains('Aesthetic direction') -and
-             $spokenVisualSkill.Contains('Deck Design System') -and
-             $spokenVisualSkill.Contains('Establish the Visual Foundation and Continuity Language') -and
-             $spokenVisualSkill.Contains('Assign Page Attention and Information Carriers') -and
-             $spokenVisualSkill.Contains('primary information carrier') -and
-             $spokenVisualSkill.Contains('supporting explanation carrier') -and
-             $spokenVisualSkill.Contains('environment and continuity carrier') -and
-             $spokenVisualSkill.Contains('attention-map test') -and
-             $spokenVisualSkill.Contains('semantic-ownership test') -and
-             $spokenVisualSkill.Contains('background-response test') -and
-             $spokenVisualSkill.Contains('complexity-reason test') -and
-             $spokenVisualSkill.Contains('system-inheritance test') -and
-             $spokenVisualSkill.Contains('subtraction test')) 'spoken visual planning must preserve designer authority and responsibility-led workflow'
-Assert-True ($spokenVisualAgent.Contains('视觉基调、视觉基础与连续性语言') -and
-             $spokenVisualAgent.Contains('主要信息载体、辅助解释载体与背景职责') -and
-             $spokenVisualAgent.Contains('展示封面文案、分页文案与设计系统并等待我确认')) 'spoken visual planning default prompt must expose direction-first confirmation'
-Assert-True ($spokenVisualRules.Contains('Account Context, Brand Assets, and Designer Authority') -and
-             $spokenVisualRules.Contains('Aesthetic Direction and Deck Design System') -and
-             $spokenVisualRules.Contains('Visual foundation') -and
-             $spokenVisualRules.Contains('Continuity language') -and
-             $spokenVisualRules.Contains('Optional expression resources') -and
-             $spokenVisualRules.Contains('Page Attention and Information-Carrying Roles') -and
-             $spokenVisualRules.Contains('Background as a Page Response') -and
-             $spokenVisualRules.Contains('Attention-map test') -and
-             $spokenVisualRules.Contains('Semantic-ownership test') -and
-             $spokenVisualRules.Contains('Background-response test') -and
-             $spokenVisualRules.Contains('Complexity-reason test') -and
-             $spokenVisualRules.Contains('Subtraction test') -and
-             $spokenVisualRules.Contains('System-drift test') -and
-             $spokenVisualRules.Contains('Role-to-style shortcut test') -and
-             $spokenVisualRules.Contains('Cross-account template test')) 'shared visual rules must enforce a designer-led responsibility system and role context without persona-to-style presets'
-Assert-True (-not $spokenVisualSkill.Contains('背景语义层') -and
-             -not $spokenVisualSkill.Contains('background-decision test') -and
-             -not $spokenVisualSkill.Contains('background-system test') -and
-             -not $spokenVisualSkill.Contains('background state selected from') -and
-             -not $spokenVisualSkill.Contains('canonical Deck Design System block') -and
-             -not $spokenVisualRules.Contains('Every page receives an explicit background decision') -and
-             -not $spokenVisualRules.Contains('Assign exactly one background state to each page') -and
-             -not $spokenVisualRules.Contains('every page uses exactly one permitted background state') -and
-             -not $spokenVisualRules.Contains('one primary motif or environmental language') -and
-             -not $spokenVisualRules.Contains('permitted page states') -and
-             -not $spokenVisualRules.Contains('Background-inheritance test') -and
-             -not $spokenVisualRules.Contains('Background and Scene Strategy')) 'spoken visual rules must not solve background quality through mandatory states or page-local invention'
+Assert-True ($spokenVisualSkill.Contains('Phase 1') -and
+             $spokenVisualSkill.Contains('Phase 2') -and
+             $spokenVisualSkill.Contains('等待用户明确确认')) 'visual planning must confirm copy and direction before final prompts'
+Assert-True ($spokenVisualAgent.Contains('等待我确认') -and
+             $spokenVisualAgent.Contains('生图指南和剪辑分段表')) 'visual entry must preserve confirmation and two-document delivery'
+Assert-True ($spokenVisualSkill.Contains('COVER-01') -and
+             $spokenVisualSkill.Contains('IMG-01') -and
+             $spokenVisualSkill.Contains('3:4') -and
+             $spokenVisualSkill.Contains('16:9') -and
+             $spokenVisualSkill.Contains('剪辑分段表.md')) 'visual planning must retain both covers and segmentation output'
+Assert-True ($spokenVisualRules.Contains('独立执行') -and
+             $spokenVisualRules.Contains('图内文字') -and
+             $spokenVisualRules.Contains('单图交付') -and
+             $spokenVisualRules.Contains('成图反馈')) 'visual delivery must address self-contained execution, exact text, separate images and evidence-based feedback'
 $fixedGlobalVisualStyle = @(
     '- semi-realistic or realistic business explanatory visual;',
     '- blue-gray-white base;',
