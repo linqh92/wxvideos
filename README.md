@@ -1,6 +1,6 @@
 # 微信视频号多账号内容运营系统
 
-这是一个统一维护五个微信视频号账号的内容运营 Monorepo。公共运营逻辑只保留一套，账号配置和内容数据库彼此隔离。
+这是一个统一维护六个微信视频号账号的内容运营 Monorepo。公共运营逻辑只保留一套，账号配置和内容数据库彼此隔离。
 
 ```text
 Agent 路由与阶段控制
@@ -19,6 +19,7 @@ Shared Skills / Schemas / Scripts
 | `qycslc` | 企业财税-老陈 | `linqh92/qycslc_wxvideos_contens` | `accounts/qycslc/内容库` |
 | `gzcktxpp` | 广州出口退税-翩翩 | `linqh92/gzcktxpp_wxvideos_contens` | `accounts/gzcktxpp/内容库` |
 | `tsxbj` | 退税小笔记 | 本项目新建 | `accounts/tsxbj/内容库` |
+| `gzlxcs` | 广州老徐聊企业财税合规 | 本项目新建 | `accounts/gzlxcs/内容库` |
 
 旧仓库只作为迁移对照、数据核验和回滚来源；本项目是后续统一维护入口。
 
@@ -104,5 +105,6 @@ _candidate-index.jsonl = 候选机器检索层
    ├─ gzxzcs/
    ├─ qycslc/
    ├─ gzcktxpp/
-   └─ tsxbj/
+   ├─ tsxbj/
+   └─ gzlxcs/
 ```
