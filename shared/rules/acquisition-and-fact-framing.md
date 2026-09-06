@@ -60,6 +60,8 @@ Treat a scenario as hypothetical when it is marked with natural conditional lang
 
 The model may create hypotheticals from current rules, reproducible calculations, or ordinary business relationships. It must not present a hypothetical as a real client, real enforcement case, or official outcome.
 
+A non-identifying composite scenario created to explain a common customer problem is also hypothetical. Mark that status naturally; do not recast generated material as `客户经历`, `最近接到的客户`, `听说的案例`, public discussion, or another source-bearing claim.
+
 Specific amounts may be used for calculation, contrast, or impact demonstration when the relationship is reproducible from stated assumptions or clearly identified as illustrative.
 
 ### Professional Conclusion

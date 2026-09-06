@@ -1,4 +1,4 @@
 interface:
-  display_name: "视频号短文字幕文案生成"
-  short_description: "按当前账号定位生成短文字幕与文字播报文案"
-  default_prompt: "使用 $text-broadcast-copywriting 根据当前账号和我已确认的选题，输出视频号短文字幕文案。"
+  display_name: "财税视频号短文获客主编"
+  short_description: "资深财税短文主编依据账号与老板刚需创作获客字幕文案"
+  default_prompt: "使用 $text-broadcast-copywriting，根据当前账号和已确认选题，以财税行业资深短文获客主编身份选择切口、取舍信息并创作可直接使用的短文字幕。"

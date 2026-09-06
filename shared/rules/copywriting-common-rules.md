@@ -4,9 +4,11 @@ This file defines shared boundaries and output agreements for copywriting. Apply
 
 ## 载体适用范围
 
-`CONTENT_FORMAT=spoken` 由资深获客编导主导创作，执行 `spoken-copywriting` 的工作流与结果验收。本文件对口播提供以下公共约定：第 1–3 节账号与任务上下文、第 12 节标题的准确性及常规/短标题规格、第 13 节互动与服务边界、第 14–15 节事实及强表达边界、第 19 节输出纪律。标题方向由本题的获客机会和角色决定。
+`CONTENT_FORMAT=text_broadcast` 由财税行业资深短文获客主编主导创作，执行 `text-broadcast-copywriting` 的工作流与结果验收。`CONTENT_FORMAT=spoken` 由资深获客编导主导创作，执行 `spoken-copywriting` 的工作流与结果验收。
 
-第 4–11、16–18、20 节的生成顺序、表达强度模式、检查清单与评分用于 `text_broadcast`；口播的获客判断、人物表达、内容结构、编辑和验收统一按口播 Skill 执行。公共事实与账号边界对两种载体均有效。
+本文件对两种载体提供第 1–3 节账号与任务上下文、第 12 节标题边界、第 13 节互动与服务边界、第 14–15 节事实及强表达边界、第 19 节输出纪律。第 4–11、16–18、20 节提供共享的传播判断词汇与诊断参考，不构成固定生成顺序、正文模板或强制评分流程；媒介角色有权依据当前题目决定切口、信息关系和表达路径。公共事实、账号与业务边界始终有效。
+
+角色主导不等于脱离规则。角色负责在允许范围内做传播决策；公共规则负责限定信息身份、事实可靠性、标题承诺、互动方式和平台风险。
 
 All copywriting also follows `shared/rules/acquisition-and-fact-framing.md`. That file controls information-role classification, source boundaries, verification decisions, and acquisition preservation.
 
@@ -587,7 +589,7 @@ Medium-specific Skills MUST add their own format checks.
 
 ## 18. Common Scoring（通用评分）
 
-Internal by default.
+Use only when a medium-specific Skill requests scoring or when diagnosis would clarify a concrete weakness. Role-led outcome review remains authoritative; do not write toward the numbers or expose them by default.
 
 ### Information Gap: 1–5
 Does the content provide information the audience did not know or underestimated?
@@ -614,7 +616,7 @@ Check:
 - Traffic diversion
 - Service / outcome promises
 
-If any numeric score is below 3, rewrite first.
+When used, a numeric score below 3 identifies a result that needs revision. Resolve the actual weakness rather than mechanically adding hooks, emotion, persona markers or CTA language.
 
 Medium-specific Skills MAY add extra scoring dimensions.
 
