@@ -83,7 +83,7 @@ Every piece should move through as much of this chain as the medium supports:
 
 > Attention（停留）  
 > → Specific information hit（被具体信息击中）  
-> → Cognitive or emotional shift（认知/情绪变化）  
+> → Relevance, interest, or a supported cognitive / emotional shift（相关感、兴趣，或有依据的认知/情绪变化）
 > → Effective information gap（有效信息差）  
 > → Useful judgment（形成判断）  
 > → Share / act / learn-more willingness（分享、行动或继续了解）  
@@ -114,6 +114,8 @@ Default information order when the facts support a decision:
 > → Final judgment or one useful action
 
 This is a decision sequence, not a mandatory visible template. Use only the parts the topic and medium genuinely need. Conditions define the boundary of a conclusion; they MUST NOT replace or bury the conclusion.
+
+Cognitive conflict is one optional acquisition resource. Use it when the audience's existing assumption is materially different from the supported judgment and correcting that assumption changes understanding or action. Do not invent a mistaken belief, or turn every point into a correction, merely to create tension. A concrete scene, result, number, benefit, loss, decision, process obstacle, or useful question may provide an equally strong reason to continue.
 
 ---
 
@@ -367,12 +369,12 @@ Do NOT hard-code account-specific catchphrases, forms of address, title patterns
 
 ## 12. Title Baseline（标题基础规则）
 
-Before generating titles, internally extract:
+Before generating titles, consider the acquisition sources that materially exist in the current topic. The following are options, not a checklist:
 - Clearest supported conclusion
 - Largest real benefit / loss
-- Strongest cognitive conflict
+- A supported belief-versus-result gap, when it materially affects the audience's decision
 - Most valuable number
-- Most consequential wrong assumption
+- An existing audience assumption that materially changes the decision, when one is genuinely present
 - Largest information gap
 - Most concrete behavior / scenario or conclusion-changing condition
 - Best-fitting emotional driver
@@ -390,11 +392,7 @@ Do NOT:
 - State only “what the content is about” without a reason to continue
 - Default to generic “注意事项 / 需要注意什么 / 如何处理” phrasing when a supported result, conflict, benefit, loss, or judgment is available
 
-For a complete package, default to three clearly different title directions unless the account defines another system:
-
-1. Outcome Impact（结果影响型）
-2. Cognitive Conflict（认知冲突型）
-3. Accumulation / Decision（累积或决策型）
+For a complete package, default to three genuinely different, topic-fit title directions unless the account defines another system. Choose among outcome impact, concrete scenario, number, benefit or loss, decision or comparison, process obstacle, accumulation, and supported cognitive conflict. Do not reserve a direction for cognitive correction when the topic does not need it.
 
 ### Standard Title（常规标题）
 Use for clear topic description and search recognition.
@@ -560,6 +558,8 @@ Rewrite if ANY applies:
 - Reference-provided numbers, losses, audience callouts, suspense, or service-relevant CTA are removed without a role-based reason
 - A generated precise case is disguised as a discussion claim
 - The same conclusion is repeated without new function
+- The audience is repeatedly positioned as mistaken when a direct explanation, result, comparison, or action would carry the point more naturally
+- Multiple points reuse a denial-then-reveal move without adding a distinct judgment, emotional, or comprehension function
 - Background is added only to appear professional
 - CTA conflicts with account or platform boundaries
 - The audience still cannot answer the topic's central question after consuming the piece
@@ -664,6 +664,9 @@ Only disclose a factual limitation when necessary for correctness.
 
 > 能下结论时直接回答；不能一刀切时给分支结论。
 > Answer directly when possible; give branch conclusions when one universal answer would be inaccurate.
+
+> 获客张力来自当前客户真实在意的处境、结果、利益和决策；认知纠偏只在它确实改变理解或行动时使用。
+> Acquisition tension comes from the customer's real situation, result, interest, and decision; use cognitive correction only when it materially changes understanding or action.
 
 > 条件负责限定结论，不负责掩盖结论。
 > Conditions define the conclusion's boundary; they do not hide it.

@@ -89,6 +89,8 @@ When the user asks to follow a reference, preserve acquisition points, or stay c
 - suspense and reason to continue;
 - CTA tied to an actual service need.
 
+These are possible functions, not a mandatory checklist. Preserve a cognitive conflict when it is genuinely present and useful; do not create an audience misconception merely to make the material feel more dramatic.
+
 Adjust only the factual commitment that exceeds the claim's role. Lack of an official case source is not by itself a reason to turn a sourced discussion hook into a generic question, vague warning, or low-intensity setup.
 
 ### No Reference Available
@@ -127,7 +129,7 @@ When a claim appears to mix roles, use the strongest factual commitment a reason
 
 ## Acquisition Preservation
 
-Use the strongest role-appropriate conflict, number, outcome, benefit, loss, or decision tension in the title and opening.
+Use the strongest role-appropriate acquisition point in the title and opening. It may be a concrete customer scene, number, outcome, benefit, loss, process obstacle, decision tension, useful question, or genuinely supported cognitive conflict. Choose by customer relevance, information value, credibility, and fit with the current persona rather than defaulting to correction.
 
 For every generated or rewritten piece, verify that:
 
@@ -156,7 +158,7 @@ Use a short, natural role cue when clarification is necessary. Do not place a lo
 - `idea-intake`: preserve source material without adding factual endorsement.
 - `topic-planning`: identify source, information role, acquisition angle, and necessary verification.
 - `text-broadcast-copywriting`: place the strongest usable number, outcome, or conflict on the first screen.
-- `spoken-copywriting`: preserve natural discussion framing, audience callout, outcome tension, and reason to continue.
+- `spoken-copywriting`: preserve the strongest relevant acquisition function—such as a customer scene, result, number, benefit or loss, decision tension, useful question, or supported cognitive conflict—while keeping the discussion framing natural and giving the audience a reason to continue.
 - `spoken-visual-planning`: use the strongest confirmed acquisition point on each entry cover and preserve the source scope, information role, decisive conditions and professional conclusion throughout the standalone PPT.
 - `publish-archive`: record actual published content and state without adding factual endorsement.
 
