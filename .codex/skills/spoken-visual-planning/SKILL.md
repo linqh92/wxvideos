@@ -1,102 +1,160 @@
 ---
 name: spoken-visual-planning
-description: Design acquisition-focused 3:4 covers and complete 16:9 PPT pages from confirmed spoken content, then distill each resolved composition into an independent image prompt. Use only for explicit PPT视觉、PPT配图、视觉分镜 or AI生图提示词 requests after script confirmation. Confirm copy and visual direction before delivering the image guide and segmentation table; image generation and archiving are separate stages.
+description: Plan a search cover, a recommendation-feed opening cover, and a standalone readable PPT document from confirmed spoken content and its approved source material. Use only for explicit PPT视觉、PPT配图、视觉分镜、PPT执行指南 or AI生图提示词 requests after the spoken script is confirmed. Confirm the complete deck content and direction before producing the execution guide and video segmentation table.
 ---
 
-# 口播视觉设计与生图提示词
+# Spoken Visual Planning
 
-## Role
+## Job
 
-以专业信息设计师的身份接收已确认口播，理解目标客户为什么关注、需要看懂什么，再决定这套内容怎样呈现。The designer defines how the current brief should look.
+Act as the senior designer and information editor for one confirmed spoken topic. Build two coordinated expressions from the same facts:
 
-3:4 封面负责获客，16:9 PPT 封面负责停留，内容页帮助观众理解口播。设计思考用于形成选择；最终提示词提炼这些选择，描述实际画面。
+- the spoken track explains the topic through natural, selective conversation;
+- the document track preserves a complete, structured account that remains useful when read without the speaker.
+
+口播像课堂上的现场讲解，负责用真实交流带观众抓住重点；PPT 像课后可分享的资料，负责把背景、关系、条件、过程、判断与行动信息组织完整。两者共享事实和结论，各自按使用场景形成内容。
+
+## Page Responsibilities
+
+Treat the three page types as different design jobs.
+
+| Page type | Communication job | Design focus |
+| --- | --- | --- |
+| `COVER-01` — native 3:4 search cover | Attract relevant attention in search results, account grids and content lists | Immediate topic recognition, typographic hierarchy, editorial composition and distinctive design character |
+| `IMG-01` — native 16:9 recommendation-feed opening cover | Create a reason to stay when the video opens in the recommendation feed | Fast theme recognition, tension, pacing and a strong first-frame composition |
+| `IMG-02+` — native 16:9 content pages | Support the live explanation and preserve the complete document for later reading | Information architecture, relationships, evidence, reading order and page-to-page continuity |
+
+搜索封面与推荐流封面承担入口设计。主题文字是第一识别对象，图像、图形、空间和背景共同建立气质与记忆点。吸引力来自内容价值与编辑设计。信息可视化属于内容页的职责。
 
 ## Trigger and Boundary
 
-仅在已有已确认口播或最终音频，且用户明确提出视觉需求时使用。账号锁与阶段路由以根目录 `AGENTS.md` 为准。
+Use this Skill only when a confirmed spoken script or final audio exists and the user explicitly requests PPT pages, visual storyboarding, supporting visuals, a PPT execution guide or image prompts. Account locking and stage routing follow the root `AGENTS.md`.
 
-Do not invoke it automatically after spoken copywriting.
+The confirmed spoken track remains intact. This stage creates separate PPT copy and page structure from the same approved facts and professional conclusions.
 
-This stage does not:
-- generate images;
-- archive content or change publication state;
-- rewrite confirmed spoken content or change professional conclusions;
-- add animation, BGM, performance or publishing instructions.
+This stage ends with the execution guide and segmentation table. Image generation, editable PPT production, video editing, publishing and archiving are separate stages.
 
 ## Required Context
 
-确定 `CURRENT_ACCOUNT` 后读取：
+After resolving `CURRENT_ACCOUNT`, read:
 
-1. `shared/rules/acquisition-and-fact-framing.md`：信息身份、核验和获客表达边界。
-2. `accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号基本定位.md`：业务、客户和传播目标。
-3. `accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号人设与文风.md`：角色、沟通关系与可信度来源。
-4. `accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号视觉风格.md`：已确认品牌资产和视觉事实边界。
-5. 当前已确认口播或最终音频。
-6. `references/visual-aid-generation-rules.md`：构图、提示词提炼与交付细则。
+1. `shared/rules/acquisition-and-fact-framing.md` for claim identity, verification and acquisition framing;
+2. `accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号基本定位.md` for business, audience and communication goals;
+3. `accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号人设与文风.md` for the speaker's professional relationship and credibility;
+4. `accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号视觉风格.md` for confirmed brand assets and visual fact boundaries;
+5. the confirmed spoken script or final audio;
+6. source material already approved for the current topic, when available;
+7. `references/visual-aid-generation-rules.md` for document architecture, execution choices and delivery details.
 
-账号身份帮助理解传播任务，具体样式由当前内容决定。年龄、性别或资历不直接映射配色与版式。未确认品牌资产时，自由设计本次视觉系统；不得编造永久品牌或借用其他账号方案。必要文件缺失时报告路径。默认读取范围不包含历史、灵感、候选和复盘。
+Use only facts supported by the confirmed script, approved source material or verified official sources. Surface a material information gap during content confirmation when it prevents the document track from standing on its own.
 
-## 工作流
+Account context explains who is speaking, who should care and what trust means in this situation. The designer derives the visual system from the current topic rather than mechanically mapping age, gender, seniority or personality to a style.
 
-理解传播任务 → 选定视觉方向 → 规划封面与分页 → 确认 → 完成各页构图 → 提炼提示词 → 整体验收与交付。
+## Workflow
 
-### Phase 1 — 方向与分页确认
+### Phase 1 — Content Architecture and Direction
 
-完整阅读口播，确定值得被视觉强调的信息、需要解释的关系和观看时的理解负担。文案和页数共同适应内容容量：遵循用户指定页数；未指定时，选择能够讲清内容且阅读舒适的页数。一句结论可以成为完整页面，复杂关系也可以由几个协调的区块说明。
+#### 1. Establish the shared content baseline
 
-**Aesthetic direction（视觉方向）**：选择适合本次内容的观感、视觉重心和表达方式，说明其传播作用。方向可以由有表现力的排版、图像或空间关系成立，隐喻按需要使用。
+Read the spoken track and its approved sources as one evidence set. Identify the confirmed topic, audience, case or scenario, decisive facts, relationships, conditions, professional conclusion and useful next action.
 
-**Deck Design System（整套视觉系统）**：确定视觉基础与连续性语言。保留真正需要跨页稳定的色彩关系、字体气质、空间节奏或已确认品牌特征；各页构图和对象随任务选择。统一感可以来自基础关系，无需依赖反复出现的业务符号。
+Keep the spoken track conversational. Write the document track for independent reading. The PPT may reorganize, label, group and clarify the confirmed material while preserving its factual role and conclusion-changing conditions.
 
-在内部推敲文字与图形的实际空间，选择一个可落实的页面概念。主要信息、辅助解释和背景可以由同一构图共同承担，职责按页需要分配。背景在前景信息关系明确后回应页面的氛围、空间或连续性需要。
+#### 2. Build the standalone deck narrative
 
-交付简短设计说明，包含选定方向、视觉系统、页数依据与整体节奏；有参考时说明借鉴的具体特征。随后展示：
+Choose the information chain that makes this particular topic complete. Depending on the material, this may include context, actors, data, sequence, comparison, causality, decision conditions, result, evidence, method or action guidance. These are design considerations rather than a page template.
 
-`本次建议整理为 1 张3:4视频号封面 + 1 张16:9 PPT封面 + X 张16:9内容页。`
+Give every content page one clear document responsibility. Mark its use as:
 
-| 页面 | 确认内容 |
+- `video_and_share`: shown during the spoken video and retained in the shared deck;
+- `share_only`: useful for the complete document and not required in the video sequence.
+
+The deck should remain coherent when `share_only` pages are included and the video should remain coherent when they are omitted.
+
+#### 3. Design the two entry covers
+
+Develop `COVER-01` and `IMG-01` independently from their communication jobs. Select the strongest confirmed topic value, then shape the title, supporting line, typography, composition, imagery and atmosphere for the relevant entry context.
+
+Use editorial judgment to make the text hierarchy the first carrier of meaning. Supporting visuals should strengthen recognition, tension or tone without turning either cover into a content diagram.
+
+#### 4. Define the content-page system
+
+Set the visual foundation and continuity language for the deck. Decide how type, space, color, imagery, diagrams, tables, cards, timelines, process structures or other forms can express the actual information. Each page selects the form that best fits its responsibility.
+
+#### 5. Present the confirmation package
+
+State the chosen direction, page-count rationale, deck narrative and continuity system. Then present:
+
+`本次建议整理为 1 张3:4搜索封面 + 1 张16:9推荐流/PPT封面 + X 张16:9内容页。`
+
+| Page | Confirmation content |
 | --- | --- |
-| COVER｜视频号3:4封面 | 主标题、实际需要的辅助文案、获客角度与构图概念 |
-| P1｜16:9 PPT封面 | 主标题、实际需要的辅助文案、停留理由与构图概念 |
-| P2 起｜16:9内容页 | 页面名称、全部图内文案、观众应明白的内容与构图概念 |
+| `COVER-01` | 搜索场景、主标题、辅助文案、主题价值与封面概念 |
+| `IMG-01` | 推荐流开场场景、主标题、辅助文案、停留理由与封面概念 |
+| `IMG-02+` | 页面用途、页面职责、完整PPT文案、信息关系与构图概念 |
 
-图内文案可以从口播提炼，保留事实、数字、条件和结论。标题的断句与展示标点在本阶段确定。所有拟显示的标签、注释和辅助文字都纳入确认。
+The confirmation package contains the complete visible PPT copy, page order, page use, visual direction and page concepts. Stop after presenting it and wait for explicit user confirmation.
 
-展示封面文案、分页文案与设计系统并等待用户明确确认。确认范围包括文字、页数、顺序、视觉方向与页面概念。Phase 1 到此结束，不交付最终提示词。
+### Phase 2 — Page Resolution and Execution Guide
 
-### Phase 2 — 构图与提示词提炼
+#### 1. Resolve each composition
 
-用户明确确认后，完成各页构图。根据当前文字与图形的形状、观看尺寸和信息关系，决定主视觉、阅读路径、比例、留白及背景。构图、图标内部空间和文字换行在需要消除歧义的地方具体化。
+Complete each confirmed page at its native ratio. Covers are judged as entry designs. Content pages are judged as document pages with a clear reading path, complete information and an intelligible relationship between text and visuals.
 
-卡片、线图、照片、块面、浅底和深底均是可用设计手段，依据实际内容选择。主次通过整体视觉重量建立，辅助图形可以有充分体量。每页的变化来自解释任务，跨页稳定性来自已确认视觉系统。
+Build hierarchy through the whole composition. Page density, visual weight, whitespace and form follow the amount and shape of the information. Cross-page unity comes from the selected visual system; individual layouts respond to their page responsibilities.
 
-使用参考文件“提示词提炼”的方法，将构图转成可独立执行的画面描述：保留会影响结果的决定，合并重复表达，省去设计理由和未采用的方案。提示词的详略取决于还需消除多少画面歧义。
+#### 2. Choose the execution method
 
-构图细化在已确认方向内由设计师完成。若需要改变确认文案、页数或核心视觉方向，先呈现具体调整供用户确认；普通比例、间距和局部外观调整由设计师处理。
+Select the production method page by page:
 
-## Quality Gate
+- a full-page image prompt when the composition and copy load suit direct generation;
+- generated visual material combined with an editable typesetting layer when text accuracy, density or future editing matters;
+- native layout elements when type, tables, diagrams or structured relationships are the primary content.
 
-在交付前集中检查：
+The execution guide records the chosen method and enough detail for another designer or production agent to build the page faithfully.
 
-- **传播与画面**：两张封面分别适合列表浏览和播放开场；各页的重心、阅读路径与视觉重量清楚，文字在观看尺寸下可读。
-- **内容与一致性**：确认文字、事实和页序完整；页间有共同视觉气质，各页表达适合自身内容。
-- **提示词与交付**：只读单页提示词能明确画出所选构图，关键文字和关系没有丢失；每张图独立输出，双文档格式完整。
+#### 3. Distill image prompts
 
-发现问题时修正具体原因。提示词检查证明可交付程度；成图质量与稳定性需要实际图像证据，按参考文件“成图反馈”执行。
+Write prompts only for the visual assets or full-page images used by the chosen execution method. Describe the selected visual result, composition, atmosphere, relationships and relevant visible copy in affirmative, self-contained language.
+
+The confirmed `Page Copy` section is the text source of truth. Include exact Chinese text inside an image prompt when that text belongs in the generated asset. Keep editable typesetting copy in the page specification and describe the space it occupies in the composition.
+
+#### 4. Review the complete system
+
+Check the two entry covers in their own contexts, the standalone readability of the full deck, the spoken-video sequence, factual consistency, page-to-page continuity and the executability of every page specification.
+
+## Quality Review
+
+- **Search cover**: a relevant viewer can recognize the topic value quickly in search, profile or list contexts; typography and composition carry the attention decision.
+- **Recommendation-feed cover**: the opening frame establishes the subject and a credible reason to continue watching.
+- **Standalone document**: a reader can understand the topic, important relationships, decisive conditions, conclusion and useful action without hearing the spoken track.
+- **Video sequence**: pages marked `video_and_share` support the spoken pacing and remain readable at viewing size.
+- **Information integrity**: every claim keeps its confirmed role, source scope and conclusion-changing conditions.
+- **Execution clarity**: page copy, hierarchy, layout, production method and any required image prompts form one coherent instruction set.
+
+Actual generated-image quality requires image evidence. Apply the reference's image-feedback method when samples are available or the user authorizes a generation test.
 
 ## Output
 
-确认后生成两个可下载 Markdown 文件，写入当前账号内容库中适合的本次附件目录；写入前检查路径与重名，保留既有文件：
+After confirmation, write two Markdown documents to a suitable attachment directory inside the current account. Check the target path and preserve existing files.
 
-1. `<角色><内容简称>生图指南.md`：角色使用当前账号公开短名；内容简称为 2–5 个汉字；文件名无空格或分隔符。
-2. `剪辑分段表.md`：仅映射口播范围或真实音频时间至视频内图片。
+1. `<角色><内容简称>PPT设计执行指南.md`: use the current account's public short role name and a 2–5 Chinese-character content name.
+2. `剪辑分段表.md`: map only pages used in the spoken video to spoken ranges or verified audio times.
 
-生图指南仅包含图片 ID 标题及各自的完整提示词代码块。ID 为 `COVER-01`、`IMG-01`、`IMG-02` 等。`COVER-01` 是原生 3:4 获客封面，不计入 PPT 页数；`IMG-01` 是原生 16:9 PPT封面，其后为完整 16:9 内容页。
+The execution guide contains the final page system and one section per page:
 
-提示词的执行语言为英文，仅图内确切文字使用简体中文。每条提示词独立提供必要的样式、文案、构图和单图输出要求。
+- page ID, ratio, role and use;
+- complete `Page Copy`;
+- information hierarchy and composition;
+- selected production method;
+- image prompt blocks required by that method.
 
-剪辑分段表从 `IMG-01` 开始，排除 `COVER-01`。有最终音频时使用真实时间；只有文案时使用口播起止范围，不编造时间。设计分析、QA、操作说明及过程描述均不进入两个交付文档。
+Use `COVER-01` for the native 3:4 search cover, `IMG-01` for the native 16:9 recommendation-feed/PPT cover, and `IMG-02+` for native 16:9 content pages.
+
+The segmentation table starts from `IMG-01`, includes only `video_and_share` pages and covers the full spoken sequence in order. Use actual timestamps for final audio and spoken start/end phrases when only the script exists.
+
+Both documents describe the final deliverable. Design exploration, internal scoring and process notes stay outside them.
 
 ## Stop
 
-交付两个文档后结束。本阶段不自动生成图片、制作视频、发布或归档。
+End after delivering the two documents. Continue to image generation, PPT production, editing, publishing or archiving only through the corresponding user-requested stage.

@@ -1,6 +1,6 @@
 # Acquisition and Fact Framing
 
-This file defines the shared decision rules for acquisition strength, claim framing, source use, and verification across topic planning, copywriting, and acquisition-cover planning.
+This file defines the shared decision rules for acquisition strength, claim framing, source use, and verification across topic planning, copywriting, acquisition-cover planning, and standalone PPT content.
 
 ## Objective
 
@@ -157,7 +157,7 @@ Use a short, natural role cue when clarification is necessary. Do not place a lo
 - `topic-planning`: identify source, information role, acquisition angle, and necessary verification.
 - `text-broadcast-copywriting`: place the strongest usable number, outcome, or conflict on the first screen.
 - `spoken-copywriting`: preserve natural discussion framing, audience callout, outcome tension, and reason to continue.
-- `spoken-visual-planning`: extract the strongest confirmed acquisition point without changing its information role or weakening it on the covers.
+- `spoken-visual-planning`: use the strongest confirmed acquisition point on each entry cover and preserve the source scope, information role, decisive conditions and professional conclusion throughout the standalone PPT.
 - `publish-archive`: record actual published content and state without adding factual endorsement.
 
 ## Quality Gate

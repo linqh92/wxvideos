@@ -70,27 +70,41 @@ Assert-True ($spokenSkill.Contains('references/chinese-spoken-naturalness.md')) 
 Assert-True ($spokenNaturalness.Contains('applies ONLY to `spoken-copywriting`') -and $spokenNaturalness.Contains('MUST NOT be inherited by `text-broadcast-copywriting`')) 'spoken-naturalness reference must remain isolated from text-broadcast copywriting'
 Assert-True ($rootAgent.Contains('spoken-visual-planning') -and $rootAgent.Contains('不得自动进入 `spoken-visual-planning`')) 'root AGENTS must route spoken visual planning as an explicit-only stage'
 Assert-True ($rootAgent.Contains('设计师主导') -and $rootAgent.Contains('账号基本定位.md') -and $rootAgent.Contains('账号人设与文风.md') -and $rootAgent.Contains('账号视觉风格.md')) 'root AGENTS must define designer-led visual authority and account-context sources'
-Assert-True ($rootAgent.Contains('视觉基础与连续性语言') -and $rootAgent.Contains('背景在前景信息关系明确后回应页面')) 'root AGENTS must define designer-led carrier assignment and responsive background design'
-Assert-True ($readme.Contains('视觉基础与连续性语言') -and $readme.Contains('背景在前景信息关系明确后回应页面需要')) 'README must explain designer-led carrier assignment and responsive background design'
-Assert-True ($spokenVisualSkill.Contains('Do not invoke it automatically after spoken copywriting.') -and $spokenVisualSkill.Contains('## Stop')) 'spoken visual planning must be explicit-only and stop after delivery'
-Assert-True ($spokenVisualSkill.Contains('This stage does not:') -and $spokenVisualSkill.Contains('generate images') -and $spokenVisualSkill.Contains('archive content')) 'spoken visual planning must not generate images or archive automatically'
+Assert-True ($rootAgent.Contains('3:4` 搜索封面') -and
+             $rootAgent.Contains('16:9` 推荐流/PPT封面') -and
+             $rootAgent.Contains('信息可视化由内容页承担')) 'root AGENTS must distinguish the two entry covers from content-page information design'
+Assert-True ($readme.Contains('口播负责现场交流中的重点讲解') -and
+             $readme.Contains('能够独立阅读和分享的完整资料') -and
+             $readme.Contains('两个封面由主题文字')) 'README must explain the dual-expression model and entry-cover responsibility'
+Assert-True ($spokenVisualSkill.Contains('Use this Skill only when') -and
+             $spokenVisualSkill.Contains('wait for explicit user confirmation') -and
+             $spokenVisualSkill.Contains('## Stop')) 'spoken visual planning must be explicit-only, confirm the deck, and stop after delivery'
+Assert-True ($spokenVisualSkill.Contains('Image generation, editable PPT production, video editing, publishing and archiving are separate stages.')) 'spoken visual planning must preserve downstream stage boundaries'
 Assert-True ($spokenVisualSkill.Contains('accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号基本定位.md') -and
              $spokenVisualSkill.Contains('accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号人设与文风.md') -and
              $spokenVisualSkill.Contains('accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号视觉风格.md')) 'spoken visual planning must load current-account positioning, persona, and visual context'
 Assert-True ($spokenVisualSkill.Contains('Phase 1') -and
              $spokenVisualSkill.Contains('Phase 2') -and
-             $spokenVisualSkill.Contains('等待用户明确确认')) 'visual planning must confirm copy and direction before final prompts'
+             $spokenVisualSkill.Contains('standalone deck narrative') -and
+             $spokenVisualSkill.Contains('complete visible PPT copy')) 'visual planning must confirm the complete standalone deck before execution'
 Assert-True ($spokenVisualAgent.Contains('等待我确认') -and
-             $spokenVisualAgent.Contains('生图指南和剪辑分段表')) 'visual entry must preserve confirmation and two-document delivery'
+             $spokenVisualAgent.Contains('PPT设计执行指南和剪辑分段表')) 'visual entry must preserve confirmation and two-document delivery'
 Assert-True ($spokenVisualSkill.Contains('COVER-01') -and
              $spokenVisualSkill.Contains('IMG-01') -and
              $spokenVisualSkill.Contains('3:4') -and
              $spokenVisualSkill.Contains('16:9') -and
+             $spokenVisualSkill.Contains('PPT设计执行指南.md') -and
              $spokenVisualSkill.Contains('剪辑分段表.md')) 'visual planning must retain both covers and segmentation output'
-Assert-True ($spokenVisualRules.Contains('独立执行') -and
-             $spokenVisualRules.Contains('图内文字') -and
-             $spokenVisualRules.Contains('单图交付') -and
-             $spokenVisualRules.Contains('成图反馈')) 'visual delivery must address self-contained execution, exact text, separate images and evidence-based feedback'
+Assert-True ($spokenVisualSkill.Contains('video_and_share') -and
+             $spokenVisualSkill.Contains('share_only') -and
+             $spokenVisualSkill.Contains('source material already approved')) 'visual planning must distinguish video pages, reference pages, and approved source material'
+Assert-True ($spokenVisualRules.Contains('Dual-Expression Model') -and
+             $spokenVisualRules.Contains('Entry-Cover Design') -and
+             $spokenVisualRules.Contains('Page Copy and Typesetting') -and
+             $spokenVisualRules.Contains('Production-Method Selection') -and
+             $spokenVisualRules.Contains('Prompt Distillation') -and
+             $spokenVisualRules.Contains('Video Segmentation') -and
+             $spokenVisualRules.Contains('Review with Generated Evidence')) 'visual reference must cover the complete document and role-led execution model'
 $fixedGlobalVisualStyle = @(
     '- semi-realistic or realistic business explanatory visual;',
     '- blue-gray-white base;',

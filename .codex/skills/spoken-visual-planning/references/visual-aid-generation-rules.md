@@ -1,107 +1,148 @@
-# 视觉设计与提示词交付参考
+# Visual Planning and Execution Reference
 
-本文件配合 `spoken-visual-planning`，用于将已确认口播设计成页面，并提炼为可执行的生图提示词。入口、账号来源、确认流程和最终验收以 Skill 为准；事实身份与核验遵循 `shared/rules/acquisition-and-fact-framing.md`。
+Use this reference with `spoken-visual-planning`. The Skill owns routing, account context, confirmation and final delivery. `shared/rules/acquisition-and-fact-framing.md` owns claim identity and verification boundaries.
 
-## 设计判断
+## Dual-Expression Model
 
-设计师先理解观众需要注意、比较或理解什么，再选择呈现方式。视觉方向服务本次客户和传播任务，具体效果由内容、品牌资产与设计判断共同决定。
+Build the spoken track and the document track from one confirmed evidence set.
 
-以整页观感判断是否成立：重心、文字可读性、图形体量、占用空间与留白是否协调。明暗、细线、块面、摄影、卡片和编辑式排版各有适用场景；熟悉的形式与新颖的形式使用同样的评价依据。
+The spoken track selects what a person should say aloud to make the topic easy to follow. The document track organizes what a reader needs to understand the topic later. Shared facts, relationships and professional conclusions remain consistent even when sentence form, information density and sequence differ.
 
-文字、图形与背景可以共同形成主视觉。标题需要易读且有吸引力；图形的面积由构图决定，主次也可通过颜色、位置、细节和对比建立。内容页按理解任务决定文字与图形的权重。
+口播保留真实交流感，PPT 保留完整资料价值。完整指读者能够还原问题、理解关键关系、看清条件并知道结论怎样成立；页面数量与信息密度由内容决定。
 
-背景在前景关系明确后提供氛围、空间、衬托或连续性。简洁底色可以完成任务，有表现力的场景也可以成为画面重要部分。装饰允许有纯粹的审美贡献，其形状与连线应避免让观众误读为业务事实。
+## Entry-Cover Design
 
-## 视觉系统与页间节奏
+### Search cover — `COVER-01`
 
-将已确认设计方向中确需稳定的外观关系提炼为整套视觉基础，例如色彩对比、字体气质、空间节奏和品牌特征。选取依据是是否帮助本套作品成立，数量按内容决定。
+Design for recognition in a compact 3:4 list, search result or account grid. Lead with the confirmed topic value and a typographic hierarchy that remains legible at thumbnail size. Use composition, imagery, color and space to create a distinct editorial presence.
 
-连续性可以通过基础关系建立，也可以由适合当前内容的视觉母题承担。母题只在对当前页有贡献时出现；各页的对象和表现手段来自各自的理解任务。视觉统一不等于对象复用，版式变化也无需刻意制造。
+搜索场景首先解决“这条内容是否和我有关、是否值得点开”。标题承担主要信息，辅助文案补充必要对象、结果或条件。
 
-先看相邻页面分别在说明什么，再判断构图是否需要变化。比较、计算、场景和一句结论可以各自拥有合适的视觉表达。短内容通过比例和排版获得完整感，较多信息通过分组和分页获得清晰度。
+### Recommendation-feed opening cover — `IMG-01`
 
-参考图片用于理解比例、对比、空间和表达手法，按当前内容重新作设计。借鉴应保留任务适配性，避免将参考中的无关业务对象或品牌身份带入本页。
+Design the native 16:9 opening frame around immediate comprehension and a reason to stay. Use timing implied by hierarchy, contrast and composition. The page also serves as the shared deck's title page.
 
-## 构图落实
+推荐流场景首先解决“我正在看什么、为什么值得继续”。停留理由来自选题冲突、结果、判断价值或信息缺口，并通过专业的编辑设计呈现。
 
-把确定文案放入设想的画面中，推敲文字宽度、自然换行、图形范围和阅读路径。信息区的关系清楚后，确定留白位置、层间对比和需要的背景外观。前景在四周保有舒适边距，具体尺寸随画面选择；原生 3:4 与 16:9 各自构图。
+Both covers are entry designs. Their imagery supports topic recognition, tone and memorability. Information visualization begins with the content pages.
 
-复杂页面需要明确对象、数量、连接和标签归属；简单页面可以直接由文字与图形关系成立。图标有容器时检查内部空间和视觉大小；有背景线条时明确其与前景的遮挡关系。仅把对当前构图有作用的细节落实到提示词。
+## Standalone Document Architecture
 
-隐喻是一种构思资源。选用时，将它转成能看见的形状、位置和联系，并判断观众是否能理解。时间、观点和业务状态若无法单靠图形准确传达，可以借助已确认文字或选择更直观的表达。必要标签在确认阶段提出；确认后需要补字时返回文案确认。
+Determine completeness from the current subject. Ask what an informed reader would still need after seeing the title and conclusion. Select the dimensions that materially improve understanding.
 
-语义关系保持准确：比较、并列与先后应呈现各自关系。中性示意表、信息区块或文件轮廓可辅助理解；不得伪造真实官方界面、通知、印章或单据。所有金额、日期、名称和业务结论均来自确认内容。
+Useful dimensions include:
 
-## 提示词提炼
+- context and scope;
+- people, entities or objects involved;
+- confirmed numbers, documents or evidence;
+- sequence and dependencies;
+- comparison, calculation or causal relationship;
+- conditions that change the judgment;
+- professional conclusion and practical next action.
 
-提示词承担画面交付。设计理由、传播策略和内部比较留在规划中；输出描述已选定的对象、布局、外观、确切文字及必要生成要求。
+Convert these dimensions into a deck narrative. A page may establish context, resolve one relationship, document evidence, explain a method or preserve reference detail. Page boundaries follow comprehension and later retrieval.
 
-从整页最重要的画面开始，顺着构图描述其余部分。说明内容如何排列，以及决定视觉效果的比例、颜色、字体和空间关系。描述顺序随本页的主视觉安排，使用连贯指令。
+资料页可以承载口播中简要带过、但独立阅读时需要保留的背景、字段、条件和步骤。补充内容来自已确认材料或完成核验的来源。
 
-对每段描述判断其作用：
-- 会改变主视觉、阅读路径、文字准确性或重要外观的决定，明确保留；
-- 多处描述同一特征的内容，合并表达；
-- 设计理由，转为它实际对应的视觉结果；
-- 尚未选定的布局或对象，在设计阶段作出选择；
-- 可由已明确画面自然推导的细节，给生成留出合理空间。
+## Information Design for Content Pages
 
-详略依据画面歧义决定，不设固定词数、风格词数或必须填满的字段。提炼可以得到简短提示词，也可以为复杂图解保留必要拓扑说明。短不等于明确，长也不等于完整。
+Give each page one main document responsibility and decide the reader's first, second and supporting reads. Select a visual form after identifying the information relationship.
 
-### 共享外观与独立执行
+- Sequence may use steps, a route, a timeline or spatial progression.
+- Comparison may use aligned columns, scales, paired structures or a table.
+- Causality may use linked states, input-output structure or annotated evidence.
+- Classification may use groups, matrices, fields or nested regions.
+- A decisive conclusion may use typographic composition supported by concise evidence.
 
-每条提示词自行携带本页需要的稳定外观特征，保持与已确认系统一致。可以复用精炼的样式短段；按本页实际需要组织描述，保持含义一致即可。
+These are available forms, not presets. Photography, illustration, diagrams, native shapes, tables and editorial typography are chosen by the designer for the page's actual job.
 
-公共样式描述只承载跨页稳定的外观。业务对象、母题的具体应用、背景细节和本页标签在本页确定。独立执行依靠上下文自足，不依靠重复完整设计说明。
+Build continuity through a small set of stable relationships such as type character, color contrast, spacing rhythm, graphic treatment or confirmed brand assets. Let page layouts vary with their content while the deck still feels authored as one work.
 
-描述确切画面，避免要求生图模型自行理解看不见的历史、业务意图或别页内容。独立提示词不能依赖账号文件、前文、上一页或其他 ID；选定的排布直接写明。可能引起误解的细节以具体外观说明，负面指令仅处理本图实际容易出现的错误。
+## Page Copy and Typesetting
 
-### 图内文字
+Maintain a `Page Copy` block for every page. It is the approved textual source for final production and includes headings, body text, labels, notes, figures, units and meaningful punctuation.
 
-列出全部已确认简体中文原文，并明确其位置与层级。保留数字、单位和语义标点；关键换行按确认结果表达。标签归属清楚，辅助文字有可读空间。
+Write PPT copy for scanning and reference:
 
-英文指令描述构图与外观，中文仅用于确切图内文案。不得要求补写标签、翻译、改写或发明小字。设计过程中提及的中文若需要显示，也应纳入原文清单；避免“只能显示这些文字”与后续另加文字相冲突。
+- headings state the page's judgment or subject;
+- labels make relationships and ownership explicit;
+- body text preserves necessary explanation and conditions;
+- notes hold secondary qualifications without burying the conclusion;
+- tables and diagrams use terms that remain clear outside the spoken context.
 
-### 单图交付
+中文 PPT 文案以独立阅读为判断场景。标题可以比口播更凝练，说明文字可以比口播更完整；专业结论、数字、条件和事实身份保持一致。
 
-每条提示词说明：
-- 当前图片 ID、一个原生画布比例和完整页面；
-- 即使与其他 ID 同时提交，也分别输出本 ID 对应的独立图片；
-- 图内文字与构图完整，禁止拼成多页总览、联系表或展示样机。
+Place copy according to reading order and realistic space. Long or accuracy-sensitive text belongs in an editable typesetting layer. Short display copy may be rendered inside a generated asset when the chosen tool can support the intended result.
 
-可直接使用并按 ID 与比例替换：
+## Production-Method Selection
 
-~~~text
-Generate one independent image for [IMAGE_ID], a complete native [3:4 or 16:9] cover or PPT page. Output this ID separately even when other image prompts are submitted together. Use one full canvas, not a collage, contact sheet or presentation mockup.
-~~~
+Choose the method that best preserves the design and the content.
 
-之后描述本页的选定画面、稳定外观与确切文字。单图要求清楚即可，无需用多段同义声明挤占画面描述。满幅画布指背景到边，前景文字和图形按所选边距排布。
+### Full-page generation
 
-## 文档交付
+Use when the page relies on a unified visual scene or composition and contains a manageable amount of display text. The prompt describes the full native canvas, selected composition and visible copy.
 
-生图指南仅采用以下结构，逐页延续：
+### Generated visual plus editable type
+
+Use when the visual benefits from image generation while the copy needs reliable typesetting or later revision. The prompt creates the relevant visual layer, including the space and relationship reserved for type. The guide specifies final copy and layout separately.
+
+### Native page construction
+
+Use when typography, tables, diagrams or structured fields carry most of the meaning. The guide describes layout, hierarchy and styling directly. Image prompts are included for supporting assets used in the design.
+
+A deck may combine these methods while preserving one visual system.
+
+## Prompt Distillation
+
+Turn a resolved visual decision into a self-contained execution prompt. Start with the intended asset and native ratio, then describe the dominant composition, supporting elements, spatial relationships, visual character and any text rendered within the asset.
+
+Write affirmative, outcome-focused instructions. Retain details that change recognition, hierarchy, relationships or visual appearance. Combine repeated style information and resolve alternatives before delivery.
+
+Each prompt carries the context required to produce its own asset. It does not depend on another page ID, an account file or an earlier explanation. Shared appearance is expressed through the relevant visual traits on that asset.
+
+For generated text, list the confirmed Simplified Chinese copy with its position and hierarchy. For editable type, describe the reserved text region, contrast and composition while the exact copy remains in `Page Copy`.
+
+生成画面中的中文只承担已经确定的展示任务。页面资料文字以 `Page Copy` 为准，图像提示词负责其实际生成范围内的文字和视觉结果。
+
+## Execution Guide Format
+
+Use the following structure for each page:
 
 ~~~markdown
-# COVER-01
+## IMG-02｜<页面名称>
+
+- Ratio: 16:9
+- Role: content page
+- Use: video_and_share | share_only
+- Production method: full-page generation | generated visual + editable type | native page construction
+
+### Page Copy
+
+<完整页面文案，包括标题、正文、标签、数据与必要备注>
+
+### Information and Composition
+
+<阅读顺序、信息关系、版式、视觉重量、图形或图像职责、页间连续性>
+
+### Image Prompts
 
 ```text
-<完整、自足的3:4封面提示词>
-```
-
-# IMG-01
-
-```text
-<完整、自足的16:9 PPT封面提示词>
+<当前执行方式需要的完整、自足提示词；没有生图资产时写 None>
 ```
 ~~~
 
-每个 ID 一个标题和一个代码块，内容页从 `IMG-02` 继续。所有图内文字、构图与必要外观都在各自提示词内。文件名为 `<角色><2–5字内容>生图指南.md`。
+Apply the same structure to `COVER-01` and `IMG-01`, using their distinct entry roles. The document begins with the confirmed deck direction and visual system, followed by pages in final order.
 
-`剪辑分段表.md` 仅包含 `IMG-01` 起的视频内图片与口播范围的对应关系。使用能定位的口播起止文字；有最终音频时使用实际时间。映射覆盖完整口播、顺序一致；`COVER-01` 不进入分段表。两份文档只描述最终交付内容。
+## Video Segmentation
 
-## 成图反馈
+`剪辑分段表.md` maps the spoken sequence to pages marked `video_and_share`. Start with `IMG-01`; the 3:4 search cover stays outside the video timeline. Use verified audio times when audio exists and spoken start/end phrases when planning from a script.
 
-文本验收检查设计与提示词是否清楚、完整、自足，不代表已验证美观度或稳定输出。获得用户提供的成图时直接查看，区分构图选择、提示词歧义和模型执行偏差。
+The mapping covers the full spoken track in order. A page may remain on screen across several spoken sentences when that supports comprehension. Pages marked `share_only` remain in the PPT execution guide and outside the video segmentation table.
 
-在完整尺寸看文字与细节，在缩小尺寸看重心、可读性和页间节奏。定位具体失败原因，针对该原因调整画面或描述；避免把某张图的局部问题概括成永久审美禁令。
+## Review with Generated Evidence
 
-用户明确授权生图测试时，按相应生图流程选择与待验证问题匹配的页面测试。说明实际检查了哪些样本；单次成功不等于长期稳定。测试记录留在交付指南外。本 Skill 的规划任务本身不启动生图。
+Text review verifies content architecture and execution clarity. Generated samples provide evidence about composition, legibility and model behavior.
+
+Inspect cover recognition at thumbnail or first-frame size. Inspect content pages at video size and full document-reading size. Classify a problem as content hierarchy, layout choice, prompt ambiguity, text-rendering limitation or model execution variance, then revise the responsible layer.
+
+When the user authorizes a generation test, select pages that represent the actual uncertainty: one entry cover, one information-dense page or one complex relationship page as appropriate. Keep test observations outside the final execution guide.
