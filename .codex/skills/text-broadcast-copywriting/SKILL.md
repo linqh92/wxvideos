@@ -28,7 +28,7 @@ Resolve `CURRENT_ACCOUNT` and `CONTENT_FORMAT=text_broadcast` under root `AGENTS
 1. `shared/rules/acquisition-and-fact-framing.md` for information roles, permitted sources, verification and acquisition strength;
 2. `shared/rules/copywriting-common-rules.md` for account context, title, interaction, fact, platform and output boundaries;
 3. `accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号基本定位.md` for business scope, target customers and service relationship;
-4. `accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号人设与文风.md` for the account's professional perspective and written expression;
+4. `accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号人设与文风.md` for the shared persona layer and the text-broadcast adaptation layer;
 5. `references/text-broadcast-reading-and-editing.md` for visual-reading capacity, line-break craft and reduction checks.
 
 Treat account examples, phrases and behavior models as evidence about judgment and voice, not as reusable copy. Use only the locked account; report a missing required path instead of borrowing from another account.
@@ -53,13 +53,15 @@ Industry familiarity must affect the choice of angle and information, not merely
 
 Compare a small number of viable angles internally. Select the one with the strongest combination of customer relevance, first-screen value, professional trust, factual support and service connection.
 
-Results, conclusions, numbers, benefits, losses, concrete operating scenes, process obstacles, comparisons, accumulation and supported cognitive conflict are editorial devices, not required slots. Use cognitive correction only when the customer is likely to hold that judgment and correcting it changes a decision or action.
+Identify the most valuable information and the relationship that already exists among the topic's facts. Results, conclusions, numbers, benefits, losses, concrete operating scenes, process obstacles, comparisons, causes, conditions and supported cognitive conflict are possible entry points, not required slots.
+
+Use cognitive correction only when the customer is likely to hold that judgment and correcting it changes a decision or action. If removing the assumed misconception leaves a complete and more natural point, state the result, fact, reason, comparison, condition or action directly.
 
 When a user supplies a reference, preserve or rebuild its useful acquisition functions at equal role-appropriate strength. Do not remove its strongest number, outcome, audience callout, suspense or service connection merely because the wording must be rewritten.
 
 ### 3. Write the account's native short-form expression
 
-Write one focused piece that answers one acquisition-worthy question. Let the information order follow the customer's reading need and the actual relationship among result, reason, condition, comparison and action.
+Write one focused piece that answers one acquisition-worthy question. Let the information order follow the customer's reading need and the actual relationship among the selected facts. Do not add setup, correction, explanation, condition or action merely to complete a familiar progression.
 
 Generate a short text this account would publish, not a spoken script split into lines. The account's role appears through what it notices, which variable it treats as decisive, how it explains consequences and how it relates to customers. Do not simulate persona with fixed catchphrases, forced jokes, repeated forms of address or copied account examples.
 
@@ -83,7 +85,7 @@ Non-critical context may appear later. Every conclusion-changing condition must 
 
 Keep one core judgment, one primary pressure or benefit point and only the information needed to make the answer useful. Narrow the angle before adding background or a second logic thread.
 
-Result-and-reason, decision correction, accumulation, chain propagation, numeric comparison, choice comparison, event impact and scene-to-action are available ways to understand an information relationship. They are not modes to select automatically or templates to fill.
+Edit the relationship that the material already contains. A result may need its reason; two choices may need their decisive difference; a number may need its operating meaning; an action may need its consequence; upstream and downstream facts may need their real connection. Correct a mistaken decision only when that mistake is present and consequential. These relationships describe what must be understood, not modes to select or templates to fill.
 
 Each sentence must contribute a fact, object, behavior, information gap, reason, condition, impact, judgment, audience result or action direction. Delete material whose removal does not reduce customer recognition, useful judgment, trust, reading rhythm or service relevance.
 
@@ -125,6 +127,8 @@ Read the complete piece without imagined voice performance and revise any part t
 | Account role | 切口、取舍、解释和客户关系是否由当前账号资料支持，而不是通用财税口吻？ |
 | Conversion | 内容是否展示了有用判断，并从真实应用或执行需求形成自然的服务关联？ |
 | Medium | 静音阅读是否顺畅？首屏、行长、换行和信息密度是否适合短文字幕？ |
+| Progression | 开场、推进和结尾是否由本题的信息关系产生？是否为了显得有判断、制造冲突或完成固定结构，先假设客户理解错误？ |
+| Ending | 结尾是否停在本题最合适的结论、结果、差异、条件、经营含义或必要动作上，而不是默认变成行动指令？ |
 | Independence | 当前表达是否由本题生成，而不是固定模式、上一稿结构或例句改写？ |
 
 Run the reduction pass in the reading reference. Delete material that contributes nothing to customer recognition, judgment, factual clarity, trust, reading rhythm or service relevance. Preserve necessary professional terms and conclusion-changing conditions.

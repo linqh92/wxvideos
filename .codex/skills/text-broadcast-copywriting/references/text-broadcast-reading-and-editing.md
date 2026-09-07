@@ -49,19 +49,23 @@ A scene may create relevance, but it must not postpone the actual issue merely t
 
 Use numbering only when parallel items, steps or checks genuinely become easier to scan. Do not force a fixed-size list.
 
-## Available Editorial Shapes
+## Information-Relationship Editing
 
-The following are optional ways to understand an information relationship, not templates to select or fill:
+Identify what the reader must understand from the material already available:
 
-- result and reason;
-- mistaken decision and corrected standard;
-- accumulation and amplified consequence;
-- upstream problem and downstream effect;
-- numeric or decision comparison;
-- verified event and customer impact;
-- scene, decisive variable and action direction.
+- when a result needs explaining, connect it to the reason that changes the reader's judgment;
+- when two choices differ, show the decisive difference and applicable condition;
+- when a number matters, translate it into its operating implication;
+- when an action affects a result, make the action and consequence legible;
+- when upstream and downstream facts interact, include only the links needed for the current conclusion;
+- when a process obstacle is the real issue, show where it blocks the result and what can be judged from it;
+- when a consequential misconception genuinely exists, correct it without turning the rest of the piece into repeated denial and reveal.
 
-Choose the actual reading path from the topic, audience and account role. Do not invent a change, trend, result or audience misconception to fit a shape.
+These are editing decisions, not templates or modes. Choose the reading path from the topic, audience and account role. Do not invent a change, trend, result or audience misconception to create a stronger shape.
+
+## Ending Function
+
+Stop where the current piece becomes complete. The ending may carry a conclusion, result, decisive difference, condition, operating implication or necessary action. Do not add an instruction, checklist, consultation cue or `先…再…` sequence merely because short-form copy is expected to end with something actionable.
 
 ## Reduction Pass
 

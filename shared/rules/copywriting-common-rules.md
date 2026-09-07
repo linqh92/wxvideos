@@ -106,16 +106,9 @@ Execution priority:
 
 Use the strongest acquisition expression permitted by the information's role and source. Keep determinative facts and professional conclusions accurate, and keep conclusion-changing conditions visible.
 
-Default information order when the facts support a decision:
+Let the information order follow the relationship that already exists in the topic. A piece may enter through a result, fact, number, scene, comparison, decision, cause, condition, process obstacle or useful question. Put the supported answer where the audience needs it, and develop only the relationship required to understand or use that answer.
 
-> Strongest valid information / hook
-> → Direct or directional conclusion
-> → Audience result / benefit / loss
-> → Reason or core mechanism
-> → 1–3 conclusion-changing conditions as needed
-> → Final judgment or one useful action
-
-This is a decision sequence, not a mandatory visible template. Use only the parts the topic and medium genuinely need. Conditions define the boundary of a conclusion; they MUST NOT replace or bury the conclusion.
+Do not add a setup, correction, explanation block, condition block or final action merely to complete a familiar sequence. Conditions define the boundary of a conclusion; they MUST NOT replace or bury the conclusion.
 
 Cognitive conflict is one optional acquisition resource. Use it when the audience's existing assumption is materially different from the supported judgment and correcting that assumption changes understanding or action. Do not invent a mistaken belief, or turn every point into a correction, merely to create tension. A concrete scene, result, number, benefit, loss, decision, process obstacle, or useful question may provide an equally strong reason to continue.
 

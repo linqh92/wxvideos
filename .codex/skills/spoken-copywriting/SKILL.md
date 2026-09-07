@@ -17,7 +17,7 @@ description: Write acquisition-focused WeChat Video Account spoken scripts as a 
 
 1. `shared/rules/acquisition-and-fact-framing.md`：信息身份、来源、核验与获客表达边界。
 2. `shared/rules/copywriting-common-rules.md`：按其“载体适用范围”读取公共边界与交付约定。
-3. 当前账号 `账号基本定位.md` 和 `账号人设与文风.md`：路径由公共规则指定；以“口播编导简报”提取创作决策依据，结合原文理解适用条件。
+3. 当前账号 `账号基本定位.md` 和 `账号人设与文风.md`：路径由公共规则指定；从共同人物层理解专业视角与客户关系，并按口播适配层生成自然说话，结合原文理解适用条件。
 4. `references/chinese-spoken-naturalness.md`：口播听觉表达与跨稿件重复检查。
 
 必要账号文件缺失时报告路径；只使用当前账号上下文。账号资料中的例句、词汇列举和行为模型分别用于理解语感、业务范围和判断能力，正文措辞与推理顺序由本题生成。

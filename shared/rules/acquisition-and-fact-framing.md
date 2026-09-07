@@ -93,6 +93,8 @@ When the user asks to follow a reference, preserve acquisition points, or stay c
 
 These are possible functions, not a mandatory checklist. Preserve a cognitive conflict when it is genuinely present and useful; do not create an audience misconception merely to make the material feel more dramatic.
 
+Preserve the reference's useful function, not its sentence pattern or information order. Re-select the opening and progression for the current account, topic and medium; retain a correction structure only when the misconception itself is necessary to the judgment.
+
 Adjust only the factual commitment that exceeds the claim's role. Lack of an official case source is not by itself a reason to turn a sourced discussion hook into a generic question, vague warning, or low-intensity setup.
 
 ### No Reference Available
