@@ -20,6 +20,8 @@ description: Write acquisition-focused WeChat Video Account spoken scripts as a 
 3. 当前账号 `账号基本定位.md` 和 `账号人设与文风.md`：路径由公共规则指定；从共同人物层理解专业视角与客户关系，并按口播适配层生成自然说话，结合原文理解适用条件。
 4. `references/chinese-spoken-naturalness.md`：口播听觉表达与跨稿件重复检查。
 
+用户明确引用上一阶段 Handoff 时，按 `shared/schemas/handoff-packet-schema.md` 校验，并把其中已确认选题作为唯一的上一阶段工作成果。不得读取 `topic-planning`、推荐历史、三类选题索引、未采用选题、旧草稿或上一对话；只有当前文案确实需要时才读取 Handoff 明确引用的来源路径。
+
 必要账号文件缺失时报告路径；只使用当前账号上下文。账号资料中的例句、词汇列举和行为模型分别用于理解语感、业务范围和判断能力，正文措辞与推理顺序由本题生成。
 
 ## 创作目标
@@ -86,3 +88,5 @@ description: Write acquisition-focused WeChat Video Account spoken scripts as a 
 创作意图、内部切口比较、评分和质检过程保留在内部；必要事实限制按实际需要简短说明。用户指定篇幅、语气、结构或参考处理时，在事实与账号边界内执行。载体转换继承同一选题。
 
 交付请求的文案后结束。视觉需求由 `spoken-visual-planning` 单独处理；发布状态与归档按根规则执行。
+
+用户明确确认最终口播时，按 `shared/schemas/content-identity-schema.md` 创建或复用稳定 `content_id`。如果用户只确认，锁定该版本并询问是否需要 Handoff。如果用户同时明确要求进入视觉规划、Repo 同步或发布归档，本对话只按 `shared/schemas/handoff-packet-schema.md` 生成对应 Handoff，提示用户在项目中新建对话并引用该文件，然后停止；不得在本对话加载或执行视觉 Skill。进入视觉规划的 Handoff 必须包含完整确认口播、关键事实与条件、已批准来源和不可改动项，不带入文案 Skill、历史索引、未采用稿件或选题检索过程。

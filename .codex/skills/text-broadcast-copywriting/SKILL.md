@@ -31,6 +31,8 @@ Resolve `CURRENT_ACCOUNT` and `CONTENT_FORMAT=text_broadcast` under root `AGENTS
 4. `accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号人设与文风.md` for the shared persona layer and the text-broadcast adaptation layer;
 5. `references/text-broadcast-reading-and-editing.md` for visual-reading capacity, line-break craft and reduction checks.
 
+When the user explicitly references an incoming Handoff, validate it with `shared/schemas/handoff-packet-schema.md` and treat its confirmed topic as the sole prior-stage working result. Do not load `topic-planning`, recommendation history, the three planning indexes, rejected topics, prior drafts or the earlier chat. Read only source paths explicitly required by the Handoff when they are necessary for the current copy.
+
 Treat account examples, phrases and behavior models as evidence about judgment and voice, not as reusable copy. Use only the locked account; report a missing required path instead of borrowing from another account.
 
 ## Acquisition Objective
@@ -163,3 +165,5 @@ Before delivery, confirm that an audience reading without sound can quickly obta
 The first screen must contain the strongest valid information. The body must remain single-point and high-density. Conditions must define the conclusion rather than hide it, and line breaks must be directly usable. If the result is merely a spoken script cut into multiple lines, rewrite it.
 
 After delivering the requested titles, body copy, or complete package, stop. Do not re-plan the topic, mark content as published, write to history, update the content map, archive automatically, or produce visual assets.
+
+When the user explicitly confirms the final copy, create or reuse its stable `content_id` under `shared/schemas/content-identity-schema.md`. If the user only confirms, lock that version and ask whether a Handoff is needed. If the user also explicitly requests Repo synchronization or publish archiving, generate only the corresponding Handoff under `shared/schemas/handoff-packet-schema.md`, tell the user to start a new project chat and reference it, then stop. The Handoff does not prove publication and does not authorize archiving by itself.

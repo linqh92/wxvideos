@@ -11,6 +11,7 @@ accounts/<account_id>/内容库/01-历史内容/_history-index.jsonl
 | 字段 | 必需 | 说明 |
 | --- | --- | --- |
 | `path` | 是 | 相对仓库根目录的 Markdown 路径 |
+| `content_id` | 新内容是 | 稳定内容身份；旧历史允许缺失，格式引用 `content-identity-schema.md` |
 | `title` | 是 | 标题；缺失时从文件名推导 |
 | `publish_date` | 是 | 发布日期；缺失时从文件名推导 |
 | `business_line` | 否 | 业务方向 |
@@ -26,4 +27,4 @@ accounts/<account_id>/内容库/01-历史内容/_history-index.jsonl
 
 索引只保存检索元数据，不保存正文。Markdown 永远是最终事实来源。
 
-`content_type` 表示内容性质，`content_format` 表示实际发布载体，二者必须同时保留且不得互相替代。`either` 只用于候选推荐，不得写入历史。旧历史允许缺失 `content_format`，不得批量猜测。
+`content_type` 表示内容性质，`content_format` 表示实际发布载体，二者必须同时保留且不得互相替代。`either` 只用于候选推荐，不得写入历史。旧历史允许缺失 `content_id` 或 `content_format`，不得批量猜测；新归档必须保留已有 `content_id`。

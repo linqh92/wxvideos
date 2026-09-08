@@ -13,6 +13,7 @@ accounts/<account_id>/内容库/03-选题规划/_candidate-index.jsonl
 | `path` | 是 | 相对仓库根目录的来源文件路径和标题锚点 |
 | `title` | 是 | 候选标题 |
 | `status` | 是 | 取值引用 `content-state-machine.md` |
+| `content_id` | 否 | 仅在候选已被用户采用并建立稳定内容身份后填写；格式引用 `content-identity-schema.md` |
 | `business_line` | 否 | 业务方向 |
 | `theme` | 否 | 主题 |
 | `audience` | 否 | 目标客户 |
@@ -27,3 +28,5 @@ accounts/<account_id>/内容库/03-选题规划/_candidate-index.jsonl
 候选池是备查资源，状态不决定推荐顺序或再次推荐资格。推荐批次和用户反馈独立保存在 `topic-recommendation-log-schema.md` 定义的事实记录中，不加入本索引；重建本索引不得删除或重建推荐记录。新候选正文保留需求依据、客户决策问题、核心答案及关键条件；这些正文信息不强制进入索引，旧卡不猜测补填。
 
 `recommended_format` 只是选题阶段的推荐载体，不代表实际生成或发布载体。候选 Markdown 使用中文值“短文字幕”“口播”“均可”，JSONL 使用稳定枚举。旧候选允许缺失该字段，不得批量回填或猜测。
+
+候选仍为 `待核验` 或 `可推荐` 时通常没有 `content_id`。状态进入 `已采用` 后如已建立内容身份，候选 Markdown 使用字段 `内容ID`，Index 使用 `content_id`；旧候选不强制回填。

@@ -46,6 +46,8 @@ After resolving `CURRENT_ACCOUNT`, read:
 6. source material already approved for the current topic, when available;
 7. `references/visual-aid-generation-rules.md` for document architecture, execution choices and delivery details.
 
+When the user references an incoming Handoff, validate it with `shared/schemas/handoff-packet-schema.md`. Its `account_id` establishes the account candidate, which must still pass the root account lock; its confirmed spoken copy is the sole prior-stage working result. Do not load `spoken-copywriting`, `topic-planning`, recommendation memory, planning indexes, history searches, rejected drafts or the earlier chat. Only load source paths explicitly listed in the Handoff when they are necessary to preserve a fact or conclusion.
+
 Use only facts supported by the confirmed script, approved source material or verified official sources. Surface a material information gap during content confirmation when it prevents the document track from standing on its own.
 
 Account context explains who is speaking, who should care and what trust means in this situation. The designer derives the visual system from the current topic rather than mechanically mapping age, gender, seniority or personality to a style.
@@ -136,7 +138,7 @@ Actual generated-image quality requires image evidence. Apply the reference's im
 
 ## Output
 
-After confirmation, write two Markdown documents to a suitable attachment directory inside the current account. Check the target path and preserve existing files.
+After confirmation, create and deliver two Markdown files as shared files in the ChatGPT project. These visual-stage files remain outside the Repo and must not be written to an account attachment directory, added to GitHub, indexed or included in a later repository sync.
 
 1. `<角色><内容简称>PPT设计执行指南.md`: use the current account's public short role name and a 2–5 Chinese-character content name.
 2. `剪辑分段表.md`: map only pages used in the spoken video to spoken ranges or verified audio times.
@@ -157,4 +159,4 @@ Both documents describe the final deliverable. Design exploration, internal scor
 
 ## Stop
 
-End after delivering the two documents. Continue to image generation, PPT production, editing, publishing or archiving only through the corresponding user-requested stage.
+End after delivering the two ChatGPT-project documents. Do not generate a Repo Handoff or `pending_repo_actions` for visual files. Continue to image generation, PPT production, editing, publishing or archiving only through the corresponding user-requested stage and a separate conversation when one exists.

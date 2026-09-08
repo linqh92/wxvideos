@@ -18,6 +18,7 @@ description: 仅在内容已实际发布且用户明确要求归档时，将内�
 
 - 实际发布标题、正文和发布日期；
 - 实际发布载体；
+- 已存在的稳定 `content_id`；迁移前形成且尚未建立 ID 的内容，须先唯一确认账号与内容，再为其新建 ID，不得借用另一条内容的 ID；
 - 用户的实际发布确认与明确归档指令；
 - 根 `AGENTS.md` 已唯一确定的 `CURRENT_ACCOUNT`。
 
@@ -37,6 +38,8 @@ accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/历史内容归档
 
 该文件是当前账号历史路径、文件名、Frontmatter、正文结构和完成检查的事实来源。
 
+用户明确引用内容 Handoff 时，先按 `shared/schemas/handoff-packet-schema.md` 和 `shared/schemas/content-identity-schema.md` 校验账号、内容身份与最终确认内容。Handoff 可以提供内容，但不能代替用户对“已经实际发布”和“现在执行归档”这两个条件的明确确认。视觉 Handoff、PPT 文件、视觉执行指南和剪辑分段表不属于归档输入，也不得写入 Repo。
+
 ## Unique Logic
 
 归档前唯一确认实际发布内容的 `content_format`，只允许：
@@ -49,7 +52,7 @@ spoken
 来源优先级为：用户明确确认的发布载体 > 本次生成阶段的 `CONTENT_FORMAT`。`recommended_format` 只是选题建议，不得直接代替实际发布载体。无法判断时先询问，不得根据篇幅、候选建议或旧内容形式猜测。
 
 1. 检查目标目录中的同名和疑似重复笔记；存在冲突时停止并报告。
-2. 只写实际使用的标题、正文、实际发布日期和实际 `content_format`，不保存备选标题、草稿过程或未发布信息。
+2. 只写实际使用的 `content_id`、标题、正文、实际发布日期和实际 `content_format`，不保存 Handoff、备选标题、草稿过程、视觉文件或未发布信息。历史库中已经存在的旧归档不强制回填 ID。
 3. 历史 Markdown 写入成功后，以 `path` 为键 append/update `01-历史内容/_history-index.jsonl` 的单条记录，不全库扫描。
 4. 找到对应候选时，将候选 Markdown 和 `_candidate-index.jsonl` 同步更新为公共状态机中的发布终态。只有本 Skill 可以执行此转换。
 5. 不自动重建内容地图、内容缺口、重复检查、月度复盘或统计。用户明确要求时才运行 `shared/scripts/rebuild-derived-assets.ps1`。

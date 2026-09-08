@@ -40,6 +40,7 @@ function Add-CandidateCard {
         path = "$relative#$cleanTitle"
         title = $cleanTitle
         status = $status
+        content_id = if ($Fields.Contains('内容ID')) { [string]$Fields['内容ID'] } elseif ($Fields.Contains('content_id')) { [string]$Fields['content_id'] } else { '' }
         business_line = if ($Fields.Contains('业务方向')) { [string]$Fields['业务方向'] } else { '' }
         theme = if ($Fields.Contains('主题')) { [string]$Fields['主题'] } else { '' }
         audience = if ($Fields.Contains('目标客户')) { [string]$Fields['目标客户'] } else { '' }

@@ -16,3 +16,8 @@ accounts/*/内容库/.trash/
 JustOneAPI-token.txt
 *.token
 
+**/__pycache__/
+*.pyc
+_retrieval*.sqlite
+Handoff｜*.md
+accounts/*/内容库/99-附件/**/*视觉*/

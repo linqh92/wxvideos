@@ -22,6 +22,7 @@ foreach ($id in (Get-TargetAccountIds -AccountId $AccountId)) {
 
                 [pscustomobject][ordered]@{
                     path = Get-RepositoryRelativePath -Path $_.FullName
+                    content_id = Get-MetadataValue -Metadata $meta -Names @('content_id')
                     title = $title
                     publish_date = $publishDate
                     business_line = Get-MetadataValue -Metadata $meta -Names @('business_line')

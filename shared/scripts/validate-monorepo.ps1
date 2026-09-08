@@ -26,8 +26,12 @@ $spokenVisualAgent = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot '
 $copyCommonRules = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\rules\copywriting-common-rules.md'))
 $archiveSkill = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot '.codex\skills\publish-archive\SKILL.md'))
 $stateSchema = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\schemas\content-state-machine.md'))
+$contentIdentitySchema = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\schemas\content-identity-schema.md'))
+$handoffSchema = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\schemas\handoff-packet-schema.md'))
+$candidateSchema = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\schemas\candidate-index-schema.md'))
 $historySchema = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\schemas\history-index-schema.md'))
 $historyRebuild = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\scripts\rebuild-history-index.ps1'))
+$candidateRebuild = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\scripts\rebuild-candidate-index.ps1'))
 
 $requiredContentFormatPaths = @(
     'shared\rules\copywriting-common-rules.md',
@@ -50,8 +54,62 @@ foreach ($relativePath in $requiredSpokenVisualPaths) {
     Assert-True (Test-Path -LiteralPath (Join-Path $script:RepoRoot $relativePath)) "missing spoken-visual-planning asset: $relativePath"
 }
 
+$requiredHandoffPaths = @(
+    'shared\schemas\content-identity-schema.md',
+    'shared\schemas\handoff-packet-schema.md',
+    'shared\scripts\content-handoff.py',
+    'shared\scripts\test-content-handoff.py'
+)
+foreach ($relativePath in $requiredHandoffPaths) {
+    Assert-True (Test-Path -LiteralPath (Join-Path $script:RepoRoot $relativePath)) "missing content-handoff asset: $relativePath"
+}
+
 Assert-True ($rootAgent.Contains('CURRENT_ACCOUNT') -and $rootAgent.Contains('Account Context Lock')) 'root AGENTS must define CURRENT_ACCOUNT and Account Context Lock'
 Assert-True ($rootAgent.Contains('默认禁止读取其他 `accounts/*`')) 'root AGENTS must forbid other accounts by default'
+Assert-True ($rootAgent.Contains('Context Loading 与阶段交接') -and
+             $rootAgent.Contains('每个生产阶段使用独立对话') -and
+             $rootAgent.Contains('上一阶段唯一工作成果') -and
+             $rootAgent.Contains('不得在当前对话加载或执行下一阶段 Skill')) 'root AGENTS must enforce stage-isolated chats and Handoff-only transitions'
+Assert-True ($rootAgent.Contains('Handoff 是 ChatGPT 项目中的临时共享文件') -and
+             $rootAgent.Contains('不写入 Repo') -and
+             $rootAgent.Contains('content-identity-schema.md')) 'root AGENTS must keep Handoff outside Repo and preserve stable content identity'
+Assert-True ($rootAgent.Contains('视觉规划') -and
+             $rootAgent.Contains('不属于仓库同步范围') -and
+             $rootAgent.Contains('项目规则不规定用户选择 Chat、Work、Codex')) 'root AGENTS must exclude visual files from sync and remain model-neutral'
+
+$allocationTerms = @('GPT-5.6 Sol', 'Sol 高', 'Sol 中', '高能力模型', '低成本模型', '额度分配')
+$projectControlText = $rootAgent + $readme + $contentIdentitySchema + $handoffSchema
+foreach ($term in $allocationTerms) {
+    Assert-True (-not $projectControlText.Contains($term)) "project rules must not prescribe user model or quota allocation: $term"
+}
+
+Assert-True ($contentIdentitySchema.Contains('wxv-{account_id}-{YYYYMMDD}-{8hex}') -and
+             $contentIdentitySchema.Contains('已有有效 `content_id` 时必须复用') -and
+             $contentIdentitySchema.Contains('同一 Repo 内不得存在两个不同内容共用同一 `content_id`')) 'content identity schema must define stable reusable IDs'
+Assert-True ($handoffSchema.Contains('confirmed_by_user') -and
+             $handoffSchema.Contains('pending_repo_actions') -and
+             $handoffSchema.Contains('不得写入仓库') -and
+             $handoffSchema.Contains('唯一上一阶段工作成果')) 'Handoff schema must define confirmation, pending actions, and Repo boundary'
+Assert-True ($topicSkill.Contains('content-identity-schema.md') -and
+             $topicSkill.Contains('交付“选题 → 对应文案阶段”的 Handoff') -and
+             $topicSkill.Contains('不得在本对话加载或执行文案 Skill')) 'topic planning must create identity and stop at cross-stage Handoff'
+Assert-True ($textBroadcastSkill.Contains('sole prior-stage working result') -and
+             $textBroadcastSkill.Contains('stable `content_id`') -and
+             $textBroadcastSkill.Contains('generate only the corresponding Handoff')) 'text copywriting must isolate incoming context and stop at Handoff'
+Assert-True ($spokenSkill.Contains('唯一的上一阶段工作成果') -and
+             $spokenSkill.Contains('稳定 `content_id`') -and
+             $spokenSkill.Contains('不得在本对话加载或执行视觉 Skill')) 'spoken copywriting must isolate incoming context and stop at visual Handoff'
+Assert-True ($spokenVisualSkill.Contains('sole prior-stage working result') -and
+             $spokenVisualSkill.Contains('shared files in the ChatGPT project') -and
+             $spokenVisualSkill.Contains('remain outside the Repo') -and
+             -not $spokenVisualSkill.Contains('suitable attachment directory inside the current account')) 'visual planning must use Handoff context and keep outputs outside Repo'
+Assert-True ($archiveSkill.Contains('content-identity-schema.md') -and
+             $archiveSkill.Contains('Handoff 可以提供内容，但不能代替用户')) 'publish archive must preserve identity and independently verify archive authorization'
+Assert-True ($historySchema.Contains('content_id') -and $historyRebuild.Contains('content_id =')) 'history schema and rebuild must preserve content_id'
+Assert-True ($candidateSchema.Contains('content_id') -and $candidateRebuild.Contains('content_id =')) 'candidate schema and rebuild must preserve content_id when present'
+
+$repoHandoffFiles = @(Get-ChildItem -LiteralPath (Join-Path $script:RepoRoot 'accounts') -Recurse -File -Filter 'Handoff｜*.md')
+Assert-True ($repoHandoffFiles.Count -eq 0) 'Handoff files must not be stored under accounts'
 
 $hardcoded = @('广州敏哥', '广州小张', '广州老徐聊企业财税合规', '广州出口退税', '补充业务不得脱离', '成熟企业经营不得', '电商合规')
 $publicText = $topicSkill + $historyRules + $ideaSkill + $textBroadcastSkill + $spokenSkill + $spokenVisualSkill + $spokenVisualRules + $copyCommonRules + $archiveSkill
@@ -69,16 +127,21 @@ Assert-True ($textBroadcastSkill.Contains('shared/rules/copywriting-common-rules
 Assert-True ($spokenSkill.Contains('references/chinese-spoken-naturalness.md')) 'spoken Skill must load the spoken-naturalness reference'
 Assert-True ($spokenNaturalness.Contains('applies ONLY to `spoken-copywriting`') -and $spokenNaturalness.Contains('MUST NOT be inherited by `text-broadcast-copywriting`')) 'spoken-naturalness reference must remain isolated from text-broadcast copywriting'
 Assert-True ($rootAgent.Contains('spoken-visual-planning') -and $rootAgent.Contains('不得自动进入 `spoken-visual-planning`')) 'root AGENTS must route spoken visual planning as an explicit-only stage'
-Assert-True ($rootAgent.Contains('设计师主导') -and $rootAgent.Contains('账号基本定位.md') -and $rootAgent.Contains('账号人设与文风.md') -and $rootAgent.Contains('账号视觉风格.md')) 'root AGENTS must define designer-led visual authority and account-context sources'
-Assert-True ($rootAgent.Contains('3:4` 搜索封面') -and
-             $rootAgent.Contains('16:9` 推荐流/PPT封面') -and
-             $rootAgent.Contains('信息可视化由内容页承担')) 'root AGENTS must distinguish the two entry covers from content-page information design'
+Assert-True ($rootAgent.Contains('创作角色、媒介方法、页面职责和阶段内验收只在对应 Skill') -and
+             -not $rootAgent.Contains('`spoken-visual-planning` 使用三类页面职责')) 'root AGENTS must remain control context and leave stage detail in Skills'
 Assert-True ($readme.Contains('口播负责现场交流中的重点讲解') -and
              $readme.Contains('能够独立阅读和分享的完整资料') -and
              $readme.Contains('两个封面由主题文字')) 'README must explain the dual-expression model and entry-cover responsibility'
 Assert-True ($spokenVisualSkill.Contains('Use this Skill only when') -and
              $spokenVisualSkill.Contains('wait for explicit user confirmation') -and
              $spokenVisualSkill.Contains('## Stop')) 'spoken visual planning must be explicit-only, confirm the deck, and stop after delivery'
+Assert-True ($spokenVisualSkill.Contains('senior designer and information editor') -and
+             $spokenVisualSkill.Contains('账号基本定位.md') -and
+             $spokenVisualSkill.Contains('账号人设与文风.md') -and
+             $spokenVisualSkill.Contains('账号视觉风格.md')) 'spoken visual Skill must define designer authority and account-context sources'
+Assert-True ($spokenVisualSkill.Contains('native 3:4 search cover') -and
+             $spokenVisualSkill.Contains('native 16:9 recommendation-feed opening cover') -and
+             $spokenVisualSkill.Contains('Information architecture')) 'spoken visual Skill must distinguish entry covers from content-page information design'
 Assert-True ($spokenVisualSkill.Contains('Image generation, editable PPT production, video editing, publishing and archiving are separate stages.')) 'spoken visual planning must preserve downstream stage boundaries'
 Assert-True ($spokenVisualSkill.Contains('accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号基本定位.md') -and
              $spokenVisualSkill.Contains('accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号人设与文风.md') -and
@@ -145,12 +208,16 @@ $validIdea = @('待分析', '可入池', '已转选题', '已放弃')
 $validCandidate = @('待核验', '可推荐', '已采用', '已发布', '已放弃')
 $validRecommendedFormats = @('text_broadcast', 'spoken', 'either')
 $validContentFormats = @('text_broadcast', 'spoken')
+$historyContentIdPaths = @{}
+$candidateContentIdPaths = @{}
 
 foreach ($id in $script:KnownAccountIds) {
     $accountRoot = Join-Path $script:RepoRoot "accounts\$id"
     $vault = Join-Path $accountRoot '内容库'
     $yaml = [System.IO.File]::ReadAllText((Join-Path $accountRoot 'account.yaml'))
     Assert-True ($yaml -match "(?m)^id:\s*$id\s*$") "$id account.yaml id mismatch"
+    $archiveRules = [System.IO.File]::ReadAllText((Join-Path $vault '00-首页与维护规则\历史内容归档规范.md'))
+    Assert-True ($archiveRules.Contains('content_id') -and $archiveRules.Contains('content-identity-schema.md')) "$id archive rules must preserve stable content_id"
     Assert-True ((Test-Path -LiteralPath (Join-Path $vault '00-首页与维护规则\账号基本定位.md')) -and
                  (Test-Path -LiteralPath (Join-Path $vault '00-首页与维护规则\账号人设与文风.md'))) "$id positioning split missing"
 
@@ -200,6 +267,12 @@ foreach ($id in $script:KnownAccountIds) {
         if ($row.PSObject.Properties.Name -contains 'content_format' -and -not [string]::IsNullOrWhiteSpace([string]$row.content_format)) {
             Assert-True ($validContentFormats -contains [string]$row.content_format) "$id history content_format invalid"
         }
+        if ($row.PSObject.Properties.Name -contains 'content_id' -and -not [string]::IsNullOrWhiteSpace([string]$row.content_id)) {
+            $historyContentId = [string]$row.content_id
+            Assert-True ($historyContentId -match "^wxv-$id-\d{8}-[0-9a-f]{8}$") "$id history content_id invalid"
+            Assert-True (-not $historyContentIdPaths.ContainsKey($historyContentId)) "duplicate history content_id: $historyContentId"
+            $historyContentIdPaths[$historyContentId] = [string]$row.path
+        }
     }
     foreach ($row in $ideas) {
         Assert-True ($row.path -like "accounts/$id/*" -and $validIdea -contains $row.status) "$id idea index path/status invalid"
@@ -208,6 +281,15 @@ foreach ($id in $script:KnownAccountIds) {
         Assert-True ($row.path -like "accounts/$id/*" -and $validCandidate -contains $row.status) "$id candidate index path/status invalid"
         if ($row.PSObject.Properties.Name -contains 'recommended_format' -and -not [string]::IsNullOrWhiteSpace([string]$row.recommended_format)) {
             Assert-True ($validRecommendedFormats -contains [string]$row.recommended_format) "$id candidate recommended_format invalid"
+        }
+        if ($row.PSObject.Properties.Name -contains 'content_id' -and -not [string]::IsNullOrWhiteSpace([string]$row.content_id)) {
+            $candidateContentId = [string]$row.content_id
+            Assert-True ($candidateContentId -match "^wxv-$id-\d{8}-[0-9a-f]{8}$") "$id candidate content_id invalid"
+            Assert-True (-not $candidateContentIdPaths.ContainsKey($candidateContentId)) "duplicate candidate content_id: $candidateContentId"
+            $candidateContentIdPaths[$candidateContentId] = [string]$row.path
+            if ([string]$row.status -eq '已发布') {
+                Assert-True ($historyContentIdPaths.ContainsKey($candidateContentId)) "$id published candidate content_id has no matching history"
+            }
         }
     }
 }
