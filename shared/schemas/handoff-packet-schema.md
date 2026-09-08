@@ -32,6 +32,10 @@ confirmed_at: "YYYY-MM-DDTHH:MM:SS+08:00"
 repo_sync_status: "not_synced | synced"
 content_format: "text_broadcast | spoken"
 topic_id: "string | null"
+topic_origin: "project_recommendation"
+recommendation_batch_id: "uuid"
+topic_feedback_status: "synced | pending"
+feedback_event_id: "uuid"
 ---
 ```
 
@@ -44,6 +48,8 @@ topic_id: "string | null"
 - `approval_status` 只有在用户明确确认后才能写为 `confirmed_by_user`；
 - `repo_sync_status` 只描述当前已采用选题及允许记录是否已进入 Repo；
 - `content_format` 必须与 `to_stage` 一致：进入短文使用 `text_broadcast`，进入口播使用 `spoken`。
+- `recommendation_batch_id`、`topic_id` 和 `feedback_event_id` 必须定位本次推荐批次、被选题目与本次 `selected` 反馈；重试时复用，不得重新生成；
+- `topic_feedback_status` 表示 recommendation 与 selected feedback 是否均已写入 Repo；任一尚未写入时使用 `pending`。
 
 ## 正文结构
 
@@ -57,6 +63,18 @@ topic_id: "string | null"
 ## 已确认成果
 
 完整放入下一阶段实际需要的确认内容，不依赖上一对话才能理解。
+
+## 选题来源与反馈
+
+- recommendation_batch_id: <uuid>
+- topic_id: <被选择题目的 ID>
+- feedback_event_id: <本次 selected 反馈事件 ID>
+- feedback_signal: selected
+- feedback_scope: topic
+- user_text: <用户选择原话>
+- scope_description: <被选择的具体题目>
+- occurred_at: <带时区的 ISO 时间>
+- topic_feedback_status: synced | pending
 
 ## 关键事实与改变结论的条件
 
@@ -85,13 +103,13 @@ topic_id: "string | null"
 - pending_repo_actions: []
 ```
 
-`pending_repo_actions` 只记录当前环境因只读而未执行、且项目规则本来允许持久化的动作，例如推荐反馈记录或用户明确要求的同步。它不是执行授权；后续具有写入能力的环境仍须按当前 Skill、账号锁和写入规则重新校验。
+`pending_repo_actions` 只记录当前环境因只读而未执行、且项目规则本来允许持久化的动作。若推荐批次或 selected feedback 尚未写入，必须按 `shared/schemas/topic-recommendation-log-schema.md` 携带稳定 `action_id`、明确目标路径和完整事件 payload；原 recommendation 事件未入库时与 feedback 事件一起携带，不能只留下摘要或一个无法解析的批次引用。它不是执行授权；文案阶段必须原样继承到 Repo 内容文档，后续具有写入能力的 Codex 仍须按当前 Skill、账号锁、事件 ID 和写入规则重新校验。
 
 ## 阶段最小交接内容
 
 ### 选题 → 文案
 
-必须包含已采用选题、目标客户与场景、客户决策问题、核心答案、改变结论的条件、建议或用户指定载体、必要来源和明确反馈。不带入其余候选与整批查重过程。
+必须包含已采用选题、目标客户与场景、客户决策问题、核心答案、改变结论的条件、建议或用户指定载体、必要来源，以及本次选择反馈的批次 ID、题目 ID、事件 ID、原话、范围和同步状态。不带入其余候选与整批查重过程；只有尚未落库的完整 recommendation 事件可以作为不参与创作的待执行 payload 携带其余实际推荐项。
 
 ## 有效性检查
 

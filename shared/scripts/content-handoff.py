@@ -8,6 +8,7 @@ import datetime as dt
 import json
 import re
 import secrets
+import uuid
 from pathlib import Path
 
 
@@ -35,10 +36,15 @@ REQUIRED_FIELDS = {
     "repo_sync_status",
     "content_format",
     "topic_id",
+    "topic_origin",
+    "recommendation_batch_id",
+    "topic_feedback_status",
+    "feedback_event_id",
 }
 REQUIRED_SECTIONS = {
     "用户确认原话",
     "已确认成果",
+    "选题来源与反馈",
     "关键事实与改变结论的条件",
     "来源引用",
     "用户要求与保留项",
@@ -119,6 +125,20 @@ def validate_handoff(path: Path) -> dict[str, object]:
     }.get(meta.get("to_stage", ""))
     if expected_format and meta.get("content_format") != expected_format:
         errors.append("content_format does not match to_stage")
+    if meta.get("topic_origin") != "project_recommendation":
+        errors.append("topic_origin must be project_recommendation")
+    if meta.get("topic_feedback_status") not in {"synced", "pending"}:
+        errors.append("topic_feedback_status is invalid")
+    if meta.get("topic_feedback_status") == "pending" and meta.get("repo_sync_status") != "not_synced":
+        errors.append("pending topic feedback requires repo_sync_status=not_synced")
+    if meta.get("topic_feedback_status") == "synced" and meta.get("repo_sync_status") != "synced":
+        errors.append("synced topic feedback requires repo_sync_status=synced")
+
+    for field in ("topic_id", "recommendation_batch_id", "feedback_event_id"):
+        try:
+            uuid.UUID(meta.get(field, ""))
+        except (ValueError, AttributeError):
+            errors.append(f"{field} must be a UUID")
     confirmed_at = meta.get("confirmed_at", "")
     try:
         dt.datetime.fromisoformat(confirmed_at)

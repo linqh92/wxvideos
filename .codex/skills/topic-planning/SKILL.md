@@ -114,7 +114,9 @@ description: 由资深财税获客选题主编围绕当前账号客户问题、�
 
 对于连续请求，未变的账号与三个索引快照继续复用，不重新扫描全库；新反馈和推荐记录更新必须重新评估排除范围、旧题回归和排序，不能复用过时去重结论。账号切换后丢弃旧账号快照。
 
-用户明确采用一个选题时，为该内容创建或复用稳定 `content_id`。如果用户同时要求写短文或口播，本对话只按 Handoff schema 交付“选题 → 对应文案阶段”的 Handoff，并提示用户在项目中新建对话引用该文件；不得在本对话加载或执行文案 Skill。Handoff 只包含被采用选题及必要事实，不带入其余推荐、查重过程或未采用方案。
+用户明确采用一个选题时，为该内容创建或复用稳定 `content_id`，并为本次 `selected` feedback 分配稳定 `event_id`。如果用户同时要求写短文或口播，本对话只按 Handoff schema 交付“选题 → 对应文案阶段”的 Handoff，并提示用户在项目中新建对话引用该文件；不得在本对话加载或执行文案 Skill。
+
+Handoff 的工作成果只包含被采用选题及必要事实，同时必须记录关联 `batch_id`、`topic_id`、feedback `event_id`、用户原话、作用范围和同步状态。推荐批次或反馈已写入时标记 `synced`；当前环境只读或写入失败时标记 `pending`，并在 `pending_repo_actions` 中放入符合 `topic-recommendation-log-schema.md` 的完整、可幂等执行事件。原 recommendation 事件尚未入库时必须与 selected feedback 一起携带，不能留下引用不存在批次的孤立反馈。待执行 payload 不属于文案工作上下文，不得用于改写当前题目；除该 payload 外不带入其余推荐、查重过程或未采用方案。
 
 ## Stop
 

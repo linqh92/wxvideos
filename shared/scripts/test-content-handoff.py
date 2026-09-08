@@ -23,9 +23,13 @@ from_stage: "topic_planning"
 to_stage: "spoken_copywriting"
 approval_status: "confirmed_by_user"
 confirmed_at: "2026-09-09T10:30:00+08:00"
-repo_sync_status: "not_synced"
+repo_sync_status: "synced"
 content_format: "spoken"
-topic_id: "null"
+topic_id: "11111111-1111-4111-8111-111111111111"
+topic_origin: "project_recommendation"
+recommendation_batch_id: "22222222-2222-4222-8222-222222222222"
+topic_feedback_status: "synced"
+feedback_event_id: "33333333-3333-4333-8333-333333333333"
 ---
 
 # Handoff｜{content_id}
@@ -35,6 +39,17 @@ topic_id: "null"
 
 ## 已确认成果
 已采用选题。
+
+## 选题来源与反馈
+- recommendation_batch_id: 22222222-2222-4222-8222-222222222222
+- topic_id: 11111111-1111-4111-8111-111111111111
+- feedback_event_id: 33333333-3333-4333-8333-333333333333
+- feedback_signal: selected
+- feedback_scope: topic
+- user_text: 选择这个题
+- scope_description: 已采用选题
+- occurred_at: 2026-09-09T10:30:00+08:00
+- topic_feedback_status: synced
 
 ## 关键事实与改变结论的条件
 - 条件一。

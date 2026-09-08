@@ -20,7 +20,7 @@ description: Write acquisition-focused WeChat Video Account spoken scripts as a 
 3. 当前账号 `账号基本定位.md` 和 `账号人设与文风.md`：路径由公共规则指定；从共同人物层理解专业视角与客户关系，并按口播适配层生成自然说话，结合原文理解适用条件。
 4. `references/chinese-spoken-naturalness.md`：口播听觉表达与跨稿件重复检查。
 
-用户明确引用上一阶段 Handoff 时，按 `shared/schemas/handoff-packet-schema.md` 校验，并把其中已确认选题作为唯一的上一阶段工作成果。不得读取 `topic-planning`、推荐历史、三类选题索引、未采用选题、旧草稿或上一对话；只有当前文案确实需要时才读取 Handoff 明确引用的来源路径。
+用户明确引用上一阶段 Handoff 时，按 `shared/schemas/handoff-packet-schema.md` 校验，并把其中已确认选题作为唯一的上一阶段工作成果。Handoff 中的选题来源、`selected` 反馈、同步状态和未完成 `pending_repo_actions` 只作为 Repo 元数据原样保留，不参与创作。不得读取 `topic-planning`、推荐历史、三类选题索引、未采用选题、旧草稿或上一对话；只有当前文案确实需要时才读取 Handoff 明确引用的来源路径。
 
 必要账号文件缺失时报告路径；只使用当前账号上下文。账号资料中的例句、词汇列举和行为模型分别用于理解语感、业务范围和判断能力，正文措辞与推理顺序由本题生成。
 
@@ -95,5 +95,7 @@ description: Write acquisition-focused WeChat Video Account spoken scripts as a 
 
 1. 一份供用户切换到 Codex 后执行 Repo 动作的 `Repo内容文档`；
 2. 一份供新的视觉规划对话通过 `@` 引用的 `视觉规划输入` 文档。
+
+如果口播来自选题 Handoff，Repo 内容文档必须原样继承其中的选题追踪、`selected` 反馈、同步状态和全部未完成 `pending_repo_actions`，不得改变事件 ID 或缩减 payload。用户直接给题或直接提供参考重写、没有经过项目推荐时，将选题反馈标记为 `not_applicable`，不得虚构批次或反馈事件。视觉规划输入不得携带任何选题反馈、推荐批次或 Repo 动作。
 
 只保留用户最终选择的标题，不把其余标题方案写入两份文件。两份文件生成后结束口播阶段；不询问或生成 Handoff。即使用户同时要求进入视觉规划、Repo 同步或发布归档，本对话也只交付这两份文档并提示下一任务的正确引用方式，不得在本对话加载或执行视觉 Skill，不得声称已经写入 Repo、发布或归档。

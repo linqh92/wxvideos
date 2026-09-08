@@ -50,6 +50,10 @@ approval_status: "confirmed_by_user"
 confirmed_at: "YYYY-MM-DDTHH:MM:SS+08:00"
 final_title: "用户最终选择的标题"
 topic_id: "string | null"
+topic_origin: "project_recommendation | direct_user_input"
+recommendation_batch_id: "uuid | null"
+topic_feedback_status: "synced | pending | not_applicable"
+feedback_event_id: "uuid | null"
 repo_sync_status: "not_synced"
 ---
 ```
@@ -58,6 +62,19 @@ repo_sync_status: "not_synced"
 
 ```markdown
 # {最终标题}
+
+## 选题来源与反馈
+
+- topic_origin: project_recommendation | direct_user_input
+- recommendation_batch_id: <uuid 或 null>
+- topic_id: <选题 ID 或 null>
+- feedback_event_id: <uuid 或 null>
+- feedback_signal: selected | not_applicable
+- feedback_scope: topic | not_applicable
+- user_text: <用户选择该题的原话；直接给题时写“不适用”>
+- scope_description: <被选择的具体题目；直接给题时写“不适用”>
+- occurred_at: <反馈发生时间；不适用时写 null>
+- topic_feedback_status: synced | pending | not_applicable
 
 ## 最终正文
 
@@ -81,7 +98,28 @@ repo_sync_status: "not_synced"
 - pending_repo_actions: []
 ```
 
-`pending_repo_actions` 只记录用户已经明确要求、但当前只读环境无法执行的动作。仅生成这份文件本身不产生 Repo 写入授权，也不得预设尚不存在的仓库存储位置。
+### 选题反馈继承规则
+
+- 文案来源是选题 Handoff 时，Repo 内容文档必须继承其中的选题来源、推荐批次、`selected` 反馈、用户原话、作用范围、事件 ID 和同步状态。
+- Handoff 中尚未执行的 `pending_repo_actions` 必须原样继承到 Repo 内容文档；不得因为文案阶段结束、文件改名或已生成正文而丢弃、概括或重新生成事件 ID。
+- 如果原推荐批次和选择反馈均已成功写入 Repo，保留对应 ID 并标记 `topic_feedback_status: synced`，无需重复加入待执行动作。
+- 如果任一记录尚未写入，标记 `topic_feedback_status: pending`。待执行动作必须带稳定 `action_id`、明确目标路径和符合 `topic-recommendation-log-schema.md` 的完整事件 payload，使 Codex 能按 `event_id` 幂等补写；原推荐批次尚未入库时，必须同时携带完整 recommendation 事件和 selected feedback 事件，不能只写一个引用不存在批次的反馈。
+- 用户直接给题、直接提供参考内容重写且没有经过项目推荐时，使用 `topic_origin: direct_user_input`、`topic_feedback_status: not_applicable`，相关批次和反馈 ID 为 `null`；不得虚构推荐或选择反馈。
+- 文案 Skill 只能把这些字段作为 Repo 追踪信息原样转交，不得加载推荐历史、利用未采用选题改写当前内容或把待执行动作当成新的用户授权。
+
+`pending_repo_actions` 只记录项目规则本来允许、但当前环境无法执行的动作。推荐与反馈事件使用如下自包含结构；没有待执行动作时保留空数组：
+
+```yaml
+- action_id: "uuid"
+  action_type: "append_topic_recommendation_events"
+  target_path: "accounts/{account_id}/内容库/03-选题规划/推荐记录/YYYY-MM.jsonl"
+  source_schema: "shared/schemas/topic-recommendation-log-schema.md"
+  events:
+    - <完整 recommendation 事件；已经存在时可省略>
+    - <完整 selected feedback 事件>
+```
+
+仅生成这份文件本身不产生 Repo 写入授权，也不得预设项目规则之外的仓库存储位置。Codex 执行时重新核验账号、事件 ID、目标月份、已有日志和用户当前指令；已存在的事件不重复追加。
 
 ## 视觉规划输入文档
 
@@ -134,7 +172,7 @@ repo_sync_status: "not_applicable"
 - PPT 的信息架构、分页、页面标题、说明文字、视觉形式和剪辑对应关系可按视觉 Skill 调整，但不得改写最终口播正文或改变已确认专业结论。
 ```
 
-不得带入其余标题方案、未采用正文、修改过程、文案 Skill、选题检索过程、历史索引、Repo 操作说明或 `pending_repo_actions`。
+不得带入其余标题方案、未采用正文、修改过程、文案 Skill、选题反馈、推荐批次、选题检索过程、历史索引、Repo 操作说明或 `pending_repo_actions`。
 
 ## 更新与冲突
 

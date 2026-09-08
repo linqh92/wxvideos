@@ -93,24 +93,37 @@ Assert-True ($handoffSchema.Contains('confirmed_by_user') -and
              $handoffSchema.Contains('pending_repo_actions') -and
              $handoffSchema.Contains('不得写入仓库') -and
              $handoffSchema.Contains('只用于') -and
-             $handoffSchema.Contains('topic_planning')) 'Handoff schema must be limited to topic-to-copy transitions'
+             $handoffSchema.Contains('topic_planning') -and
+             $handoffSchema.Contains('recommendation_batch_id') -and
+             $handoffSchema.Contains('feedback_event_id') -and
+             $handoffSchema.Contains('完整事件 payload')) 'Handoff schema must preserve pending recommendation and selection feedback'
 Assert-True ($confirmedCopyDeliverySchema.Contains('Repo内容文档') -and
              $confirmedCopyDeliverySchema.Contains('视觉规划输入') -and
              $confirmedCopyDeliverySchema.Contains('三个主标题方案') -and
              $confirmedCopyDeliverySchema.Contains('不得把沉默视为选择') -and
-             $confirmedCopyDeliverySchema.Contains('spoken_visual_input')) 'confirmed copy delivery must define title gating and spoken dual-document output'
+             $confirmedCopyDeliverySchema.Contains('spoken_visual_input') -and
+             $confirmedCopyDeliverySchema.Contains('topic_feedback_status') -and
+             $confirmedCopyDeliverySchema.Contains('必须原样继承') -and
+             $confirmedCopyDeliverySchema.Contains('direct_user_input') -and
+             $confirmedCopyDeliverySchema.Contains('不能只写一个引用不存在批次的反馈')) 'confirmed copy delivery must preserve feedback continuity and direct-topic distinction'
 Assert-True ($topicSkill.Contains('content-identity-schema.md') -and
              $topicSkill.Contains('交付“选题 → 对应文案阶段”的 Handoff') -and
-             $topicSkill.Contains('不得在本对话加载或执行文案 Skill')) 'topic planning must create identity and stop at cross-stage Handoff'
+             $topicSkill.Contains('selected` feedback 分配稳定 `event_id`') -and
+             $topicSkill.Contains('完整、可幂等执行事件') -and
+             $topicSkill.Contains('不得在本对话加载或执行文案 Skill')) 'topic planning must create identity and preserve executable feedback events'
 Assert-True ($textBroadcastSkill.Contains('sole prior-stage working result') -and
              $textBroadcastSkill.Contains('stable `content_id`') -and
              $textBroadcastSkill.Contains('generate one `Repo内容文档`') -and
+             $textBroadcastSkill.Contains('without changing IDs or reducing payloads') -and
+             $textBroadcastSkill.Contains('not_applicable') -and
              $textBroadcastSkill.Contains('Do not ask for or generate a Handoff')) 'text copywriting must end with one Repo content document'
 Assert-True ($spokenSkill.Contains('唯一的上一阶段工作成果') -and
              $spokenSkill.Contains('稳定 `content_id`') -and
              $spokenSkill.Contains('口播正文已确认，标题待确认') -and
              $spokenSkill.Contains('Repo内容文档') -and
              $spokenSkill.Contains('视觉规划输入') -and
+             $spokenSkill.Contains('不得改变事件 ID 或缩减 payload') -and
+             $spokenSkill.Contains('not_applicable') -and
              $spokenSkill.Contains('不询问或生成 Handoff') -and
              $spokenSkill.Contains('不得在本对话加载或执行视觉 Skill')) 'spoken copywriting must enforce title selection and dual-document output'
 Assert-True ($spokenVisualSkill.Contains('sole prior-stage working result') -and
