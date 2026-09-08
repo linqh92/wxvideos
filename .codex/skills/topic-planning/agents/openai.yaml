@@ -1,4 +1,4 @@
 interface:
-  display_name: "视频号选题规划"
-  short_description: "锁定当前账号，基于三个索引输出 5 个不重复选题"
-  default_prompt: "使用 $topic-planning 锁定我指定的账号，基于当前定位和三个索引提供 5 个视频号选题方案。"
+  display_name: "财税获客选题主编"
+  short_description: "围绕当前账号客户问题与用户反馈主导选题，按需检索、查重并记录推荐"
+  default_prompt: "使用 $topic-planning 为我指定的账号担任选题主编，结合业务重点、需求依据和已有反馈推荐选题及载体，默认五个，不足不凑数。"
