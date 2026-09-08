@@ -14,20 +14,13 @@ from pathlib import Path
 ACCOUNT_IDS = {"gzminge", "gzxzcs", "qycslc", "gzcktxpp", "tsxbj", "gzlxcs"}
 FROM_STAGES = {
     "topic_planning",
-    "text_broadcast_copywriting",
-    "spoken_copywriting",
-    "spoken_visual_planning",
 }
 TO_STAGES = {
     "text_broadcast_copywriting",
     "spoken_copywriting",
-    "spoken_visual_planning",
-    "repo_sync",
-    "publish_archive",
-    "none",
 }
-SYNC_STATUSES = {"not_synced", "synced", "not_applicable"}
-CONTENT_FORMATS = {"text_broadcast", "spoken", "null"}
+SYNC_STATUSES = {"not_synced", "synced"}
+CONTENT_FORMATS = {"text_broadcast", "spoken"}
 CONTENT_ID_RE = re.compile(
     r"^wxv-(gzminge|gzxzcs|qycslc|gzcktxpp|tsxbj|gzlxcs)-(\d{8})-([0-9a-f]{8})$"
 )
@@ -120,9 +113,12 @@ def validate_handoff(path: Path) -> dict[str, object]:
         errors.append("repo_sync_status is invalid")
     if meta.get("content_format") not in CONTENT_FORMATS:
         errors.append("content_format is invalid")
-    if meta.get("from_stage") == "spoken_visual_planning" and meta.get("repo_sync_status") != "not_applicable":
-        errors.append("visual-stage Handoff must use repo_sync_status=not_applicable")
-
+    expected_format = {
+        "text_broadcast_copywriting": "text_broadcast",
+        "spoken_copywriting": "spoken",
+    }.get(meta.get("to_stage", ""))
+    if expected_format and meta.get("content_format") != expected_format:
+        errors.append("content_format does not match to_stage")
     confirmed_at = meta.get("confirmed_at", "")
     try:
         dt.datetime.fromisoformat(confirmed_at)

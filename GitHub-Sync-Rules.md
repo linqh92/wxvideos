@@ -25,6 +25,20 @@ Applies to simple workflows where `main` is the only collaboration branch. This 
 6. Only after explicit confirmation, commit the approved changes to local `main` and push them to `origin/main`.
 7. After completion, report the commit hash, commit message, and push result.
 
+## Cross-platform Script
+
+The workflow may be run without an Agent by using the repository-independent Python script:
+
+```text
+python shared/scripts/sync_github.py
+```
+
+- Requirements: Python 3.9+ and Git; no third-party Python packages are needed.
+- The script fetches and compares the remote, prints the exact workspace change list and proposed commit message, and requires the user to type `同步` before it commits or pushes.
+- Use `--dry-run` for a read-only preview. Use `--message "..."` to supply the proposed commit message while retaining the final interactive confirmation.
+- The script stops instead of automatically merging or rebasing when the remote branch is ahead, a conflict exists, the current branch is wrong, or files change after confirmation.
+- It defaults to `origin/main`. `--repo`, `--remote`, and `--branch` make the script reusable in another Git repository.
+
 ## Exception Handling
 
 - If remote `main` contains commits missing locally, explain the difference and recommended handling first. Do not commit or push without user confirmation.

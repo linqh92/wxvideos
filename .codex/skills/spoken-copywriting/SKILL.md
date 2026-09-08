@@ -89,4 +89,11 @@ description: Write acquisition-focused WeChat Video Account spoken scripts as a 
 
 交付请求的文案后结束。视觉需求由 `spoken-visual-planning` 单独处理；发布状态与归档按根规则执行。
 
-用户明确确认最终口播时，按 `shared/schemas/content-identity-schema.md` 创建或复用稳定 `content_id`。如果用户只确认，锁定该版本并询问是否需要 Handoff。如果用户同时明确要求进入视觉规划、Repo 同步或发布归档，本对话只按 `shared/schemas/handoff-packet-schema.md` 生成对应 Handoff，提示用户在项目中新建对话并引用该文件，然后停止；不得在本对话加载或执行视觉 Skill。进入视觉规划的 Handoff 必须包含完整确认口播、关键事实与条件、已批准来源和不可改动项，不带入文案 Skill、历史索引、未采用稿件或选题检索过程。
+用户确认正文时，先检查三个主标题方案中是否已有一个被明确选为最终标题。用户没有给出具体选择时，说明“口播正文已确认，标题待确认”，主动提醒其选择一个标题或明确授权代选，然后停止。不得默认采用第一个标题，常规搜索标题和短标题也不得自动代替最终主标题。
+
+最终正文与唯一最终标题均确认后，按 `shared/schemas/content-identity-schema.md` 创建或复用稳定 `content_id`，并严格按 `shared/schemas/confirmed-copy-delivery-schema.md` 同时生成：
+
+1. 一份供用户切换到 Codex 后执行 Repo 动作的 `Repo内容文档`；
+2. 一份供新的视觉规划对话通过 `@` 引用的 `视觉规划输入` 文档。
+
+只保留用户最终选择的标题，不把其余标题方案写入两份文件。两份文件生成后结束口播阶段；不询问或生成 Handoff。即使用户同时要求进入视觉规划、Repo 同步或发布归档，本对话也只交付这两份文档并提示下一任务的正确引用方式，不得在本对话加载或执行视觉 Skill，不得声称已经写入 Repo、发布或归档。

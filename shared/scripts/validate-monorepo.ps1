@@ -28,6 +28,7 @@ $archiveSkill = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot '.code
 $stateSchema = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\schemas\content-state-machine.md'))
 $contentIdentitySchema = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\schemas\content-identity-schema.md'))
 $handoffSchema = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\schemas\handoff-packet-schema.md'))
+$confirmedCopyDeliverySchema = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\schemas\confirmed-copy-delivery-schema.md'))
 $candidateSchema = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\schemas\candidate-index-schema.md'))
 $historySchema = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\schemas\history-index-schema.md'))
 $historyRebuild = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\scripts\rebuild-history-index.ps1'))
@@ -57,6 +58,7 @@ foreach ($relativePath in $requiredSpokenVisualPaths) {
 $requiredHandoffPaths = @(
     'shared\schemas\content-identity-schema.md',
     'shared\schemas\handoff-packet-schema.md',
+    'shared\schemas\confirmed-copy-delivery-schema.md',
     'shared\scripts\content-handoff.py',
     'shared\scripts\test-content-handoff.py'
 )
@@ -69,8 +71,9 @@ Assert-True ($rootAgent.Contains('默认禁止读取其他 `accounts/*`')) 'root
 Assert-True ($rootAgent.Contains('Context Loading 与阶段交接') -and
              $rootAgent.Contains('每个生产阶段使用独立对话') -and
              $rootAgent.Contains('上一阶段唯一工作成果') -and
-             $rootAgent.Contains('不得在当前对话加载或执行下一阶段 Skill')) 'root AGENTS must enforce stage-isolated chats and Handoff-only transitions'
-Assert-True ($rootAgent.Contains('Handoff 是 ChatGPT 项目中的临时共享文件') -and
+             $rootAgent.Contains('视觉规划输入') -and
+             $rootAgent.Contains('不得在当前对话加载或执行视觉 Skill')) 'root AGENTS must enforce stage-isolated chats and explicit document transitions'
+Assert-True ($rootAgent.Contains('Handoff 和视觉规划输入都是 ChatGPT 项目中的临时共享文件') -and
              $rootAgent.Contains('不写入 Repo') -and
              $rootAgent.Contains('content-identity-schema.md')) 'root AGENTS must keep Handoff outside Repo and preserve stable content identity'
 Assert-True ($rootAgent.Contains('视觉规划') -and
@@ -78,7 +81,7 @@ Assert-True ($rootAgent.Contains('视觉规划') -and
              $rootAgent.Contains('项目规则不规定用户选择 Chat、Work、Codex')) 'root AGENTS must exclude visual files from sync and remain model-neutral'
 
 $allocationTerms = @('GPT-5.6 Sol', 'Sol 高', 'Sol 中', '高能力模型', '低成本模型', '额度分配')
-$projectControlText = $rootAgent + $readme + $contentIdentitySchema + $handoffSchema
+$projectControlText = $rootAgent + $readme + $contentIdentitySchema + $handoffSchema + $confirmedCopyDeliverySchema
 foreach ($term in $allocationTerms) {
     Assert-True (-not $projectControlText.Contains($term)) "project rules must not prescribe user model or quota allocation: $term"
 }
@@ -89,27 +92,42 @@ Assert-True ($contentIdentitySchema.Contains('wxv-{account_id}-{YYYYMMDD}-{8hex}
 Assert-True ($handoffSchema.Contains('confirmed_by_user') -and
              $handoffSchema.Contains('pending_repo_actions') -and
              $handoffSchema.Contains('不得写入仓库') -and
-             $handoffSchema.Contains('唯一上一阶段工作成果')) 'Handoff schema must define confirmation, pending actions, and Repo boundary'
+             $handoffSchema.Contains('只用于') -and
+             $handoffSchema.Contains('topic_planning')) 'Handoff schema must be limited to topic-to-copy transitions'
+Assert-True ($confirmedCopyDeliverySchema.Contains('Repo内容文档') -and
+             $confirmedCopyDeliverySchema.Contains('视觉规划输入') -and
+             $confirmedCopyDeliverySchema.Contains('三个主标题方案') -and
+             $confirmedCopyDeliverySchema.Contains('不得把沉默视为选择') -and
+             $confirmedCopyDeliverySchema.Contains('spoken_visual_input')) 'confirmed copy delivery must define title gating and spoken dual-document output'
 Assert-True ($topicSkill.Contains('content-identity-schema.md') -and
              $topicSkill.Contains('交付“选题 → 对应文案阶段”的 Handoff') -and
              $topicSkill.Contains('不得在本对话加载或执行文案 Skill')) 'topic planning must create identity and stop at cross-stage Handoff'
 Assert-True ($textBroadcastSkill.Contains('sole prior-stage working result') -and
              $textBroadcastSkill.Contains('stable `content_id`') -and
-             $textBroadcastSkill.Contains('generate only the corresponding Handoff')) 'text copywriting must isolate incoming context and stop at Handoff'
+             $textBroadcastSkill.Contains('generate one `Repo内容文档`') -and
+             $textBroadcastSkill.Contains('Do not ask for or generate a Handoff')) 'text copywriting must end with one Repo content document'
 Assert-True ($spokenSkill.Contains('唯一的上一阶段工作成果') -and
              $spokenSkill.Contains('稳定 `content_id`') -and
-             $spokenSkill.Contains('不得在本对话加载或执行视觉 Skill')) 'spoken copywriting must isolate incoming context and stop at visual Handoff'
+             $spokenSkill.Contains('口播正文已确认，标题待确认') -and
+             $spokenSkill.Contains('Repo内容文档') -and
+             $spokenSkill.Contains('视觉规划输入') -and
+             $spokenSkill.Contains('不询问或生成 Handoff') -and
+             $spokenSkill.Contains('不得在本对话加载或执行视觉 Skill')) 'spoken copywriting must enforce title selection and dual-document output'
 Assert-True ($spokenVisualSkill.Contains('sole prior-stage working result') -and
+             $spokenVisualSkill.Contains('视觉规划输入') -and
              $spokenVisualSkill.Contains('shared files in the ChatGPT project') -and
              $spokenVisualSkill.Contains('remain outside the Repo') -and
-             -not $spokenVisualSkill.Contains('suitable attachment directory inside the current account')) 'visual planning must use Handoff context and keep outputs outside Repo'
+             -not $spokenVisualSkill.Contains('incoming Handoff') -and
+             -not $spokenVisualSkill.Contains('suitable attachment directory inside the current account')) 'visual planning must use the dedicated visual input and keep outputs outside Repo'
 Assert-True ($archiveSkill.Contains('content-identity-schema.md') -and
-             $archiveSkill.Contains('Handoff 可以提供内容，但不能代替用户')) 'publish archive must preserve identity and independently verify archive authorization'
+             $archiveSkill.Contains('Repo 内容文档可以提供内容，但不能代替用户')) 'publish archive must preserve identity and independently verify archive authorization'
 Assert-True ($historySchema.Contains('content_id') -and $historyRebuild.Contains('content_id =')) 'history schema and rebuild must preserve content_id'
 Assert-True ($candidateSchema.Contains('content_id') -and $candidateRebuild.Contains('content_id =')) 'candidate schema and rebuild must preserve content_id when present'
 
 $repoHandoffFiles = @(Get-ChildItem -LiteralPath (Join-Path $script:RepoRoot 'accounts') -Recurse -File -Filter 'Handoff｜*.md')
 Assert-True ($repoHandoffFiles.Count -eq 0) 'Handoff files must not be stored under accounts'
+$repoVisualInputFiles = @(Get-ChildItem -LiteralPath (Join-Path $script:RepoRoot 'accounts') -Recurse -File -Filter '视觉规划输入｜*.md')
+Assert-True ($repoVisualInputFiles.Count -eq 0) 'visual planning input files must not be stored under accounts'
 
 $hardcoded = @('广州敏哥', '广州小张', '广州老徐聊企业财税合规', '广州出口退税', '补充业务不得脱离', '成熟企业经营不得', '电商合规')
 $publicText = $topicSkill + $historyRules + $ideaSkill + $textBroadcastSkill + $spokenSkill + $spokenVisualSkill + $spokenVisualRules + $copyCommonRules + $archiveSkill

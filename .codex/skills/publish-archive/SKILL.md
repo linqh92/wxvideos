@@ -38,7 +38,7 @@ accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/历史内容归档
 
 该文件是当前账号历史路径、文件名、Frontmatter、正文结构和完成检查的事实来源。
 
-用户明确引用内容 Handoff 时，先按 `shared/schemas/handoff-packet-schema.md` 和 `shared/schemas/content-identity-schema.md` 校验账号、内容身份与最终确认内容。Handoff 可以提供内容，但不能代替用户对“已经实际发布”和“现在执行归档”这两个条件的明确确认。视觉 Handoff、PPT 文件、视觉执行指南和剪辑分段表不属于归档输入，也不得写入 Repo。
+用户明确引用 Repo 内容文档时，先按 `shared/schemas/confirmed-copy-delivery-schema.md` 和 `shared/schemas/content-identity-schema.md` 校验账号、内容身份、唯一标题与最终确认内容。Repo 内容文档可以提供内容，但不能代替用户对“已经实际发布”和“现在执行归档”这两个条件的明确确认。视觉规划输入、PPT 文件、视觉执行指南和剪辑分段表不属于归档输入，也不得写入 Repo。
 
 ## Unique Logic
 

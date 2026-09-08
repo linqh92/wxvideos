@@ -29,22 +29,26 @@ Shared Skills / Schemas / Scripts
 
 在 ChatGPT 项目中，每个生产阶段使用一个独立对话。项目指令负责让每个新对话先读取最新 `AGENTS.md`；确定账号和阶段后，只加载当前 Skill 与最少必要文件。仓库提供长期规则和事实，不代表每个对话都要读取完整仓库。
 
-阶段成果通过 ChatGPT 项目共享的 Handoff 文件交接：
+只有“选题 → 文案”通过 ChatGPT 项目共享的 Handoff 文件交接：
 
 ```text
-当前阶段对话
-→ 用户确认成果
-→ 生成 Handoff
-→ 在项目中新建下一阶段对话
+选题对话
+→ 用户采用选题并指定短文或口播
+→ 生成选题 Handoff
+→ 在项目中新建文案对话
 → @Handoff
-→ 读取当前阶段最小上下文并继续
+→ 只读取文案阶段最小上下文并创作
 ```
 
-用户只确认成果时，当前阶段会询问是否需要 Handoff；用户在确认时明确要求进入下一阶段，当前对话只生成 Handoff，不在同一对话执行下一阶段。Handoff 不是仓库文件，格式见 `shared/schemas/handoff-packet-schema.md`。
+文案确认后不生成 Handoff。短文生成一份 `Repo内容文档` 后结束；口播必须先确认最终正文和三个主标题方案中的唯一最终标题，再同时生成一份 `Repo内容文档` 和一份 `视觉规划输入` 文档。标题没有明确选择时，文案对话会主动提醒，不会默认采用第一个标题或提前生成最终文件。
+
+`Repo内容文档` 供用户切换到 Codex 后通过 `@` 引用并执行允许的仓库动作，它本身不表示已经写入、发布或归档。`视觉规划输入` 供新的视觉对话通过 `@` 引用，只包含最终标题、最终口播和视觉阶段必要的确认信息；其余标题、草稿、检索过程和 Repo 操作不带入。格式见 `shared/schemas/confirmed-copy-delivery-schema.md`。
+
+Handoff 不是仓库文件，格式见 `shared/schemas/handoff-packet-schema.md`。
 
 选题被正式采用后建立一个稳定 `content_id`，后续文案、可选视觉、发布和归档始终复用。规则见 `shared/schemas/content-identity-schema.md`。
 
-具备本地执行能力时，可用 `shared/scripts/content-handoff.py` 生成内容 ID 或校验下载后的 Handoff；脚本只做身份与格式检查，不会把 Handoff 写入 Repo。
+具备本地执行能力时，可用 `shared/scripts/content-handoff.py` 生成内容 ID 或校验下载后的选题 Handoff；脚本只做身份与格式检查，不会把 Handoff 写入 Repo。
 
 内容生产阶段分别由以下公共 Skill 处理：
 
@@ -66,10 +70,10 @@ CONTENT_FORMAT
 │
 └─ spoken
    └─ spoken-copywriting
-        ↓
-   [用户明确要求视觉辅助]
-        ↓
-   spoken-visual-planning
+        ├─ Repo内容文档 → Codex
+        └─ 视觉规划输入
+             ↓ 用户明确要求视觉辅助
+           新视觉对话 → spoken-visual-planning
 
 用户实际发布 + 用户明确要求归档
     ↓
@@ -84,7 +88,7 @@ publish-archive
 
 设计师根据每页内容选择完整页面生图、生成视觉素材后排版，或使用原生文字、表格和图形构建页面。完整 PPT 文案作为内容依据，生图提示词只描述当前执行方式需要生成的画面和文字。确认完整分页内容、页面用途和设计方向后，交付 PPT 设计执行指南与剪辑分段表；剪辑表只包含视频实际使用的页面。这些视觉阶段文件保留在 ChatGPT 项目中，不写入账号内容库，也不进入 GitHub 同步范围。
 
-Repo 始终保存一套长期正式事实，不按阶段保存多份 Handoff，也不保存 Chat 中间 revision。推荐与明确反馈按现有规则持久化；最终文案只有在用户明确要求且存在对应写入规则时才保存；实际发布内容仍通过 `publish-archive` 进入历史事实源。当前环境只读时，只输出待执行动作，不得声称已经写入、更新索引或同步。
+Repo 始终保存一套长期正式事实，不按阶段保存多份 Handoff、视觉规划输入或 Chat 中间 revision。推荐与明确反馈按现有规则持久化；Repo 内容文档只是 Codex 的确认输入，最终文案仍只有在用户明确要求且存在对应写入规则时才保存；实际发布内容仍通过 `publish-archive` 进入历史事实源。当前环境只读时，只输出待执行动作，不得声称已经写入、更新索引或同步。
 
 ## 数据层级
 
@@ -114,6 +118,22 @@ _candidate-index.jsonl = 候选机器检索层
 ```
 
 传入 `-AccountId gzminge` 可只处理一个账号；不传时处理全部账号。
+
+## 跨平台同步 GitHub
+
+安装 Python 3.9+ 和 Git 后，可在 Windows、macOS 或 Linux 的项目目录运行：
+
+```text
+python shared/scripts/sync_github.py
+```
+
+脚本会先获取并比较 `origin/main`，展示完整文件清单和提交信息；只有手动输入“同步”后才会提交和推送。只想查看同步计划时使用：
+
+```text
+python shared/scripts/sync_github.py --dry-run
+```
+
+脚本不依赖第三方 Python 包，也不会自动解决远端领先或文件冲突。复制到其他 Git 仓库后，可通过 `--repo`、`--remote` 和 `--branch` 调整目标。
 
 ## 目录
 

@@ -6,7 +6,7 @@
 
 - 用户明确采用某个选题时创建；仅推荐、浏览、跳过或待确认时不创建。
 - 用户直接提供题目并进入文案阶段时，最迟在该文案首次被用户明确确认为最终版本时创建。
-- 已有有效 `content_id` 时必须复用，不得因新对话、新阶段、修改标题或重新生成 Handoff 而更换。
+- 已有有效 `content_id` 时必须复用，不得因新对话、新阶段、修改标题或重新生成 Handoff、Repo 内容文档、视觉规划输入而更换。
 - 旧内容不自动回填；只有明确迁移或维护任务才批量补建。
 
 ## 格式
@@ -29,7 +29,7 @@ wxv-gzminge-20260909-a1b2c3d4
 - 完整值匹配 `^wxv-(gzminge|gzxzcs|qycslc|gzcktxpp|tsxbj|gzlxcs)-\d{8}-[0-9a-f]{8}$`；
 - 同一 Repo 内不得存在两个不同内容共用同一 `content_id`。
 
-具有脚本执行能力的环境优先使用 `shared/scripts/content-handoff.py new-id --account <account_id>` 生成，避免手工格式错误；只读 Chat 环境可以按同一格式创建，并必须通过后续 Handoff 继续传递。
+具有脚本执行能力的环境优先使用 `shared/scripts/content-handoff.py new-id --account <account_id>` 生成，避免手工格式错误；只读 Chat 环境可以按同一格式创建，并通过选题 Handoff、Repo 内容文档或视觉规划输入继续传递。
 
 ## 生命周期
 

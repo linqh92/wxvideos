@@ -1,11 +1,11 @@
 # Handoff Packet Schema
 
-Handoff Packet 用于在 ChatGPT 项目中的独立阶段对话之间传递已经确认的工作成果。它是临时交接文件，不是 Repo 资产、事实源、状态记录、索引或发布归档。
+Handoff Packet 只用于在 ChatGPT 项目中把用户已采用的选题传递到独立的短文或口播对话。它是临时交接文件，不是 Repo 资产、事实源、状态记录、索引或发布归档。
 
 ## 使用边界
 
-- 仅在用户明确确认当前阶段成果后生成。
-- 用户只确认时，先询问是否需要 Handoff；用户确认并明确要求进入下一阶段时，直接生成 Handoff 后停止当前阶段。
+- 仅在用户明确采用选题并要求进入短文或口播阶段后生成。
+- 文案确认、Repo 执行、视觉规划、发布归档和视觉阶段结束均不使用 Handoff；文案确认后的交付按 `shared/schemas/confirmed-copy-delivery-schema.md` 执行。
 - Handoff 保留在 ChatGPT 项目中，由用户在新对话通过 `@` 明确引用；不得写入仓库。
 - 新对话以最新明确引用且校验有效的 Handoff 作为唯一上一阶段工作成果，不重新加载上一阶段 Skill、检索历史、未采用方案或聊天记忆。
 - Handoff 只传身份、确认结果、改变结论的条件、必要来源、用户原始反馈和权限，不复制 AGENTS、Skill、完整历史或无关上下文。
@@ -25,12 +25,12 @@ Handoff｜{content_id}｜{from_stage}-to-{to_stage}.md
 handoff_version: "1.0"
 content_id: "wxv-{account_id}-{YYYYMMDD}-{8hex}"
 account_id: "{CURRENT_ACCOUNT}"
-from_stage: "topic_planning | text_broadcast_copywriting | spoken_copywriting | spoken_visual_planning"
-to_stage: "text_broadcast_copywriting | spoken_copywriting | spoken_visual_planning | repo_sync | publish_archive | none"
+from_stage: "topic_planning"
+to_stage: "text_broadcast_copywriting | spoken_copywriting"
 approval_status: "confirmed_by_user"
 confirmed_at: "YYYY-MM-DDTHH:MM:SS+08:00"
-repo_sync_status: "not_synced | synced | not_applicable"
-content_format: "text_broadcast | spoken | null"
+repo_sync_status: "not_synced | synced"
+content_format: "text_broadcast | spoken"
 topic_id: "string | null"
 ---
 ```
@@ -39,11 +39,11 @@ topic_id: "string | null"
 
 - `content_id` 按 `content-identity-schema.md` 创建并复用；
 - `account_id` 必须与当前账号及 `content_id` 一致；
-- `from_stage` 必须是刚完成并已确认的阶段；
-- `to_stage` 必须来自用户明确要求，用户未指定下一阶段时使用 `none`；
+- `from_stage` 必须是刚完成并已确认的 `topic_planning`；
+- `to_stage` 必须是用户明确要求的 `text_broadcast_copywriting` 或 `spoken_copywriting`；
 - `approval_status` 只有在用户明确确认后才能写为 `confirmed_by_user`；
-- `repo_sync_status` 只描述当前确认结果是否已进入 Repo；视觉阶段及视觉文件使用 `not_applicable`；
-- `content_format` 从文案阶段开始必填；选题尚未确定载体时可为 `null`。
+- `repo_sync_status` 只描述当前已采用选题及允许记录是否已进入 Repo；
+- `content_format` 必须与 `to_stage` 一致：进入短文使用 `text_broadcast`，进入口播使用 `spoken`。
 
 ## 正文结构
 
@@ -92,14 +92,6 @@ topic_id: "string | null"
 ### 选题 → 文案
 
 必须包含已采用选题、目标客户与场景、客户决策问题、核心答案、改变结论的条件、建议或用户指定载体、必要来源和明确反馈。不带入其余候选与整批查重过程。
-
-### 口播文案 → 视觉规划
-
-必须包含最终标题、完整确认口播、关键事实与条件、已批准来源、用户要求和不可改动项。不带入未采用文案、文案 Skill、历史索引或选题检索过程。
-
-### 内容 → Repo 同步或发布归档
-
-必须包含最终确认内容、实际载体、必要身份和待执行动作。发布归档还必须由用户另行确认内容已经实际发布，并明确要求归档；Handoff 本身不能满足这两个条件。
 
 ## 有效性检查
 

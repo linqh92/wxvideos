@@ -42,11 +42,13 @@ After resolving `CURRENT_ACCOUNT`, read:
 2. `accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号基本定位.md` for business, audience and communication goals;
 3. `accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号人设与文风.md` for the speaker's professional relationship and credibility;
 4. `accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号视觉风格.md` for confirmed brand assets and visual fact boundaries;
-5. the confirmed spoken script or final audio;
+5. the explicitly referenced `视觉规划输入` document produced under `shared/schemas/confirmed-copy-delivery-schema.md`, or final audio together with its uniquely confirmed title;
 6. source material already approved for the current topic, when available;
 7. `references/visual-aid-generation-rules.md` for document architecture, execution choices and delivery details.
 
-When the user references an incoming Handoff, validate it with `shared/schemas/handoff-packet-schema.md`. Its `account_id` establishes the account candidate, which must still pass the root account lock; its confirmed spoken copy is the sole prior-stage working result. Do not load `spoken-copywriting`, `topic-planning`, recommendation memory, planning indexes, history searches, rejected drafts or the earlier chat. Only load source paths explicitly listed in the Handoff when they are necessary to preserve a fact or conclusion.
+When the user references a `视觉规划输入` document, validate its `document_type`, `content_id`, `account_id`, `content_format=spoken`, `approval_status`, unique final title and complete final script under `shared/schemas/confirmed-copy-delivery-schema.md`. Its `account_id` establishes the account candidate, which must still pass the root account lock; the document is the sole prior-stage working result. Do not load `spoken-copywriting`, `topic-planning`, the Repo content document, recommendation memory, planning indexes, history searches, rejected drafts, alternative titles or the earlier chat. Only load source paths explicitly listed in the visual input when they are necessary to preserve a fact or conclusion.
+
+If the referenced input has no unique final title, conflicts with another version or contains only a confirmed body plus unselected title options, stop and ask the user to resolve the final title. Do not select from old alternatives inside the visual stage.
 
 Use only facts supported by the confirmed script, approved source material or verified official sources. Surface a material information gap during content confirmation when it prevents the document track from standing on its own.
 
@@ -159,4 +161,4 @@ Both documents describe the final deliverable. Design exploration, internal scor
 
 ## Stop
 
-End after delivering the two ChatGPT-project documents. Do not generate a Repo Handoff or `pending_repo_actions` for visual files. Continue to image generation, PPT production, editing, publishing or archiving only through the corresponding user-requested stage and a separate conversation when one exists.
+End after delivering the two ChatGPT-project documents. Do not generate a Handoff, Repo content document or `pending_repo_actions` for visual files. Continue to image generation, PPT production, editing, publishing or archiving only through the corresponding user-requested stage and a separate conversation when one exists.
