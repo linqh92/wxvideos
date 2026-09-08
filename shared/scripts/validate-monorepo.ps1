@@ -53,7 +53,7 @@ foreach ($relativePath in $requiredSpokenVisualPaths) {
 Assert-True ($rootAgent.Contains('CURRENT_ACCOUNT') -and $rootAgent.Contains('Account Context Lock')) 'root AGENTS must define CURRENT_ACCOUNT and Account Context Lock'
 Assert-True ($rootAgent.Contains('默认禁止读取其他 `accounts/*`')) 'root AGENTS must forbid other accounts by default'
 
-$hardcoded = @('广州敏哥', '广州小张', '企业财税-老陈', '广州出口退税', '补充业务不得脱离', '成熟企业经营不得', '电商合规')
+$hardcoded = @('广州敏哥', '广州小张', '广州老徐聊企业财税合规', '广州出口退税', '补充业务不得脱离', '成熟企业经营不得', '电商合规')
 $publicText = $topicSkill + $historyRules + $ideaSkill + $textBroadcastSkill + $spokenSkill + $spokenVisualSkill + $spokenVisualRules + $copyCommonRules + $archiveSkill
 foreach ($term in $hardcoded) {
     Assert-True (-not $publicText.Contains($term)) "public Skills must not hardcode account rule: $term"

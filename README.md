@@ -16,10 +16,10 @@ Shared Skills / Schemas / Scripts
 | --- | --- | --- | --- |
 | `gzminge` | 广州敏哥聊财税 | `linqh92/gzminge_wxvideos_contens` | `accounts/gzminge/内容库` |
 | `gzxzcs` | 广州小张说财税 | `linqh92/gzxzcs_wxvideos_contens` | `accounts/gzxzcs/内容库` |
-| `qycslc` | 企业财税-老陈 | `linqh92/qycslc_wxvideos_contens` | `accounts/qycslc/内容库` |
+| `qycslc` | 备用 | 原 `gzlxcs` 备用库 | `accounts/qycslc/内容库` |
 | `gzcktxpp` | 广州出口退税-翩翩 | `linqh92/gzcktxpp_wxvideos_contens` | `accounts/gzcktxpp/内容库` |
 | `tsxbj` | 退税小笔记 | 本项目新建 | `accounts/tsxbj/内容库` |
-| `gzlxcs` | 广州老徐聊企业财税合规 | 本项目新建 | `accounts/gzlxcs/内容库` |
+| `gzlxcs` | 广州老徐聊企业财税合规 | `linqh92/qycslc_wxvideos_contens`（内容继承） | `accounts/gzlxcs/内容库` |
 
 旧仓库只作为迁移对照、数据核验和回滚来源；本项目是后续统一维护入口。
 
@@ -66,6 +66,8 @@ publish-archive
 设计师根据每页内容选择完整页面生图、生成视觉素材后排版，或使用原生文字、表格和图形构建页面。完整PPT文案作为内容依据，生图提示词只描述当前执行方式需要生成的画面和文字。确认完整分页内容、页面用途和设计方向后，交付PPT设计执行指南与剪辑分段表；剪辑表只包含视频实际使用的页面。
 
 ## 数据层级
+
+选题记忆采用“有效偏好摘要＋近期 5 批＋旧推荐按需检索”。规则见 `shared/rules/topic-memory-reading.md`；工具 `shared/scripts/topic-memory.py` 提供本账号增量缓存、近期批次、反馈分页和关键词检索。首次实际使用建立缓存，正常追加只处理新增事件。原始月度日志保留，缓存和摘要可重建；关键词命中由主编进一步判断语义重复。
 
 选题流程：账号锁定 → 主编理解业务重点与反馈 → 寻找客户问题并调用材料 → 判断选题价值 → 查重与必要核验 → 推荐并记录 → 下一轮根据反馈调整。
 

@@ -30,7 +30,7 @@ description: 由资深财税获客选题主编围绕当前账号客户问题、�
 2. `shared/rules/acquisition-and-fact-framing.md`；
 3. [历史内容库读取规则](references/history-vault-rules.md)；
 4. 当前账号的 `_history-index.jsonl`、`_candidate-index.jsonl`、`_idea-index.jsonl`。
-5. `shared/schemas/topic-recommendation-log-schema.md` 和当前账号已有推荐记录中的选题摘要与反馈；相关发布效果按需读取。首次没有记录不阻塞，不猜测回填。
+5. `shared/schemas/topic-recommendation-log-schema.md` 与 `shared/rules/topic-memory-reading.md`；按后者读取有效偏好摘要和最近 5 批推荐及关联反馈，形成方向后再检索旧推荐。相关发布效果按需读取，首次无记录不阻塞，不猜测回填。三个索引增长后先本地筛选，不全量输出到上下文。
 
 选题阶段默认不读 `账号人设与文风.md`。状态含义引用 `shared/schemas/content-state-machine.md`。索引缺失或损坏时，使用 `shared/scripts/rebuild-*-index.ps1 -AccountId {CURRENT_ACCOUNT}` 从 Markdown 重建；无法可靠重建时，不输出正式推荐。
 
@@ -113,5 +113,7 @@ description: 由资深财税获客选题主编围绕当前账号客户问题、�
 对于连续请求，未变的账号与三个索引快照继续复用，不重新扫描全库；新反馈和推荐记录更新必须重新评估排除范围、旧题回归和排序，不能复用过时去重结论。账号切换后丢弃旧账号快照。
 
 ## Stop
+
+每次记录成功后同步本账号检索缓存；明确反馈追加后按分层读取规则增量更新偏好摘要。摘要与缓存可重建，原始推荐记录保持事实源地位；不自动重建其他派生资产。
 
 完成用户要求的分析或合格选题推荐及允许的最小记录后立即停止。不得自动生成正式文案、调用文案 Skill、标记发布或归档；用户未明确确认时，不生成定稿，也不将候选视为已发布。
