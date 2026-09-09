@@ -297,6 +297,14 @@ When a professional concept is necessary:
 
 Do NOT hard-code industry terminology inside this common rule file.
 
+### Internal completeness vs. surface expression（内部完整与正文表达）
+
+Build the complete fact and condition inventory internally, then select only the information the audience needs to understand or use the current judgment. A required internal check is not automatically a required noun, sentence, paragraph, or list in the finished copy.
+
+Preserving conclusion-changing conditions means keeping the conclusion accurate and properly scoped. It does not require naming every supporting document, business link, classification dimension, or diagnostic question. Compress secondary material, give a meaningful branch, use one or two representative examples, or narrow the topic when a complete inventory would make the expression unnatural.
+
+For content whose purpose is not a checklist, inventory, comparison table, or step-by-step procedure, treat a long run of parallel objects or two different enumerations inside one sentence as an editing warning. Rebuild the sentence around the decisive relationship, consequence, or next useful judgment instead of transferring an internal checklist into prose.
+
 ---
 
 ## 10. Persona Expression（人物表达）
@@ -559,6 +567,9 @@ Rewrite if ANY applies:
 - CTA conflicts with account or platform boundaries
 - The audience still cannot answer the topic's central question after consuming the piece
 - Conditions are listed without a direct or branch conclusion
+- An internal fact, document, condition, or diagnostic inventory is transferred into the copy without audience-facing prioritization
+- One sentence carries two separate enumerations when the enumeration itself is not the content's purpose
+- A full business chain is displayed mainly to signal expertise rather than to explain the current conclusion
 - “需要综合判断” or equivalent wording replaces an available judgment
 - Policy, terminology, or process is explained without an audience result
 - A risk is stated without the condition that makes it relevant

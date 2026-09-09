@@ -49,6 +49,8 @@ A scene may create relevance, but it must not postpone the actual issue merely t
 
 Use numbering only when parallel items, steps or checks genuinely become easier to scan. Do not force a fixed-size list.
 
+Treat four or more parallel objects in one sentence, two different enumerations in one sentence, or consecutive blocks made mainly of noun lists as a review trigger. Keep them only when the list, inventory, classification, or procedure is itself the promised value. Otherwise retain the decisive item, use one or two representative examples, convert the material into a meaningful branch, or narrow the question. Do not disguise the same overloaded inventory by placing each noun on its own line.
+
 ## Information-Relationship Editing
 
 Identify what the reader must understand from the material already available:
