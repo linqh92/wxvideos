@@ -19,5 +19,6 @@ JustOneAPI-token.txt
 **/__pycache__/
 *.pyc
 _retrieval*.sqlite
+.wxv-ops.lock
 Handoff｜*.md
 accounts/*/内容库/99-附件/**/*视觉*/

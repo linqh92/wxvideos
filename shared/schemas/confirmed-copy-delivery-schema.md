@@ -42,7 +42,7 @@ Repo内容文档｜{content_id}｜{内容简称}.md
 
 ```yaml
 ---
-delivery_version: "1.0"
+delivery_version: "1.1"
 document_type: "repo_content"
 content_id: "wxv-{account_id}-{YYYYMMDD}-{8hex}"
 account_id: "{CURRENT_ACCOUNT}"
@@ -64,7 +64,7 @@ repo_sync_status: "not_synced"
 
 正文只保留 Repo 执行所需的正式信息：
 
-```markdown
+~~~markdown
 # {最终标题}
 
 ## 选题来源与反馈
@@ -103,10 +103,38 @@ repo_sync_status: "not_synced"
 - publish_date: YYYY-MM-DD
 - requested_repo_action: archive_published_content
 
-## 待执行仓库动作
+## Repo 操作载荷
 
-- pending_repo_actions: []
+```json
+{
+  "schema_version": "1.0",
+  "action": "archive_published_content",
+  "account_id": "{CURRENT_ACCOUNT}",
+  "content_id": "wxv-{account_id}-{YYYYMMDD}-{8hex}",
+  "content_format": "text_broadcast | spoken",
+  "publish_date": "YYYY-MM-DD",
+  "final_title": "用户最终选择的标题",
+  "archive_metadata": {
+    "business_line": "当前账号固定选项或允许值",
+    "theme": "当前账号固定选项或允许值",
+    "content_type": "当前账号固定选项或允许值",
+    "audience": "当前账号固定选项或允许值",
+    "pain_scene": "一个主要客户场景",
+    "content_goal": "知识库可追踪目标",
+    "region": "当前账号既定地区",
+    "platform": "微信视频号",
+    "series": "所属系列",
+    "source": "用户确认发布内容",
+    "summary": "2～4句内容概述",
+    "audience_description": "具体客户类型、阶段或业务状态",
+    "pain_scene_description": "客户在什么情况下遇到什么困难",
+    "extension_topics": [],
+    "related_content": []
+  },
+  "pending_repo_actions": []
+}
 ```
+~~~
 
 ### 选题反馈继承规则
 
@@ -117,19 +145,24 @@ repo_sync_status: "not_synced"
 - 用户直接给题、直接提供参考内容重写且没有经过项目推荐时，使用 `topic_origin: direct_user_input`、`topic_feedback_status: not_applicable`，相关批次和反馈 ID 为 `null`；不得虚构推荐或选择反馈。
 - 文案 Skill 只能把这些字段作为 Repo 追踪信息原样转交，不得加载推荐历史、利用未采用选题改写当前内容或把待执行动作当成新的用户授权。
 
+Repo 操作载荷的完整字段、执行命令和结果状态统一引用 `shared/schemas/repo-operation-schema.md`。其中归档分类、内容概述、目标客户描述和痛点场景描述在文案最终确认时根据当前账号规则与最终内容一次性确定；`extension_topics` 和 `related_content` 常规使用空数组。
+
 `pending_repo_actions` 只记录项目规则本来允许、但当前环境无法执行的动作。推荐与反馈事件使用如下自包含结构；没有待执行动作时保留空数组：
 
-```yaml
-- action_id: "uuid"
-  action_type: "append_topic_recommendation_events"
-  target_path: "accounts/{account_id}/内容库/03-选题规划/推荐记录/YYYY-MM.jsonl"
-  source_schema: "shared/schemas/topic-recommendation-log-schema.md"
-  events:
-    - <完整 recommendation 事件；已经存在时可省略>
-    - <完整 selected feedback 事件>
+```json
+{
+  "action_id": "uuid",
+  "action_type": "append_topic_recommendation_events",
+  "target_path": "accounts/{account_id}/内容库/03-选题规划/推荐记录/YYYY-MM.jsonl",
+  "source_schema": "shared/schemas/topic-recommendation-log-schema.md",
+  "events": [
+    {"完整 recommendation 事件": "已经存在时可省略"},
+    {"完整 selected feedback 事件": "必填"}
+  ]
+}
 ```
 
-Codex 在用户明确要求“同步”或“录入”时，先按事件 ID 幂等补写待执行推荐与反馈，再调用 `publish-archive` 写入历史事实源。存在对应候选时将其直接更新为 `已发布`；没有对应候选时不创建候选卡。执行时核验账号、事件 ID、目标月份、已有日志和重复历史；已存在的事件不重复追加。
+Codex 在用户明确要求“同步”或“录入”时，由 `publish-archive` 调用 `shared/scripts/wxv-ops.py sync-published --apply`。脚本按事件 ID 幂等补写待执行推荐与反馈、写入历史事实源并更新索引；存在对应候选时将其更新为 `已发布`，没有对应候选时不创建候选卡。
 
 ## 视觉规划输入文档
 

@@ -42,7 +42,27 @@ Shared Skills / Schemas / Scripts
 
 文案确认后不生成 Handoff。短文生成一份 `Repo内容文档` 后结束；口播必须先确认最终正文和三个主标题方案中的唯一最终标题，再同时生成一份 `Repo内容文档` 和一份 `视觉规划输入` 文档。标题没有明确选择时，文案对话会主动提醒，不会默认采用第一个标题或提前生成最终文件。
 
-`Repo内容文档` 供用户完成制作发布后，切换到可写 Codex 任务并通过 `@` 引用。它保存最终发布内容、发布日期、预期归档动作，并继承选题 Handoff 中的推荐批次、用户 `selected` 反馈和尚未写入的完整事件；直接给题或参考重写明确标记为“不适用”。用户在该 Codex 任务中要求“同步”或“录入”时，Codex 补写待执行事件并完成发布归档。
+`Repo内容文档` 供用户完成制作发布后，切换到可写 Codex 任务并通过 `@` 引用。它保存最终发布内容、发布日期、预期归档动作和机器可读的归档元数据，并继承选题 Handoff 中的推荐批次、用户 `selected` 反馈和尚未写入的完整事件；直接给题或参考重写明确标记为“不适用”。用户在该 Codex 任务中要求“同步”或“录入”时，Codex 将文件交给统一脚本完成确定性归档。
+
+常规操作入口：
+
+```text
+@Repo内容文档 检查
+@Repo内容文档 同步
+@Repo内容文档 录入
+```
+
+“检查”只返回执行计划。“同步”和“录入”是同一发布归档动作的用户别名，实际路由由文件中的 `document_type` 与 `requested_repo_action` 决定。结构化文件由 `shared/scripts/wxv-ops.py` 校验、幂等补写事件、生成历史、更新索引和候选状态；发生字段缺失或冲突时才进入人工判断。
+
+发布归档只处理已经确认的内容事实。延展题、历史语义关联和灵感回流按用户需要单独或批量执行，避免每次固定同步都触发内容推理。
+
+需要完全绕过 AI 调用时，可在本地直接运行：
+
+```text
+python shared/scripts/wxv-ops.py check --input "<Repo内容文档路径>"
+python shared/scripts/wxv-ops.py sync-published --input "<Repo内容文档路径>" --apply
+python shared/scripts/wxv-ops.py verify --input "<Repo内容文档路径>"
+```
 
 `视觉规划输入` 供新的视觉对话通过 `@` 引用，只包含最终标题、最终口播和视觉阶段必要的确认信息；选题反馈、推荐批次、其余标题、草稿、检索过程和 Repo 操作均不带入。格式见 `shared/schemas/confirmed-copy-delivery-schema.md`。
 
@@ -61,7 +81,7 @@ Handoff 不是仓库文件，格式见 `shared/schemas/handoff-packet-schema.md`
 - `text-broadcast-copywriting`：读取公共文案规则，生成短文字幕与文字播报文案。
 - `spoken-copywriting`：读取公共文案规则和专用的中式真人口语规则，生成可直接真人口播的文案。
 - `spoken-visual-planning`：在口播文案确认后，规划搜索封面、推荐流/PPT封面与可独立阅读的完整PPT资料，并交付逐页设计执行方案。
-- `publish-archive`：仅在“实际发布 + 明确归档”同时成立时写历史并增量更新索引。
+- `publish-archive`：仅在“实际发布 + 明确归档”同时成立时调用确定性脚本写历史并增量更新索引；旧版或异常输入进入人工处理。
 
 正式内容生成按载体路由：
 
@@ -81,7 +101,7 @@ CONTENT_FORMAT
 
 用户完成发布 + 在 Codex 中 `@Repo内容文档` 并要求同步/录入
     ↓
-publish-archive
+publish-archive → shared/scripts/wxv-ops.py
 ```
 
 用户明确指定载体优先，其次使用候选的 `recommended_format`；旧候选或 `either` 默认短文字幕，以兼容原流程。两个文案 Skill 的公共规则统一位于 `shared/rules/copywriting-common-rules.md`。口播专用的真人中文语感规则位于 `.codex/skills/spoken-copywriting/references/chinese-spoken-naturalness.md`，不得继承到文字播报流程。
@@ -92,7 +112,7 @@ publish-archive
 
 设计师根据每页内容选择完整页面生图、生成视觉素材后排版，或使用原生文字、表格和图形构建页面。完整 PPT 文案作为内容依据，生图提示词只描述当前执行方式需要生成的画面和文字。确认完整分页内容、页面用途和设计方向后，交付 PPT 设计执行指南与剪辑分段表；剪辑表只包含视频实际使用的页面。这些视觉阶段文件保留在 ChatGPT 项目中，不写入账号内容库，也不进入 GitHub 同步范围。
 
-Repo 始终保存一套长期正式事实，不按阶段保存多份 Handoff、视觉规划输入或 Chat 中间 revision。推荐与明确反馈按现有规则持久化；Repo 内容文档记录最终发布内容和归档动作。用户在可写 Codex 任务中引用该文档并要求“同步”或“录入”时，`publish-archive` 补写待执行推荐与反馈、写入历史事实源，并把存在的对应候选直接标记为“已发布”。ChatGPT“对话”模式通过 GitHub 集成读取项目时按只读处理，尚未执行的推荐与反馈事件通过 Handoff 和后续 Repo 内容文档交给 Codex。其他只读环境同样只输出待执行动作，不得声称已经写入、更新索引或同步。
+Repo 始终保存一套长期正式事实，不按阶段保存多份 Handoff、视觉规划输入或 Chat 中间 revision。推荐与明确反馈按现有规则持久化；Repo 内容文档记录最终发布内容和归档动作。用户在可写 Codex 任务中引用该文档并要求“同步”或“录入”时，`publish-archive` 调用统一脚本补写待执行推荐与反馈、写入历史事实源，并把存在的对应候选直接标记为“已发布”。ChatGPT“对话”模式通过 GitHub 集成读取项目时按只读处理，尚未执行的推荐与反馈事件通过 Handoff 和后续 Repo 内容文档交给 Codex。其他只读环境同样只输出待执行动作，不得声称已经写入、更新索引或同步。
 
 ## 数据层级
 

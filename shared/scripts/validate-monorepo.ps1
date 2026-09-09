@@ -25,15 +25,18 @@ $spokenVisualRules = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot '
 $spokenVisualAgent = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot '.codex\skills\spoken-visual-planning\agents\openai.yaml'))
 $copyCommonRules = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\rules\copywriting-common-rules.md'))
 $archiveSkill = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot '.codex\skills\publish-archive\SKILL.md'))
+$archiveManual = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot '.codex\skills\publish-archive\references\manual-archive.md'))
 $stateSchema = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\schemas\content-state-machine.md'))
 $contentIdentitySchema = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\schemas\content-identity-schema.md'))
 $handoffSchema = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\schemas\handoff-packet-schema.md'))
 $confirmedCopyDeliverySchema = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\schemas\confirmed-copy-delivery-schema.md'))
+$repoOperationSchema = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\schemas\repo-operation-schema.md'))
 $topicRecommendationSchema = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\schemas\topic-recommendation-log-schema.md'))
 $candidateSchema = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\schemas\candidate-index-schema.md'))
 $historySchema = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\schemas\history-index-schema.md'))
 $historyRebuild = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\scripts\rebuild-history-index.ps1'))
 $candidateRebuild = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\scripts\rebuild-candidate-index.ps1'))
+$repoOps = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\scripts\wxv-ops.py'))
 
 $requiredContentFormatPaths = @(
     'shared\rules\copywriting-common-rules.md',
@@ -60,8 +63,12 @@ $requiredHandoffPaths = @(
     'shared\schemas\content-identity-schema.md',
     'shared\schemas\handoff-packet-schema.md',
     'shared\schemas\confirmed-copy-delivery-schema.md',
+    'shared\schemas\repo-operation-schema.md',
     'shared\scripts\content-handoff.py',
-    'shared\scripts\test-content-handoff.py'
+    'shared\scripts\test-content-handoff.py',
+    'shared\scripts\wxv-ops.py',
+    'shared\scripts\test-wxv-ops.py',
+    '.codex\skills\publish-archive\references\manual-archive.md'
 )
 foreach ($relativePath in $requiredHandoffPaths) {
     Assert-True (Test-Path -LiteralPath (Join-Path $script:RepoRoot $relativePath)) "missing content-handoff asset: $relativePath"
@@ -119,7 +126,17 @@ Assert-True ($confirmedCopyDeliverySchema.Contains('Repo内容文档') -and
              $confirmedCopyDeliverySchema.Contains('requested_repo_action: "archive_published_content"') -and
              $confirmedCopyDeliverySchema.Contains('必须原样继承') -and
              $confirmedCopyDeliverySchema.Contains('direct_user_input') -and
-             $confirmedCopyDeliverySchema.Contains('不能只写一个引用不存在批次的反馈')) 'confirmed copy delivery must preserve feedback continuity and direct-topic distinction'
+             $confirmedCopyDeliverySchema.Contains('不能只写一个引用不存在批次的反馈') -and
+             $confirmedCopyDeliverySchema.Contains('delivery_version: "1.1"') -and
+             $confirmedCopyDeliverySchema.Contains('Repo 操作载荷') -and
+             $confirmedCopyDeliverySchema.Contains('repo-operation-schema.md')) 'confirmed copy delivery must preserve feedback continuity and provide scripted Repo operations'
+Assert-True ($repoOperationSchema.Contains('sync-published') -and
+             $repoOperationSchema.Contains('already_synced') -and
+             $repoOperationSchema.Contains('不执行 Git 提交或推送') -and
+             $repoOps.Contains('def apply_sync') -and
+             $repoOps.Contains('def verify_sync') -and
+             $repoOps.Contains('semantic_enrichment') -and
+             $repoOps.Contains('--apply')) 'Repo operation schema and script must provide deterministic checked execution'
 Assert-True ($topicSkill.Contains('content-identity-schema.md') -and
              $topicSkill.Contains('交付“选题 → 对应文案阶段”的 Handoff') -and
              $topicSkill.Contains('selected` feedback 分配稳定 `event_id`') -and
@@ -153,10 +170,14 @@ Assert-True ($spokenVisualSkill.Contains('sole prior-stage working result') -and
              $spokenVisualSkill.Contains('remain outside the Repo') -and
              -not $spokenVisualSkill.Contains('incoming Handoff') -and
              -not $spokenVisualSkill.Contains('suitable attachment directory inside the current account')) 'visual planning must use the dedicated visual input and keep outputs outside Repo'
-Assert-True ($archiveSkill.Contains('content-identity-schema.md') -and
+$archiveText = $archiveSkill + $archiveManual
+Assert-True ($archiveManual.Contains('content-identity-schema.md') -and
              $archiveSkill.Contains('publication_status: published_by_user') -and
-             $archiveSkill.Contains('当前任务中的“同步”或“录入”指令授权执行') -and
-             $archiveSkill.Contains('没有对应候选时不创建候选卡')) 'publish archive must validate Repo delivery and directly archive published content'
+             $archiveSkill.Contains('该指令授权当前 Repo 文档指定的动作') -and
+             $archiveManual.Contains('没有对应候选时不创建候选卡') -and
+             $archiveSkill.Contains('shared/scripts/wxv-ops.py sync-published') -and
+             $archiveSkill.Contains('灵感回流只在用户明确要求') -and
+             $archiveSkill.Contains('manual-archive.md')) 'publish archive must route structured documents to deterministic execution'
 Assert-True ($historySchema.Contains('content_id') -and $historyRebuild.Contains('content_id =')) 'history schema and rebuild must preserve content_id'
 Assert-True ($candidateSchema.Contains('content_id') -and $candidateRebuild.Contains('content_id =')) 'candidate schema and rebuild must preserve content_id when present'
 
@@ -166,7 +187,7 @@ $repoVisualInputFiles = @(Get-ChildItem -LiteralPath (Join-Path $script:RepoRoot
 Assert-True ($repoVisualInputFiles.Count -eq 0) 'visual planning input files must not be stored under accounts'
 
 $hardcoded = @('广州敏哥', '广州小张', '广州老徐聊企业财税合规', '广州出口退税', '补充业务不得脱离', '成熟企业经营不得', '电商合规')
-$publicText = $topicSkill + $historyRules + $ideaSkill + $textBroadcastSkill + $spokenSkill + $spokenVisualSkill + $spokenVisualRules + $copyCommonRules + $archiveSkill
+$publicText = $topicSkill + $historyRules + $ideaSkill + $textBroadcastSkill + $spokenSkill + $spokenVisualSkill + $spokenVisualRules + $copyCommonRules + $archiveText
 foreach ($term in $hardcoded) {
     Assert-True (-not $publicText.Contains($term)) "public Skills must not hardcode account rule: $term"
 }
@@ -246,11 +267,11 @@ foreach ($runtimeFile in $runtimeFiles) {
     Assert-True (-not $runtimeText.Contains('$video-copywriting')) "stale runtime invocation in $(Get-RepositoryRelativePath -Path $runtimeFile.FullName)"
 }
 Assert-True ($ideaSkill.Contains('_idea-index.jsonl') -and $ideaSkill.Contains('不做选题分析') -and $ideaSkill.Contains('## Stop')) 'idea intake must update Idea Index and stop'
-Assert-True ($archiveSkill.Contains('_history-index.jsonl') -and $archiveSkill.Contains('_candidate-index.jsonl')) 'archive must update history and candidate indexes'
+Assert-True ($archiveText.Contains('_history-index.jsonl') -and $archiveText.Contains('_candidate-index.jsonl')) 'archive must update history and candidate indexes'
 Assert-True ($archiveSkill.Contains('以下任一入口成立时使用') -and
              $archiveSkill.Contains('明确引用有效 Repo 内容文档') -and
              $archiveSkill.Contains('要求“同步”或“录入”')) 'archive must accept the personal Repo-document sync workflow'
-Assert-True ($archiveSkill.Contains('content_format') -and $archiveSkill.Contains('recommended_format')) 'archive must record actual content format instead of the recommendation'
+Assert-True ($archiveText.Contains('content_format') -and $archiveText.Contains('recommended_format')) 'archive must record actual content format instead of the recommendation'
 Assert-True ($historySchema.Contains('content_type') -and $historySchema.Contains('content_format')) 'history schema must keep content type and add content format'
 Assert-True ($historyRebuild.Contains('content_type =') -and $historyRebuild.Contains('content_format =')) 'history rebuild must emit content type and content format separately'
 Assert-True ($stateSchema.Contains('待分析 → 可入池 → 已转选题') -and

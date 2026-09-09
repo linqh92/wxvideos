@@ -50,7 +50,7 @@ AGENTS.md
 - 视觉规划的新对话明确引用 `视觉规划输入` 文档时，以该文件中的最终标题、最终口播和确认事实作为上一阶段唯一工作成果；不得用 Handoff、Repo 内容文档或聊天记忆重建文案阶段。
 - 当前阶段只读取当前 Skill 的 Required Context。上一阶段 Skill、下游规则、推荐历史、候选或灵感索引、历史正文和派生资产，除非当前 Skill 明确要求，否则不得加载。
 - 仓库规则负责流程、权限、账号、事实来源和专业边界；Handoff 只负责“已选定选题 → 对应文案”的阶段交接。文案确认后的 Repo 执行输入与口播视觉输入按 `shared/schemas/confirmed-copy-delivery-schema.md` 生成，不使用 Handoff。
-- Handoff 和视觉规划输入都是 ChatGPT 项目中的临时共享文件，不是仓库事实源，不写入 Repo，不更新任何 Index、Cache、状态或历史。Repo 内容文档记录用户确认制作并发布的最终内容，是供 Codex 执行发布归档的输入；文件生成本身不产生仓库写入。
+- Handoff 和视觉规划输入都是 ChatGPT 项目中的临时共享文件，不是仓库事实源，不写入 Repo，不更新任何 Index、Cache、状态或历史。Repo 内容文档记录用户确认制作并发布的最终内容，并按 `shared/schemas/repo-operation-schema.md` 携带机器可读操作载荷；文件生成本身不产生仓库写入。
 
 选题 Handoff 的字段、有效性和命名统一引用 `shared/schemas/handoff-packet-schema.md`；文案确认后的交付文件统一引用 `shared/schemas/confirmed-copy-delivery-schema.md`。选题被用户正式选定后按 `shared/schemas/content-identity-schema.md` 建立稳定 `content_id`；后续文案、视觉、发布和归档继续使用同一 ID，不得按阶段重新生成。
 
@@ -78,7 +78,8 @@ AGENTS.md
 | 已确认选题，明确要求真人口播、口播稿或出镜讲解 | `spoken-copywriting` | 交付口播；最终正文与标题确认后生成 Repo 内容文档和视觉规划输入文档并结束 |
 | 已有明确引用的视觉规划输入文档或用户提供的最终口播音频及唯一最终标题，并明确要求 PPT 图片、PPT 页面视觉、口播 PPT 配图、PPT 生图 Prompt、PPT执行指南、配图、示意图、中间画面、视觉分镜或 AI 生图提示词 | `spoken-visual-planning` | 先交付 3:4 搜索封面、16:9 推荐流/PPT封面与可独立阅读的 PPT 分页内容并等待确认；确认后完成逐页视觉执行方案、所需生图 Prompt 与整体 QA，交付 PPT设计执行指南和剪辑分段表后结束 |
 | 已确认选题，仅要求“写文案”但未指定载体 | 按 `CONTENT_FORMAT` 路由 | 交付对应载体文案后结束 |
-| 明确引用有效 Repo 内容文档并要求“同步”或“录入” | `publish-archive` | 补写待执行推荐与反馈事件，写历史并增量更新索引；存在对应候选时直接标记为已发布 |
+| 明确引用有效 Repo 内容文档并要求“检查” | `publish-archive` | 调用 `shared/scripts/wxv-ops.py check`，只返回执行计划 |
+| 明确引用有效 Repo 内容文档并要求“同步”或“录入” | `publish-archive` | 调用 `shared/scripts/wxv-ops.py sync-published --apply`，按脚本结果完成或报告异常 |
 | 内容已实际发布且明确要求归档/写库 | `publish-archive` | 写历史、增量更新索引和候选状态后结束 |
 
 每次只完成用户当前明确要求的阶段。灵感录入不自动选题，选题不自动写文案。Repo 内容文档中的发布回填字段记录用户确认的发布事实；用户在可写 Codex 任务中明确引用该文档并要求“同步”或“录入”，构成归档指令。其他场景仍须同时具备实际发布事实和明确归档要求。
@@ -115,9 +116,12 @@ AGENTS.md
 - Repo 始终只保存一套长期正式事实，不按生产阶段保存多份 Handoff 或视觉规划输入。聊天中的中间修改留在当前对话，只有规则明确允许且具备写入能力的结果才进入 Repo。
 - Handoff、视觉规划输入、视觉规划、双封面方案、PPT 分页内容、AI 生图提示词、PPT 设计执行指南和剪辑分段表保留在 ChatGPT 项目中，不属于仓库同步范围。完成视觉规划不得触发仓库写入或 GitHub 同步。
 - Repo 内容文档使用 `publication_status: published_by_user`、`publish_date` 与 `requested_repo_action: archive_published_content` 表达发布回填事实。用户在可写 Codex 任务中明确引用该文件并要求“同步”或“录入”时，由 `publish-archive` 写入历史事实源；只提供文件而没有执行请求时保持只读。
+- `delivery_version: "1.1"` 的 Repo 内容文档由 `shared/scripts/wxv-ops.py` 执行。用户要求“检查”时运行只读 `check`；要求“同步”或“录入”时运行 `sync-published --apply`。操作类型由 `document_type` 与 `requested_repo_action` 共同确定，不能只按自然语言动词猜测。
+- 脚本成功时以其 JSON 结果为准，不在模型上下文中重新读取正文或逐项重演固定写入。脚本返回 `invalid_document`、`conflict` 或 `partial_failure` 时，只处理返回的具体问题；不得猜测字段、覆盖冲突或更换内容 ID。
+- 常规发布归档使用 Repo 操作载荷中已经确定的归档元数据。语义延展、关联内容判断与灵感回流只在用户明确要求时单独执行，不属于同步命令的固定动作。
 - 项目规则不规定用户选择 Chat、Work、Codex、具体模型、推理强度或个人资源安排。项目只保证阶段边界、最小上下文、交接格式和写入一致性。
 
-- 推荐记录的分层读取及派生维护以 `shared/rules/topic-memory-reading.md` 为准。允许普通选题和明确反馈记录后增量维护本账号推荐检索缓存与偏好摘要；这不授权重建内容地图或其他复盘。原始记录保留，旧题通过按需检索查重，明确否定不随时间自动失效。
+- 推荐记录的分层读取及派生维护以 `shared/rules/topic-memory-reading.md` 为准。推荐与反馈事件写入后增量同步本账号推荐检索缓存；`selected` 只记录本条内容选择，不生成长期偏好摘要。明确偏好、否定与恢复由选题阶段按需维护摘要；这不授权重建内容地图或其他复盘。原始记录保留，旧题通过按需检索查重，明确否定不随时间自动失效。
 
 - 普通选题允许自动保存当前账号的最小推荐记录及明确的选题反馈，按 `shared/schemas/topic-recommendation-log-schema.md` 执行。该记录独立于候选与灵感状态，不自动建候选卡、入池或改变内容状态；用户明确要求不记录时服从用户。发布效果仅在用户明确要求记录或复盘时保存。
 - 连续任务中用户明确选择、跳过或否定已推荐题时，应按上述规则记录原话及作用范围，包括选择后直接进入文案的情况；完成最小反馈记录后继续用户所要求阶段，不为记录而重新选题。
