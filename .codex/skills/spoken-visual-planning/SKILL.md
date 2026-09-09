@@ -140,10 +140,16 @@ Actual generated-image quality requires image evidence. Apply the reference's im
 
 ## Output
 
-After confirmation, create and deliver two Markdown files as shared files in the ChatGPT project. These visual-stage files remain outside the Repo and must not be written to an account attachment directory, added to GitHub, indexed or included in a later repository sync.
+After confirmation, create and deliver two Markdown files as shared files in the ChatGPT project. The execution guide must be added to the project's shared sources so another conversation in the same project can select it through `@`, using the same cross-conversation delivery behavior required for a topic Handoff. Showing the guide only as inline response text, a writing block or a conversation-scoped content reference does not complete this requirement.
 
-1. `<角色><内容简称>PPT设计执行指南.md`: use the current account's public short role name and a 2–5 Chinese-character content name.
+Project-source availability is part of the execution-guide delivery. Confirm that the guide appears in the project's sources and is selectable by its exact filename through `@`. If the current environment cannot add it directly, deliver the file and state that it has not yet been added to the project sources; instruct the user to add it there, and do not claim that project storage is complete.
+
+These visual-stage files remain outside the Repo and must not be written to an account attachment directory, added to GitHub, indexed or included in a later repository sync.
+
+1. `设计执行指南｜<角色>｜<内容简称>｜<YYYYMMDD-HHmmss>.md`: use the current account's public short role name, a 2–5 Chinese-character content name and the visual confirmation time, so each delivered guide has a unique filename.
 2. `剪辑分段表.md`: map only pages used in the spoken video to spoken ranges or verified audio times.
+
+The first file remains the `PPT设计执行指南.md` deliverable; the naming rule above only gives each copy a unique project-source filename.
 
 The execution guide contains the final page system and one section per page:
 
@@ -161,4 +167,4 @@ Both documents describe the final deliverable. Design exploration, internal scor
 
 ## Stop
 
-End after delivering the two ChatGPT-project documents. Do not generate a Handoff, Repo content document or `pending_repo_actions` for visual files. Continue to image generation, PPT production, editing, publishing or archiving only through the corresponding user-requested stage and a separate conversation when one exists.
+End after delivering the two documents and either confirming that the execution guide is available as a ChatGPT project source or clearly stating the remaining user action needed to add it. Do not generate a Handoff, Repo content document or `pending_repo_actions` for visual files. Continue to image generation, PPT production, editing, publishing or archiving only through the corresponding user-requested stage and a separate conversation when one exists.
