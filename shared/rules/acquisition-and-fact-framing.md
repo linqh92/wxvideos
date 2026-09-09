@@ -144,7 +144,7 @@ For every generated or rewritten piece, verify that:
 - a requested reference's acquisition function is preserved or rebuilt at equal usable strength;
 - the CTA follows from the specific business need exposed by the content.
 
-Use a short, natural role cue when clarification is necessary. Do not place a long disclaimer in the title, first screen, or spoken opening when words such as `听说`, `如果`, `可能`, or another natural cue can establish the role.
+Use a short, natural role cue when clarification is necessary. Mark discussion content with cues such as `听说`, `有人在讨论` or `网上有一种说法`, and mark hypothetical scenarios with cues such as `如果`, `假设` or `比如`. `可能` expresses outcome uncertainty; it does not establish a claim's source or information role and must remain only when that uncertainty is genuine. Do not place a long disclaimer in the title, first screen, or spoken opening when a short role-appropriate cue is sufficient.
 
 ## Prohibited Uses
 

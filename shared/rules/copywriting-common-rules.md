@@ -144,29 +144,20 @@ If the topic lacks enough factual support:
 
 ### Explicit Conclusion Mechanism（明确结论机制）
 
-Before drafting, internally determine:
+Before drafting, identify the exact decision question, the strongest reliable answer, every condition that changes that answer, and the practical result that matters to the audience. Then choose one conclusion form:
 
-1. What exact question is the topic asking?
-2. Is the available information sufficient for a reliable conclusion?
-3. What is the default conclusion under the stated facts?
-4. Which conditions would materially change that conclusion?
-5. What practical result matters most to the audience?
+- sufficient facts → answer directly: will / will not, can / cannot, affects / does not affect, or which option fits;
+- known conditions produce different answers → state clear condition-to-conclusion branches;
+- decisive information is genuinely missing → name only what is missing, why it controls the answer, and what must be verified next.
 
-When information is sufficient, answer the decision directly: will / will not, can / cannot, should / should not, affects / does not affect, higher / lower risk, worthwhile / not worthwhile, or which option better fits the stated situation.
+After completing the draft, run one conclusion-strength pass. Inspect `可能`, `或许`, `也许`, `应该`, `大概率`, `一般来说`, `通常`, `需要注意`, `建议关注`, `具体情况` and equivalent wording in context:
 
-When one universal answer would be inaccurate but meaningful branches are known, give branch conclusions:
+- if removing the softener leaves the statement accurate and properly scoped, remove it;
+- if the result depends on a known condition, state the condition and conclusion instead of turning the condition into probability;
+- retain probability language only when an unknown fact, future state, external review or third-party decision genuinely controls the result, and name that source of uncertainty in the same or adjacent sentence;
+- when `应该` expresses a verified obligation, use the source-accurate normative wording; when it expresses a recommendation, state the action or priority directly; do not use it to avoid judgment.
 
-> Condition A → Conclusion 1
-> Condition B → Conclusion 2
-
-Do NOT retreat to “视情况而定 / 需要综合判断” when a usable branch judgment can be given.
-
-When decisive information is genuinely missing, state only:
-- which decisive information is missing;
-- why it prevents a reliable conclusion;
-- what the user must provide or verify next.
-
-Do NOT stack non-decisive conditions merely to appear professional.
+Do NOT retreat to “视情况而定 / 需要综合判断” when a usable branch judgment exists, and do not stack non-decisive conditions merely to appear professional.
 
 ---
 
