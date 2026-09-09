@@ -82,6 +82,25 @@ def main() -> None:
         result = MODULE.validate_handoff(path)
         assert result["valid"], result["errors"]
 
+        second_content_id = MODULE.create_content_id("gzminge", "2026-09-09", "b2c3d4e5")
+        second_path = Path(directory) / "选题交接｜gzminge｜成本合规判断｜20260909-103000.md"
+        second_path.write_text(
+            valid_packet(second_content_id)
+            .replace("出口退税风险判断", "成本合规判断")
+            .replace("11111111-1111-4111-8111-111111111111", "44444444-4444-4444-8444-444444444444")
+            .replace("33333333-3333-4333-8333-333333333333", "55555555-5555-4555-8555-555555555555"),
+            encoding="utf-8",
+        )
+        second_result = MODULE.validate_handoff(second_path)
+        assert second_result["valid"], second_result["errors"]
+
+        first_meta = MODULE.parse_frontmatter(path.read_text(encoding="utf-8"))
+        second_meta = MODULE.parse_frontmatter(second_path.read_text(encoding="utf-8"))
+        assert first_meta["recommendation_batch_id"] == second_meta["recommendation_batch_id"]
+        assert first_meta["content_id"] != second_meta["content_id"]
+        assert first_meta["topic_id"] != second_meta["topic_id"]
+        assert first_meta["feedback_event_id"] != second_meta["feedback_event_id"]
+
         wrong_name = path.with_name("选题交接｜gzminge｜泛称｜20260909-103000.md")
         wrong_name.write_text(valid_packet(content_id), encoding="utf-8")
         result = MODULE.validate_handoff(wrong_name)

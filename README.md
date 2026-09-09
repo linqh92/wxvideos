@@ -48,6 +48,8 @@ Shared Skills / Schemas / Scripts
 
 Handoff 不是仓库文件，格式见 `shared/schemas/handoff-packet-schema.md`。新文件固定以 `选题交接` 开头，账号与题目短名排在时间前，便于在项目文件较多时通过 `@` 快速缩小结果；旧版 Handoff 仍可继续使用。
 
+同一轮采用多个独立选题时，仍按“一条内容一份交接”处理。例如同时采用第 2、4 题，当前选题对话分别生成两份 `选题交接`，用户再为两份文件各建一个文案对话。两个选题可以共享原推荐批次，但必须分别拥有 `topic_id`、`content_id`、selected 反馈事件和最终交付文件；只有用户明确要求合并成一篇并确认合并后的唯一选题时，才使用一份 Handoff。
+
 选题被正式采用后建立一个稳定 `content_id`，后续文案、可选视觉、发布和归档始终复用。规则见 `shared/schemas/content-identity-schema.md`。
 
 具备本地执行能力时，可用 `shared/scripts/content-handoff.py` 生成内容 ID 或校验下载后的选题 Handoff；脚本只做身份与格式检查，不会把 Handoff 写入 Repo。

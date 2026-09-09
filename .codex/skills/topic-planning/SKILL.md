@@ -116,6 +116,15 @@ description: 由资深财税获客选题主编围绕当前账号客户问题、�
 
 用户明确采用一个选题时，为该内容创建或复用稳定 `content_id`，并为本次 `selected` feedback 分配稳定 `event_id`。如果用户同时要求写短文或口播，本对话只按 Handoff schema 交付“选题 → 对应文案阶段”的 Handoff；文件名使用 `选题交接` 固定前缀、账号 ID、便于搜索的题目短名和确认时间。提示用户在项目中新建对话，通过 `@选题交接` 或题目短名检索并引用该文件；不得在本对话加载或执行文案 Skill。
 
+### 同一轮采用多个选题
+
+- 用户明确表示多个题目“都做”“分别写”或分别进入生产时，直接视为多条独立内容；仅说“有意向”“先留着”不等于正式采用。表达无法区分“分别制作”与“合并一篇”时，先询问用户。
+- 每个独立选题分别复用自己的 `topic_id`，创建不同的 `content_id`，并分别生成唯一的 `selected` feedback `event_id`。每条反馈只放当前一个 `topic_id`，但保留同一用户原话和原 `recommendation_batch_id`；不得使用一条多题反馈代替逐题反馈。
+- 每个独立选题分别生成一份 Handoff。一个 Handoff 只能承载一个 `topic_id`、一个 `content_id` 和一个目标文案阶段；不得把多个选题、多个内容 ID 或多篇文案任务合并进同一文件。
+- 多份 Handoff 可以共享同一 recommendation 事件。只读 Chat 中该事件尚未入库时，可在每份 Handoff 的 `pending_repo_actions` 中原样重复同一 recommendation action 与事件 ID，以便任一内容先进入 Codex；每份文件只附带本选题自己的 selected feedback action。Codex 通过稳定事件 ID 幂等跳过已执行的 recommendation，不重新生成 ID。
+- 当前选题对话一次性交付全部 Handoff，同轮文件的题目短名必须彼此可区分，并列出“选题短名 → Handoff 文件名 → 目标载体”的对应关系；明确提示用户每份 Handoff 分别新建一个文案对话。全部交付后停止，不在当前对话执行任何文案 Skill。
+- 用户明确要求把多个方向合并成一篇时，先确认合并后的唯一选题，再按单一内容流程建立一个内容身份和一份 Handoff，不把多个原选题直接塞入同一 Handoff。
+
 Handoff 的工作成果只包含被采用选题及必要事实，同时必须记录关联 `batch_id`、`topic_id`、feedback `event_id`、用户原话、作用范围和同步状态。推荐批次或反馈已写入时标记 `synced`；当前环境只读或写入失败时标记 `pending`，并在 `pending_repo_actions` 中放入符合 `topic-recommendation-log-schema.md` 的完整、可幂等执行事件。原 recommendation 事件尚未入库时必须与 selected feedback 一起携带，不能留下引用不存在批次的孤立反馈。待执行 payload 不属于文案工作上下文，不得用于改写当前题目；除该 payload 外不带入其余推荐、查重过程或未采用方案。
 
 ## Stop

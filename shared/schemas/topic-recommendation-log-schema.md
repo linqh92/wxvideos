@@ -34,6 +34,8 @@
 
 “选 C”只记录 C 的 selected，不伪造用户拒绝 A/B/D/E；“换一批”记录该批 skip；“这题不要”记录题目 reject；“这个方向不要”记录方向 reject；“太泛”记录相应 preference。歧义反馈先按能确定的范围应用，必要时澄清，不推断永久偏好。用户改变主意时 append 新反馈，不改写旧事实。
 
+同一轮明确采用多个彼此独立的题目时，每个题目分别 append 一条 `selected` feedback：各自使用唯一 `event_id`，`topic_ids` 只包含当前一个题目，`batch_id` 相同，并在每条事件中保留同一用户原话、用 `scope_description` 指明当前题目。不得改成 `scope: batch`，也不得因用户选择其中多个而把其余未提及题目记录为 skip 或 reject。“有意向”“先留着”等未明确进入生产的表达不记录为 selected；无法判断分别制作还是合并时先澄清。
+
 ## 下一轮如何使用
 
 具体读取与增量维护遵循 `shared/rules/topic-memory-reading.md`：近期 5 批＋有效偏好摘要＋旧推荐按需检索。`_preferences.json` 与 `_retrieval.sqlite` 为可重建派生资产，月度原始日志仍是事实源。推荐或反馈追加后同步缓存，反馈后增量维护摘要；普通轮次不扫描并输出所有日志。

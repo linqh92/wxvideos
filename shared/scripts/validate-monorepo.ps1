@@ -29,6 +29,7 @@ $stateSchema = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared
 $contentIdentitySchema = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\schemas\content-identity-schema.md'))
 $handoffSchema = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\schemas\handoff-packet-schema.md'))
 $confirmedCopyDeliverySchema = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\schemas\confirmed-copy-delivery-schema.md'))
+$topicRecommendationSchema = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\schemas\topic-recommendation-log-schema.md'))
 $candidateSchema = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\schemas\candidate-index-schema.md'))
 $historySchema = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\schemas\history-index-schema.md'))
 $historyRebuild = [System.IO.File]::ReadAllText((Join-Path $script:RepoRoot 'shared\scripts\rebuild-history-index.ps1'))
@@ -79,6 +80,9 @@ Assert-True ($rootAgent.Contains('Handoff 和视觉规划输入都是 ChatGPT �
 Assert-True ($rootAgent.Contains('通过 GitHub 集成读取仓库时，一律把该集成视为只读') -and
              $rootAgent.Contains('不得先尝试写入再根据 `403` 回退') -and
              $rootAgent.Contains('直接写入 `pending_repo_actions`')) 'root AGENTS must prevent GitHub write attempts in Chat projects'
+Assert-True ($rootAgent.Contains('一条独立内容对应一个 `topic_id`、一个 `content_id`、一份 Handoff 和一个下游文案对话') -and
+             $rootAgent.Contains('同一轮采用多个彼此独立的选题') -and
+             $rootAgent.Contains('它们只共享原 `recommendation_batch_id`')) 'root AGENTS must split multiple adopted topics into isolated content workflows'
 Assert-True ($rootAgent.Contains('视觉规划') -and
              $rootAgent.Contains('不属于仓库同步范围') -and
              $rootAgent.Contains('项目规则不规定用户选择 Chat、Work、Codex')) 'root AGENTS must exclude visual files from sync and remain model-neutral'
@@ -91,7 +95,8 @@ foreach ($term in $allocationTerms) {
 
 Assert-True ($contentIdentitySchema.Contains('wxv-{account_id}-{YYYYMMDD}-{8hex}') -and
              $contentIdentitySchema.Contains('已有有效 `content_id` 时必须复用') -and
-             $contentIdentitySchema.Contains('同一 Repo 内不得存在两个不同内容共用同一 `content_id`')) 'content identity schema must define stable reusable IDs'
+             $contentIdentitySchema.Contains('同一 Repo 内不得存在两个不同内容共用同一 `content_id`') -and
+             $contentIdentitySchema.Contains('每个选题分别创建不同的 `content_id`')) 'content identity schema must define stable reusable IDs for multi-select flows'
 Assert-True ($handoffSchema.Contains('confirmed_by_user') -and
              $handoffSchema.Contains('pending_repo_actions') -and
              $handoffSchema.Contains('不得写入仓库') -and
@@ -101,7 +106,9 @@ Assert-True ($handoffSchema.Contains('confirmed_by_user') -and
              $handoffSchema.Contains('feedback_event_id') -and
              $handoffSchema.Contains('完整事件 payload') -and
              $handoffSchema.Contains('选题交接｜{account_id}｜{topic_short_name}｜{YYYYMMDD-HHmmss}.md') -and
-             $handoffSchema.Contains('旧版 `Handoff｜{content_id}')) 'Handoff schema must preserve feedback and use searchable versioned filenames'
+             $handoffSchema.Contains('旧版 `Handoff｜{content_id}') -and
+             $handoffSchema.Contains('一份 Handoff 只交接一条独立内容') -and
+             $handoffSchema.Contains('每份 Handoff 只能再携带本选题自己的 selected feedback action')) 'Handoff schema must preserve feedback, searchable filenames, and one-content packets'
 Assert-True ($confirmedCopyDeliverySchema.Contains('Repo内容文档') -and
              $confirmedCopyDeliverySchema.Contains('视觉规划输入') -and
              $confirmedCopyDeliverySchema.Contains('三个主标题方案') -and
@@ -117,7 +124,12 @@ Assert-True ($topicSkill.Contains('content-identity-schema.md') -and
              $topicSkill.Contains('完整、可幂等执行事件') -and
              $topicSkill.Contains('必须预判为只读') -and
              $topicSkill.Contains('通过 `@选题交接`') -and
+             $topicSkill.Contains('### 同一轮采用多个选题') -and
+             $topicSkill.Contains('每份 Handoff 分别新建一个文案对话') -and
              $topicSkill.Contains('不得在本对话加载或执行文案 Skill')) 'topic planning must create identity and preserve executable feedback events'
+Assert-True ($topicRecommendationSchema.Contains('每个题目分别 append 一条 `selected` feedback') -and
+             $topicRecommendationSchema.Contains('`topic_ids` 只包含当前一个题目') -and
+             $topicRecommendationSchema.Contains('不得改成 `scope: batch`')) 'topic feedback schema must split multi-select feedback per topic'
 Assert-True ($textBroadcastSkill.Contains('sole prior-stage working result') -and
              $textBroadcastSkill.Contains('stable `content_id`') -and
              $textBroadcastSkill.Contains('generate one `Repo内容文档`') -and
