@@ -34,9 +34,9 @@ Shared Skills / Schemas / Scripts
 ```text
 选题对话
 → 用户采用选题并指定短文或口播
-→ 生成选题 Handoff
+→ 生成 `选题交接｜账号｜题目短名｜确认时间.md`
 → 在项目中新建文案对话
-→ @Handoff
+→ 输入 `@选题交接` 或题目短名快速引用
 → 只读取文案阶段最小上下文并创作
 ```
 
@@ -46,7 +46,7 @@ Shared Skills / Schemas / Scripts
 
 `视觉规划输入` 供新的视觉对话通过 `@` 引用，只包含最终标题、最终口播和视觉阶段必要的确认信息；选题反馈、推荐批次、其余标题、草稿、检索过程和 Repo 操作均不带入。格式见 `shared/schemas/confirmed-copy-delivery-schema.md`。
 
-Handoff 不是仓库文件，格式见 `shared/schemas/handoff-packet-schema.md`。
+Handoff 不是仓库文件，格式见 `shared/schemas/handoff-packet-schema.md`。新文件固定以 `选题交接` 开头，账号与题目短名排在时间前，便于在项目文件较多时通过 `@` 快速缩小结果；旧版 Handoff 仍可继续使用。
 
 选题被正式采用后建立一个稳定 `content_id`，后续文案、可选视觉、发布和归档始终复用。规则见 `shared/schemas/content-identity-schema.md`。
 
@@ -90,7 +90,7 @@ publish-archive
 
 设计师根据每页内容选择完整页面生图、生成视觉素材后排版，或使用原生文字、表格和图形构建页面。完整 PPT 文案作为内容依据，生图提示词只描述当前执行方式需要生成的画面和文字。确认完整分页内容、页面用途和设计方向后，交付 PPT 设计执行指南与剪辑分段表；剪辑表只包含视频实际使用的页面。这些视觉阶段文件保留在 ChatGPT 项目中，不写入账号内容库，也不进入 GitHub 同步范围。
 
-Repo 始终保存一套长期正式事实，不按阶段保存多份 Handoff、视觉规划输入或 Chat 中间 revision。推荐与明确反馈按现有规则持久化；Repo 内容文档只是 Codex 的确认输入，最终文案仍只有在用户明确要求且存在对应写入规则时才保存；实际发布内容仍通过 `publish-archive` 进入历史事实源。当前环境只读时，只输出待执行动作，不得声称已经写入、更新索引或同步。
+Repo 始终保存一套长期正式事实，不按阶段保存多份 Handoff、视觉规划输入或 Chat 中间 revision。推荐与明确反馈按现有规则持久化；Repo 内容文档只是 Codex 的确认输入，最终文案仍只有在用户明确要求且存在对应写入规则时才保存；实际发布内容仍通过 `publish-archive` 进入历史事实源。ChatGPT“对话”模式通过 GitHub 集成读取项目时直接按只读处理，不尝试写入，也不会再触发 `403`；尚未执行的推荐与反馈事件通过 Handoff 和后续 Repo 内容文档交给 Codex。其他只读环境同样只输出待执行动作，不得声称已经写入、更新索引或同步。
 
 ## 数据层级
 

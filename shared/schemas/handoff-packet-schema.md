@@ -13,18 +13,24 @@ Handoff Packet 只用于在 ChatGPT 项目中把用户已采用的选题传递�
 ## 文件名
 
 ```text
-Handoff｜{content_id}｜{from_stage}-to-{to_stage}.md
+选题交接｜{account_id}｜{topic_short_name}｜{YYYYMMDD-HHmmss}.md
 ```
 
-同一阶段重新确认后生成新文件时保留同一 `content_id`，并更新 `confirmed_at`。新对话只使用用户明确引用的最新文件。
+- `选题交接` 是固定前缀，用户可先输入 `@选题交接` 缩小范围，再按账号或题目短名选择；
+- `topic_short_name` 从已采用题目中提取 4～20 个汉字、字母、数字或连字符，只保留能识别主题的核心词，不使用“选题1”“新选题”等泛称；
+- 文件名时间必须由 `confirmed_at` 转为 `YYYYMMDD-HHmmss`，用于区分同一内容的重新确认版本并按名称识别新旧；
+- 完整 `content_id` 保留在 Frontmatter，不再占用文件名的主要搜索位置。
+
+同一阶段重新确认后生成新文件时保留同一 `content_id`，更新 `confirmed_at` 并生成带新时间的文件名。新对话只使用用户明确引用的最新文件。旧版 `Handoff｜{content_id}｜{from_stage}-to-{to_stage}.md` 可继续读取和校验，但新生成文件必须使用上述易搜索命名。
 
 ## 必填 Frontmatter
 
 ```yaml
 ---
-handoff_version: "1.0"
+handoff_version: "1.1"
 content_id: "wxv-{account_id}-{YYYYMMDD}-{8hex}"
 account_id: "{CURRENT_ACCOUNT}"
+topic_short_name: "4～20 个可搜索字符"
 from_stage: "topic_planning"
 to_stage: "text_broadcast_copywriting | spoken_copywriting"
 approval_status: "confirmed_by_user"
@@ -43,6 +49,7 @@ feedback_event_id: "uuid"
 
 - `content_id` 按 `content-identity-schema.md` 创建并复用；
 - `account_id` 必须与当前账号及 `content_id` 一致；
+- `topic_short_name` 必须与已采用选题一致，并符合文件名字符与长度规则；
 - `from_stage` 必须是刚完成并已确认的 `topic_planning`；
 - `to_stage` 必须是用户明确要求的 `text_broadcast_copywriting` 或 `spoken_copywriting`；
 - `approval_status` 只有在用户明确确认后才能写为 `confirmed_by_user`；
@@ -54,7 +61,7 @@ feedback_event_id: "uuid"
 ## 正文结构
 
 ```markdown
-# Handoff｜{content_id}
+# 选题交接｜{topic_short_name}
 
 ## 用户确认原话
 
@@ -104,6 +111,8 @@ feedback_event_id: "uuid"
 ```
 
 `pending_repo_actions` 只记录当前环境因只读而未执行、且项目规则本来允许持久化的动作。若推荐批次或 selected feedback 尚未写入，必须按 `shared/schemas/topic-recommendation-log-schema.md` 携带稳定 `action_id`、明确目标路径和完整事件 payload；原 recommendation 事件未入库时与 feedback 事件一起携带，不能只留下摘要或一个无法解析的批次引用。它不是执行授权；文案阶段必须原样继承到 Repo 内容文档，后续具有写入能力的 Codex 仍须按当前 Skill、账号锁、事件 ID 和写入规则重新校验。
+
+ChatGPT“对话”模式通过 GitHub 集成读取仓库时，不得为生成 Handoff 先尝试写入。该环境直接使用 `repo_sync_status: not_synced`、`topic_feedback_status: pending` 和完整 `pending_repo_actions`；这属于正常交接路径，不输出 `403` 或“写入失败”提示。
 
 ## 阶段最小交接内容
 

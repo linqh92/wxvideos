@@ -16,9 +16,10 @@ SPEC.loader.exec_module(MODULE)
 
 def valid_packet(content_id: str) -> str:
     return f'''---
-handoff_version: "1.0"
+handoff_version: "1.1"
 content_id: "{content_id}"
 account_id: "gzminge"
+topic_short_name: "出口退税风险判断"
 from_stage: "topic_planning"
 to_stage: "spoken_copywriting"
 approval_status: "confirmed_by_user"
@@ -32,7 +33,7 @@ topic_feedback_status: "synced"
 feedback_event_id: "33333333-3333-4333-8333-333333333333"
 ---
 
-# Handoff｜{content_id}
+# 选题交接｜出口退税风险判断
 
 ## 用户确认原话
 > 确认
@@ -76,25 +77,52 @@ def main() -> None:
     assert content_id == "wxv-gzminge-20260909-a1b2c3d4"
 
     with tempfile.TemporaryDirectory() as directory:
-        path = Path(directory) / f"Handoff｜{content_id}｜topic_planning-to-spoken_copywriting.md"
+        path = Path(directory) / "选题交接｜gzminge｜出口退税风险判断｜20260909-103000.md"
         path.write_text(valid_packet(content_id), encoding="utf-8")
         result = MODULE.validate_handoff(path)
         assert result["valid"], result["errors"]
 
-        broken = path.with_name(f"Handoff｜{content_id}｜topic_planning-to-text_broadcast_copywriting.md")
+        wrong_name = path.with_name("选题交接｜gzminge｜泛称｜20260909-103000.md")
+        wrong_name.write_text(valid_packet(content_id), encoding="utf-8")
+        result = MODULE.validate_handoff(wrong_name)
+        assert not result["valid"]
+        assert any("filename must be" in error for error in result["errors"])
+
+        invalid_short_name = path.with_name("选题交接｜gzminge｜题目含空格｜20260909-103000.md")
+        invalid_short_name.write_text(
+            valid_packet(content_id).replace('topic_short_name: "出口退税风险判断"', 'topic_short_name: "题目 含空格"'),
+            encoding="utf-8",
+        )
+        result = MODULE.validate_handoff(invalid_short_name)
+        assert not result["valid"]
+        assert any("topic_short_name must be" in error for error in result["errors"])
+
+        broken = path.with_name("选题交接｜gzxzcs｜出口退税风险判断｜20260909-103000.md")
         broken.write_text(valid_packet(content_id).replace('account_id: "gzminge"', 'account_id: "gzxzcs"'), encoding="utf-8")
         result = MODULE.validate_handoff(broken)
         assert not result["valid"]
         assert any("account_id does not match" in error for error in result["errors"])
 
-        legacy = path.with_name(f"Handoff｜{content_id}｜spoken_copywriting-to-spoken_visual_planning.md")
+        legacy = path.with_name(f"Handoff｜{content_id}｜topic_planning-to-spoken_copywriting.md")
         legacy.write_text(
             valid_packet(content_id)
+            .replace('handoff_version: "1.1"', 'handoff_version: "1.0"')
+            .replace('topic_short_name: "出口退税风险判断"\n', ''),
+            encoding="utf-8",
+        )
+        result = MODULE.validate_handoff(legacy)
+        assert result["valid"], result["errors"]
+
+        invalid_transition = path.with_name(f"Handoff｜{content_id}｜spoken_copywriting-to-spoken_visual_planning.md")
+        invalid_transition.write_text(
+            valid_packet(content_id)
+            .replace('handoff_version: "1.1"', 'handoff_version: "1.0"')
+            .replace('topic_short_name: "出口退税风险判断"\n', '')
             .replace('from_stage: "topic_planning"', 'from_stage: "spoken_copywriting"')
             .replace('to_stage: "spoken_copywriting"', 'to_stage: "spoken_visual_planning"'),
             encoding="utf-8",
         )
-        result = MODULE.validate_handoff(legacy)
+        result = MODULE.validate_handoff(invalid_transition)
         assert not result["valid"]
         assert any("from_stage is invalid" in error for error in result["errors"])
         assert any("to_stage is invalid" in error for error in result["errors"])

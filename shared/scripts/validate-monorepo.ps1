@@ -76,6 +76,9 @@ Assert-True ($rootAgent.Contains('Context Loading 与阶段交接') -and
 Assert-True ($rootAgent.Contains('Handoff 和视觉规划输入都是 ChatGPT 项目中的临时共享文件') -and
              $rootAgent.Contains('不写入 Repo') -and
              $rootAgent.Contains('content-identity-schema.md')) 'root AGENTS must keep Handoff outside Repo and preserve stable content identity'
+Assert-True ($rootAgent.Contains('通过 GitHub 集成读取仓库时，一律把该集成视为只读') -and
+             $rootAgent.Contains('不得先尝试写入再根据 `403` 回退') -and
+             $rootAgent.Contains('直接写入 `pending_repo_actions`')) 'root AGENTS must prevent GitHub write attempts in Chat projects'
 Assert-True ($rootAgent.Contains('视觉规划') -and
              $rootAgent.Contains('不属于仓库同步范围') -and
              $rootAgent.Contains('项目规则不规定用户选择 Chat、Work、Codex')) 'root AGENTS must exclude visual files from sync and remain model-neutral'
@@ -96,7 +99,9 @@ Assert-True ($handoffSchema.Contains('confirmed_by_user') -and
              $handoffSchema.Contains('topic_planning') -and
              $handoffSchema.Contains('recommendation_batch_id') -and
              $handoffSchema.Contains('feedback_event_id') -and
-             $handoffSchema.Contains('完整事件 payload')) 'Handoff schema must preserve pending recommendation and selection feedback'
+             $handoffSchema.Contains('完整事件 payload') -and
+             $handoffSchema.Contains('选题交接｜{account_id}｜{topic_short_name}｜{YYYYMMDD-HHmmss}.md') -and
+             $handoffSchema.Contains('旧版 `Handoff｜{content_id}')) 'Handoff schema must preserve feedback and use searchable versioned filenames'
 Assert-True ($confirmedCopyDeliverySchema.Contains('Repo内容文档') -and
              $confirmedCopyDeliverySchema.Contains('视觉规划输入') -and
              $confirmedCopyDeliverySchema.Contains('三个主标题方案') -and
@@ -110,6 +115,8 @@ Assert-True ($topicSkill.Contains('content-identity-schema.md') -and
              $topicSkill.Contains('交付“选题 → 对应文案阶段”的 Handoff') -and
              $topicSkill.Contains('selected` feedback 分配稳定 `event_id`') -and
              $topicSkill.Contains('完整、可幂等执行事件') -and
+             $topicSkill.Contains('必须预判为只读') -and
+             $topicSkill.Contains('通过 `@选题交接`') -and
              $topicSkill.Contains('不得在本对话加载或执行文案 Skill')) 'topic planning must create identity and preserve executable feedback events'
 Assert-True ($textBroadcastSkill.Contains('sole prior-stage working result') -and
              $textBroadcastSkill.Contains('stable `content_id`') -and
@@ -137,7 +144,7 @@ Assert-True ($archiveSkill.Contains('content-identity-schema.md') -and
 Assert-True ($historySchema.Contains('content_id') -and $historyRebuild.Contains('content_id =')) 'history schema and rebuild must preserve content_id'
 Assert-True ($candidateSchema.Contains('content_id') -and $candidateRebuild.Contains('content_id =')) 'candidate schema and rebuild must preserve content_id when present'
 
-$repoHandoffFiles = @(Get-ChildItem -LiteralPath (Join-Path $script:RepoRoot 'accounts') -Recurse -File -Filter 'Handoff｜*.md')
+$repoHandoffFiles = @(Get-ChildItem -LiteralPath (Join-Path $script:RepoRoot 'accounts') -Recurse -File | Where-Object { $_.Name -like 'Handoff｜*.md' -or $_.Name -like '选题交接｜*.md' })
 Assert-True ($repoHandoffFiles.Count -eq 0) 'Handoff files must not be stored under accounts'
 $repoVisualInputFiles = @(Get-ChildItem -LiteralPath (Join-Path $script:RepoRoot 'accounts') -Recurse -File -Filter '视觉规划输入｜*.md')
 Assert-True ($repoVisualInputFiles.Count -eq 0) 'visual planning input files must not be stored under accounts'

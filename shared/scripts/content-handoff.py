@@ -25,7 +25,8 @@ CONTENT_FORMATS = {"text_broadcast", "spoken"}
 CONTENT_ID_RE = re.compile(
     r"^wxv-(gzminge|gzxzcs|qycslc|gzcktxpp|tsxbj|gzlxcs)-(\d{8})-([0-9a-f]{8})$"
 )
-REQUIRED_FIELDS = {
+TOPIC_SHORT_NAME_RE = re.compile(r"^[A-Za-z0-9\u4e00-\u9fff-]{4,20}$")
+COMMON_REQUIRED_FIELDS = {
     "handoff_version",
     "content_id",
     "account_id",
@@ -40,6 +41,10 @@ REQUIRED_FIELDS = {
     "recommendation_batch_id",
     "topic_feedback_status",
     "feedback_event_id",
+}
+VERSION_REQUIRED_FIELDS = {
+    "1.0": set(),
+    "1.1": {"topic_short_name"},
 }
 REQUIRED_SECTIONS = {
     "用户确认原话",
@@ -92,7 +97,9 @@ def validate_handoff(path: Path) -> dict[str, object]:
     meta = parse_frontmatter(text)
     errors: list[str] = []
 
-    missing = sorted(REQUIRED_FIELDS - set(meta))
+    version = meta.get("handoff_version", "")
+    required_fields = COMMON_REQUIRED_FIELDS | VERSION_REQUIRED_FIELDS.get(version, set())
+    missing = sorted(required_fields - set(meta))
     if missing:
         errors.append(f"missing fields: {', '.join(missing)}")
 
@@ -107,8 +114,8 @@ def validate_handoff(path: Path) -> dict[str, object]:
     if match and account_id != match.group(1):
         errors.append("account_id does not match content_id")
 
-    if meta.get("handoff_version") != "1.0":
-        errors.append("handoff_version must be 1.0")
+    if version not in VERSION_REQUIRED_FIELDS:
+        errors.append("handoff_version must be 1.0 or 1.1")
     if meta.get("from_stage") not in FROM_STAGES:
         errors.append("from_stage is invalid")
     if meta.get("to_stage") not in TO_STAGES:
@@ -141,16 +148,24 @@ def validate_handoff(path: Path) -> dict[str, object]:
             errors.append(f"{field} must be a UUID")
     confirmed_at = meta.get("confirmed_at", "")
     try:
-        dt.datetime.fromisoformat(confirmed_at)
+        confirmed_datetime = dt.datetime.fromisoformat(confirmed_at)
     except ValueError:
         errors.append("confirmed_at must be an ISO-8601 timestamp")
+        confirmed_datetime = None
 
     headings = set(re.findall(r"^##\s+(.+?)\s*$", text, flags=re.MULTILINE))
     missing_sections = sorted(REQUIRED_SECTIONS - headings)
     if missing_sections:
         errors.append(f"missing sections: {', '.join(missing_sections)}")
 
-    expected_name = f"Handoff｜{content_id}｜{meta.get('from_stage', '')}-to-{meta.get('to_stage', '')}.md"
+    if version == "1.0":
+        expected_name = f"Handoff｜{content_id}｜{meta.get('from_stage', '')}-to-{meta.get('to_stage', '')}.md"
+    else:
+        topic_short_name = meta.get("topic_short_name", "")
+        if topic_short_name and not TOPIC_SHORT_NAME_RE.fullmatch(topic_short_name):
+            errors.append("topic_short_name must be 4-20 Chinese characters, letters, digits, or hyphens")
+        timestamp = confirmed_datetime.strftime("%Y%m%d-%H%M%S") if confirmed_datetime else "INVALID-TIME"
+        expected_name = f"选题交接｜{account_id}｜{topic_short_name}｜{timestamp}.md"
     if path.name != expected_name:
         errors.append(f"filename must be: {expected_name}")
 
