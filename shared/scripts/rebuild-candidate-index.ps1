@@ -2,7 +2,7 @@ param([string]$AccountId)
 
 . (Join-Path $PSScriptRoot 'index-common.ps1')
 
-$allowedStatuses = @('待核验', '可推荐', '已采用', '已发布', '已放弃')
+$allowedStatuses = @('待核验', '可推荐', '已发布', '已放弃')
 
 function Convert-RecommendedFormat {
     param([string]$Value)

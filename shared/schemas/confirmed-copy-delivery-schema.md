@@ -9,6 +9,7 @@
 - 口播完整方案包含三个主标题方案。用户只确认口播正文、没有明确选择主标题时，将正文标记为“已确认，标题待确认”，主动提醒后停止，不生成最终文件。
 - 常规搜索标题和短标题是派生用途标题，不自动代替用户应选择的最终主标题；只有用户明确指定时才可作为最终标题。
 - 标题确认后，创建或复用 `shared/schemas/content-identity-schema.md` 定义的稳定 `content_id`。后续改标题或修订同一内容时仍复用该 ID。
+- Repo 内容文档采用个人发布回填约定：最终内容确认后进入制作发布，文档使用 `publication_status: published_by_user`、实际 `publish_date` 和 `requested_repo_action: archive_published_content` 表达后续 Codex 归档意图。用户提供其他发布日期时使用其明确日期；未提供时使用 `confirmed_at` 的本地日期。
 
 ## 交付数量
 
@@ -35,7 +36,7 @@ Repo内容文档｜{content_id}｜{内容简称}.md
 
 ## Repo 内容文档
 
-该文件供用户切换到具有仓库能力的 Codex 任务后通过 `@` 引用。它是已确认内容的 Repo 执行输入，不表示内容已经写入 Repo、实际发布或获得归档授权。Codex 仍须读取最新根 `AGENTS.md`，并按用户在该任务中的明确指令判断允许的写入目标和动作。
+该文件供用户完成制作发布后，切换到具有仓库能力的 Codex 任务并通过 `@` 引用。文件记录最终发布内容、发布回填事实和预期归档动作。用户在当前 Codex 任务中明确要求“同步”或“录入”时，构成发布归档指令；仅引用或查看文件时保持只读。Codex 仍须读取最新根 `AGENTS.md`，核验账号、内容身份、日期、重复记录与允许的写入目标。
 
 必填 Frontmatter：
 
@@ -48,6 +49,9 @@ account_id: "{CURRENT_ACCOUNT}"
 content_format: "text_broadcast | spoken"
 approval_status: "confirmed_by_user"
 confirmed_at: "YYYY-MM-DDTHH:MM:SS+08:00"
+publication_status: "published_by_user"
+publish_date: "YYYY-MM-DD"
+requested_repo_action: "archive_published_content"
 final_title: "用户最终选择的标题"
 topic_id: "string | null"
 topic_origin: "project_recommendation | direct_user_input"
@@ -93,6 +97,12 @@ repo_sync_status: "not_synced"
 - 用户确认原话：<原话>
 - 必须保留：<没有则写“无”>
 
+## 发布回填
+
+- publication_status: published_by_user
+- publish_date: YYYY-MM-DD
+- requested_repo_action: archive_published_content
+
 ## 待执行仓库动作
 
 - pending_repo_actions: []
@@ -119,7 +129,7 @@ repo_sync_status: "not_synced"
     - <完整 selected feedback 事件>
 ```
 
-仅生成这份文件本身不产生 Repo 写入授权，也不得预设项目规则之外的仓库存储位置。Codex 执行时重新核验账号、事件 ID、目标月份、已有日志和用户当前指令；已存在的事件不重复追加。
+Codex 在用户明确要求“同步”或“录入”时，先按事件 ID 幂等补写待执行推荐与反馈，再调用 `publish-archive` 写入历史事实源。存在对应候选时将其直接更新为 `已发布`；没有对应候选时不创建候选卡。执行时核验账号、事件 ID、目标月份、已有日志和重复历史；已存在的事件不重复追加。
 
 ## 视觉规划输入文档
 

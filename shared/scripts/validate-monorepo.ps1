@@ -73,7 +73,7 @@ Assert-True ($rootAgent.Contains('Context Loading 与阶段交接') -and
              $rootAgent.Contains('每个生产阶段使用独立对话') -and
              $rootAgent.Contains('上一阶段唯一工作成果') -and
              $rootAgent.Contains('视觉规划输入') -and
-             $rootAgent.Contains('不得在当前对话加载或执行视觉 Skill')) 'root AGENTS must enforce stage-isolated chats and explicit document transitions'
+             $rootAgent.Contains('视觉规划通过新对话 `@视觉规划输入` 执行')) 'root AGENTS must enforce stage-isolated chats and explicit document transitions'
 Assert-True ($rootAgent.Contains('Handoff 和视觉规划输入都是 ChatGPT 项目中的临时共享文件') -and
              $rootAgent.Contains('不写入 Repo') -and
              $rootAgent.Contains('content-identity-schema.md')) 'root AGENTS must keep Handoff outside Repo and preserve stable content identity'
@@ -81,8 +81,8 @@ Assert-True ($rootAgent.Contains('通过 GitHub 集成读取仓库时，一律�
              $rootAgent.Contains('不得先尝试写入再根据 `403` 回退') -and
              $rootAgent.Contains('直接写入 `pending_repo_actions`')) 'root AGENTS must prevent GitHub write attempts in Chat projects'
 Assert-True ($rootAgent.Contains('一条独立内容对应一个 `topic_id`、一个 `content_id`、一份 Handoff 和一个下游文案对话') -and
-             $rootAgent.Contains('同一轮采用多个彼此独立的选题') -and
-             $rootAgent.Contains('它们只共享原 `recommendation_batch_id`')) 'root AGENTS must split multiple adopted topics into isolated content workflows'
+             $rootAgent.Contains('同一轮选定多个彼此独立的选题') -and
+             $rootAgent.Contains('它们只共享原 `recommendation_batch_id`')) 'root AGENTS must split multiple selected topics into isolated content workflows'
 Assert-True ($rootAgent.Contains('视觉规划') -and
              $rootAgent.Contains('不属于仓库同步范围') -and
              $rootAgent.Contains('项目规则不规定用户选择 Chat、Work、Codex')) 'root AGENTS must exclude visual files from sync and remain model-neutral'
@@ -115,6 +115,8 @@ Assert-True ($confirmedCopyDeliverySchema.Contains('Repo内容文档') -and
              $confirmedCopyDeliverySchema.Contains('不得把沉默视为选择') -and
              $confirmedCopyDeliverySchema.Contains('spoken_visual_input') -and
              $confirmedCopyDeliverySchema.Contains('topic_feedback_status') -and
+             $confirmedCopyDeliverySchema.Contains('publication_status: "published_by_user"') -and
+             $confirmedCopyDeliverySchema.Contains('requested_repo_action: "archive_published_content"') -and
              $confirmedCopyDeliverySchema.Contains('必须原样继承') -and
              $confirmedCopyDeliverySchema.Contains('direct_user_input') -and
              $confirmedCopyDeliverySchema.Contains('不能只写一个引用不存在批次的反馈')) 'confirmed copy delivery must preserve feedback continuity and direct-topic distinction'
@@ -124,7 +126,7 @@ Assert-True ($topicSkill.Contains('content-identity-schema.md') -and
              $topicSkill.Contains('完整、可幂等执行事件') -and
              $topicSkill.Contains('必须预判为只读') -and
              $topicSkill.Contains('通过 `@选题交接`') -and
-             $topicSkill.Contains('### 同一轮采用多个选题') -and
+             $topicSkill.Contains('### 同一轮选定多个选题') -and
              $topicSkill.Contains('每份 Handoff 分别新建一个文案对话') -and
              $topicSkill.Contains('不得在本对话加载或执行文案 Skill')) 'topic planning must create identity and preserve executable feedback events'
 Assert-True ($topicRecommendationSchema.Contains('每个题目分别 append 一条 `selected` feedback') -and
@@ -144,7 +146,7 @@ Assert-True ($spokenSkill.Contains('唯一的上一阶段工作成果') -and
              $spokenSkill.Contains('不得改变事件 ID 或缩减 payload') -and
              $spokenSkill.Contains('not_applicable') -and
              $spokenSkill.Contains('不询问或生成 Handoff') -and
-             $spokenSkill.Contains('不得在本对话加载或执行视觉 Skill')) 'spoken copywriting must enforce title selection and dual-document output'
+             $spokenSkill.Contains('本对话只交付两份文件，不加载或执行视觉 Skill，不执行仓库写入')) 'spoken copywriting must enforce title selection and dual-document output'
 Assert-True ($spokenVisualSkill.Contains('sole prior-stage working result') -and
              $spokenVisualSkill.Contains('视觉规划输入') -and
              $spokenVisualSkill.Contains('shared files in the ChatGPT project') -and
@@ -152,7 +154,9 @@ Assert-True ($spokenVisualSkill.Contains('sole prior-stage working result') -and
              -not $spokenVisualSkill.Contains('incoming Handoff') -and
              -not $spokenVisualSkill.Contains('suitable attachment directory inside the current account')) 'visual planning must use the dedicated visual input and keep outputs outside Repo'
 Assert-True ($archiveSkill.Contains('content-identity-schema.md') -and
-             $archiveSkill.Contains('Repo 内容文档可以提供内容，但不能代替用户')) 'publish archive must preserve identity and independently verify archive authorization'
+             $archiveSkill.Contains('publication_status: published_by_user') -and
+             $archiveSkill.Contains('当前任务中的“同步”或“录入”指令授权执行') -and
+             $archiveSkill.Contains('没有对应候选时不创建候选卡')) 'publish archive must validate Repo delivery and directly archive published content'
 Assert-True ($historySchema.Contains('content_id') -and $historyRebuild.Contains('content_id =')) 'history schema and rebuild must preserve content_id'
 Assert-True ($candidateSchema.Contains('content_id') -and $candidateRebuild.Contains('content_id =')) 'candidate schema and rebuild must preserve content_id when present'
 
@@ -243,11 +247,17 @@ foreach ($runtimeFile in $runtimeFiles) {
 }
 Assert-True ($ideaSkill.Contains('_idea-index.jsonl') -and $ideaSkill.Contains('不做选题分析') -and $ideaSkill.Contains('## Stop')) 'idea intake must update Idea Index and stop'
 Assert-True ($archiveSkill.Contains('_history-index.jsonl') -and $archiveSkill.Contains('_candidate-index.jsonl')) 'archive must update history and candidate indexes'
-Assert-True ($archiveSkill.Contains('仅当以下两项同时成立')) 'archive must require publication and explicit archive instruction'
+Assert-True ($archiveSkill.Contains('以下任一入口成立时使用') -and
+             $archiveSkill.Contains('明确引用有效 Repo 内容文档') -and
+             $archiveSkill.Contains('要求“同步”或“录入”')) 'archive must accept the personal Repo-document sync workflow'
 Assert-True ($archiveSkill.Contains('content_format') -and $archiveSkill.Contains('recommended_format')) 'archive must record actual content format instead of the recommendation'
 Assert-True ($historySchema.Contains('content_type') -and $historySchema.Contains('content_format')) 'history schema must keep content type and add content format'
 Assert-True ($historyRebuild.Contains('content_type =') -and $historyRebuild.Contains('content_format =')) 'history rebuild must emit content type and content format separately'
-Assert-True ($stateSchema.Contains('待分析 → 可入池 → 已转选题') -and $stateSchema.Contains('待核验 → 可推荐 → 已采用 → 已发布')) 'state schema must contain both repaired state machines'
+Assert-True ($stateSchema.Contains('待分析 → 可入池 → 已转选题') -and
+             $stateSchema.Contains('待核验 → 可推荐 → 已发布') -and
+             -not $stateSchema.Contains('已采用') -and
+             -not $candidateSchema.Contains('已采用') -and
+             -not $candidateRebuild.Contains('已采用')) 'candidate workflow must use selected feedback and direct publication without an adopted state'
 
 if ($RulesOnly) {
     Write-Output "RULE VALIDATION PASSED checks=$script:Checks"
@@ -255,7 +265,7 @@ if ($RulesOnly) {
 }
 
 $validIdea = @('待分析', '可入池', '已转选题', '已放弃')
-$validCandidate = @('待核验', '可推荐', '已采用', '已发布', '已放弃')
+$validCandidate = @('待核验', '可推荐', '已发布', '已放弃')
 $validRecommendedFormats = @('text_broadcast', 'spoken', 'either')
 $validContentFormats = @('text_broadcast', 'spoken')
 $historyContentIdPaths = @{}
@@ -267,7 +277,10 @@ foreach ($id in $script:KnownAccountIds) {
     $yaml = [System.IO.File]::ReadAllText((Join-Path $accountRoot 'account.yaml'))
     Assert-True ($yaml -match "(?m)^id:\s*$id\s*$") "$id account.yaml id mismatch"
     $archiveRules = [System.IO.File]::ReadAllText((Join-Path $vault '00-首页与维护规则\历史内容归档规范.md'))
-    Assert-True ($archiveRules.Contains('content_id') -and $archiveRules.Contains('content-identity-schema.md')) "$id archive rules must preserve stable content_id"
+    Assert-True ($archiveRules.Contains('content_id') -and
+                 $archiveRules.Contains('content-identity-schema.md') -and
+                 $archiveRules.Contains('publication_status: published_by_user') -and
+                 $archiveRules.Contains('requested_repo_action: archive_published_content')) "$id archive rules must preserve stable content_id and Repo-document sync semantics"
     Assert-True ((Test-Path -LiteralPath (Join-Path $vault '00-首页与维护规则\账号基本定位.md')) -and
                  (Test-Path -LiteralPath (Join-Path $vault '00-首页与维护规则\账号人设与文风.md'))) "$id positioning split missing"
 

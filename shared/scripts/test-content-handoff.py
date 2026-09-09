@@ -39,7 +39,7 @@ feedback_event_id: "33333333-3333-4333-8333-333333333333"
 > 确认
 
 ## 已确认成果
-已采用选题。
+已选定选题。
 
 ## 选题来源与反馈
 - recommendation_batch_id: 22222222-2222-4222-8222-222222222222
@@ -48,7 +48,7 @@ feedback_event_id: "33333333-3333-4333-8333-333333333333"
 - feedback_signal: selected
 - feedback_scope: topic
 - user_text: 选择这个题
-- scope_description: 已采用选题
+- scope_description: 已选定选题
 - occurred_at: 2026-09-09T10:30:00+08:00
 - topic_feedback_status: synced
 
