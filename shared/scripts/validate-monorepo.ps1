@@ -192,8 +192,9 @@ foreach ($term in $hardcoded) {
     Assert-True (-not $publicText.Contains($term)) "public Skills must not hardcode account rule: $term"
 }
 
-Assert-True ($topicSkill.Contains('_history-index.jsonl') -and $topicSkill.Contains('_candidate-index.jsonl') -and $topicSkill.Contains('_idea-index.jsonl')) 'topic planning must read all three indexes'
-Assert-True ($topicSkill.Contains('5～8') -and $historyRules -match '(?i)metadata') 'topic planning must use Metadata First and bounded body reads'
+Assert-True ($topicSkill.Contains('_history-index.jsonl') -and $topicSkill.Contains('_candidate-index.jsonl') -and $topicSkill.Contains('_idea-index.jsonl')) 'topic planning must retain account-scoped indexes for support and final screening'
+Assert-True ($topicSkill.Contains('初步候选形成后') -and $topicSkill.Contains('候选形成前不读取历史正文')) 'topic planning must form acquisition-led candidates before history review'
+Assert-True ($historyRules.Contains('不得在候选形成前') -and $historyRules.Contains('默认不读取历史正文') -and $historyRules -match '(?i)metadata') 'history must be a metadata-first dedupe check after shortlisting'
 Assert-True (-not $historyRules.Contains('full body of the 10 most recent')) 'old latest-10 body rule must be removed'
 Assert-True ($historyRules.Contains('Same Session Snapshot')) 'same-session snapshot rule must exist'
 Assert-True ($historyRules.Contains('不是普通选题的默认数据源')) 'derived assets must be outside default topic context'
