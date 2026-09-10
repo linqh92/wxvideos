@@ -1,0 +1,4 @@
+interface:
+  display_name: "项目优化最小改动"
+  short_description: "修改、调整或优化现有项目时，以最小有效改动保护既有行为"
+  default_prompt: "使用 $project-optimization-minimal-change 对当前项目执行修改或优化，先定位实际问题，只实施足以解决问题的最小改动。"
