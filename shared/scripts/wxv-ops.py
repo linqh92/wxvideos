@@ -154,6 +154,20 @@ def validate_pending_actions(actions: Any, account_id: str) -> list[dict[str, An
     for index, action in enumerate(actions):
         if not isinstance(action, dict):
             raise OperationError("invalid_document", f"pending_repo_actions[{index}] must be an object")
+        # Early Repo content documents stored one recommendation or feedback
+        # event per action. Normalize that losslessly before applying the
+        # current batched-event validation and sync path.
+        if action.get("action_type") in {
+            "append_topic_recommendation_event",
+            "append_topic_feedback_event",
+        }:
+            payload = action.get("payload")
+            if not isinstance(payload, dict):
+                raise OperationError("invalid_document", f"pending_repo_actions[{index}].payload must be an object")
+            action = dict(action)
+            action["action_type"] = "append_topic_recommendation_events"
+            action["source_schema"] = "shared/schemas/topic-recommendation-log-schema.md"
+            action["events"] = [payload]
         if action.get("action_type") != "append_topic_recommendation_events":
             raise OperationError("invalid_document", f"unsupported pending action: {action.get('action_type')}")
         if action.get("source_schema") != "shared/schemas/topic-recommendation-log-schema.md":
