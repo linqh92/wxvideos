@@ -98,6 +98,6 @@ description: Write acquisition-focused WeChat Video Account spoken scripts as a 
 
 如果口播来自选题 Handoff，Repo 内容文档必须原样继承其中的选题追踪、`selected` 反馈、同步状态和全部未完成 `pending_repo_actions`，不得改变事件 ID 或缩减 payload。用户直接给题或直接提供参考重写、没有经过项目推荐时，将选题反馈标记为 `not_applicable`，不得虚构批次或反馈事件。视觉规划输入不得携带任何选题反馈、推荐批次或 Repo 动作。
 
-Repo 内容文档必须包含 `shared/schemas/confirmed-copy-delivery-schema.md` 要求的发布回填字段。只保留用户最终选择的标题，不把其余标题方案写入两份文件。两份文件生成后结束口播阶段；不询问或生成 Handoff。视觉制作在新对话通过 `@视觉规划输入` 执行；内容发布后，用户在可写 Codex 任务中引用 Repo 内容文档并要求“同步”或“录入”，执行该文档的归档动作。本对话只交付两份文件，不加载或执行视觉 Skill，不执行仓库写入。
+Repo 内容文档必须包含 `shared/schemas/confirmed-copy-delivery-schema.md` 要求的发布回填字段。只保留用户最终选择的标题，不把其余标题方案写入两份文件。两份文件必须按该 Schema 的“项目文件交付”要求添加到当前项目来源并完成确认；当前环境无法直接添加时，交付文件并明确告知用户尚未加入项目来源及需要手动添加，不得声称已经可以通过 `@` 引用。完成上述交付后结束口播阶段；不询问或生成 Handoff。视觉制作在新对话通过 `@视觉规划输入` 执行；内容发布后，用户在可写 Codex 任务中引用 Repo 内容文档并要求“同步”或“录入”，执行该文档的归档动作。本对话只交付两份文件，不加载或执行视觉 Skill，不执行仓库写入。
 
 生成最终文件时读取当前账号 `内容库/00-首页与维护规则/固定选项库.md`，根据已经确认的最终口播和已加载账号上下文一次性填写 Repo 文档的归档分类、内容概述、目标客户和痛点场景字段。`extension_topics` 与 `related_content` 常规使用空数组；只有用户已经提供可直接保存的值时才写入。Repo 操作载荷必须符合 `shared/schemas/repo-operation-schema.md`，供后续 Codex 脚本直接执行。

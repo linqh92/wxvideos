@@ -129,7 +129,9 @@ Assert-True ($confirmedCopyDeliverySchema.Contains('Repo内容文档') -and
              $confirmedCopyDeliverySchema.Contains('不能只写一个引用不存在批次的反馈') -and
              $confirmedCopyDeliverySchema.Contains('delivery_version: "1.1"') -and
              $confirmedCopyDeliverySchema.Contains('Repo 操作载荷') -and
-             $confirmedCopyDeliverySchema.Contains('repo-operation-schema.md')) 'confirmed copy delivery must preserve feedback continuity and provide scripted Repo operations'
+             $confirmedCopyDeliverySchema.Contains('repo-operation-schema.md') -and
+             $confirmedCopyDeliverySchema.Contains('仅生成可下载文件或当前对话临时附件不视为完成') -and
+             $confirmedCopyDeliverySchema.Contains('尚未加入项目来源')) 'confirmed copy delivery must preserve feedback continuity, provide scripted Repo operations, and require project-source delivery'
 Assert-True ($repoOperationSchema.Contains('sync-published') -and
              $repoOperationSchema.Contains('already_synced') -and
              $repoOperationSchema.Contains('不执行 Git 提交或推送') -and
@@ -163,6 +165,8 @@ Assert-True ($spokenSkill.Contains('唯一的上一阶段工作成果') -and
              $spokenSkill.Contains('不得改变事件 ID 或缩减 payload') -and
              $spokenSkill.Contains('not_applicable') -and
              $spokenSkill.Contains('不询问或生成 Handoff') -and
+             $spokenSkill.Contains('项目文件交付') -and
+             $spokenSkill.Contains('尚未加入项目来源') -and
              $spokenSkill.Contains('本对话只交付两份文件，不加载或执行视觉 Skill，不执行仓库写入')) 'spoken copywriting must enforce title selection and dual-document output'
 Assert-True ($spokenVisualSkill.Contains('sole prior-stage working result') -and
              $spokenVisualSkill.Contains('视觉规划输入') -and

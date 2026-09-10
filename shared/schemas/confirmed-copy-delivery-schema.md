@@ -11,6 +11,12 @@
 - 标题确认后，创建或复用 `shared/schemas/content-identity-schema.md` 定义的稳定 `content_id`。后续改标题或修订同一内容时仍复用该 ID。
 - Repo 内容文档采用个人发布回填约定：最终内容确认后进入制作发布，文档使用 `publication_status: published_by_user`、实际 `publish_date` 和 `requested_repo_action: archive_published_content` 表达后续 Codex 归档意图。用户提供其他发布日期时使用其明确日期；未提供时使用 `confirmed_at` 的本地日期。
 
+## 项目文件交付
+
+凡后续步骤要求在同一 ChatGPT 项目的新对话中通过 `@` 引用的交付文件，必须添加到当前项目来源。仅生成可下载文件或当前对话临时附件不视为完成。添加后确认文件已出现在项目来源中，并可按完整文件名通过 `@` 选择。
+
+当前环境无法直接添加时，交付文件并明确告知用户该文件尚未加入项目来源，提示其手动添加；不得声称已经可以通过 `@` 引用。
+
 ## 交付数量
 
 ### 短文字幕
