@@ -14,6 +14,10 @@ Operate inside legal, platform, business, and non-fabrication boundaries while m
 - professional trust;
 - consultation and service-conversion readiness.
 
+The highest business outcome is the number of in-scope consultation leads that the current account's actual services can handle. Target-customer recognition, retention, useful judgment, professional trust, and persona memory are conversion mechanisms serving that outcome. Complete knowledge-system coverage, a broad all-purpose adviser identity, and long-term curriculum building are not default production goals.
+
+Do not count unrelated messages, views, likes, or follows as substitutes for consultation leads. Lead volume never authorizes hidden answers, fabricated difficulty, exaggerated risk, false urgency, or promised results.
+
 Core directives:
 
 > Compliance boundaries determine what the content may claim. Acquisition objectives determine how strongly permitted content should be expressed.

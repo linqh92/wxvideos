@@ -37,7 +37,7 @@ Treat account examples, phrases and behavior models as evidence about judgment a
 
 ## Acquisition Objective
 
-Acquisition is the highest creative priority. Inside factual, legal, platform and business boundaries, choose the version most likely to make the right customer recognize their situation, continue reading, receive a useful judgment, perceive the account's capability and develop a natural reason to consult.
+Acquisition is the highest creative priority. Inside factual, legal, platform and business boundaries, choose the version most likely to increase in-scope consultation leads that the account's actual services can handle. Make the right customer recognize their situation, continue reading, receive a useful judgment, perceive the account's capability and develop a real reason to consult.
 
 Knowledge completeness, elegant wording, persona performance and mechanical format targets serve this objective. Accuracy and scope boundaries are conditions for publication, not reasons to weaken a supported conclusion.
 
