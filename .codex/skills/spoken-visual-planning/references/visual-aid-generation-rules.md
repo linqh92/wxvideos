@@ -100,6 +100,8 @@ Write affirmative, outcome-focused instructions. Retain details that change reco
 
 Each prompt carries the context required to produce its own asset. It does not depend on another page ID, an account file or an earlier explanation. Shared appearance is expressed through the relevant visual traits on that asset.
 
+State the final result directly. Never use conversation-relative or revision-relative instructions such as “as discussed”, “keep the previous version”, “change X to Y”, “remove the earlier element”, “follow the user's latest adjustment” or “use option B”. Replace them with the actual final visual property, exact copy, composition or relationship required for the asset.
+
 For generated text, list the confirmed Simplified Chinese copy with its position and hierarchy. For editable type, describe the reserved text region, contrast and composition while the exact copy remains in `Page Copy`.
 
 生成画面中的中文只承担已经确定的展示任务。页面资料文字以 `Page Copy` 为准，图像提示词负责其实际生成范围内的文字和视觉结果。
@@ -131,7 +133,19 @@ Use the following structure for each page:
 ```
 ~~~
 
-Apply the same structure to `COVER-01` and `IMG-01`, using their distinct entry roles. The document begins with the confirmed deck direction and visual system, followed by pages in final order.
+Apply the same structure to `COVER-01` and `IMG-01`, using their distinct entry roles. Build the document fresh from the latest resolved state. It begins with the final deck direction and visual system, followed by pages in final order.
+
+The execution guide is an operational specification, not a record of the confirmation conversation. Its allowed content is the final deck-level visual system and the final per-page fields in the structure above. Exclude revision notes, dialogue summaries, before-and-after descriptions, rejected options, selection rationale, user-feedback records, unresolved alternatives, confirmation commentary and test observations.
+
+## Final Delivery Purity Check
+
+Before delivery, verify:
+
+- every field contains one final value rather than alternatives or change instructions;
+- `Page Copy`, composition, production method and image prompts describe the same resolved page;
+- every image prompt is affirmative, self-contained and executable without the conversation or an earlier page version;
+- no discussion, revision or decision-making history remains in the execution guide;
+- the segmentation table contains only the final page-to-spoken-range mapping required for editing.
 
 ## Video Segmentation
 

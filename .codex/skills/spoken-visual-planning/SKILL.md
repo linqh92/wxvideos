@@ -127,6 +127,12 @@ The confirmed `Page Copy` section is the text source of truth. Include exact Chi
 
 Check the two entry covers in their own contexts, the standalone readability of the full deck, the spoken-video sequence, factual consistency, page-to-page continuity and the executability of every page specification.
 
+#### 5. Rebuild the final-state documents
+
+Rebuild both final documents from the latest fully confirmed state. Treat the Phase 1 confirmation package, later user adjustments and intermediate page versions as working context, not as text to copy or append into the deliverables.
+
+Resolve every page to one final specification. State the selected result directly and replace revision-relative instructions such as “keep the previous version”, “change this to”, “remove the earlier element” or “use option B” with the actual final copy, composition and visual properties.
+
 ## Quality Review
 
 - **Search cover**: a relevant viewer can recognize the topic value quickly in search, profile or list contexts; typography and composition carry the attention decision.
@@ -159,9 +165,13 @@ The execution guide contains the final page system and one section per page:
 - selected production method;
 - image prompt blocks required by that method.
 
+Keep only information required to build or verify the final visual assets: the final deck direction and visual system, final page copy, final information hierarchy and composition, selected production method and the self-contained image prompts required by that method. Do not include dialogue summaries, user-feedback records, revision history, before-and-after comparisons, rejected alternatives, selection rationale, confirmation commentary, unresolved choices, test observations or workflow narration.
+
 Use `COVER-01` for the native 3:4 search cover, `IMG-01` for the native 16:9 recommendation-feed/PPT cover, and `IMG-02+` for native 16:9 content pages.
 
 The segmentation table starts from `IMG-01`, includes only `video_and_share` pages and covers the full spoken sequence in order. Use actual timestamps for final audio and spoken start/end phrases when only the script exists.
+
+Before delivery, run a final-state purity pass: each field has one resolved value; page copy, composition, production method and prompts agree; prompts do not depend on the conversation or an earlier version; and every non-execution note has been removed.
 
 Both documents describe the final deliverable. Design exploration, internal scoring and process notes stay outside them.
 

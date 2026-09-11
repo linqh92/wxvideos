@@ -241,6 +241,9 @@ Assert-True ($spokenVisualSkill.Contains('COVER-01') -and
 Assert-True ($spokenVisualSkill.Contains('video_and_share') -and
              $spokenVisualSkill.Contains('share_only') -and
              $spokenVisualSkill.Contains('source material already approved')) 'visual planning must distinguish video pages, reference pages, and approved source material'
+Assert-True ($spokenVisualSkill.Contains('Rebuild both final documents from the latest fully confirmed state') -and
+             $spokenVisualSkill.Contains('revision history') -and
+             $spokenVisualSkill.Contains('final-state purity pass')) 'visual planning must rebuild clean execution documents from final confirmed state'
 Assert-True ($spokenVisualRules.Contains('Dual-Expression Model') -and
              $spokenVisualRules.Contains('Entry-Cover Design') -and
              $spokenVisualRules.Contains('Page Copy and Typesetting') -and
@@ -248,6 +251,9 @@ Assert-True ($spokenVisualRules.Contains('Dual-Expression Model') -and
              $spokenVisualRules.Contains('Prompt Distillation') -and
              $spokenVisualRules.Contains('Video Segmentation') -and
              $spokenVisualRules.Contains('Review with Generated Evidence')) 'visual reference must cover the complete document and role-led execution model'
+Assert-True ($spokenVisualRules.Contains('Never use conversation-relative or revision-relative instructions') -and
+             $spokenVisualRules.Contains('Final Delivery Purity Check') -and
+             $spokenVisualRules.Contains('operational specification, not a record of the confirmation conversation')) 'visual execution prompts and guides must contain final operational state only'
 $fixedGlobalVisualStyle = @(
     '- semi-realistic or realistic business explanatory visual;',
     '- blue-gray-white base;',
