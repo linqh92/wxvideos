@@ -160,6 +160,19 @@ def validate_pending_actions(actions: Any, account_id: str) -> list[dict[str, An
         if action.get("action_type") in {
             "append_topic_recommendation_event",
             "append_topic_feedback_event",
+            "append_jsonl_event",
+        }:
+            payload = action.get("payload")
+            if not isinstance(payload, dict):
+                raise OperationError("invalid_document", f"pending_repo_actions[{index}].payload must be an object")
+            action = dict(action)
+            action["action_type"] = "append_topic_recommendation_events"
+            action["source_schema"] = "shared/schemas/topic-recommendation-log-schema.md"
+            action["events"] = [payload]
+        elif action.get("action") in {
+            "append_jsonl",
+            "append_topic_recommendation_event",
+            "append_topic_feedback_event",
         }:
             payload = action.get("payload")
             if not isinstance(payload, dict):
