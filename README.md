@@ -132,16 +132,24 @@ _candidate-index.jsonl = 候选机器检索层
 内容地图 / 缺口 / 复盘 = 人工查看与周期性重建的派生资产
 ```
 
-索引可随时从 Markdown 重建：
+安装 Python 3.9+ 后，索引可在 Windows、macOS 或 Linux 上随时从 Markdown 重建：
 
-```powershell
-./shared/scripts/rebuild-history-index.ps1
-./shared/scripts/rebuild-idea-index.ps1
-./shared/scripts/rebuild-candidate-index.ps1
-./shared/scripts/rebuild-derived-assets.ps1
+```text
+python shared/scripts/rebuild-history-index.py
+python shared/scripts/rebuild-idea-index.py
+python shared/scripts/rebuild-candidate-index.py
+python shared/scripts/rebuild-derived-assets.py
 ```
 
-传入 `-AccountId gzminge` 可只处理一个账号；不传时处理全部账号。
+传入 `--account-id gzminge` 可只处理一个账号；不传时处理全部账号。
+
+全项目校验使用：
+
+```text
+python shared/scripts/validate-monorepo.py
+```
+
+只检查项目规则时传入 `--rules-only`。
 
 ## 跨平台同步 GitHub
 

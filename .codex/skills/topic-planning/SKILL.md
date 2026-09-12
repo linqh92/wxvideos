@@ -37,7 +37,7 @@ description: 由资深财税获客选题主编围绕当前账号客户问题、�
 
 仅在用户选定选题或要求跨阶段交接时读取 `shared/schemas/content-identity-schema.md` 与 `shared/schemas/handoff-packet-schema.md`。这两个文件不要求重新加载上一阶段或下游 Skill。
 
-选题阶段默认不读 `账号人设与文风.md`。状态含义引用 `shared/schemas/content-state-machine.md`。索引缺失或损坏时，使用 `shared/scripts/rebuild-*-index.ps1 -AccountId {CURRENT_ACCOUNT}` 从 Markdown 重建；无法可靠重建时，不输出正式推荐。
+选题阶段默认不读 `账号人设与文风.md`。状态含义引用 `shared/schemas/content-state-machine.md`。索引缺失或损坏时，使用 `python shared/scripts/rebuild-*-index.py --account-id {CURRENT_ACCOUNT}` 从 Markdown 重建；无法可靠重建时，不输出正式推荐。
 
 ## Unique Logic
 
