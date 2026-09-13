@@ -171,6 +171,8 @@ def validate_pending_actions(actions: Any, account_id: str) -> list[dict[str, An
             action["events"] = [payload]
         elif action.get("action") in {
             "append_jsonl",
+            "append_recommendation_event",
+            "append_feedback_event",
             "append_topic_recommendation_event",
             "append_topic_feedback_event",
         }:
