@@ -240,9 +240,23 @@ def load_repo_document(path: Path) -> RepoDocument:
         raise OperationError("invalid_document", f"input file not found: {path}")
     text = path.read_text(encoding="utf-8-sig")
     meta = parse_frontmatter(text)
+    require_nonempty(meta, ("document_type",))
+    if meta["document_type"] != "repo_content":
+        if meta["document_type"] == "spoken_visual_input":
+            raise OperationError(
+                "invalid_document",
+                "input is spoken_visual_input, not a Repo content document; use it only for visual planning",
+            )
+        raise OperationError("invalid_document", "document_type must be repo_content")
+    require_nonempty(meta, ("delivery_version",))
+    if meta["delivery_version"] != "1.1":
+        if meta["delivery_version"] == "1.0":
+            raise OperationError(
+                "invalid_document",
+                "Repo content document delivery_version 1.0 is legacy; use the manual archive path",
+            )
+        raise OperationError("invalid_document", "Repo content document delivery_version must be 1.1")
     required_meta = (
-        "delivery_version",
-        "document_type",
         "content_id",
         "account_id",
         "content_format",
@@ -257,10 +271,6 @@ def load_repo_document(path: Path) -> RepoDocument:
         "repo_sync_status",
     )
     require_nonempty(meta, required_meta)
-    if meta["delivery_version"] != "1.1":
-        raise OperationError("invalid_document", "delivery_version must be 1.1 for scripted sync")
-    if meta["document_type"] != "repo_content":
-        raise OperationError("invalid_document", "document_type must be repo_content")
     match = CONTENT_ID_RE.fullmatch(meta["content_id"])
     if not match:
         raise OperationError("invalid_document", "content_id format is invalid")

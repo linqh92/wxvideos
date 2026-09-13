@@ -57,6 +57,18 @@ REQUIRED_SECTIONS = {
     "禁止动作",
     "待执行仓库动作",
 }
+LEGACY_ACTION_TYPES = {
+    "append_topic_recommendation_event",
+    "append_topic_feedback_event",
+    "append_jsonl_event",
+}
+LEGACY_ACTIONS = {
+    "append_jsonl",
+    "append_recommendation_event",
+    "append_feedback_event",
+    "append_topic_recommendation_event",
+    "append_topic_feedback_event",
+}
 
 
 def create_content_id(account_id: str, date_value: str | None, suffix: str | None) -> str:
@@ -90,6 +102,115 @@ def parse_frontmatter(text: str) -> dict[str, str]:
         key, value = line.split(":", 1)
         result[key.strip()] = value.strip().strip('"\'')
     return result
+
+
+def extract_section(text: str, heading: str) -> str:
+    pattern = re.compile(
+        rf"^##\s+{re.escape(heading)}\s*$\r?\n(?P<body>.*?)(?=^##\s+|\Z)",
+        re.MULTILINE | re.DOTALL,
+    )
+    match = pattern.search(text)
+    if not match:
+        raise ValueError(f"missing section: {heading}")
+    return match.group("body").strip()
+
+
+def require_uuid(value: object, field: str) -> None:
+    try:
+        uuid.UUID(str(value))
+    except (ValueError, AttributeError, TypeError) as exc:
+        raise ValueError(f"{field} must be a UUID") from exc
+
+
+def extract_pending_actions(text: str) -> list[dict[str, object]]:
+    section = extract_section(text, "待执行仓库动作")
+    if re.fullmatch(r"-\s*pending_repo_actions:\s*\[\s*\]", section):
+        return []
+    match = re.fullmatch(r"```json\s*(\{.*\})\s*```", section, re.DOTALL)
+    if not match:
+        raise ValueError("待执行仓库动作 must contain one JSON object")
+    try:
+        payload = json.loads(match.group(1))
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"invalid pending_repo_actions JSON: {exc.msg}") from exc
+    if not isinstance(payload, dict):
+        raise ValueError("待执行仓库动作 JSON must be an object")
+    actions = payload.get("pending_repo_actions")
+    if not isinstance(actions, list):
+        raise ValueError("pending_repo_actions must be an array")
+    return actions
+
+
+def validate_pending_actions(actions: list[dict[str, object]], account_id: str) -> list[dict[str, object]]:
+    validated: list[dict[str, object]] = []
+    expected_prefix = f"accounts/{account_id}/内容库/03-选题规划/推荐记录/"
+    for index, source_action in enumerate(actions):
+        if not isinstance(source_action, dict):
+            raise ValueError(f"pending_repo_actions[{index}] must be an object")
+        action = dict(source_action)
+        if action.get("action_type") in LEGACY_ACTION_TYPES:
+            payload = action.get("payload")
+            if not isinstance(payload, dict):
+                raise ValueError(f"pending_repo_actions[{index}].payload must be an object")
+            action["action_type"] = "append_topic_recommendation_events"
+            action["source_schema"] = "shared/schemas/topic-recommendation-log-schema.md"
+            action["events"] = [payload]
+        elif action.get("action") in LEGACY_ACTIONS:
+            payload = action.get("payload")
+            if not isinstance(payload, dict):
+                raise ValueError(f"pending_repo_actions[{index}].payload must be an object")
+            action["action_type"] = "append_topic_recommendation_events"
+            action["source_schema"] = "shared/schemas/topic-recommendation-log-schema.md"
+            action["events"] = [payload]
+        if action.get("action_type") != "append_topic_recommendation_events":
+            raise ValueError(f"unsupported pending action: {action.get('action_type')}")
+        if action.get("source_schema") != "shared/schemas/topic-recommendation-log-schema.md":
+            raise ValueError("pending action source_schema is invalid")
+        require_uuid(action.get("action_id"), f"pending_repo_actions[{index}].action_id")
+        target = str(action.get("target_path", "")).replace("\\", "/")
+        if not target.startswith(expected_prefix) or not re.fullmatch(
+            re.escape(expected_prefix) + r"\d{4}-\d{2}\.jsonl", target
+        ):
+            raise ValueError(f"invalid pending action target: {target}")
+        events = action.get("events")
+        if not isinstance(events, list) or not events:
+            raise ValueError(f"pending_repo_actions[{index}].events must be non-empty")
+        for event_index, event in enumerate(events):
+            if not isinstance(event, dict):
+                raise ValueError(f"pending_repo_actions[{index}].events[{event_index}] must be an object")
+            require_uuid(event.get("event_id"), f"pending event {event_index}.event_id")
+            if event.get("event_type") not in {"recommendation", "feedback"}:
+                raise ValueError("pending event_type must be recommendation or feedback")
+            if event.get("account_id") != account_id:
+                raise ValueError("pending event account_id mismatch")
+            occurred_at = event.get("occurred_at")
+            if not isinstance(occurred_at, str) or not occurred_at.strip():
+                raise ValueError("pending event occurred_at is required")
+            try:
+                occurred_datetime = dt.datetime.fromisoformat(occurred_at)
+            except ValueError as exc:
+                raise ValueError("pending event occurred_at is invalid") from exc
+            if occurred_datetime.strftime("%Y-%m") != Path(target).stem:
+                raise ValueError("pending event target month does not match occurred_at")
+            require_uuid(event.get("batch_id"), f"pending event {event_index}.batch_id")
+            if event["event_type"] == "recommendation":
+                topics = event.get("topics")
+                if not isinstance(topics, list) or not topics:
+                    raise ValueError("recommendation.topics must be non-empty")
+                for topic in topics:
+                    if not isinstance(topic, dict):
+                        raise ValueError("recommendation topic must be an object")
+                    require_uuid(topic.get("topic_id"), "recommendation.topic_id")
+            else:
+                if event.get("signal") != "selected":
+                    raise ValueError("Handoff accepts only selected feedback events")
+                topic_ids = event.get("topic_ids")
+                if not isinstance(topic_ids, list) or len(topic_ids) != 1:
+                    raise ValueError("selected feedback must contain one topic_id")
+                require_uuid(topic_ids[0], "feedback.topic_ids[0]")
+        action["target_path"] = target
+        validated.append(action)
+    return validated
 
 
 def validate_handoff(path: Path) -> dict[str, object]:
@@ -157,6 +278,29 @@ def validate_handoff(path: Path) -> dict[str, object]:
     missing_sections = sorted(REQUIRED_SECTIONS - headings)
     if missing_sections:
         errors.append(f"missing sections: {', '.join(missing_sections)}")
+
+    pending_actions: list[dict[str, object]] = []
+    if "待执行仓库动作" in headings:
+        try:
+            pending_actions = validate_pending_actions(extract_pending_actions(text), account_id)
+        except ValueError as exc:
+            errors.append(str(exc))
+    if meta.get("topic_feedback_status") == "pending":
+        carried_events = [
+            event
+            for action in pending_actions
+            for event in action.get("events", [])
+            if isinstance(event, dict)
+        ]
+        feedback = [event for event in carried_events if event.get("event_id") == meta.get("feedback_event_id")]
+        if (
+            len(feedback) != 1
+            or feedback[0].get("topic_ids") != [meta.get("topic_id")]
+            or feedback[0].get("batch_id") != meta.get("recommendation_batch_id")
+        ):
+            errors.append("pending selected feedback payload is missing or inconsistent")
+    elif meta.get("topic_feedback_status") == "synced" and pending_actions:
+        errors.append("synced topic feedback cannot contain pending actions")
 
     if version == "1.0":
         expected_name = f"Handoff｜{content_id}｜{meta.get('from_stage', '')}-to-{meta.get('to_stage', '')}.md"

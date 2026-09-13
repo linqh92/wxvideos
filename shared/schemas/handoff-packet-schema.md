@@ -63,7 +63,7 @@ feedback_event_id: "uuid"
 
 ## 正文结构
 
-```markdown
+~~~markdown
 # 选题交接｜{topic_short_name}
 
 ## 用户确认原话
@@ -110,10 +110,18 @@ feedback_event_id: "uuid"
 
 ## 待执行仓库动作
 
-- pending_repo_actions: []
+```json
+{
+  "pending_repo_actions": []
+}
 ```
+~~~
 
 `pending_repo_actions` 只记录当前环境因只读而未执行、且项目规则本来允许持久化的动作。若推荐批次或 selected feedback 尚未写入，必须按 `shared/schemas/topic-recommendation-log-schema.md` 携带稳定 `action_id`、明确目标路径和完整事件 payload；原 recommendation 事件未入库时与 feedback 事件一起携带，不能只留下摘要或一个无法解析的批次引用。它不是执行授权；文案阶段必须原样继承到 Repo 内容文档，后续具有写入能力的 Codex 仍须按当前 Skill、账号锁、事件 ID 和写入规则重新校验。
+
+新生成 Handoff 的每个待执行动作只使用以下容器字段，不得改写为近义名称：`action_id`、`action_type: append_topic_recommendation_events`、`target_path`、`source_schema: shared/schemas/topic-recommendation-log-schema.md` 和非空 `events` 数组。`events` 中保留完整 recommendation 或 selected feedback 事件。旧文件中的单事件 `action/payload` 或 `action_type/payload` 写法仅作为读取兼容格式，不得用于新生成文件。
+
+生成后必须按 `shared/scripts/content-handoff.py validate` 的同等条件检查 Frontmatter、章节、动作容器、事件 UUID、账号、目标月份，以及 pending selected feedback 与 `topic_id`、`recommendation_batch_id`、`feedback_event_id` 的一致性。`topic_feedback_status: pending` 时不得使用空数组；`synced` 时不得携带待执行动作。
 
 同一轮多选且 recommendation 尚未入库时，每份 Handoff 可以携带相同的 recommendation action 和稳定事件 ID，保证任一内容都能独立进入 Codex；每份 Handoff 只能再携带本选题自己的 selected feedback action。后续执行依靠事件 ID 幂等去重，不把共享推荐事件重新编号。
 

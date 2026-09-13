@@ -40,6 +40,18 @@ Repo内容文档｜{content_id}｜{内容简称}.md
 
 无论用户是否立即开始视觉规划，两份文件都生成。生成后结束口播阶段；不得在同一对话加载或执行视觉 Skill。
 
+## Version Routing
+
+版本必须与文档类型和版本字段一起判断，不得仅因出现 `1.0` 就认定为旧版：
+
+| Document | Version field | Current value | Route |
+| --- | --- | --- | --- |
+| 选题交接 | `handoff_version` | `1.1` | 文案阶段 |
+| Repo 内容文档 | `delivery_version` | `1.1` | 结构化 Repo 同步 |
+| Repo 操作载荷 | `schema_version` | `1.0` | 当前 Repo 1.1 文档内的合法载荷 |
+| 视觉规划输入 | `delivery_version` | `1.0` | 视觉规划，不得用于 Repo 同步 |
+| 旧 Repo 内容文档 | `delivery_version` | `1.0` | `publish-archive` 人工兼容路径 |
+
 ## Repo 内容文档
 
 该文件供用户完成制作发布后，切换到具有仓库能力的 Codex 任务并通过 `@` 引用。文件记录最终发布内容、发布回填事实和预期归档动作。用户在当前 Codex 任务中明确要求“同步”或“录入”时，构成发布归档指令；仅引用或查看文件时保持只读。Codex 仍须读取最新根 `AGENTS.md`，核验账号、内容身份、日期、重复记录与允许的写入目标。
@@ -167,6 +179,8 @@ Repo 操作载荷的完整字段、执行命令和结果状态统一引用 `shar
   ]
 }
 ```
+
+交付 Repo 内容文档前必须完成结构检查：Frontmatter 必填字段均为最终值；`Repo 操作载荷` 是唯一 JSON 对象；载荷的账号、内容 ID、载体、发布日期和标题与 Frontmatter 完全一致；`archive_metadata` 必填字段非空且分类值来自当前账号允许范围；两个数组字段存在；项目推荐且反馈待同步时，必须携带与 Frontmatter 三个追踪 ID 一致的 selected feedback 完整事件。模板占位文字不得进入最终文件。
 
 Codex 在用户明确要求“同步”或“录入”时，由 `publish-archive` 调用 `shared/scripts/wxv-ops.py sync-published --apply`。脚本按事件 ID 幂等补写待执行推荐与反馈、写入历史事实源并更新索引；存在对应候选时将其更新为 `已发布`，没有对应候选时不创建候选卡。
 

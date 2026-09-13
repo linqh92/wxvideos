@@ -27,6 +27,7 @@ BATCH_ID = "22222222-2222-4222-8222-222222222222"
 RECOMMENDATION_EVENT_ID = "33333333-3333-4333-8333-333333333333"
 FEEDBACK_EVENT_ID = "44444444-4444-4444-8444-444444444444"
 ACTION_ID = "55555555-5555-4555-8555-555555555555"
+SECOND_ACTION_ID = "66666666-6666-4666-8666-666666666666"
 
 
 def compact(value: dict) -> str:
@@ -151,6 +152,40 @@ def valid_payload() -> dict:
     }
 
 
+def canonical_action(event: dict, action_id: str) -> dict:
+    return {
+        "action_id": action_id,
+        "action_type": "append_topic_recommendation_events",
+        "target_path": "accounts/gzminge/内容库/03-选题规划/推荐记录/2026-09.jsonl",
+        "source_schema": "shared/schemas/topic-recommendation-log-schema.md",
+        "events": [event],
+    }
+
+
+def legacy_action(field: str, name: str, event: dict, action_id: str) -> dict:
+    return {
+        "action_id": action_id,
+        field: name,
+        "target_path": "accounts/gzminge/内容库/03-选题规划/推荐记录/2026-09.jsonl",
+        "payload": event,
+    }
+
+
+def payload_with_legacy_action(field: str, name: str, event_type: str) -> dict:
+    payload = valid_payload()
+    if event_type == "recommendation":
+        payload["pending_repo_actions"] = [
+            legacy_action(field, name, recommendation_event(), ACTION_ID),
+            canonical_action(feedback_event(), SECOND_ACTION_ID),
+        ]
+    else:
+        payload["pending_repo_actions"] = [
+            canonical_action(recommendation_event(), ACTION_ID),
+            legacy_action(field, name, feedback_event(), SECOND_ACTION_ID),
+        ]
+    return payload
+
+
 # Create an isolated minimal account repository for write-path testing.
 def prepare_repo(root: Path) -> Path:
     history = root / "accounts" / ACCOUNT / "内容库" / "01-历史内容"
@@ -188,6 +223,54 @@ def main() -> None:
         root = Path(directory)
         document_path = prepare_repo(root)
         document = MODULE.load_repo_document(document_path)
+
+        legacy_variants = (
+            ("action_type", "append_topic_recommendation_event", "recommendation"),
+            ("action_type", "append_topic_feedback_event", "feedback"),
+            ("action_type", "append_jsonl_event", "feedback"),
+            ("action", "append_jsonl", "feedback"),
+            ("action", "append_recommendation_event", "recommendation"),
+            ("action", "append_feedback_event", "feedback"),
+            ("action", "append_topic_recommendation_event", "recommendation"),
+            ("action", "append_topic_feedback_event", "feedback"),
+        )
+        for index, (field, name, event_type) in enumerate(legacy_variants):
+            legacy_path = root / f"Repo内容文档｜{CONTENT_ID}｜兼容格式{index}.md"
+            legacy_path.write_text(
+                repo_document(payload_with_legacy_action(field, name, event_type)),
+                encoding="utf-8",
+            )
+            legacy_document = MODULE.load_repo_document(legacy_path)
+            assert len(legacy_document.payload["pending_repo_actions"]) == 2
+
+        visual_input = root / "视觉规划输入｜测试.md"
+        visual_input.write_text(
+            repo_document(valid_payload())
+            .replace('delivery_version: "1.1"', 'delivery_version: "1.0"')
+            .replace('document_type: "repo_content"', 'document_type: "spoken_visual_input"'),
+            encoding="utf-8",
+        )
+        try:
+            MODULE.load_repo_document(visual_input)
+        except MODULE.OperationError as exc:
+            assert any("spoken_visual_input" in error for error in exc.errors)
+            assert not any("missing fields" in error for error in exc.errors)
+        else:
+            raise AssertionError("visual input must not be accepted as a Repo content document")
+
+        legacy_repo = root / f"Repo内容文档｜{CONTENT_ID}｜旧版.md"
+        legacy_repo.write_text(
+            repo_document(valid_payload()).replace('delivery_version: "1.1"', 'delivery_version: "1.0"'),
+            encoding="utf-8",
+        )
+        try:
+            MODULE.load_repo_document(legacy_repo)
+        except MODULE.OperationError as exc:
+            assert any("legacy" in error for error in exc.errors)
+            assert not any("missing fields" in error for error in exc.errors)
+        else:
+            raise AssertionError("Repo content document delivery_version 1.0 must use manual archive")
+
         plan = MODULE.make_plan(root, document)
         assert plan["history_action"] == "create"
         assert len(plan["new_event_ids"]) == 2
