@@ -303,6 +303,13 @@ def load_repo_document(path: Path) -> RepoDocument:
     archive = payload.get("archive_metadata")
     if not isinstance(archive, dict):
         raise OperationError("invalid_document", "archive_metadata must be an object")
+    # Legacy 1.1 deliveries occasionally omitted the internal series while
+    # providing an equivalent theme. Retain all explicit metadata and use that
+    # classification only for this empty-field compatibility case.
+    if not str(archive.get("series", "")).strip() and str(archive.get("theme", "")).strip():
+        archive = dict(archive)
+        archive["series"] = archive["theme"]
+        payload["archive_metadata"] = archive
     require_nonempty(archive, HISTORY_FIELDS + ARCHIVE_TEXT_FIELDS, "archive_metadata")
     for list_field in ("extension_topics", "related_content"):
         value = archive.get(list_field)
