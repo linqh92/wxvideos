@@ -235,11 +235,22 @@ def validate_pending_actions(actions: Any, account_id: str) -> list[dict[str, An
     return validated
 
 
-def load_repo_document(path: Path) -> RepoDocument:
+def load_repo_document(path: Path, confirmed_publish_date: str | None = None) -> RepoDocument:
     if not path.is_file():
         raise OperationError("invalid_document", f"input file not found: {path}")
     text = path.read_text(encoding="utf-8-sig")
     meta = parse_frontmatter(text)
+    if confirmed_publish_date:
+        try:
+            dt.date.fromisoformat(confirmed_publish_date)
+        except ValueError as exc:
+            raise OperationError("invalid_document", "confirmed publish date is invalid") from exc
+        meta = dict(meta)
+        if meta.get("document_type") == "Repo内容文档":
+            meta["document_type"] = "repo_content"
+        if meta.get("publication_status") == "pending_publish_by_user":
+            meta["publication_status"] = "published_by_user"
+            meta["publish_date"] = confirmed_publish_date
     require_nonempty(meta, ("document_type",))
     if meta["document_type"] != "repo_content":
         if meta["document_type"] == "spoken_visual_input":
@@ -295,6 +306,9 @@ def load_repo_document(path: Path) -> RepoDocument:
         raise OperationError("invalid_document", "filename does not match Repo content document identity")
 
     payload = extract_operation_payload(text)
+    if confirmed_publish_date and payload.get("publish_date") in {None, ""}:
+        payload = dict(payload)
+        payload["publish_date"] = confirmed_publish_date
     if payload.get("schema_version") != "1.0" or payload.get("action") != "archive_published_content":
         raise OperationError("invalid_document", "unsupported Repo operation payload")
     for field in ("account_id", "content_id", "content_format", "publish_date", "final_title"):
@@ -907,10 +921,12 @@ def main() -> int:
     sync = subparsers.add_parser("sync-published")
     sync.add_argument("--input", required=True, type=Path)
     sync.add_argument("--apply", action="store_true", help="required to authorize repository writes")
+    sync.add_argument("--confirmed-publish-date", help="explicit user-confirmed date for a pending legacy 1.1 delivery")
     args = parser.parse_args()
     repo_root = args.repo_root.resolve()
     try:
-        document = load_repo_document(args.input.resolve())
+        confirmed_publish_date = getattr(args, "confirmed_publish_date", None)
+        document = load_repo_document(args.input.resolve(), confirmed_publish_date)
         if args.command == "verify":
             result = verify_sync(repo_root, document)
             emit(result)
