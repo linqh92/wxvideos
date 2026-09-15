@@ -1,9 +1,9 @@
-"""Local, account-scoped recommendation retrieval. Python standard library only."""
+"""Local, account-scoped topic and performance retrieval. Python standard library only."""
 import argparse
 import hashlib
 import json
 import sqlite3
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 ACCOUNTS = ('gzminge', 'gzxzcs', 'qycslc', 'gzcktxpp', 'tsxbj', 'gzlxcs')
 
@@ -76,7 +76,70 @@ def referenced(row):
     return {'event_id': row[0], 'source': row[1], 'line': row[2], 'record': json.loads(row[3])}
 
 
-def retrieve(db, mode, terms=(), limit=10, offset=0):
+def resolve_history_path(repo_root, account, value):
+    normalized = str(value or '').replace('\\', '/')
+    relative = PurePosixPath(normalized)
+    expected = ('accounts', account, '内容库', '01-历史内容')
+    if relative.is_absolute() or '..' in relative.parts or relative.parts[:4] != expected:
+        raise ValueError('performance history_path must stay in the current account history')
+    target = (Path(repo_root).resolve() / Path(*relative.parts)).resolve()
+    try:
+        target.relative_to(Path(repo_root).resolve())
+    except ValueError as exc:
+        raise ValueError('performance history_path escapes repository root') from exc
+    if target.suffix.lower() != '.md' or not target.is_file():
+        raise ValueError('performance history_path does not locate a history Markdown file')
+    return normalized
+
+
+def retrieve_performance(db, account, content_format, repo_root, limit=3, offset=0):
+    if account not in ACCOUNTS:
+        raise ValueError('performance retrieval requires a valid account')
+    if content_format not in {'text_broadcast', 'spoken'}:
+        raise ValueError('performance retrieval requires content_format')
+    if repo_root is None:
+        raise ValueError('performance retrieval requires repo_root')
+    rows = db.execute(
+        "SELECT id,data FROM events WHERE kind='performance' ORDER BY time DESC,id DESC"
+    ).fetchall()
+    items = []
+    fields = (
+        'occurred_at', 'topic_ids', 'observation_window', 'source',
+        'results', 'attribution_limits'
+    )
+    for event_id, data in rows:
+        record = json.loads(data)
+        if record.get('account_id') != account:
+            raise ValueError('Cross-account performance event in account cache')
+        if record.get('content_format') not in {'text_broadcast', 'spoken'}:
+            raise ValueError('performance event content_format is invalid')
+        missing = [field for field in fields if field not in record]
+        if missing:
+            raise ValueError('performance event missing fields: ' + ', '.join(missing))
+        if not isinstance(record.get('topic_ids'), list):
+            raise ValueError('performance topic_ids must be an array')
+        if not isinstance(record.get('results'), dict):
+            raise ValueError('performance results must be an object')
+        if record['content_format'] != content_format:
+            continue
+        history_path = resolve_history_path(repo_root, account, record.get('history_path'))
+        item = {'event_id': event_id}
+        item.update({field: record.get(field) for field in fields})
+        item['content_format'] = content_format
+        item['history_path'] = history_path
+        items.append(item)
+    page = items[offset:offset + limit]
+    return {
+        'items': page,
+        'offset': offset,
+        'has_more': len(items) > offset + limit,
+        'next_offset': offset + len(page),
+        'total': len(items),
+    }
+
+
+def retrieve(db, mode, terms=(), limit=10, offset=0, *, account=None,
+             content_format=None, repo_root=None):
     if mode == 'recent':
         batches = db.execute("SELECT id,batch,data,path,line FROM events WHERE kind='recommendation' ORDER BY time DESC,id DESC LIMIT 5").fetchall()
         result, ids, batch_ids = [], set(), set()
@@ -104,6 +167,8 @@ def retrieve(db, mode, terms=(), limit=10, offset=0):
         rows = db.execute("SELECT id,path,line,data FROM events WHERE kind='feedback' ORDER BY rowid LIMIT ? OFFSET ?", (limit + 1, offset)).fetchall()
         return {'items': [referenced(r) for r in rows[:limit]], 'offset': offset,
                 'has_more': len(rows) > limit, 'next_offset': offset + min(len(rows), limit)}
+    if mode == 'performance':
+        return retrieve_performance(db, account, content_format, repo_root, limit, offset)
     if not terms:
         raise ValueError('search requires --terms (space-separated concepts and synonyms)')
     matches = {}
@@ -120,13 +185,18 @@ def retrieve(db, mode, terms=(), limit=10, offset=0):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--account', required=True, choices=ACCOUNTS)
-    parser.add_argument('--mode', choices=('sync', 'recent', 'feedback', 'search'), default='recent')
+    parser.add_argument('--mode', choices=('sync', 'recent', 'feedback', 'performance', 'search'), default='recent')
+    parser.add_argument('--content-format', choices=('text_broadcast', 'spoken'))
     parser.add_argument('--terms', nargs='*', default=[])
     parser.add_argument('--limit', type=int, default=10)
     parser.add_argument('--offset', type=int, default=0)
     args = parser.parse_args()
     if not 1 <= args.limit <= 50 or args.offset < 0:
         parser.error('limit must be 1..50; offset must be nonnegative')
+    if args.mode == 'performance' and not args.content_format:
+        parser.error('--content-format is required for performance mode')
+    if args.mode != 'performance' and args.content_format:
+        parser.error('--content-format is only valid for performance mode')
     root = Path(__file__).resolve().parents[2]
     planning = root / 'accounts' / args.account / '内容库' / '03-选题规划'
     if not planning.is_dir():
@@ -136,7 +206,10 @@ def main():
         added = sync(db, planning, args.account)
         output = {'added_events': added}
         if args.mode != 'sync':
-            output.update(retrieve(db, args.mode, args.terms, args.limit, args.offset))
+            output.update(retrieve(
+                db, args.mode, args.terms, args.limit, args.offset,
+                account=args.account, content_format=args.content_format, repo_root=root
+            ))
         print(json.dumps(output, ensure_ascii=False))
     finally:
         db.close()

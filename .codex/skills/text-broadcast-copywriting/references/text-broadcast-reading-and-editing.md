@@ -82,3 +82,17 @@ After the first complete draft:
 7. when the body remains too long, narrow the scope rather than shortening every sentence mechanically.
 
 The final piece must not read like a long article, report, training outline or spoken script with arbitrary line breaks.
+
+## Cross-Piece Editing Check
+
+Complete the current draft and its Reduction Pass before checking earlier work. First compare any completed text-broadcast pieces from the current conversation for the same account. If fewer than three are available, use the current account's `01-历史内容/_history-index.jsonl` to locate recent records explicitly marked `content_format=text_broadcast`, and read no more than three bodies in total. Resolve every path inside `accounts/{CURRENT_ACCOUNT}/内容库/`; skip unavailable or legacy records whose format is not explicit, and do not claim that the check was completed when no usable sample exists.
+
+Historical pieces only reveal repetition; they do not supply wording, sentence patterns or information order for the current draft. Compare:
+
+- first-screen mechanism;
+- information-release order and visual block rhythm;
+- repeated correction, transition or contrast moves;
+- ending function and CTA;
+- repeated lists of materials, conditions or process steps used to display expertise.
+
+When at least two of the three recent pieces use a highly similar mechanism, treat it as a negative repetition signal only if the current topic has no independent reason to use it. Reorganize from the current topic's actual information relationship, not by swapping synonyms or mechanically banning a number, question, comparison or other useful resource. Reliable performance evidence may justify continuing to test a communication function under the common Performance Calibration rules, but never provides a sentence or layout template.

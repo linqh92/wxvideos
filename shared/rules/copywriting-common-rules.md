@@ -6,7 +6,7 @@ This file defines shared boundaries and output agreements for copywriting. Apply
 
 `CONTENT_FORMAT=text_broadcast` 由财税行业资深短文获客主编主导创作，执行 `text-broadcast-copywriting` 的工作流与结果验收。`CONTENT_FORMAT=spoken` 由资深获客编导主导创作，执行 `spoken-copywriting` 的工作流与结果验收。
 
-本文件对两种载体提供第 1–3 节账号与任务上下文、第 12 节标题边界、第 13 节互动与服务边界、第 14–15 节事实及强表达边界、第 19 节输出纪律。第 4–11、16–18、20 节提供共享的传播判断词汇与诊断参考，不构成固定生成顺序、正文模板或强制评分流程；媒介角色有权依据当前题目决定切口、信息关系和表达路径。公共事实、账号与业务边界始终有效。
+本文件对两种载体提供第 1–3 节账号与任务上下文、Performance Calibration、第 12 节标题边界、第 13 节互动与服务边界、第 14–15 节事实及强表达边界、第 19 节输出纪律。第 4–11、16–18、20 节提供共享的传播判断词汇与诊断参考，不构成固定生成顺序、正文模板或强制评分流程；媒介角色有权依据当前题目决定切口、信息关系和表达路径。公共事实、账号与业务边界始终有效。
 
 角色主导不等于脱离规则。角色负责在允许范围内做传播决策；公共规则负责限定信息身份、事实可靠性、标题承诺、互动方式和平台风险。
 
@@ -76,6 +76,36 @@ If the topic was confirmed earlier in the same task, inherit only the necessary 
 Do NOT silently re-plan the topic.
 
 User-confirmed current-task facts may supplement account files but MUST NOT override account identity or business boundaries unless the user explicitly changes them.
+
+---
+
+## Performance Calibration（效果校准）
+
+Performance evidence is optional, read-only calibration material for both copywriting formats. Complete the current draft and the medium-specific cross-piece check first. Then, when recorded evidence exists, use `shared/scripts/topic-memory.py --account {CURRENT_ACCOUNT} --mode performance --content-format {CONTENT_FORMAT} --limit 3`. Use only the returned same-account, same-format events. Do not open raw recommendation logs or load recommendation, feedback, rejected-topic, Candidate or Idea context.
+
+Read the published body referenced by `history_path` only when needed to identify a communication function. The path must remain inside the current account's history directory. If no usable event exists, skip calibration and do not infer performance.
+
+Interpret evidence conservatively:
+
+- **Level A — engagement only:** views, likes, saves or shares show distribution or interaction, not why the piece performed. Observe it without changing the writing strategy.
+- **Level B — business result:** valid consultation, further conversation, actual inquiry or another confirmed service result shows that the piece reached some relevant customers. It permits analysis of supported communication functions such as a concrete amount, operating result, calculation, customer scene, direct judgment or service need; it does not establish sentence-level causality.
+- **Level C — repeated evidence or explicit attribution:** the same communication function appears across different pieces with repeated business results, or the user explicitly provides a reasonable account-level attribution. Treat it only as a tendency worth further testing, never as a permanent template.
+
+Performance may support retaining or testing a communication function, making an operating result more concrete, reducing low-conversion generic explanation, or avoiding a repeated structure that has no business result. It must not determine or change the Acquisition Anchor, professional conclusion, information role, applicable scope, fixed title form, paragraph structure, CTA or persona catchphrase. Reuse a supported function only when the current topic independently fits it; never copy the earlier piece's wording or information order.
+
+Apply this priority when evidence and anti-repetition conflict:
+
+```text
+facts and applicable scope
+> Acquisition Anchor
+> current topic information relationship
+> account judgment and persona
+> medium fit
+> reliable performance evidence
+> recent repetition avoidance
+```
+
+Calibrate only a problem supported by the evidence. Do not rewrite an already suitable draft merely because performance data was available.
 
 ---
 

@@ -37,8 +37,64 @@ def run():
         assert page['has_more'] and page['next_offset'] == 1
         assert m.retrieve(db, 'feedback', limit=1, offset=1)['items'][0]['record']['signal'] == 'reinstate'
         assert len(m.retrieve(db, 'recent')['feedback']) == 2
+
+        history_root = Path(folder) / 'accounts' / 'gzminge' / '内容库' / '01-历史内容'
+        history_root.mkdir(parents=True)
+        text_paths = [
+            'accounts/gzminge/内容库/01-历史内容/2026-09-10｜短文一.md',
+            'accounts/gzminge/内容库/01-历史内容/2026-09-12｜短文二.md',
+        ]
+        spoken_path = 'accounts/gzminge/内容库/01-历史内容/2026-09-11｜口播一.md'
+        for path in text_paths + [spoken_path]:
+            target = Path(folder).joinpath(*path.split('/'))
+            target.write_text('---\nstatus: published\n---\n', encoding='utf-8')
+        for event_id, occurred_at, content_format, history_path, results, limits in (
+            ('p0', '2026-09-10T10:00:00+08:00', 'text_broadcast', text_paths[0],
+             {'views': 1000}, 'Only an engagement signal; no causal attribution.'),
+            ('p1', '2026-09-11T10:00:00+08:00', 'spoken', spoken_path,
+             {'valid_consultations': 1}, 'Single published piece.'),
+            ('p2', '2026-09-12T10:00:00+08:00', 'text_broadcast', text_paths[1],
+             {'valid_consultations': 2}, 'Reported result; expression-level cause is unknown.'),
+        ):
+            append(dict(event_id=event_id, event_type='performance', account_id='gzminge',
+                        occurred_at=occurred_at, topic_ids=['t0'], content_format=content_format,
+                        history_path=history_path, observation_window='7d', source='user_reported',
+                        results=results, attribution_limits=limits))
+        assert m.sync(db, planning, 'gzminge') == 3
+        performance = m.retrieve(
+            db, 'performance', limit=1, account='gzminge',
+            content_format='text_broadcast', repo_root=Path(folder)
+        )
+        assert performance['total'] == 2 and performance['has_more']
+        assert performance['items'][0]['event_id'] == 'p2'
+        assert performance['items'][0]['content_format'] == 'text_broadcast'
+        assert performance['items'][0]['attribution_limits'] == limits
+        assert Path(folder).joinpath(*performance['items'][0]['history_path'].split('/')).is_file()
+        second = m.retrieve(
+            db, 'performance', limit=1, offset=1, account='gzminge',
+            content_format='text_broadcast', repo_root=Path(folder)
+        )
+        assert second['items'][0]['event_id'] == 'p0' and not second['has_more']
+        assert all(item['event_id'].startswith('p') for item in performance['items'] + second['items'])
+        assert len(m.retrieve(db, 'recent')['batches']) == 5
+        assert len(m.retrieve(db, 'recent')['feedback']) == 2
+
+        empty = m.connect(Path(folder) / 'empty')
+        try:
+            no_performance = m.retrieve(
+                empty, 'performance', account='gzminge',
+                content_format='text_broadcast', repo_root=Path(folder)
+            )
+            assert no_performance['items'] == [] and no_performance['total'] == 0
+        finally:
+            empty.close()
+
         before = db.execute('SELECT COUNT(*) FROM events').fetchone()[0]
-        append(dict(event_id='bad', event_type='feedback', account_id='gzxzcs', occurred_at='now'))
+        append(dict(event_id='bad', event_type='performance', account_id='gzxzcs',
+                    occurred_at='2026-09-13T10:00:00+08:00', topic_ids=['t0'],
+                    content_format='text_broadcast', history_path=text_paths[0],
+                    observation_window='7d', source='user_reported', results={'views': 1},
+                    attribution_limits='Cross-account fixture must be rejected.'))
         try:
             m.sync(db, planning, 'gzminge')
             raise AssertionError('cross-account accepted')
@@ -52,7 +108,7 @@ def run():
         except ValueError:
             pass
         db.close()
-    print('PASS: recent bounds, old-topic search, partial replacement, incremental sync, feedback paging, account isolation, source mutation')
+    print('PASS: recent/search/feedback compatibility, performance filtering and paging, path validation, account isolation, source mutation')
 
 
 if __name__ == '__main__':

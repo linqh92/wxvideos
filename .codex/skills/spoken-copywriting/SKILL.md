@@ -22,6 +22,8 @@ description: Write acquisition-focused WeChat Video Account spoken scripts as a 
 
 用户明确引用上一阶段 Handoff 时，按 `shared/schemas/handoff-packet-schema.md` 校验，并把其中已确认选题作为唯一的上一阶段工作成果。继承其中已经确认的 Acquisition Anchor（获客核心）作为内容价值中心，不重新决定这个题为什么值得做。Handoff 中的目标客户、场景、Acquisition Anchor、核心答案、事实和条件是创作判断库存，不是正文顺序或逐项展开要求；在不改变价值中心、结论与适用范围的前提下，按本题听觉需要取舍和压缩。Handoff 中的选题来源、`selected` 反馈、同步状态和未完成 `pending_repo_actions` 只作为 Repo 元数据原样保留，不参与创作。不得读取 `topic-planning`、推荐历史、三类选题索引、未采用选题、旧草稿或上一对话；只有当前文案确实需要时才读取 Handoff 明确引用的来源路径。
 
+独立完成初稿和跨稿件表达检查后，可以按公共 Performance Calibration 规则读取经过过滤的效果证据。只允许使用锁定账号、`--content-format spoken`、`--limit 3` 的 `topic-memory.py --mode performance`；这是禁止读取推荐历史的一项窄例外。不得打开混合事件原始日志，不得用 performance 改变 Acquisition Anchor 或提供写作模板。
+
 必要账号文件缺失时报告路径；只使用当前账号上下文。账号资料中的例句、词汇列举和行为模型分别用于理解语感、业务范围和判断能力，正文措辞与推理顺序由本题生成。
 
 ## 创作目标

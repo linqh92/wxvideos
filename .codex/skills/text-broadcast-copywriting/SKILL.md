@@ -33,6 +33,8 @@ Resolve `CURRENT_ACCOUNT` and `CONTENT_FORMAT=text_broadcast` under root `AGENTS
 
 When the user explicitly references an incoming Handoff, validate it with `shared/schemas/handoff-packet-schema.md` and treat its confirmed topic as the sole prior-stage working result. Inherit its confirmed Acquisition Anchor as the content value center; do not reselect what fundamentally makes the topic worth doing. Treat its audience, scenario, anchor, answer, facts and conditions as an editorial inventory rather than a paragraph order or a list that must be verbalized item by item; select and compress them without changing the value center, conclusion or scope. Preserve its topic-origin fields, selected feedback and unresolved `pending_repo_actions` as Repo-only metadata; do not use that metadata as creative context. Do not load `topic-planning`, recommendation history, the three planning indexes, rejected topics, prior drafts or the earlier chat. Read only source paths explicitly required by the Handoff when they are necessary for the current copy.
 
+After independently completing the draft and the cross-piece check, filtered performance evidence may be read under the common Performance Calibration rules. Use only `topic-memory.py --mode performance` with the locked account, `--content-format text_broadcast` and `--limit 3`; this is a narrow exception to the recommendation-history prohibition. Do not read the raw mixed event log, and do not use performance to replace the Acquisition Anchor or supply a writing template.
+
 Treat account examples, phrases and behavior models as evidence about judgment and voice, not as reusable copy. Use only the locked account; report a missing required path instead of borrowing from another account.
 
 ## Acquisition Objective

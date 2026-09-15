@@ -48,6 +48,6 @@
 
 ## 效果回流
 
-用户明确要求记录或复盘发布效果时，可 append `performance` 事件：关联 `topic_ids`、`history_path`、`observation_window`、`source`、`results`（用户实际提供的曝光、有效咨询、进一步沟通等）与 `attribution_limits`。未知数据缺省，不填零；无法确认关联时保留未知，不猜测归因。有效咨询指符合当前账号业务范围、围绕具体业务问题的咨询；播放点赞仅作辅助。
+用户明确要求记录或复盘发布效果时，可 append `performance` 事件。新事件必须包含 `topic_ids`、`content_format`、`history_path`、`observation_window`、`source`、`results` 与 `attribution_limits`。`content_format` 只允许 `text_broadcast` 或 `spoken`；`history_path` 必须是当前账号 `01-历史内容` 下已经存在的正式历史 Markdown。`results` 只记录用户实际提供的曝光、有效咨询、进一步沟通等结果；未知数据缺省，不填零，无法确认关联或归因时在 `attribution_limits` 中明确保留。有效咨询指符合当前账号业务范围、围绕具体业务问题的咨询；播放点赞仅作辅助。
 
 后续选题按需读取相关效果摘要，不默认扫描完整复盘。自动历史延展属于内容推演，不能当成真实客户反馈。
