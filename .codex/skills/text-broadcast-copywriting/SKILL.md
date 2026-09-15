@@ -31,7 +31,7 @@ Resolve `CURRENT_ACCOUNT` and `CONTENT_FORMAT=text_broadcast` under root `AGENTS
 4. `accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号人设与文风.md` for the shared persona layer and the text-broadcast adaptation layer;
 5. `references/text-broadcast-reading-and-editing.md` for visual-reading capacity, line-break craft and reduction checks.
 
-When the user explicitly references an incoming Handoff, validate it with `shared/schemas/handoff-packet-schema.md` and treat its confirmed topic as the sole prior-stage working result. Treat its audience, scenario, answer, facts and conditions as an editorial inventory rather than a paragraph order or a list that must be verbalized item by item; select and compress them without changing the conclusion or scope. Preserve its topic-origin fields, selected feedback and unresolved `pending_repo_actions` as Repo-only metadata; do not use that metadata as creative context. Do not load `topic-planning`, recommendation history, the three planning indexes, rejected topics, prior drafts or the earlier chat. Read only source paths explicitly required by the Handoff when they are necessary for the current copy.
+When the user explicitly references an incoming Handoff, validate it with `shared/schemas/handoff-packet-schema.md` and treat its confirmed topic as the sole prior-stage working result. Inherit its confirmed Acquisition Anchor as the content value center; do not reselect what fundamentally makes the topic worth doing. Treat its audience, scenario, anchor, answer, facts and conditions as an editorial inventory rather than a paragraph order or a list that must be verbalized item by item; select and compress them without changing the value center, conclusion or scope. Preserve its topic-origin fields, selected feedback and unresolved `pending_repo_actions` as Repo-only metadata; do not use that metadata as creative context. Do not load `topic-planning`, recommendation history, the three planning indexes, rejected topics, prior drafts or the earlier chat. Read only source paths explicitly required by the Handoff when they are necessary for the current copy.
 
 Treat account examples, phrases and behavior models as evidence about judgment and voice, not as reusable copy. Use only the locked account; report a missing required path instead of borrowing from another account.
 
@@ -47,13 +47,15 @@ Knowledge completeness, elegant wording, persona performance and mechanical form
 
 ### 1. Establish the editorial brief
 
-Form one compact internal brief: the exact customer and operating situation, the decision question, the strongest supported acquisition point, the available direct or branch conclusion, every conclusion-changing condition, and the real service step in which this account may be useful.
+Form one compact internal brief: the exact customer and operating situation, the decision question, the confirmed Acquisition Anchor when supplied by a valid Handoff or otherwise the strongest supported acquisition point, the available direct or branch conclusion, every conclusion-changing condition, and the real service step in which this account may be useful.
 
 Industry familiarity must affect the choice of angle and information, not merely add finance-and-tax vocabulary. Translate professional logic into consequences the customer recognizes in money, cost, cash flow, qualification, time, responsibility, operating choice or execution difficulty.
 
 ### 2. Choose the acquisition expression
 
-Compare a small number of viable angles internally. Select the one with the strongest combination of customer relevance, first-screen value, professional trust, factual support and service connection.
+When a valid Handoff supplies an Acquisition Anchor, preserve that value center and adapt how it appears in silent, small-screen reading. You may change wording, title, information order, first-screen form, compression and number presentation. Change the anchor itself only when it conflicts with verified facts, exceeds the permitted information-role strength, cannot be carried within the medium without becoming misleading, or the user explicitly requests a different angle.
+
+When the topic is supplied directly without a Handoff, compare a small number of viable angles internally and select the one with the strongest combination of customer relevance, first-screen value, professional trust, factual support and service connection.
 
 Identify the most valuable information and the relationship that already exists among the topic's facts. Results, conclusions, numbers, benefits, losses, concrete operating scenes, process obstacles, comparisons, causes, conditions and supported cognitive conflict are possible entry points, not required slots.
 
@@ -129,6 +131,7 @@ Read the complete piece without imagined voice performance and revise any part t
 | Account role | 切口、取舍、解释和客户关系是否由当前账号资料支持，而不是通用财税口吻？ |
 | Conversion | 内容是否展示了有用判断，并从真实应用或执行需求形成自然的服务关联？ |
 | Medium | 静音阅读是否顺畅？首屏、行长、换行和信息密度是否适合短文字幕？ |
+| Handoff fidelity | 如果任务通过已确认 Handoff 进入，最终标题、首屏和正文是否保留或强化了 Acquisition Anchor？如发生实质改变，是否由事实可靠性、信息身份边界、载体限制或用户明确要求所驱动？ |
 | Progression | 开场、推进和结尾是否由本题的信息关系产生？是否为了显得有判断、制造冲突或完成固定结构，先假设客户理解错误？ |
 | Ending | 结尾是否停在本题最合适的结论、结果、差异、条件、经营含义或必要动作上，而不是默认变成行动指令？ |
 | Independence | 当前表达是否由本题生成，而不是固定模式、上一稿结构或例句改写？ |
@@ -151,7 +154,7 @@ Output only the body copy with final visual line breaks. By default, do not expo
 
 By default, output only:
 
-1. three genuinely different acquisition title directions;
+1. three genuinely different acquisition title expressions; when a Handoff is present, all must preserve the confirmed Acquisition Anchor;
 2. one standard/search-recognition title;
 3. one short title;
 4. one finalized body with text-broadcast line breaks.
