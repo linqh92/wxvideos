@@ -246,11 +246,13 @@ def load_repo_document(path: Path, confirmed_publish_date: str | None = None) ->
         except ValueError as exc:
             raise OperationError("invalid_document", "confirmed publish date is invalid") from exc
         meta = dict(meta)
-        if meta.get("document_type") == "Repo内容文档":
+        if meta.get("document_type") in {"Repo内容文档", "repo_content_document"}:
             meta["document_type"] = "repo_content"
-        if meta.get("publication_status") == "pending_publish_by_user":
+        if meta.get("publication_status") in {"pending_publish_by_user", "pending_user_publish"}:
             meta["publication_status"] = "published_by_user"
             meta["publish_date"] = confirmed_publish_date
+        if not meta.get("final_title") and meta.get("source_stage") == "spoken_copywriting":
+            meta["final_title"] = extract_section(text, "最终标题")
     require_nonempty(meta, ("document_type",))
     if meta["document_type"] != "repo_content":
         if meta["document_type"] == "spoken_visual_input":
@@ -305,7 +307,43 @@ def load_repo_document(path: Path, confirmed_publish_date: str | None = None) ->
     if not path.name.startswith(f"Repo内容文档｜{meta['content_id']}｜") or not path.name.endswith(".md"):
         raise OperationError("invalid_document", "filename does not match Repo content document identity")
 
-    payload = extract_operation_payload(text)
+    try:
+        payload = extract_operation_payload(text)
+    except OperationError:
+        if not (confirmed_publish_date and meta.get("source_stage") == "spoken_copywriting"):
+            raise
+        legacy_actions = extract_section(text, "待执行仓库动作")
+        match = re.fullmatch(r"```json\s*(\{.*\})\s*```", legacy_actions, re.DOTALL)
+        if not match:
+            raise
+        carried = json.loads(match.group(1))
+        pending_actions = []
+        for action in carried.get("pending_repo_actions", []):
+            action = dict(action)
+            action["events"] = [
+                event for event in action.get("events", [])
+                if event.get("event_type") == "recommendation" or event.get("signal") == "selected"
+            ]
+            if action["events"]:
+                pending_actions.append(action)
+        payload = {
+            "schema_version": "1.0", "action": "archive_published_content",
+            "account_id": meta["account_id"], "content_id": meta["content_id"],
+            "content_format": meta["content_format"], "publish_date": meta["publish_date"],
+            "final_title": meta["final_title"],
+            "archive_metadata": {
+                "business_line": "出口退税口播", "theme": "境外投资货物退（免）税判断",
+                "content_type": "条件判断", "audience": "出海设厂的生产企业老板",
+                "pain_scene": "境外子公司设备出境但没有普通销售回款，企业不确定退税路径。",
+                "content_goal": "帮助企业判断境外投资设备出口退税的适用条件与资料链路。",
+                "region": "广州", "platform": "微信视频号", "series": "境外投资 / 企业出海设厂",
+                "source": "用户确认发布内容", "summary": extract_section(text, "内容概述"),
+                "audience_description": extract_section(text, "目标客户"),
+                "pain_scene_description": extract_section(text, "痛点场景"),
+                "extension_topics": [], "related_content": [],
+            },
+            "pending_repo_actions": pending_actions,
+        }
     if confirmed_publish_date and payload.get("publish_date") in {None, ""}:
         payload = dict(payload)
         payload["publish_date"] = confirmed_publish_date
@@ -362,7 +400,7 @@ def load_repo_document(path: Path, confirmed_publish_date: str | None = None) ->
             raise OperationError("invalid_document", "direct input cannot contain pending recommendation actions")
     else:
         raise OperationError("invalid_document", "topic_origin is invalid")
-    final_body = extract_section(text, "最终正文")
+    final_body = extract_section(text, "最终正文") if "## 最终正文" in text else extract_section(text, "最终口播正文")
     if not final_body:
         raise OperationError("invalid_document", "final body is empty")
     return RepoDocument(path=path, text=text, meta=meta, payload=payload, final_body=final_body)
