@@ -59,4 +59,4 @@ This reference applies ONLY to `spoken-copywriting` and MUST NOT be inherited by
 
 判断句子的价值时同时考虑信息、停留、情绪、人物关系、信任与咨询意愿。有作用的人物观察和自然承接可以保留。发现问题后针对性修改，保留已成立的表达。
 
-同时检查当前稿件的信息推进方式。认知纠偏应来自本题确实存在、并会影响客户行动的误解；如果一个要点不需要先否定客户也能成立，就顺着结果、原因、条件、比较、步骤或动作直接说明。避免为了显得有判断而反复把客户放在被纠正的位置，具体取舍仍由当前角色、客户关系和题目决定。
+Apply the common Mandatory Expression Contract to the opening, each judgment-bearing point, transitions and ending. State results, reasons, condition-to-result branches, comparisons and actions directly. Denial-and-correction rhetoric is the last resort under that contract; persona and conversational rhythm cannot raise its priority. Each point must leave the listener with a clear answer or precisely identified uncertainty. Perform this check even when no previous script is available.

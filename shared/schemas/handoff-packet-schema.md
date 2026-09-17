@@ -75,6 +75,7 @@ feedback_event_id: "uuid"
 完整放入下一阶段实际需要的确认内容，不依赖上一对话才能理解。
 
 - Acquisition Anchor（获客核心）：<选题阶段已经确认、最值得目标客户停留的具体价值中心>
+- 核心答案：<有依据的直接结论或条件对应结果；信息确实不足时，写清已知判断、决定性缺口及其影响>
 
 ## 选题来源与反馈
 
@@ -138,6 +139,14 @@ ChatGPT“对话”模式通过 GitHub 集成读取仓库时，不得为生成 H
 Acquisition Anchor 是选题阶段已经确认的、最值得目标客户停留的具体信息，可以是结果、数字、利益、损失、经营冲突、决策张力或流程障碍。选题推荐中的“获客钩子”在生成 Handoff 时作为 Acquisition Anchor 交接，不在交接阶段重新判断。它说明“为什么这个题值得做”，不是固定标题、开场句、正文模板或信息顺序。下游可以按载体调整表达，但不得无理由改变这一价值中心。
 
 上述目标客户、场景、Acquisition Anchor、答案、事实与条件是下一阶段的判断库存，不代表成稿段落顺序、句法结构、资料清单或逐项展开要求。文案阶段在不改变获客价值中心、核心答案、事实身份和适用范围的前提下，按载体容量选择最少必要信息；未进入正文的辅助资料和非决定性检查项不视为交接遗漏。
+
+### Answer Readiness
+
+Populate the existing core-answer content with a supported direct conclusion or explicit condition-to-result branches. Where decisive information is missing, distinguish what is already established from the exact unresolved input and the outcome it controls. `可能`, `不一定`, `要看情况`, a list of verification items, or a warning alone is not a usable core answer. Do not invent certainty or label pending verification as a confirmed fact.
+
+Topic planning checks answer readiness before delivery. Copywriting checks it again from the supplied packet and necessary cited sources; it must not translate unresolved items into vague body copy. Resolve a gap from authorized sources when possible, or request only the missing decisive information if it blocks a reliable answer. Keep the selected topic, identity and metadata intact. Existing packets may express the answer in prose; no new frontmatter field or version is required.
+
+Preserve the confirmed meaning, not denial-first phrasing. A corrective hook in the packet does not oblige the next chat to use a corrective title, opening or sentence structure. Explicit user-preserved wording remains subject to factual boundaries. Do not copy global writing rules into the packet.
 
 多选时分别生成的每份 Handoff 只把当前被选定题目放入“已确认成果”和创作上下文；共享 recommendation payload 中出现的其余推荐项只用于 Repo 补写，不得被文案阶段当作第二个选题。
 

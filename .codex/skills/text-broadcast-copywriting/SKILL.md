@@ -26,7 +26,7 @@ Use this Skill only for `CONTENT_FORMAT=text_broadcast` after the topic is confi
 Resolve `CURRENT_ACCOUNT` and `CONTENT_FORMAT=text_broadcast` under root `AGENTS.md`, then read:
 
 1. `shared/rules/acquisition-and-fact-framing.md` for information roles, permitted sources, verification and acquisition strength;
-2. `shared/rules/copywriting-common-rules.md` for account context, title, interaction, fact, platform and output boundaries;
+2. `shared/rules/copywriting-common-rules.md` for account context, title, interaction, fact, platform and output boundaries, and its mandatory expression contract, section 5 conclusion mechanism and release gate;
 3. `accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号基本定位.md` for business scope, target customers and service relationship;
 4. `accounts/{CURRENT_ACCOUNT}/内容库/00-首页与维护规则/账号人设与文风.md` for the shared persona layer and the text-broadcast adaptation layer;
 5. `references/text-broadcast-reading-and-editing.md` for visual-reading capacity, line-break craft and reduction checks.
@@ -61,7 +61,7 @@ When the topic is supplied directly without a Handoff, compare a small number of
 
 Identify the most valuable information and the relationship that already exists among the topic's facts. Results, conclusions, numbers, benefits, losses, concrete operating scenes, process obstacles, comparisons, causes, conditions and supported cognitive conflict are possible entry points, not required slots.
 
-Use cognitive correction only when the customer is likely to hold that judgment and correcting it changes a decision or action. If removing the assumed misconception leaves a complete and more natural point, state the result, fact, reason, comparison, condition or action directly.
+Use direct expression first. Denial-and-correction rhetoric has the lowest priority and must pass the common release gate even when the topic concerns a genuine misconception. State the correct result, fact, reason, comparison, condition or action without a denial-first setup whenever that communicates the judgment.
 
 When a user supplies a reference, preserve or rebuild its useful acquisition functions at equal role-appropriate strength. Do not remove its strongest number, outcome, audience callout, suspense or service connection merely because the wording must be rewritten.
 
@@ -83,7 +83,7 @@ Text-broadcast content is consumed through silent visual reading. The final copy
 
 Treat the first screen as an acquisition decision point. Establish concrete relevance, a result, a supported conclusion, a meaningful benefit or loss, a valuable number, a business conflict or a real decision question within no more than four lines.
 
-Choose the strongest opening for this customer and topic; do not follow a fixed priority list. A scene may create relevance, but it must not postpone the actual issue merely to manufacture `代入感`. Greetings, course-like setup and generic reminders do not count as opening value.
+Choose the strongest opening for this customer and topic among direct forms without a fixed ordering. Denial-and-correction rhetoric remains the last resort under the common contract. A scene may create relevance, but it must not postpone the actual issue merely to manufacture `代入感`. Greetings, course-like setup and generic reminders do not count as opening value.
 
 Non-critical context may appear later. Every conclusion-changing condition must remain visible before the reader could reasonably overgeneralize the answer.
 
@@ -122,6 +122,8 @@ Classify material claims under `shared/rules/acquisition-and-fact-framing.md` be
 When the facts and governing basis are sufficient, state the conclusion directly with its scope. Do not downgrade a supported judgment into vague reminders because the topic is professional or sensitive. When evidence is insufficient, keep the exact uncertainty visible and do not manufacture certainty.
 
 ## Quality Review
+
+Run the common Mandatory Expression Contract and release gate for every delivery. Check the first screen, every judgment-bearing point and the ending in silent reading; a clear overall conclusion does not excuse vague supporting judgments. This check applies without history or earlier-chat context.
 
 Read the complete piece without imagined voice performance and revise any part that fails the intended result:
 

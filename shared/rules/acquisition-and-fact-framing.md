@@ -80,6 +80,8 @@ A professional conclusion must:
 - remain independent from any discussion claim used in the hook;
 - avoid guarantees about processing, refunds, compliance, penalties, tax burden, or business results.
 
+State supported conclusions directly within their verified scope. A known condition must lead to its supported result; genuine missing information must be named precisely alongside what is already known. Accuracy does not require probability language for an established rule, calculation or obligation. Copywriting must apply the Mandatory Expression Contract in `shared/rules/copywriting-common-rules.md` to every judgment-bearing point.
+
 ## Source Modes
 
 ### Reference Available
@@ -97,7 +99,7 @@ When the user asks to follow a reference, preserve acquisition points, or stay c
 
 These are possible functions, not a mandatory checklist. Preserve a cognitive conflict when it is genuinely present and useful; do not create an audience misconception merely to make the material feel more dramatic.
 
-Preserve the reference's useful function, not its sentence pattern or information order. Re-select the opening and progression for the current account, topic and medium; retain a correction structure only when the misconception itself is necessary to the judgment.
+Preserve the reference's useful function, not its sentence pattern or information order. Re-select the opening and progression for the current account, topic and medium. Express the correct result or difference directly first; a misconception-based topic does not require denial-first rhetoric. In copywriting, retain a correction structure only under the last-resort conditions in the Mandatory Expression Contract.
 
 Adjust only the factual commitment that exceeds the claim's role. Lack of an official case source is not by itself a reason to turn a sourced discussion hook into a generic question, vague warning, or low-intensity setup.
 

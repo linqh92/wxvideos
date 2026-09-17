@@ -14,6 +14,30 @@ All copywriting also follows `shared/rules/acquisition-and-fact-framing.md`. Tha
 
 Do NOT duplicate these rules inside individual Skills unless a short reference is required for clarity.
 
+### Mandatory Expression Contract
+
+The Explicit Conclusion Mechanism in section 5 and the Direct Expression and Release Gate below are mandatory for every account, both formats, and every title or body delivery. They are exceptions to the diagnostic-reference scope above. Apply them in each independent chat, including direct-topic requests and revisions, without relying on earlier chats, published samples or performance evidence. Persona, restrained tone, editorial freedom and expression intensity cannot waive them. Facts and applicable scope remain binding.
+
+### Direct Expression and Release Gate
+
+Directly state the supported conclusion, fact, cause, difference, condition-to-result relationship or action. Choose freely among these forms according to the topic and medium; this is not a fixed paragraph sequence.
+
+Denial-and-correction rhetoric has the lowest expression priority. Rewrite patterns such as `不是……而是……`, `不是……要看……`, `不代表……`, `不等于……`, `别以为……`, `你以为……其实……` and semantic equivalents into direct statements by default. Correcting a misconception as a topic does not require a corrective sentence pattern. Numbers, comparisons, humor, suspense and cognitive conflict do not by themselves justify denial-first wording.
+
+Retain such rhetoric only when all three conditions hold: a specific misconception is supplied or supported by the material; leaving it unaddressed would materially change the customer's decision; a direct statement or explicit branch would leave that misconception unresolved. Use only the minimum correction needed at that point, and immediately supply the correct conclusion. Do not repeat it as the title, opening, transition and ending mechanism. An explicit user request for a corrective form may select it within factual boundaries.
+
+Direct negative conclusions such as `不能办理`, `不得抵扣`, `不符合条件` and factual comparisons are not denial-and-correction rhetoric. Keep them when supported. Evaluate meaning rather than banning strings or replacing them with synonyms.
+
+Before each delivery, inspect titles, the first screen or spoken opening, every judgment-bearing point, and the ending:
+
+1. Each decision question has a supported answer, explicit condition-to-result branches, or a precise unresolved input together with what can already be concluded. A list of things to check is not an answer.
+2. Each softener passes section 5. Known conditions produce branches rather than vague probability. Do not convert genuine uncertainty into certainty.
+3. Each corrective phrase passes the three conditions above; otherwise rewrite it directly, even if it appears only once and no historical sample exists.
+4. Necessary scope and verified obligations remain intact. The title's commitment is fulfilled by the body; no unsupported benefit, case or outcome has been introduced.
+5. The account's voice and medium remain recognizable. Clear conclusions do not require every sentence to be a verdict, every opening to state the answer, or every ending to issue an instruction.
+
+Revise failed points before release. Keep the review internal unless the user requests it. This gate supplements, and never depends on, cross-piece repetition checks.
+
 ---
 
 ## 1. Required Account Context（必读账号上下文）
@@ -140,7 +164,7 @@ Let the information order follow the relationship that already exists in the top
 
 Do not add a setup, correction, explanation block, condition block or final action merely to complete a familiar sequence. Conditions define the boundary of a conclusion; they MUST NOT replace or bury the conclusion.
 
-Cognitive conflict is one optional acquisition resource. Use it when the audience's existing assumption is materially different from the supported judgment and correcting that assumption changes understanding or action. Do not invent a mistaken belief, or turn every point into a correction, merely to create tension. A concrete scene, result, number, benefit, loss, decision, process obstacle, or useful question may provide an equally strong reason to continue.
+Cognitive conflict is an optional acquisition resource. Express its useful result or difference directly first. Denial-and-correction rhetoric is a last resort under the Mandatory Expression Contract, even when a misconception genuinely exists. Do not invent a mistaken belief to create tension.
 
 ---
 
@@ -174,13 +198,13 @@ If the topic lacks enough factual support:
 
 ### Explicit Conclusion Mechanism（明确结论机制）
 
-Before drafting, identify the exact decision question, the strongest reliable answer, every condition that changes that answer, and the practical result that matters to the audience. Then choose one conclusion form:
+Before drafting, identify the exact decision question, the strongest reliable answer, every condition that changes that answer, and the practical result that matters to the audience. Apply this to the central question and every judgment-bearing point, including comparisons, calculations, explanations and recommendations. Choose the appropriate conclusion form for each point:
 
 - sufficient facts → answer directly: will / will not, can / cannot, affects / does not affect, or which option fits;
 - known conditions produce different answers → state clear condition-to-conclusion branches;
-- decisive information is genuinely missing → name only what is missing, why it controls the answer, and what must be verified next.
+- decisive information is genuinely missing → state what can already be concluded, identify the exact missing input and the answer it controls, and explain the next verification when useful. If no outcome is supported, explicitly state that this outcome cannot yet be determined and why. Do not substitute a checklist for known conclusions, or invent branches without a governing basis.
 
-After completing the draft, run one conclusion-strength pass. Inspect `可能`, `或许`, `也许`, `应该`, `大概率`, `一般来说`, `通常`, `需要注意`, `建议关注`, `具体情况` and equivalent wording in context:
+After completing the draft, run the mandatory conclusion-strength pass. Inspect `可能`, `不一定`, `或许`, `也许`, `应该`, `大概率`, `一般来说`, `通常`, `需要注意`, `建议关注`, `具体情况` and equivalent wording in context:
 
 - if removing the softener leaves the statement accurate and properly scoped, remove it;
 - if the result depends on a known condition, state the condition and conclusion instead of turning the condition into probability;
@@ -246,8 +270,10 @@ Emotion MUST NOT exist independently of facts.
 
 ## 8. Expression Intensity（表达强度）
 
+Intensity controls emotional pressure, pacing and emphasis. All levels must give equally clear supported conclusions under the Mandatory Expression Contract; directness needs no request for aggressive expression. Sensitivity or a calm persona alone never justifies hedging. Preserve genuine uncertainty precisely at every level.
+
 ### Level 1 | Conservative / Steady（稳健型）
-Use when facts are incomplete, the conclusion is highly uncertain, the topic is sensitive, an authoritative source cannot be verified, a critical applicability condition is unknown, or the account/user requires restraint.
+Use when facts are incomplete, the outcome is genuinely uncertain, an authoritative source cannot be verified, a critical applicability condition is unknown, or the account/user requires restrained emotional delivery. Sensitive topics may require restrained pressure while retaining direct supported judgments.
 
 Requirements:
 - Preserve specific impacts
@@ -521,8 +547,8 @@ Strong expression is the default when:
 Discussion claims may use strong numbers, results, losses, risk language, and audience callouts when the discussion framing remains clear and the body supplies an independent professional judgment. Hypothetical scenarios may use strong calculated outcomes when their assumptions are visible.
 
 Do not use the following as the authorial conclusion, factual endorsement, or promise:
-- Absolute or universal judgments
-- Inevitable outcomes
+- Unsupported absolute or universal judgments, or judgments extended beyond verified scope
+- Inevitable outcomes asserted without a governing basis
 - False urgency
 - Fabricated authority endorsements
 - Fabricated insider information
@@ -692,8 +718,8 @@ Only disclose a factual limitation when necessary for correctness.
 > 能下结论时直接回答；不能一刀切时给分支结论。
 > Answer directly when possible; give branch conclusions when one universal answer would be inaccurate.
 
-> 获客张力来自当前客户真实在意的处境、结果、利益和决策；认知纠偏只在它确实改变理解或行动时使用。
-> Acquisition tension comes from the customer's real situation, result, interest, and decision; use cognitive correction only when it materially changes understanding or action.
+> 获客张力来自客户在意的处境、结果、利益和决策；直接表达优先，否定纠偏句式最后考虑。
+> Acquisition tension comes from the customer's real situation, result, interest and decision. Prefer direct expression; denial-and-correction rhetoric must pass the mandatory last-resort test.
 
 > 条件负责限定结论，不负责掩盖结论。
 > Conditions define the conclusion's boundary; they do not hide it.

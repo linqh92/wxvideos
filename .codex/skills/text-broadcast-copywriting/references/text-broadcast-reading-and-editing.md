@@ -61,7 +61,7 @@ Identify what the reader must understand from the material already available:
 - when an action affects a result, make the action and consequence legible;
 - when upstream and downstream facts interact, include only the links needed for the current conclusion;
 - when a process obstacle is the real issue, show where it blocks the result and what can be judged from it;
-- when a consequential misconception genuinely exists, correct it without turning the rest of the piece into repeated denial and reveal.
+- when a consequential misconception genuinely exists, state the correct conclusion directly; denial-first wording must pass the common Mandatory Expression Contract's last-resort test.
 
 These are editing decisions, not templates or modes. Choose the reading path from the topic, audience and account role. Do not invent a change, trend, result or audience misconception to create a stronger shape.
 
@@ -70,6 +70,8 @@ These are editing decisions, not templates or modes. Choose the reading path fro
 Stop where the current piece becomes complete. The ending may carry a conclusion, result, decisive difference, condition, operating implication or necessary action. Do not add an instruction, checklist, consultation cue or `先…再…` sequence merely because short-form copy is expected to end with something actionable.
 
 ## Reduction Pass
+
+Apply the common mandatory release gate before shortening. Keep the conclusion and its decisive scope for every judgment-bearing point; do not save space by replacing a branch with `可能` or `不一定`. A first screen built on unnecessary denial must be rewritten even without any historical comparison.
 
 After the first complete draft:
 

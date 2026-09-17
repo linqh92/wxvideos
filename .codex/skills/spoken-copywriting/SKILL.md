@@ -16,7 +16,7 @@ description: Write acquisition-focused WeChat Video Account spoken scripts as a 
 ## 必读上下文
 
 1. `shared/rules/acquisition-and-fact-framing.md`：信息身份、来源、核验与获客表达边界。
-2. `shared/rules/copywriting-common-rules.md`：按其“载体适用范围”读取公共边界与交付约定。
+2. `shared/rules/copywriting-common-rules.md`: load its applicable common boundaries and output agreement, including the Mandatory Expression Contract, section 5 conclusion mechanism and release gate for every delivery.
 3. 当前账号 `账号基本定位.md` 和 `账号人设与文风.md`：路径由公共规则指定；从共同人物层理解专业视角与客户关系，并按口播适配层生成自然说话，结合原文理解适用条件。
 4. `references/chinese-spoken-naturalness.md`：口播听觉表达与跨稿件重复检查。
 
@@ -50,13 +50,13 @@ description: Write acquisition-focused WeChat Video Account spoken scripts as a 
 
 用户直接给题且没有 Handoff 时，在内部比较少量适合本题的切口，选择客户相关性、停留理由、可信度与服务关联综合最强的一种。保持当前账号的专业视角：角色差异可以改变关注点和讲法，事实相同且条件相同的专业结论应一致。
 
-开场直接让目标客户知道为什么值得听。场景、结果、数字、利益、业务冲突、决策、处理障碍或提问都可使用，依据材料与角色决定。认知纠偏只在客户确实可能持有该判断、且修正它会影响理解或行动时使用；它是内容级可选切口，不是每个要点的推进动作。可靠答案应在听众需要它的位置出现；铺垫只有在增加理解、代入或继续听的理由时才保留。
+Make the opening's customer value clear through a scene, result, number, benefit, business conflict, decision, process obstacle or useful question. Direct expression is the default. Denial-and-correction rhetoric has the lowest priority and must satisfy the common release gate, including for misconception topics. Place the supported answer where the listener needs it; keep setup only when it improves understanding, relevance or retention.
 
 参考内容由用户提供或指定时，提取其目标客户命中、数字反差、结果张力、信息释放和咨询承接功能。保留同等可用强度与正确的信息身份，用当前账号的判断和表达重新组织。匿名讨论来源的核验处理遵循公共规则。
 
 ### 3. 直接生成这个人的说话
 
-想象出镜者面对本题的目标客户，直接生成可以说出口的完整口播。内容顺序由问题关系、客户理解和人物说话习惯共同决定，可以顺着场景、结果、原因、条件、比较、步骤或动作自然推进。无需为了制造停留而在每个要点前先假设客户理解错误。案例、计算、对比、解释、反问、纠偏与幽默都是按需使用的手段。
+Imagine the speaker addressing this topic's customer and write complete, speakable copy. Let the problem, listener comprehension and speaker's habits determine the order of scenes, results, reasons, conditions, comparisons, steps or actions. Use cases, calculations, explanations, questions and humor when useful. Apply the common last-resort test separately to any denial-and-correction rhetoric.
 
 一篇聚焦一个有获客价值的问题，给出直接答案、可区分的分支答案，或确实缺失的决定性信息。只展开影响这个问题的专业内容。角色的稳定性体现在看问题的方式与客户关系；业务对象和用词必须对当前题目有实际作用。
 
@@ -65,6 +65,8 @@ description: Write acquisition-focused WeChat Video Account spoken scripts as a 
 篇幅按用户要求 → 指定参考 → 题目实际需要 → 默认标准口播选择。快速口播通常约 280 字以内，标准约 450 字以内，复杂主题约 750 字以内；这些是容量参考。问题讲清楚后自然结束。
 
 ### 4. 编辑与验收
+
+Run the common Mandatory Expression Contract and release gate before every delivery. Listen for the answer at each judgment-bearing point as well as the central question; a clear ending cannot compensate for vague explanations. Check the opening and every transition for unnecessary denial-and-correction rhetoric. Apply this independently of earlier chats or published samples, while preserving the speaker's natural rhythm and persona.
 
 通读整篇，集中检查以下结果，发现具体问题时修改相关部分：
 
