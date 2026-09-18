@@ -3,6 +3,7 @@ import argparse
 import hashlib
 import json
 import sqlite3
+import time
 from pathlib import Path, PurePosixPath
 
 ACCOUNTS = ('gzminge', 'gzxzcs', 'qycslc', 'gzcktxpp', 'tsxbj', 'gzlxcs')
@@ -185,7 +186,7 @@ def retrieve(db, mode, terms=(), limit=10, offset=0, *, account=None,
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--account', required=True, choices=ACCOUNTS)
-    parser.add_argument('--mode', choices=('sync', 'recent', 'feedback', 'performance', 'search'), default='recent')
+    parser.add_argument('--mode', choices=('sync', 'rebuild', 'recent', 'feedback', 'performance', 'search'), default='recent')
     parser.add_argument('--content-format', choices=('text_broadcast', 'spoken'))
     parser.add_argument('--terms', nargs='*', default=[])
     parser.add_argument('--limit', type=int, default=10)
@@ -201,11 +202,18 @@ def main():
     planning = root / 'accounts' / args.account / '内容库' / '03-选题规划'
     if not planning.is_dir():
         parser.error('Account planning directory missing')
+    cache = planning / '推荐记录' / '_retrieval.sqlite'
+    backup = None
+    if args.mode == 'rebuild' and cache.exists():
+        backup = cache.with_name(f'{cache.name}.bak-{int(time.time())}')
+        cache.replace(backup)
     db = connect(planning)
     try:
         added = sync(db, planning, args.account)
         output = {'added_events': added}
-        if args.mode != 'sync':
+        if backup:
+            output['cache_backup'] = backup.name
+        if args.mode not in {'sync', 'rebuild'}:
             output.update(retrieve(
                 db, args.mode, args.terms, args.limit, args.offset,
                 account=args.account, content_format=args.content_format, repo_root=root

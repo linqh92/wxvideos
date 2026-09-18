@@ -248,11 +248,25 @@ def load_repo_document(path: Path, confirmed_publish_date: str | None = None) ->
         meta = dict(meta)
         if meta.get("document_type") in {"Repo内容文档", "repo_content_document"}:
             meta["document_type"] = "repo_content"
-        if meta.get("publication_status") in {"pending_publish_by_user", "pending_user_publish"}:
+        if meta.get("publication_status") in {"pending_publish_by_user", "pending_user_publish", "not_published"}:
             meta["publication_status"] = "published_by_user"
             meta["publish_date"] = confirmed_publish_date
-        if not meta.get("final_title") and meta.get("source_stage") == "spoken_copywriting":
-            meta["final_title"] = extract_section(text, "最终标题")
+        if not meta.get("final_title"):
+            title_match = re.search(r"^-\s*final_title:\s*(.+)$", text, re.MULTILINE)
+            published_match = re.search(r"^-\s*主标题：\s*(.+)$", text, re.MULTILINE)
+            if title_match or published_match:
+                meta["final_title"] = (title_match or published_match).group(1).strip()
+            elif meta.get("source_stage") == "spoken_copywriting":
+                meta["final_title"] = extract_section(text, "最终标题")
+        if confirmed_publish_date and "## 待执行仓库动作" in text:
+            for field in (
+                "topic_origin", "recommendation_batch_id", "topic_id",
+                "topic_feedback_status", "feedback_event_id", "repo_sync_status",
+            ):
+                if not meta.get(field):
+                    field_match = re.search(rf"^-\s*{re.escape(field)}:\s*(.+)$", text, re.MULTILINE)
+                    if field_match:
+                        meta[field] = field_match.group(1).strip()
     require_nonempty(meta, ("document_type",))
     if meta["document_type"] != "repo_content":
         if meta["document_type"] == "spoken_visual_input":
@@ -310,7 +324,7 @@ def load_repo_document(path: Path, confirmed_publish_date: str | None = None) ->
     try:
         payload = extract_operation_payload(text)
     except OperationError:
-        if not (confirmed_publish_date and meta.get("source_stage") == "spoken_copywriting"):
+        if not (confirmed_publish_date and "## 待执行仓库动作" in text):
             raise
         legacy_actions = extract_section(text, "待执行仓库动作")
         match = re.fullmatch(r"```json\s*(\{.*\})\s*```", legacy_actions, re.DOTALL)
@@ -326,22 +340,41 @@ def load_repo_document(path: Path, confirmed_publish_date: str | None = None) ->
             ]
             if action["events"]:
                 pending_actions.append(action)
+        def legacy_value(label: str, default: str = "") -> str:
+            value_match = re.search(rf"^-\s*{re.escape(label)}[：:]\s*(.+)$", text, re.MULTILINE)
+            return value_match.group(1).strip() if value_match else default
+
+        def legacy_section(heading: str, default: str = "") -> str:
+            section_match = re.search(
+                rf"^#{{2,3}}\s+{re.escape(heading)}\s*$\r?\n(?P<body>.*?)(?=^#{{2,3}}\s+|\Z)",
+                text,
+                re.MULTILINE | re.DOTALL,
+            )
+            return section_match.group("body").strip() if section_match else default
+
+        legacy_metadata = {
+            "business_line": legacy_value("business_line", "出口业务链路与单证"),
+            "theme": legacy_value("theme", "报关与单证管理"),
+            "content_type": legacy_value("content_type", "操作指南"),
+            "audience": legacy_value("audience", "遇到报关或单证问题的出口企业"),
+            "pain_scene": legacy_value("pain_scene", legacy_value("核心场景")),
+            "content_goal": legacy_value("content_goal", "帮助企业按实际出口业务完善退税资料与风险判断。"),
+            "region": legacy_value("region", "广州"),
+            "platform": legacy_value("platform", "微信视频号"),
+            "series": legacy_value("series", legacy_value("主题短名", "出口业务资料管理")),
+            "source": "用户确认发布内容",
+            "summary": legacy_section("内容概述", legacy_value("核心结论")),
+            "audience_description": legacy_value("目标客户", legacy_value("audience")),
+            "pain_scene_description": legacy_value("核心场景", legacy_value("pain_scene")),
+            "extension_topics": [],
+            "related_content": [],
+        }
         payload = {
             "schema_version": "1.0", "action": "archive_published_content",
             "account_id": meta["account_id"], "content_id": meta["content_id"],
             "content_format": meta["content_format"], "publish_date": meta["publish_date"],
             "final_title": meta["final_title"],
-            "archive_metadata": {
-                "business_line": "出口退税口播", "theme": "境外投资货物退（免）税判断",
-                "content_type": "条件判断", "audience": "出海设厂的生产企业老板",
-                "pain_scene": "境外子公司设备出境但没有普通销售回款，企业不确定退税路径。",
-                "content_goal": "帮助企业判断境外投资设备出口退税的适用条件与资料链路。",
-                "region": "广州", "platform": "微信视频号", "series": "境外投资 / 企业出海设厂",
-                "source": "用户确认发布内容", "summary": extract_section(text, "内容概述"),
-                "audience_description": extract_section(text, "目标客户"),
-                "pain_scene_description": extract_section(text, "痛点场景"),
-                "extension_topics": [], "related_content": [],
-            },
+            "archive_metadata": legacy_metadata,
             "pending_repo_actions": pending_actions,
         }
     if confirmed_publish_date and payload.get("publish_date") in {None, ""}:
@@ -400,7 +433,12 @@ def load_repo_document(path: Path, confirmed_publish_date: str | None = None) ->
             raise OperationError("invalid_document", "direct input cannot contain pending recommendation actions")
     else:
         raise OperationError("invalid_document", "topic_origin is invalid")
-    final_body = extract_section(text, "最终正文") if "## 最终正文" in text else extract_section(text, "最终口播正文")
+    if "## 最终正文" in text:
+        final_body = extract_section(text, "最终正文")
+    elif "## 最终口播正文" in text:
+        final_body = extract_section(text, "最终口播正文")
+    else:
+        final_body = legacy_section("口播正文")
     if not final_body:
         raise OperationError("invalid_document", "final body is empty")
     return RepoDocument(path=path, text=text, meta=meta, payload=payload, final_body=final_body)
