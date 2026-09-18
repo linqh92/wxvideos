@@ -40,3 +40,10 @@ description: 将用户确认已发布并明确要求同步、录入或归档的�
 ## Stop
 
 完成允许的归档、索引同步和候选终态更新后立即停止。不得自动生成下一批选题、文案或灵感，也不得自动重建内容地图、缺口分析、重复检查、月度复盘或其他派生资产。
+
+
+## Pending Delivery
+
+For a structurally valid pending document, an explicit user confirmation of actual publication and date together with an archive request permits `sync-published --confirmed-publish-date YYYY-MM-DD --apply`. Use the same date option for read-only archive checks and verification. If the date is unknown, request it; do not infer it from a folder or content ID. `check-delivery` is a separate read-only structure check and never establishes publication.
+
+Malformed deliveries use the manual reference; never modify the general parser to guess content metadata or discard inherited events.

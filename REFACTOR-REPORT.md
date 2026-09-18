@@ -1,3 +1,5 @@
+> Historical reference only. This report is not an active rule or delivery template. Follow AGENTS.md and current shared schemas; historical state names may be obsolete.
+
 # Monorepo 重构报告
 
 ## 结果

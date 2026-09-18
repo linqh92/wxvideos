@@ -1,3 +1,5 @@
+> Historical reference only. This report is not an active rule or delivery template. Follow AGENTS.md and current shared schemas; historical state names may be obsolete.
+
 # Monorepo 迁移记录
 
 ## 源仓库快照
@@ -75,4 +77,3 @@
 - `04-内容复盘/_derived-assets-summary.json`
 
 Index 由 Markdown 自动生成，不人工录入历史事实。
-

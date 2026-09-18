@@ -95,6 +95,8 @@ def parse_frontmatter(text: str) -> dict[str, str]:
         if not match:
             raise OperationError("invalid_document", f"unsupported frontmatter line: {line}")
         key, raw = match.groups()
+        if key in result:
+            raise OperationError("invalid_document", f"duplicate frontmatter field: {key}")
         raw = raw.strip()
         if len(raw) >= 2 and raw[0] == raw[-1] == '"':
             try:
@@ -108,6 +110,8 @@ def parse_frontmatter(text: str) -> dict[str, str]:
 
 
 def extract_section(text: str, heading: str) -> str:
+    if len(re.findall(rf"^##\s+{re.escape(heading)}\s*$", text, re.MULTILINE)) != 1:
+        raise OperationError("invalid_document", f"expected one section: {heading}")
     pattern = re.compile(
         rf"^##\s+{re.escape(heading)}\s*$\r?\n(?P<body>.*?)(?=^##\s+|\Z)",
         re.MULTILINE | re.DOTALL,
@@ -235,38 +239,11 @@ def validate_pending_actions(actions: Any, account_id: str) -> list[dict[str, An
     return validated
 
 
-def load_repo_document(path: Path, confirmed_publish_date: str | None = None) -> RepoDocument:
+def load_repo_document(path: Path, confirmed_publish_date: str | None = None, *, delivery_only: bool = False) -> RepoDocument:
     if not path.is_file():
         raise OperationError("invalid_document", f"input file not found: {path}")
     text = path.read_text(encoding="utf-8-sig")
     meta = parse_frontmatter(text)
-    if confirmed_publish_date:
-        try:
-            dt.date.fromisoformat(confirmed_publish_date)
-        except ValueError as exc:
-            raise OperationError("invalid_document", "confirmed publish date is invalid") from exc
-        meta = dict(meta)
-        if meta.get("document_type") in {"Repo内容文档", "repo_content_document"}:
-            meta["document_type"] = "repo_content"
-        if meta.get("publication_status") in {"pending_publish_by_user", "pending_user_publish", "not_published"}:
-            meta["publication_status"] = "published_by_user"
-            meta["publish_date"] = confirmed_publish_date
-        if not meta.get("final_title"):
-            title_match = re.search(r"^-\s*final_title:\s*(.+)$", text, re.MULTILINE)
-            published_match = re.search(r"^-\s*主标题：\s*(.+)$", text, re.MULTILINE)
-            if title_match or published_match:
-                meta["final_title"] = (title_match or published_match).group(1).strip()
-            elif meta.get("source_stage") == "spoken_copywriting":
-                meta["final_title"] = extract_section(text, "最终标题")
-        if confirmed_publish_date and "## 待执行仓库动作" in text:
-            for field in (
-                "topic_origin", "recommendation_batch_id", "topic_id",
-                "topic_feedback_status", "feedback_event_id", "repo_sync_status",
-            ):
-                if not meta.get(field):
-                    field_match = re.search(rf"^-\s*{re.escape(field)}:\s*(.+)$", text, re.MULTILINE)
-                    if field_match:
-                        meta[field] = field_match.group(1).strip()
     require_nonempty(meta, ("document_type",))
     if meta["document_type"] != "repo_content":
         if meta["document_type"] == "spoken_visual_input":
@@ -290,7 +267,6 @@ def load_repo_document(path: Path, confirmed_publish_date: str | None = None) ->
         "approval_status",
         "confirmed_at",
         "publication_status",
-        "publish_date",
         "requested_repo_action",
         "final_title",
         "topic_origin",
@@ -307,79 +283,30 @@ def load_repo_document(path: Path, confirmed_publish_date: str | None = None) ->
         raise OperationError("invalid_document", "content_format is invalid")
     if meta["approval_status"] != "confirmed_by_user":
         raise OperationError("invalid_document", "approval_status must be confirmed_by_user")
-    if meta["publication_status"] != "published_by_user":
-        raise OperationError("invalid_document", "publication_status must be published_by_user")
+    if "publish_date" not in meta:
+        raise OperationError("invalid_document", "missing fields: publish_date")
+    pending = meta["publication_status"] == "pending_user_publish"
+    if pending:
+        if meta["publish_date"] != "":
+            raise OperationError("invalid_document", "pending publication requires an empty publish_date")
+    elif meta["publication_status"] != "published_by_user":
+        raise OperationError("invalid_document", "unsupported publication_status")
+    if not delivery_only and pending and not confirmed_publish_date:
+        raise OperationError("invalid_document", "actual publication date must be confirmed before archive")
     if meta["requested_repo_action"] != "archive_published_content":
         raise OperationError("invalid_document", "requested_repo_action must be archive_published_content")
     if meta["repo_sync_status"] != "not_synced":
         raise OperationError("invalid_document", "repo_sync_status must be not_synced")
     try:
-        dt.date.fromisoformat(meta["publish_date"])
+        if not pending:
+            dt.date.fromisoformat(meta["publish_date"])
         dt.datetime.fromisoformat(meta["confirmed_at"])
     except ValueError as exc:
         raise OperationError("invalid_document", "publish_date or confirmed_at is invalid") from exc
     if not path.name.startswith(f"Repo内容文档｜{meta['content_id']}｜") or not path.name.endswith(".md"):
         raise OperationError("invalid_document", "filename does not match Repo content document identity")
 
-    try:
-        payload = extract_operation_payload(text)
-    except OperationError:
-        if not (confirmed_publish_date and "## 待执行仓库动作" in text):
-            raise
-        legacy_actions = extract_section(text, "待执行仓库动作")
-        match = re.fullmatch(r"```json\s*(\{.*\})\s*```", legacy_actions, re.DOTALL)
-        if not match:
-            raise
-        carried = json.loads(match.group(1))
-        pending_actions = []
-        for action in carried.get("pending_repo_actions", []):
-            action = dict(action)
-            action["events"] = [
-                event for event in action.get("events", [])
-                if event.get("event_type") == "recommendation" or event.get("signal") == "selected"
-            ]
-            if action["events"]:
-                pending_actions.append(action)
-        def legacy_value(label: str, default: str = "") -> str:
-            value_match = re.search(rf"^-\s*{re.escape(label)}[：:]\s*(.+)$", text, re.MULTILINE)
-            return value_match.group(1).strip() if value_match else default
-
-        def legacy_section(heading: str, default: str = "") -> str:
-            section_match = re.search(
-                rf"^#{{2,3}}\s+{re.escape(heading)}\s*$\r?\n(?P<body>.*?)(?=^#{{2,3}}\s+|\Z)",
-                text,
-                re.MULTILINE | re.DOTALL,
-            )
-            return section_match.group("body").strip() if section_match else default
-
-        legacy_metadata = {
-            "business_line": legacy_value("business_line", "出口业务链路与单证"),
-            "theme": legacy_value("theme", "报关与单证管理"),
-            "content_type": legacy_value("content_type", "操作指南"),
-            "audience": legacy_value("audience", "遇到报关或单证问题的出口企业"),
-            "pain_scene": legacy_value("pain_scene", legacy_value("核心场景")),
-            "content_goal": legacy_value("content_goal", "帮助企业按实际出口业务完善退税资料与风险判断。"),
-            "region": legacy_value("region", "广州"),
-            "platform": legacy_value("platform", "微信视频号"),
-            "series": legacy_value("series", legacy_value("主题短名", "出口业务资料管理")),
-            "source": "用户确认发布内容",
-            "summary": legacy_section("内容概述", legacy_value("核心结论")),
-            "audience_description": legacy_value("目标客户", legacy_value("audience")),
-            "pain_scene_description": legacy_value("核心场景", legacy_value("pain_scene")),
-            "extension_topics": [],
-            "related_content": [],
-        }
-        payload = {
-            "schema_version": "1.0", "action": "archive_published_content",
-            "account_id": meta["account_id"], "content_id": meta["content_id"],
-            "content_format": meta["content_format"], "publish_date": meta["publish_date"],
-            "final_title": meta["final_title"],
-            "archive_metadata": legacy_metadata,
-            "pending_repo_actions": pending_actions,
-        }
-    if confirmed_publish_date and payload.get("publish_date") in {None, ""}:
-        payload = dict(payload)
-        payload["publish_date"] = confirmed_publish_date
+    payload = extract_operation_payload(text)
     if payload.get("schema_version") != "1.0" or payload.get("action") != "archive_published_content":
         raise OperationError("invalid_document", "unsupported Repo operation payload")
     for field in ("account_id", "content_id", "content_format", "publish_date", "final_title"):
@@ -388,13 +315,6 @@ def load_repo_document(path: Path, confirmed_publish_date: str | None = None) ->
     archive = payload.get("archive_metadata")
     if not isinstance(archive, dict):
         raise OperationError("invalid_document", "archive_metadata must be an object")
-    # Legacy 1.1 deliveries occasionally omitted the internal series while
-    # providing an equivalent theme. Retain all explicit metadata and use that
-    # classification only for this empty-field compatibility case.
-    if not str(archive.get("series", "")).strip() and str(archive.get("theme", "")).strip():
-        archive = dict(archive)
-        archive["series"] = archive["theme"]
-        payload["archive_metadata"] = archive
     require_nonempty(archive, HISTORY_FIELDS + ARCHIVE_TEXT_FIELDS, "archive_metadata")
     for list_field in ("extension_topics", "related_content"):
         value = archive.get(list_field)
@@ -433,14 +353,18 @@ def load_repo_document(path: Path, confirmed_publish_date: str | None = None) ->
             raise OperationError("invalid_document", "direct input cannot contain pending recommendation actions")
     else:
         raise OperationError("invalid_document", "topic_origin is invalid")
-    if "## 最终正文" in text:
-        final_body = extract_section(text, "最终正文")
-    elif "## 最终口播正文" in text:
-        final_body = extract_section(text, "最终口播正文")
-    else:
-        final_body = legacy_section("口播正文")
+    final_body = extract_section(text, "最终正文")
     if not final_body:
         raise OperationError("invalid_document", "final body is empty")
+    if confirmed_publish_date:
+        try:
+            dt.date.fromisoformat(confirmed_publish_date)
+        except ValueError as exc:
+            raise OperationError("invalid_document", "confirmed publish date is invalid") from exc
+        if not pending and meta["publish_date"] != confirmed_publish_date:
+            raise OperationError("conflict", "confirmed date conflicts with published document")
+        meta = dict(meta, publication_status="published_by_user", publish_date=confirmed_publish_date)
+        payload = dict(payload, publish_date=confirmed_publish_date)
     return RepoDocument(path=path, text=text, meta=meta, payload=payload, final_body=final_body)
 
 
@@ -991,18 +915,23 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--repo-root", type=Path, default=Path(__file__).resolve().parents[2])
     subparsers = parser.add_subparsers(dest="command", required=True)
-    for name in ("check", "verify"):
+    for name in ("check-delivery", "check", "verify"):
         command = subparsers.add_parser(name)
         command.add_argument("--input", required=True, type=Path)
+        if name != "check-delivery":
+            command.add_argument("--confirmed-publish-date")
     sync = subparsers.add_parser("sync-published")
     sync.add_argument("--input", required=True, type=Path)
     sync.add_argument("--apply", action="store_true", help="required to authorize repository writes")
-    sync.add_argument("--confirmed-publish-date", help="explicit user-confirmed date for a pending legacy 1.1 delivery")
+    sync.add_argument("--confirmed-publish-date", help="explicit actual publication date for a structurally valid pending delivery")
     args = parser.parse_args()
     repo_root = args.repo_root.resolve()
     try:
         confirmed_publish_date = getattr(args, "confirmed_publish_date", None)
-        document = load_repo_document(args.input.resolve(), confirmed_publish_date)
+        document = load_repo_document(args.input.resolve(), confirmed_publish_date, delivery_only=args.command == "check-delivery")
+        if args.command == "check-delivery":
+            emit({"status": "delivery_valid", "account_id": document.account_id, "content_id": document.content_id, "publication_status": document.meta["publication_status"]})
+            return 0
         if args.command == "verify":
             result = verify_sync(repo_root, document)
             emit(result)

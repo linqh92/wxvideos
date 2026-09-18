@@ -189,3 +189,10 @@ python shared/scripts/sync_github.py --dry-run
    ├─ tsxbj/
    └─ gzlxcs/
 ```
+
+
+## Repo Delivery Validation
+
+Copy approval produces a canonical pending Repo document with an empty publication date. Run `python shared/scripts/wxv-ops.py check-delivery --input "<path>"` before delivery. Archive only after actual publication is confirmed; `check` remains an archive-plan check. An explicit actual date can be supplied with `--confirmed-publish-date` to check, sync or verify a structurally valid pending document. Never use confirmation time as the publication date.
+
+For generation in another project or service, ensure its accessible rule source contains the current Delivery Gate and `check-delivery` contract. Local edits do not update external project copies automatically; reload current rules in ongoing conversations before producing new files.

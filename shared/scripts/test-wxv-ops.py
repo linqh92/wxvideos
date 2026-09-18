@@ -224,6 +224,55 @@ def main() -> None:
         document_path = prepare_repo(root)
         document = MODULE.load_repo_document(document_path)
 
+        pending_payload = valid_payload()
+        pending_payload["publish_date"] = ""
+        pending_text = repo_document(pending_payload).replace(
+            'publication_status: "published_by_user"', 'publication_status: "pending_user_publish"'
+        ).replace('publish_date: "2026-09-09"', 'publish_date: ""')
+        pending_path = root / f"Repo内容文档｜{CONTENT_ID}｜待发布.md"
+        pending_path.write_text(pending_text, encoding="utf-8")
+        assert MODULE.load_repo_document(pending_path, delivery_only=True).publish_date == ""
+        try:
+            MODULE.load_repo_document(pending_path)
+        except MODULE.OperationError:
+            pass
+        else:
+            raise AssertionError("pending delivery must not authorize archive")
+        confirmed = MODULE.load_repo_document(pending_path, "2026-09-18")
+        assert confirmed.publish_date == "2026-09-18"
+        assert pending_path.read_text(encoding="utf-8") == pending_text
+        delivery_check = subprocess.run(
+            [sys.executable, str(SCRIPT_PATH), "--repo-root", str(root),
+             "check-delivery", "--input", str(pending_path)],
+            capture_output=True, text=True, encoding="utf-8",
+            env={**os.environ, "PYTHONIOENCODING": "utf-8"},
+        )
+        assert delivery_check.returncode == 0, delivery_check.stderr
+        assert json.loads(delivery_check.stdout)["status"] == "delivery_valid"
+        assert not list((root / "accounts" / ACCOUNT / "内容库" / "01-历史内容").rglob("*.md"))
+        malformed = [
+            pending_text.replace('document_type: "repo_content"', 'document_type: "Repo内容文档"'),
+            pending_text.replace("## Repo 操作载荷", "## 待执行仓库动作"),
+            pending_text.replace("## 最终正文", "## 口播正文"),
+            pending_text.replace('"series": "测试系列"', '"series": ""'),
+            pending_text.replace('"signal": "selected"', '"signal": "preference"'),
+            pending_text + "\n## 最终正文\n重复正文\n",
+        ]
+        for broken in malformed:
+            pending_path.write_text(broken, encoding="utf-8")
+            try:
+                MODULE.load_repo_document(pending_path, "2026-09-18", delivery_only=True)
+            except MODULE.OperationError:
+                pass
+            else:
+                raise AssertionError("malformed delivery must fail without repair or event filtering")
+        try:
+            MODULE.load_repo_document(document_path, "2026-09-18")
+        except MODULE.OperationError as exc:
+            assert exc.status == "conflict"
+        else:
+            raise AssertionError("published date must not be overridden")
+
         legacy_variants = (
             ("action_type", "append_topic_recommendation_event", "recommendation"),
             ("action_type", "append_topic_feedback_event", "feedback"),

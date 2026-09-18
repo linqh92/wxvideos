@@ -131,3 +131,8 @@ AGENTS.md
 - 索引更新应优先增量 append/update；全量 rebuild 仅用于迁移、修复或明确维护。
 - 除非用户明确要求完整覆盖分析、复盘或派生资产重建，归档后不得自动重建全部内容地图。
 - 用户明确要求 GitHub 同步、提交或 push 时，先读取 `GitHub-Sync-Rules.md`。
+
+
+## Repo Delivery and Publication Gate
+
+Final copy approval does not establish publication. Follow the canonical delivery schema: pending content uses `pending_user_publish` and an empty `publish_date`; never infer the date from confirmation time. At file finalization, fully read both delivery and operation schemas and run the Delivery Gate. `check-delivery` validates structure only; `check` validates an archive plan. A user's explicit actual publication date plus an archive request permits `--confirmed-publish-date` for a structurally valid pending document. Legacy or malformed documents follow manual archive rules without guessed fields or dropped events.

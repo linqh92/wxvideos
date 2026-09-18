@@ -38,3 +38,9 @@
 
 内容地图、内容缺口、重复检查、月度复盘和统计只在用户明确要求时更新。Git 提交与推送服从根 `AGENTS.md` 的单独授权规则。
 
+
+
+## Legacy Boundary
+
+Legacy handling is separate from the structured loader. Preserve source files and stable IDs. Map only explicitly present fields; determine any necessary archival classification under the account rules and report unavailable facts. Do not add topic-specific defaults to the general parser.
+Keep every inherited event intact. Recommendation and selected feedback can be archived under this skill; report other carried events for the applicable feedback workflow instead of silently filtering or claiming all events were synchronized.

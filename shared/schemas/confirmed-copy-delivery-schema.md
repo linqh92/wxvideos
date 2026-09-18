@@ -9,7 +9,7 @@
 - 口播完整方案包含三个主标题方案。用户只确认口播正文、没有明确选择主标题时，将正文标记为“已确认，标题待确认”，主动提醒后停止，不生成最终文件。
 - 常规搜索标题和短标题是派生用途标题，不自动代替用户应选择的最终主标题；只有用户明确指定时才可作为最终标题。
 - 标题确认后，创建或复用 `shared/schemas/content-identity-schema.md` 定义的稳定 `content_id`。后续改标题或修订同一内容时仍复用该 ID。
-- Repo 内容文档采用个人发布回填约定：最终内容确认后进入制作发布，文档使用 `publication_status: published_by_user`、实际 `publish_date` 和 `requested_repo_action: archive_published_content` 表达后续 Codex 归档意图。用户提供其他发布日期时使用其明确日期；未提供时使用 `confirmed_at` 的本地日期。
+- Final copy approval is not publication confirmation. Use `publication_status: pending_user_publish` and `publish_date: ""` until the user confirms actual publication. Never infer publication from `confirmed_at`, a filename, or today. After actual publication, use `published_by_user` and the actual ISO date; keep the Frontmatter and payload dates identical.
 
 ## 项目文件交付
 
@@ -67,8 +67,8 @@ account_id: "{CURRENT_ACCOUNT}"
 content_format: "text_broadcast | spoken"
 approval_status: "confirmed_by_user"
 confirmed_at: "YYYY-MM-DDTHH:MM:SS+08:00"
-publication_status: "published_by_user"
-publish_date: "YYYY-MM-DD"
+publication_status: "pending_user_publish"
+publish_date: ""
 requested_repo_action: "archive_published_content"
 final_title: "用户最终选择的标题"
 topic_id: "string | null"
@@ -117,8 +117,8 @@ repo_sync_status: "not_synced"
 
 ## 发布回填
 
-- publication_status: published_by_user
-- publish_date: YYYY-MM-DD
+- publication_status: pending_user_publish
+- publish_date: ""
 - requested_repo_action: archive_published_content
 
 ## Repo 操作载荷
@@ -130,7 +130,7 @@ repo_sync_status: "not_synced"
   "account_id": "{CURRENT_ACCOUNT}",
   "content_id": "wxv-{account_id}-{YYYYMMDD}-{8hex}",
   "content_format": "text_broadcast | spoken",
-  "publish_date": "YYYY-MM-DD",
+  "publish_date": "",
   "final_title": "用户最终选择的标题",
   "archive_metadata": {
     "business_line": "当前账号固定选项或允许值",
@@ -242,3 +242,17 @@ repo_sync_status: "not_applicable"
 - 同一内容重新确认标题或正文时，重生成对应文件并保留原 `content_id`，以最新 `confirmed_at` 为准。
 - 两份口播文件的 `content_id`、`account_id`、`final_title`、最终正文和关键事实必须一致。
 - 文件间存在冲突，或标题、正文、账号任一项无法唯一确定时，不得进入 Repo 执行或视觉规划，应先让用户确认。
+
+
+## Delivery Gate
+
+This file is the sole Repo document template. Preserve its exact field names, `## 最终正文` and `## Repo 操作载荷`; do not reuse prior deliveries as templates. The separate visual-input template below its own heading is not a Repo template. Legacy type names and chapter aliases are invalid for new delivery.
+
+At finalization, read this entire file and `repo-operation-schema.md` from the current project source. If either cannot be accessed, report the missing source and do not label a reconstructed file as validated.
+
+Before delivery, verify required Frontmatter, identity, unique title/body/payload, identical payload fields, complete archive metadata and complete inherited events. Pending publication uses an empty string date in both locations; published content requires the actual date.
+When Python and the repository script are available, run:
+`python shared/scripts/wxv-ops.py check-delivery --input "<path>"`.
+Only `delivery_valid` passes. This command is read-only and does not authorize archiving.
+Without execution capability, perform the same field-by-field check and state that the script was not run. Never claim machine validation.
+Unsupported inherited events must remain intact and be reported for manual processing, never silently removed.

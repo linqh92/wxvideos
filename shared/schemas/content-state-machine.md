@@ -46,7 +46,7 @@
 1. 用户明确确认内容已经实际发布或更新完成；
 2. 用户明确要求归档、写入知识库或更新历史库。
 
-用户在可写 Codex 任务中明确引用有效 Repo 内容文档并要求“同步”或“录入”，即确认该文档对应内容已经发布并授权归档。其他输入必须同时提供实际发布事实与归档指令。
+A Repo sync request authorizes archiving only when the document records confirmed actual publication and its date, or the user explicitly supplies those facts. A pending document and sync request alone do not establish publication. Copy approval and confirmation date are not publication facts.
 
 ## 数据优先级
 

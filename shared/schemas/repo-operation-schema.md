@@ -95,3 +95,13 @@ python shared/scripts/wxv-ops.py verify --input "<Repo内容文档路径>"
 
 `invalid_document`、`conflict` 和 `partial_failure` 需要根据脚本返回的具体错误处理。未经用户确认不得猜测缺失数据、覆盖冲突文件或更换 `content_id`。
 
+
+
+## Delivery Validation and Explicit Publication
+
+`check-delivery --input <path>` checks the same identity, metadata, body, payload and event contract without requiring publication or reading/writing account history. It returns `delivery_valid`.
+The canonical unpublished state is `publication_status: pending_user_publish` with `publish_date: ""` in Frontmatter and payload. A published document uses `published_by_user` and the actual ISO date.
+
+`check`, `verify` and `sync-published` accept `--confirmed-publish-date YYYY-MM-DD` only when the user explicitly confirms actual publication. This supplies the publication fact in memory for a structurally valid pending document; it never repairs document structure, invents metadata, edits source files or overrides a conflicting published date. Archive writes still require an archive request and `--apply`.
+
+Missing payloads, alias document types, alternate body headings and missing archive metadata must fail validation. Route these to the manual archive reference. Unsupported feedback must be reported, not filtered. Existing lossless event-envelope normalization remains for archival compatibility; new deliveries use only the canonical batched envelope.
