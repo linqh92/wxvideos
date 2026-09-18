@@ -47,3 +47,8 @@ description: 将用户确认已发布并明确要求同步、录入或归档的�
 For a structurally valid pending document, an explicit user confirmation of actual publication and date together with an archive request permits `sync-published --confirmed-publish-date YYYY-MM-DD --apply`. Use the same date option for read-only archive checks and verification. If the date is unknown, request it; do not infer it from a folder or content ID. `check-delivery` is a separate read-only structure check and never establishes publication.
 
 Malformed deliveries use the manual reference; never modify the general parser to guess content metadata or discard inherited events.
+
+
+## Execution Boundary
+
+Web content production and file delivery use manual structural checks. Neither archive-script execution nor a Codex review is a prerequisite to production delivery or visual planning. `check-delivery` is optional. Required script validation happens inside Codex only when the user requests a Repo operation; publication and write-authorization requirements remain unchanged.

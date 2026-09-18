@@ -112,4 +112,7 @@ Repo 内容文档必须包含 `shared/schemas/confirmed-copy-delivery-schema.md`
 
 ## Final File Gate
 
-After final body and unique title approval, fully read the current `shared/schemas/confirmed-copy-delivery-schema.md` and `shared/schemas/repo-operation-schema.md` before generating files. Use only their canonical templates and Delivery Gate, not chat memory, old deliveries or historical reports. Final approval alone leaves publication pending with an empty date. Execute `check-delivery` when available; otherwise perform the same explicit structural checklist and disclose that no script validation ran. Resolve validation errors before delivering a file as complete.
+Final document generation belongs to copywriting, including the spoken pair of Repo and visual-input documents; it does not enter visual planning.
+Use the complete canonical delivery and operation schemas from the repository, or complete project-source copies when repository access is unavailable. Reuse complete rules already read in this conversation unless an update or conflict requires refreshing them. Retrieve missing required sources proactively and distinguish an actual retrieval failure from a file not yet loaded.
+Apply the Delivery Gate by manual field-by-field checking in the web production workflow. Manual structural checking is sufficient for delivery; neither Python, script execution nor a Codex review is a prerequisite. Do not send the user to Codex to finish production or validate a production handoff.
+Final approval alone leaves publication pending with an empty date. Preserve the canonical template, stable IDs and complete events; resolve missing necessary information without inventing it. Provide the completed files under the delivery schema's project-source rules.

@@ -248,11 +248,10 @@ repo_sync_status: "not_applicable"
 
 This file is the sole Repo document template. Preserve its exact field names, `## 最终正文` and `## Repo 操作载荷`; do not reuse prior deliveries as templates. The separate visual-input template below its own heading is not a Repo template. Legacy type names and chapter aliases are invalid for new delivery.
 
-At finalization, read this entire file and `repo-operation-schema.md` from the current project source. If either cannot be accessed, report the missing source and do not label a reconstructed file as validated.
+At finalization, use the complete contents of this file and `repo-operation-schema.md`. Retrieve missing sources through available repository tools; complete project-source or user-provided copies are acceptable when repository access is unavailable. Complete files already read in the conversation may be reused unless an update or conflict requires a refresh. Report actual access failures accurately; absence from context is not proof of unavailability. Do not invent requirements when necessary source information is genuinely missing.
 
 Before delivery, verify required Frontmatter, identity, unique title/body/payload, identical payload fields, complete archive metadata and complete inherited events. Pending publication uses an empty string date in both locations; published content requires the actual date.
-When Python and the repository script are available, run:
-`python shared/scripts/wxv-ops.py check-delivery --input "<path>"`.
-Only `delivery_valid` passes. This command is read-only and does not authorize archiving.
-Without execution capability, perform the same field-by-field check and state that the script was not run. Never claim machine validation.
+In web production, manual field-by-field structural checking is sufficient to complete delivery. Python, repository scripts and a Codex review are not prerequisites. Do not require a production-stage trip to Codex. Never describe a manual check as machine validation.
+`python shared/scripts/wxv-ops.py check-delivery --input "<path>"` remains an optional read-only utility. Its `delivery_valid` result is not a required web-delivery credential. Codex performs required archive validation internally only when the user requests a Repo operation.
+Generating Repo and visual-input documents completes copywriting; visual planning begins separately on explicit request. If automatic Project-source upload is unavailable, deliver downloadable files and explain the manual upload step. Do not claim cross-chat `@` availability without verification.
 Unsupported inherited events must remain intact and be reported for manual processing, never silently removed.

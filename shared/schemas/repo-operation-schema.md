@@ -105,3 +105,8 @@ The canonical unpublished state is `publication_status: pending_user_publish` wi
 `check`, `verify` and `sync-published` accept `--confirmed-publish-date YYYY-MM-DD` only when the user explicitly confirms actual publication. This supplies the publication fact in memory for a structurally valid pending document; it never repairs document structure, invents metadata, edits source files or overrides a conflicting published date. Archive writes still require an archive request and `--apply`.
 
 Missing payloads, alias document types, alternate body headings and missing archive metadata must fail validation. Route these to the manual archive reference. Unsupported feedback must be reported, not filtered. Existing lossless event-envelope normalization remains for archival compatibility; new deliveries use only the canonical batched envelope.
+
+
+## Execution Boundary
+
+Web content production and file delivery use manual structural checks. Neither archive-script execution nor a Codex review is a prerequisite to production delivery or visual planning. `check-delivery` is optional. Required script validation happens inside Codex only when the user requests a Repo operation; publication and write-authorization requirements remain unchanged.
