@@ -401,7 +401,10 @@ def read_jsonl(path: Path) -> list[tuple[str, dict[str, Any]]]:
 def atomic_write(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temp = path.with_name(path.name + f".{os.getpid()}.tmp")
-    temp.write_text(text, encoding="utf-8", newline="\n")
+    # Path.write_text gained ``newline`` only in Python 3.10.  Use Path.open
+    # so the repository's supported Python 3.9 runtime keeps LF output too.
+    with temp.open("w", encoding="utf-8", newline="\n") as handle:
+        handle.write(text)
     os.replace(temp, path)
 
 
