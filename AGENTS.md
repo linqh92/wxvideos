@@ -114,6 +114,7 @@ AGENTS.md
 
 - 项目按个人维护多个账号的使用方式设计。账号之间保持数据隔离，流程状态只服务内容事实、检索和归档，不承担人员分工、审批、排期或团队协同职责。
 - Repo 始终只保存一套长期正式事实，不按生产阶段保存多份 Handoff 或视觉规划输入。聊天中的中间修改留在当前对话，只有规则明确允许且具备写入能力的结果才进入 Repo。
+- When the user explicitly requests advance saving of scheduled content, save a working copy under the account's `内容库/06-发布排期/YYYY/YYYY-MM/`. Mark it `publication_status: pending_user_publish`, keep `publish_date: ""`, and preserve the planned date as `scheduled_publish_date`. This folder is not published history and must not update History Index, Candidate Index, or publication cache. After actual publication, use the normal archive workflow with the actual date.
 - Handoff、视觉规划输入、视觉规划、双封面方案、PPT 分页内容、AI 生图提示词、PPT 设计执行指南和剪辑分段表保留在 ChatGPT 项目中，不属于仓库同步范围。完成视觉规划不得触发仓库写入或 GitHub 同步。
 - Repo 内容文档使用 `publication_status: published_by_user`、`publish_date` 与 `requested_repo_action: archive_published_content` 表达发布回填事实。用户在可写 Codex 任务中明确引用该文件并要求“同步”或“录入”时，由 `publish-archive` 写入历史事实源；只提供文件而没有执行请求时保持只读。
 - `delivery_version: "1.1"` 的 Repo 内容文档由 `shared/scripts/wxv-ops.py` 执行。用户要求“检查”时运行只读 `check`；要求“同步”或“录入”时运行 `sync-published --apply`。操作类型由 `document_type` 与 `requested_repo_action` 共同确定，不能只按自然语言动词猜测。
