@@ -6,8 +6,8 @@ account_id: "gzxzcs"
 content_format: "text_broadcast"
 approval_status: "confirmed_by_user"
 confirmed_at: "2026-09-30T04:31:00+08:00"
-publication_status: "pending_user_publish"
-publish_date: ""
+publication_status: "published_by_user"
+publish_date: "2026-10-05"
 scheduled_publish_date: "2026-10-05"
 requested_repo_action: "archive_published_content"
 final_title: "我发现注册公司时，这5项最好往半年后想一步"
@@ -77,8 +77,8 @@ repo_sync_status: "not_synced"
 
 ## 发布回填
 
-- publication_status: pending_user_publish
-- publish_date: ""
+- publication_status: published_by_user
+- publish_date: "2026-10-05"
 - scheduled_publish_date: "2026-10-05"
 - requested_repo_action: archive_published_content
 
@@ -91,7 +91,7 @@ repo_sync_status: "not_synced"
   "account_id": "gzxzcs",
   "content_id": "wxv-gzxzcs-20260930-b62a7392",
   "content_format": "text_broadcast",
-  "publish_date": "",
+  "publish_date": "2026-10-05",
   "scheduled_publish_date": "2026-10-05",
   "final_title": "我发现注册公司时，这5项最好往半年后想一步",
   "archive_metadata": {

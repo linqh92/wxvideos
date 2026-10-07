@@ -6,8 +6,8 @@ account_id: "gzxzcs"
 content_format: "text_broadcast"
 approval_status: "confirmed_by_user"
 confirmed_at: "2026-09-30T03:12:14+08:00"
-publication_status: "pending_user_publish"
-publish_date: ""
+publication_status: "published_by_user"
+publish_date: "2026-10-03"
 scheduled_publish_date: "2026-10-03"
 requested_repo_action: "archive_published_content"
 final_title: "公司开了一年才发现，很多信息早就变了"
@@ -76,8 +76,8 @@ repo_sync_status: "not_synced"
 
 ## 发布回填
 
-- publication_status: pending_user_publish
-- publish_date: ""
+- publication_status: published_by_user
+- publish_date: "2026-10-03"
 - scheduled_publish_date: "2026-10-03"
 - requested_repo_action: archive_published_content
 
@@ -90,7 +90,7 @@ repo_sync_status: "not_synced"
   "account_id": "gzxzcs",
   "content_id": "wxv-gzxzcs-20260930-120be430",
   "content_format": "text_broadcast",
-  "publish_date": "",
+  "publish_date": "2026-10-03",
   "scheduled_publish_date": "2026-10-03",
   "final_title": "公司开了一年才发现，很多信息早就变了",
   "archive_metadata": {

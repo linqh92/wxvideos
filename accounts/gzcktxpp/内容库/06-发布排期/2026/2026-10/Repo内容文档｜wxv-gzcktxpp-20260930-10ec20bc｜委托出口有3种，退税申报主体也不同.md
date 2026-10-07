@@ -8,8 +8,8 @@ workflow_stage_completed: "spoken_copywriting"
 approval_status: "confirmed_by_user"
 confirmed_at: "2026-09-30T15:52:28+08:00"
 final_title: "委托出口有3种，退税申报主体也不同"
-publication_status: "pending_user_publish"
-publish_date: ""
+publication_status: "published_by_user"
+publish_date: "2026-10-03"
 scheduled_publish_date: "2026-10-03"
 requested_repo_action: "archive_published_content"
 repo_sync_status: "not_synced"
@@ -24,7 +24,7 @@ topic_feedback_status: "pending"
 
 ## 文档用途
 
-本文件为用户明确要求保存的定时发布工作副本。计划发布日期为 2026-10-03；实际发布尚待确认。实际发布后再按正常归档流程处理。
+本文件为用户确认已发布内容的留档副本。实际发布日期为 2026-10-03；历史正文与索引已归档。
 
 ## 内容信息
 
@@ -33,7 +33,7 @@ topic_feedback_status: "pending"
 - 账号名称：广州出口退税-翩翩
 - 内容载体：口播内容
 - 最终标题：委托出口有3种，退税申报主体也不同
-- 当前状态：待定时发布
+- 当前状态：已发布并归档
 
 ## 内容概述
 
@@ -96,11 +96,11 @@ topic_feedback_status: "pending"
 
 ## 发布回填区
 
-- publication_status: pending_user_publish
-- publish_date: ""
+- publication_status: published_by_user
+- publish_date: "2026-10-03"
 - scheduled_publish_date: 2026-10-03
 - actual_platform: 微信视频号
-- notes: 用户指定计划发布日期；实际发布后再回填
+- notes: 用户确认实际发布日期为 2026-10-03，已按人工归档规则写入历史库
 
 ## 可延展选题
 

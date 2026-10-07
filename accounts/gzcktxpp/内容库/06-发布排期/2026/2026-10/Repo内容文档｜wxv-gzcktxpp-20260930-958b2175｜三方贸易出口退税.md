@@ -6,8 +6,8 @@ account_id: "gzcktxpp"
 content_format: "spoken"
 approval_status: "confirmed_by_user"
 confirmed_at: "2026-09-30T06:09:00+08:00"
-publication_status: "pending_user_publish"
-publish_date: ""
+publication_status: "published_by_user"
+publish_date: "2026-10-02"
 scheduled_publish_date: "2026-10-02"
 requested_repo_action: "archive_published_content"
 final_title: "三方贸易做出口退税，先分清谁才是买方"
@@ -87,8 +87,8 @@ repo_sync_status: "not_synced"
 
 ## 发布回填
 
-- publication_status: pending_user_publish
-- publish_date: ""
+- publication_status: published_by_user
+- publish_date: "2026-10-02"
 - scheduled_publish_date: "2026-10-02"
 - requested_repo_action: archive_published_content
 
@@ -101,7 +101,7 @@ repo_sync_status: "not_synced"
   "account_id": "gzcktxpp",
   "content_id": "wxv-gzcktxpp-20260930-958b2175",
   "content_format": "spoken",
-  "publish_date": "",
+  "publish_date": "2026-10-02",
   "scheduled_publish_date": "2026-10-02",
   "final_title": "三方贸易做出口退税，先分清谁才是买方",
   "archive_metadata": {
