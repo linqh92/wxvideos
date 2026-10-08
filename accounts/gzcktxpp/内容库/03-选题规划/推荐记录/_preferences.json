@@ -1,7 +1,22 @@
 {
   "account_id": "gzcktxpp",
-  "updated_at": "2026-09-09T19:11:00+08:00",
-  "processed_feedback_count": 3,
-  "last_feedback_event_id": "78059e60-c42d-4703-90d7-d6b213ea5b1d",
-  "entries": []
+  "updated_at": "2026-10-07T23:43:07+08:00",
+  "processed_feedback_count": 34,
+  "last_feedback_event_id": "e4cb1f4c-edb7-4d1a-96bb-09b1c8c01ac6",
+  "entries": [
+    {
+      "scope": "direction",
+      "scope_description": "围绕假自营真代理选题时优先表达核实后的具体后果，不把主要切口放在判断自营还是代理",
+      "signal": "preference",
+      "user_text": "以上选题方向不对，不应该是“帮客户判断是自营还是代理”，更明确的是：告诉客户目前假自营真代理被税务核实的后果。",
+      "source_event_ids": [
+        "5ee825e5-c457-45f3-887a-6d6fc8928e73"
+      ],
+      "source_refs": [
+        "2026-09.jsonl:31"
+      ],
+      "effective": true,
+      "superseded_by": []
+    }
+  ]
 }
